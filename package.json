@@ -1,8 +1,8 @@
 {
-  "name": "y",
+  "name": "tree-sitter-roc",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "grammar.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

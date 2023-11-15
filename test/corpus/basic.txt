@@ -1,0 +1,249 @@
+================================================================================
+variables
+================================================================================
+string="hi"
+string = "hi"
+num=1
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (string_literal
+      (string_content)))
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (string_literal
+      (string_content)))
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (number_literal)))
+
+================================================================================
+arithmatic
+================================================================================
+num=1+1
+num2 = 1 + num
+
+num3 = 1 + num2
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (bin_op_expr
+      (number_literal)
+      (operator)
+      (number_literal)))
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (bin_op_expr
+      (number_literal)
+      (operator)
+      (value_expr
+        (lower_case_identifier))))
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (bin_op_expr
+      (number_literal)
+      (operator)
+      (value_expr
+        (lower_case_identifier)))))
+
+================================================================================
+functions
+================================================================================
+add = \num1,num2 ->
+	sum = num1 +num2
+a=add 1 1
+
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (anonymous_function_expr
+      (backslash)
+      (pattern
+        (lower_pattern))
+      (pattern
+        (lower_pattern))
+      (arrow)
+      (value_declaration
+        (pattern
+          (lower_pattern))
+        (eq)
+        (bin_op_expr
+          (value_expr
+            (lower_case_identifier))
+          (operator)
+          (value_expr
+            (lower_case_identifier))))))
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (function_call_expr
+      (value_expr
+        (lower_case_identifier))
+      (number_literal)
+      (number_literal))))
+
+================================================================================
+expressions
+================================================================================
+sum =
+    a= num1 +num2
+    a
+
+maybe =
+    if true then
+        1
+    else 
+        0
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (value_declaration
+      (pattern
+        (lower_pattern))
+      (eq)
+      (bin_op_expr
+        (value_expr
+          (lower_case_identifier))
+        (operator)
+        (value_expr
+          (lower_case_identifier))))
+    (value_expr
+      (lower_case_identifier)))
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (if_else_expr
+      (value_expr
+        (lower_case_identifier))
+      (number_literal)
+      (number_literal))))
+
+================================================================================
+backpassing
+================================================================================
+main=
+    text <- await Stdin.line
+
+    Stdout.line "You just entered: \(text)"
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (backpassing_expr
+      (pattern
+        (lower_pattern))
+      (function_call_expr
+        (value_expr
+          (lower_case_identifier))
+        (value_expr
+          (dot)
+          (lower_case_identifier))))
+    (function_call_expr
+      (value_expr
+        (dot)
+        (lower_case_identifier))
+      (string_literal
+        (string_content)))))
+
+================================================================================
+records
+================================================================================
+user= {
+    email: "hi",
+    firstName: "hey",
+    lastName: 1,
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (record_expr
+      (field
+        (lower_case_identifier)
+        (string_literal
+          (string_content)))
+      (field
+        (lower_case_identifier)
+        (string_literal
+          (string_content)))
+      (field
+        (lower_case_identifier)
+        (number_literal)))))
+
+================================================================================
+when is
+================================================================================
+main=
+    when color is
+        Blue -> 1
+        Green | Red | Yellow -> 2
+        Purple -> 3
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (when_is_expr
+      (when)
+      (value_expr
+        (lower_case_identifier))
+      (is)
+      (when_is_branch
+        (pattern
+          (union_pattern))
+        (arrow)
+        (number_literal))
+      (when_is_branch
+        (pattern
+          (union_pattern))
+        (or)
+        (pattern
+          (union_pattern))
+        (or)
+        (pattern
+          (union_pattern))
+        (arrow)
+        (number_literal))
+      (when_is_branch
+        (pattern
+          (union_pattern))
+        (arrow)
+        (number_literal)))))
