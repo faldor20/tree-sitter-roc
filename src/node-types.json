@@ -16,15 +16,11 @@
         "named": true
       },
       {
-        "type": "begin_end_expression",
-        "named": true
-      },
-      {
-        "type": "call_expression",
-        "named": true
-      },
-      {
         "type": "const",
+        "named": true
+      },
+      {
+        "type": "discard_expression",
         "named": true
       },
       {
@@ -37,10 +33,6 @@
       },
       {
         "type": "fun_expression",
-        "named": true
-      },
-      {
-        "type": "function_expression",
         "named": true
       },
       {
@@ -76,10 +68,6 @@
         "named": false
       },
       {
-        "type": "object_instantiation_expression",
-        "named": true
-      },
-      {
         "type": "paren_expression",
         "named": true
       },
@@ -96,10 +84,6 @@
         "named": true
       },
       {
-        "type": "return_expression",
-        "named": true
-      },
-      {
         "type": "try_expression",
         "named": true
       },
@@ -108,19 +92,7 @@
         "named": true
       },
       {
-        "type": "typecast_expression",
-        "named": true
-      },
-      {
-        "type": "typed_expression",
-        "named": true
-      },
-      {
         "type": "while_expression",
-        "named": true
-      },
-      {
-        "type": "yield_expression",
         "named": true
       }
     ]
@@ -130,27 +102,11 @@
     "named": true,
     "subtypes": [
       {
-        "type": "compiler_directive_decl",
+        "type": "alias",
         "named": true
       },
       {
-        "type": "fsi_directive_decl",
-        "named": true
-      },
-      {
-        "type": "import_decl",
-        "named": true
-      },
-      {
-        "type": "module_abbrev",
-        "named": true
-      },
-      {
-        "type": "module_defn",
-        "named": true
-      },
-      {
-        "type": "type_definition",
+        "type": "annotation",
         "named": true
       },
       {
@@ -212,10 +168,6 @@
         "named": true
       },
       {
-        "type": "typed_pattern",
-        "named": true
-      },
-      {
         "type": "wildcard_pattern",
         "named": true
       }
@@ -238,6 +190,11 @@
         "named": true
       }
     ]
+  },
+  {
+    "type": "$int",
+    "named": false,
+    "fields": {}
   },
   {
     "type": "ability_chain",
@@ -329,6 +286,44 @@
         },
         {
           "type": "type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "alias",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "apply_type",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "annotation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation_pre_colon",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
           "named": true
         }
       ]
@@ -654,36 +649,6 @@
     }
   },
   {
-    "type": "begin_end_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_expression_inner",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "bignum",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "int",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "block_comment",
     "named": true,
     "fields": {},
@@ -714,45 +679,6 @@
     }
   },
   {
-    "type": "byte",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "int",
-          "named": true
-        },
-        {
-          "type": "xint",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "bytechar",
-    "named": true,
-    "fields": {}
-  },
-  {
-    "type": "call_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_expression_inner",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "char",
     "named": true,
     "fields": {}
@@ -771,21 +697,6 @@
         },
         {
           "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "compiler_directive_decl",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "string",
           "named": true
         }
       ]
@@ -845,55 +756,11 @@
       "required": false,
       "types": [
         {
-          "type": "bignum",
-          "named": true
-        },
-        {
-          "type": "byte",
-          "named": true
-        },
-        {
-          "type": "bytechar",
-          "named": true
-        },
-        {
           "type": "char",
           "named": true
         },
         {
-          "type": "decimal",
-          "named": true
-        },
-        {
-          "type": "ieee32",
-          "named": true
-        },
-        {
-          "type": "ieee64",
-          "named": true
-        },
-        {
           "type": "int",
-          "named": true
-        },
-        {
-          "type": "int16",
-          "named": true
-        },
-        {
-          "type": "int32",
-          "named": true
-        },
-        {
-          "type": "int64",
-          "named": true
-        },
-        {
-          "type": "nativeint",
-          "named": true
-        },
-        {
-          "type": "sbyte",
           "named": true
         },
         {
@@ -913,7 +780,7 @@
           "named": true
         },
         {
-          "type": "unativeint",
+          "type": "uint8",
           "named": true
         },
         {
@@ -932,55 +799,11 @@
       "required": false,
       "types": [
         {
-          "type": "bignum",
-          "named": true
-        },
-        {
-          "type": "byte",
-          "named": true
-        },
-        {
-          "type": "bytechar",
-          "named": true
-        },
-        {
           "type": "char",
           "named": true
         },
         {
-          "type": "decimal",
-          "named": true
-        },
-        {
-          "type": "ieee32",
-          "named": true
-        },
-        {
-          "type": "ieee64",
-          "named": true
-        },
-        {
           "type": "int",
-          "named": true
-        },
-        {
-          "type": "int16",
-          "named": true
-        },
-        {
-          "type": "int32",
-          "named": true
-        },
-        {
-          "type": "int64",
-          "named": true
-        },
-        {
-          "type": "nativeint",
-          "named": true
-        },
-        {
-          "type": "sbyte",
           "named": true
         },
         {
@@ -1000,7 +823,7 @@
           "named": true
         },
         {
-          "type": "unativeint",
+          "type": "uint8",
           "named": true
         },
         {
@@ -1038,25 +861,6 @@
     }
   },
   {
-    "type": "decimal",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "float",
-          "named": true
-        },
-        {
-          "type": "int",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "delegate_signature",
     "named": true,
     "fields": {},
@@ -1070,6 +874,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "discard_expression",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "disjunct_pattern",
@@ -1311,7 +1120,15 @@
           "named": true
         },
         {
-          "type": "module_header",
+          "type": "app_header",
+          "named": true
+        },
+        {
+          "type": "interface_header",
+          "named": true
+        },
+        {
+          "type": "platform_header",
           "named": true
         }
       ]
@@ -1345,21 +1162,6 @@
     }
   },
   {
-    "type": "fsi_directive_decl",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "string",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "fun_expression",
     "named": true,
     "fields": {},
@@ -1373,21 +1175,6 @@
         },
         {
           "type": "argument_patterns",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "function_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "rules",
           "named": true
         }
       ]
@@ -1557,40 +1344,6 @@
     }
   },
   {
-    "type": "ieee32",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "float",
-          "named": true
-        },
-        {
-          "type": "xint",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "ieee64",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "xint",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "if_expression",
     "named": true,
     "fields": {
@@ -1650,21 +1403,6 @@
         },
         {
           "type": "lower_identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "import_decl",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "long_identifier",
           "named": true
         }
       ]
@@ -1781,63 +1519,6 @@
     "type": "int",
     "named": true,
     "fields": {}
-  },
-  {
-    "type": "int16",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "int",
-          "named": true
-        },
-        {
-          "type": "xint",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "int32",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "int",
-          "named": true
-        },
-        {
-          "type": "xint",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "int64",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "int",
-          "named": true
-        },
-        {
-          "type": "xint",
-          "named": true
-        }
-      ]
-    }
   },
   {
     "type": "interface_header",
@@ -1995,67 +1676,6 @@
     }
   },
   {
-    "type": "module_abbrev",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "long_identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "module_defn",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_module_elem",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "module_header",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "app_header",
-          "named": true
-        },
-        {
-          "type": "interface_header",
-          "named": true
-        },
-        {
-          "type": "platform_header",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "module_name",
     "named": true,
     "fields": {},
@@ -2088,44 +1708,6 @@
         },
         {
           "type": "upper_identifier",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "nativeint",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "int",
-          "named": true
-        },
-        {
-          "type": "xint",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "object_instantiation_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_expression_inner",
-          "named": true
-        },
-        {
-          "type": "type",
           "named": true
         }
       ]
@@ -2327,6 +1909,10 @@
         },
         {
           "type": "string",
+          "named": true
+        },
+        {
+          "type": "to",
           "named": true
         }
       ]
@@ -2538,21 +2124,6 @@
     }
   },
   {
-    "type": "return_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "_expression_inner",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "rule",
     "named": true,
     "fields": {},
@@ -2581,25 +2152,6 @@
       "types": [
         {
           "type": "rule",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "sbyte",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "int",
-          "named": true
-        },
-        {
-          "type": "xint",
           "named": true
         }
       ]
@@ -2779,6 +2331,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "to",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "trait_member_constraint",
@@ -3021,21 +2578,6 @@
     }
   },
   {
-    "type": "type_definition",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_type_defn_body",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "type_name",
     "named": true,
     "fields": {},
@@ -3074,44 +2616,6 @@
     }
   },
   {
-    "type": "typecast_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_expression_inner",
-          "named": true
-        },
-        {
-          "type": "type",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "typed_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_expression_inner",
-          "named": true
-        },
-        {
-          "type": "types",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "typed_ident",
     "named": true,
     "fields": {},
@@ -3125,25 +2629,6 @@
         },
         {
           "type": "type_annotation",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "typed_pattern",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_pattern",
-          "named": true
-        },
-        {
-          "type": "type",
           "named": true
         }
       ]
@@ -3170,12 +2655,8 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
-        {
-          "type": "int",
-          "named": true
-        },
         {
           "type": "xint",
           "named": true
@@ -3208,12 +2689,8 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
-        {
-          "type": "int",
-          "named": true
-        },
         {
           "type": "xint",
           "named": true
@@ -3222,17 +2699,13 @@
     }
   },
   {
-    "type": "unativeint",
+    "type": "uint8",
     "named": true,
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
-        {
-          "type": "int",
-          "named": true
-        },
         {
           "type": "xint",
           "named": true
@@ -3392,21 +2865,6 @@
     "fields": {}
   },
   {
-    "type": "yield_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "_expression_inner",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "\n",
     "named": false
   },
@@ -3420,18 +2878,6 @@
   },
   {
     "type": "#",
-    "named": false
-  },
-  {
-    "type": "#load",
-    "named": false
-  },
-  {
-    "type": "#nowarn",
-    "named": false
-  },
-  {
-    "type": "#r",
     "named": false
   },
   {
@@ -3743,10 +3189,6 @@
     "named": false
   },
   {
-    "type": "global",
-    "named": false
-  },
-  {
     "type": "id",
     "named": false
   },
@@ -3807,6 +3249,10 @@
     "named": true
   },
   {
+    "type": "lower",
+    "named": false
+  },
+  {
     "type": "lower_identifier",
     "named": true
   },
@@ -3815,15 +3261,7 @@
     "named": false
   },
   {
-    "type": "module",
-    "named": false
-  },
-  {
     "type": "n",
-    "named": false
-  },
-  {
-    "type": "namespace",
     "named": false
   },
   {
@@ -3844,10 +3282,6 @@
   },
   {
     "type": "of",
-    "named": false
-  },
-  {
-    "type": "open",
     "named": false
   },
   {
@@ -3923,6 +3357,18 @@
     "named": false
   },
   {
+    "type": "u16",
+    "named": false
+  },
+  {
+    "type": "u32",
+    "named": false
+  },
+  {
+    "type": "u8",
+    "named": false
+  },
+  {
     "type": "un",
     "named": false
   },
@@ -3939,12 +3385,12 @@
     "named": false
   },
   {
-    "type": "upper_identifier",
-    "named": true
+    "type": "upper",
+    "named": false
   },
   {
-    "type": "us",
-    "named": false
+    "type": "upper_identifier",
+    "named": true
   },
   {
     "type": "uy",

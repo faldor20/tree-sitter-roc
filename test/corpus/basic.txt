@@ -385,37 +385,51 @@ maybe =
 
 (file
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (value_declaration
-      (pattern
-        (lower_pattern))
-      (eq)
-      (bin_op_expr
-        (value_expr
-          (lower_case_identifier))
-        (operator)
-        (value_expr
-          (lower_case_identifier))))
-    (value_expr
-      (lower_case_identifier)))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (infix_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_op)
+        (infix_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (infix_op)
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier)))))
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (if_else_expr
-      (if
-        (value_expr
-          (lower_case_identifier)))
-      (then
-        (number_literal))
-      (else
-        (number_literal)))))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (if_expression
+        (const)
+        (const
+          (int)))
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (const
+          (int))))))
 
 ================================================================================
 backpassing
 ================================================================================
+
+main =
+    _ <- await (Stdout.line ".")
+
 interpretFile = \filename ->
     ctx <- Context.with filename
 
@@ -426,52 +440,88 @@ interpretFile = \filename ->
 
 (file
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (anonymous_function_expr
-      (backslash)
-      (pattern
-        (lower_pattern))
-      (arrow)
-      (backpassing_expr
-        (pattern
-          (lower_pattern))
-        (function_call_expr
-          (value_expr
-            (upper_case_identifier)
-            (dot)
-            (lower_case_identifier))
-          (value_expr
-            (lower_case_identifier)))
-        (backpass_body
-          (backpassing_expr
-            (pattern
-              (lower_pattern))
-            (function_call_expr
-              (value_expr
-                (upper_case_identifier)
-                (dot)
-                (lower_case_identifier))
-              (parenthesized_expr
-                (function_call_expr
-                  (value_expr
-                    (lower_case_identifier))
-                  (value_expr
-                    (lower_case_identifier)))))
-            (backpass_body
-              (function_call_expr
-                (value_expr
-                  (upper_case_identifier)
-                  (dot)
-                  (lower_case_identifier))
-                (parenthesized_expr
-                  (function_call_expr
-                    (value_expr
-                      (upper_case_qid
-                        (upper_case_identifier)))
-                    (string_literal
-                      (string_content))))))))))))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (backpassing_expression
+        (discard_expression)
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (paren_expression
+            (application_expression
+              (dot_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))
+              (const
+                (string))))))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (fun_expression
+        (argument_patterns
+          (long_identifier
+            (identifier)))
+        (backpassing_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (application_expression
+            (dot_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
+        (backpassing_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (application_expression
+            (dot_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))
+            (paren_expression
+              (application_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))))))
+        (application_expression
+          (dot_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))
+          (paren_expression
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (const
+                (string)))))))))
 
 ================================================================================
 records basic
@@ -499,7 +549,228 @@ main=
             Task.succeed (Step { popCtx & scopes: List.append (List.set ctx.scopes last newScope) { data: None, buf: body, index: 0, whileInfo: None } })
 --------------------------------------------------------------------------------
 
-)))))
+(file
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (record
+        (record_field
+          (lower_identifier)
+          (const_pattern
+            (string)))
+        (record_field
+          (lower_identifier)
+          (const_pattern
+            (string)))
+        (record_field
+          (lower_identifier)
+          (const_pattern
+            (int))))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (record_update
+        (lower_identifier)
+        (record_field
+          (lower_identifier)))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (application_expression
+        (dot_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))
+        (paren_expression
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (record_update
+              (lower_identifier)
+              (record_field
+                (lower_identifier)
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)
+                    (identifier))
+                  (long_identifier
+                    (identifier)
+                    (identifier))
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier))
+                    (long_identifier
+                      (identifier)))))))))
+      (match_expression
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))
+        (rules
+          (rule
+            (identifier_pattern
+              (long_identifier
+                (identifier))
+              (paren_pattern
+                (identifier_pattern
+                  (long_identifier
+                    (identifier))
+                  (long_identifier
+                    (identifier))
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier))))))
+            (if_expression
+              (infix_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (infix_op
+                  (symbolic_op))
+                (const
+                  (int)))
+              (infix_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (infix_op)
+                (application_expression
+                  (record_update
+                    (lower_identifier)
+                    (record_field
+                      (lower_identifier)
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier)))))
+                  (application_expression
+                    (dot_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier))))
+                    (paren_expression
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (record_update
+                          (lower_identifier)
+                          (record_field
+                            (lower_identifier)
+                            (identifier_pattern
+                              (long_identifier
+                                (identifier)
+                                (identifier))
+                              (long_identifier
+                                (identifier)
+                                (identifier))
+                              (identifier_pattern
+                                (long_identifier
+                                  (identifier))
+                                (long_identifier
+                                  (identifier))))))))))))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (infix_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (infix_op)
+                (application_expression
+                  (record_update
+                    (lower_identifier)
+                    (record_field
+                      (lower_identifier)
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier))
+                        (record_pattern
+                          (record
+                            (record_field
+                              (lower_identifier)
+                              (identifier_pattern
+                                (long_identifier
+                                  (identifier))))
+                            (record_field
+                              (lower_identifier))
+                            (record_field
+                              (lower_identifier)))))))
+                  (application_expression
+                    (dot_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier))))
+                    (paren_expression
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (record_update
+                          (lower_identifier)
+                          (record_field
+                            (lower_identifier)
+                            (identifier_pattern
+                              (long_identifier
+                                (identifier)
+                                (identifier))
+                              (ERROR
+                                (paren_pattern
+                                  (identifier_pattern
+                                    (long_identifier
+                                      (identifier)
+                                      (identifier))
+                                    (long_identifier
+                                      (identifier)
+                                      (identifier))
+                                    (identifier_pattern
+                                      (long_identifier
+                                        (identifier))
+                                      (long_identifier
+                                        (identifier))))))
+                              (record_pattern
+                                (record
+                                  (record_field
+                                    (lower_identifier)
+                                    (identifier_pattern
+                                      (long_identifier
+                                        (identifier))))
+                                  (record_field
+                                    (lower_identifier)
+                                    (identifier_pattern
+                                      (long_identifier
+                                        (identifier))))
+                                  (record_field
+                                    (lower_identifier)
+                                    (const_pattern
+                                      (int)))
+                                  (record_field
+                                    (lower_identifier)
+                                    (identifier_pattern
+                                      (long_identifier
+                                        (identifier)))))))))))))))))))))
 
 ================================================================================
 odd functions
@@ -665,6 +936,10 @@ main=
 ================================================================================
 types simple
 ================================================================================
+
+ReadErr : InternalDir.ReadErr
+DeleteErr : InternalDir.DeleteErr
+
 func : string,int-> int
 func = \ a, b-> 1
 
@@ -676,82 +951,106 @@ main = task a
 --------------------------------------------------------------------------------
 
 (file
-  (annotation
-    (annotation_pre_colon
-      (lower_case_identifier))
-    (type_annotation
-      (function_type
-        (bound_variable
-          (lower_case_identifier))
-        (bound_variable
-          (lower_case_identifier))
-        (arrow)
-        (bound_variable
-          (lower_case_identifier)))))
-  (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (anonymous_function_expr
-      (backslash)
-      (pattern
-        (lower_pattern))
-      (pattern
-        (lower_pattern))
-      (arrow)
-      (number_literal)))
-  (annotation
-    (annotation_pre_colon
-      (lower_case_identifier))
-    (type_annotation
-      (function_type
-        (bound_variable
-          (lower_case_identifier))
-        (function_type
-          (bound_variable
-            (lower_case_identifier))
-          (arrow)
-          (bound_variable
-            (lower_case_identifier)))
-        (arrow)
-        (bound_variable
-          (lower_case_identifier)))))
-  (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (anonymous_function_expr
-      (backslash)
-      (pattern
-        (lower_pattern))
-      (pattern
-        (lower_pattern))
-      (arrow)
-      (function_call_expr
-        (value_expr
-          (lower_case_identifier))
-        (number_literal))))
-  (annotation
-    (annotation_pre_colon
-      (lower_case_identifier))
+  (alias
+    (apply_type
+      (concrete_type
+        (upper_identifier)))
     (type_annotation
       (apply_type
         (concrete_type
-          (upper_case_identifier))
+          (upper_identifier)
+          (upper_identifier)))))
+  (alias
+    (apply_type
+      (concrete_type
+        (upper_identifier)))
+    (type_annotation
+      (apply_type
+        (concrete_type
+          (upper_identifier)
+          (upper_identifier)))))
+  (annotation
+    (annotation_pre_colon
+      (lower_identifier))
+    (type_annotation
+      (function_type
+        (bound_variable
+          (lower_identifier))
+        (bound_variable
+          (lower_identifier))
+        (bound_variable
+          (lower_identifier)))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (fun_expression
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (const
+          (int)))))
+  (annotation
+    (annotation_pre_colon
+      (lower_identifier))
+    (type_annotation
+      (function_type
+        (bound_variable
+          (lower_identifier))
+        (function_type
+          (bound_variable
+            (lower_identifier))
+          (bound_variable
+            (lower_identifier)))
+        (bound_variable
+          (lower_identifier)))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (fun_expression
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (const
+            (int))))))
+  (annotation
+    (annotation_pre_colon
+      (lower_identifier))
+    (type_annotation
+      (apply_type
+        (concrete_type
+          (upper_identifier))
         (apply_type_args
           (apply_type_arg
             (record_type))
           (apply_type_arg
             (tags_type))))))
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (function_call_expr
-      (value_expr
-        (lower_case_identifier))
-      (value_expr
-        (lower_case_identifier)))))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))))))
 
 ================================================================================
 pipe
@@ -808,62 +1107,63 @@ findOneArg = \long, short, { args, taken } -> ()
 (file
   (annotation
     (annotation_pre_colon
-      (lower_case_identifier))
+      (lower_identifier))
     (type_annotation
       (function_type
         (apply_type
           (concrete_type
-            (upper_case_identifier)))
+            (upper_identifier)))
         (apply_type
           (concrete_type
-            (upper_case_identifier)))
+            (upper_identifier)))
         (apply_type
           (concrete_type
-            (upper_case_identifier)))
-        (arrow)
+            (upper_identifier)))
         (apply_type
           (concrete_type
-            (upper_case_identifier))
+            (upper_identifier))
           (apply_type_args
             (apply_type_arg
               (record_type
                 (record_field_type
                   (ident
-                    (lower_case_identifier))
+                    (lower_identifier))
                   (type_annotation
                     (apply_type
                       (concrete_type
-                        (upper_case_identifier)))))
+                        (upper_identifier)))))
                 (record_field_type
                   (ident
-                    (lower_case_identifier))
+                    (lower_identifier))
                   (type_annotation
                     (apply_type
                       (concrete_type
-                        (upper_case_identifier)))))))
+                        (upper_identifier)))))))
             (apply_type_arg
               (tags_type
                 (apply_type
                   (concrete_type
-                    (upper_case_identifier))))))))))
+                    (upper_identifier))))))))))
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (anonymous_function_expr
-      (backslash)
-      (pattern
-        (lower_pattern))
-      (pattern
-        (lower_pattern))
-      (pattern
-        (record
-          (record_field
-            (lower_case_identifier))
-          (record_field
-            (lower_case_identifier))))
-      (arrow)
-      (unit_expr))))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (fun_expression
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier))
+          (record_pattern
+            (record
+              (record_field
+                (lower_identifier))
+              (record_field
+                (lower_identifier)))))
+        (const
+          (unit))))))
 
 ================================================================================
 literal
@@ -882,12 +1182,8 @@ b="p \n \( hi )"
         (identifier_pattern
           (long_identifier
             (identifier))))
-      (application_expression
-        (const
-          (int))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier))))))
+      (const
+        (uint8))))
   (value_declaration
     (function_or_value_defn
       (value_declaration_left
@@ -938,36 +1234,38 @@ main=
 
 (file
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (when_is_expr
-      (when)
-      (value_expr
-        (lower_case_identifier))
-      (is)
-      (when_is_branch
-        (pattern
-          (union_pattern
-            (upper_case_qid
-              (upper_case_identifier))
-            (record
-              (record_field
-                (lower_case_identifier)
-                (value_expr
-                  (upper_case_qid
-                    (upper_case_identifier))))
-              (record_field
-                (lower_case_identifier))
-              (record_field
-                (lower_case_identifier)))))
-        (arrow)
-        (value_expr
-          (lower_case_identifier))))))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (match_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (rules
+          (rule
+            (identifier_pattern
+              (long_identifier
+                (identifier))
+              (record_pattern
+                (record
+                  (record_field
+                    (lower_identifier)
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier))))
+                  (record_field
+                    (lower_identifier))
+                  (record_field
+                    (lower_identifier)))))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))))))
 
-====
+================================================================================
 interface module
-====
+================================================================================
 
 interface Dir
     exposes [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
@@ -975,36 +1273,248 @@ interface Dir
 
 a=10
 
----
+--------------------------------------------------------------------------------
+
+(file
+  (interface_header
+    (name)
+    (interface_header_body
+      (exposes
+        (ident
+          (upper_identifier))
+        (ident
+          (upper_identifier))
+        (ident
+          (upper_identifier))
+        (ident
+          (lower_identifier))
+        (ident
+          (lower_identifier))
+        (ident
+          (lower_identifier)))
+      (imports
+        (imports_entry
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (module_name
+            (upper_identifier))
+          (exposes_list
+            (ident
+              (upper_identifier))))
+        (imports_entry
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (module_name
+            (upper_identifier))
+          (exposes_list
+            (ident
+              (upper_identifier))))
+        (imports_entry
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (module_name
+            (upper_identifier))))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (const
+        (int)))))
 
 ================================================================================
-interface full
+interf_prob
 ================================================================================
 
 interface Dir
     exposes [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
     imports [Effect, Task.{ Task }, InternalTask, Path.{ Path }, InternalPath, InternalDir]
 
-ReadErr : InternalDir.ReadErr
+AA: AA.BB
+BB : AA.BB
+CC : AA.BB
 
-DeleteErr : InternalDir.DeleteErr
 
-DirEntry : InternalDir.DirEntry
+## com
+a : A -> TASK (List Path) [DirReadErr Path ReadErr]
+a = \path ->
+  a
 
-## Lists the files and directories inside the directory.
-list : Path -> Task (List Path) [DirReadErr Path ReadErr]
-list = \path ->
-    effect = Effect.map (Effect.dirList (InternalPath.toBytes path)) \result ->
-        when result is
-            Ok entries -> Ok (List.map entries InternalPath.fromOsBytes)
-            Err err -> Err (DirReadErr path err)
-
-    InternalTask.fromEffect effect
-
-## Deletes a directory if it's empty.
-deleteEmptyDir : Path -> Task {} [DirDeleteErr Path DeleteErr]
-
-## Recursively deletes the directory as well as all files and directories inside it.
-deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
 --------------------------------------------------------------------------------
 
+(file
+  (interface_header
+    (name)
+    (interface_header_body
+      (exposes
+        (ident
+          (upper_identifier))
+        (ident
+          (upper_identifier))
+        (ident
+          (upper_identifier))
+        (ident
+          (lower_identifier))
+        (ident
+          (lower_identifier))
+        (ident
+          (lower_identifier)))
+      (imports
+        (imports_entry
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (module_name
+            (upper_identifier))
+          (exposes_list
+            (ident
+              (upper_identifier))))
+        (imports_entry
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (module_name
+            (upper_identifier))
+          (exposes_list
+            (ident
+              (upper_identifier))))
+        (imports_entry
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (module_name
+            (upper_identifier))))))
+  (alias
+    (apply_type
+      (concrete_type
+        (upper_identifier)))
+    (type_annotation
+      (apply_type
+        (concrete_type
+          (upper_identifier)
+          (upper_identifier)))))
+  (alias
+    (apply_type
+      (concrete_type
+        (upper_identifier)))
+    (type_annotation
+      (apply_type
+        (concrete_type
+          (upper_identifier)
+          (upper_identifier)))))
+  (alias
+    (apply_type
+      (concrete_type
+        (upper_identifier)))
+    (type_annotation
+      (apply_type
+        (concrete_type
+          (upper_identifier)
+          (upper_identifier)))))
+  (line_comment)
+  (annotation
+    (annotation_pre_colon
+      (lower_identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type
+            (upper_identifier)))
+        (apply_type
+          (concrete_type
+            (upper_identifier))
+          (apply_type_args
+            (apply_type_arg
+              (apply_type
+                (concrete_type
+                  (upper_identifier))
+                (apply_type_args
+                  (apply_type_arg
+                    (apply_type
+                      (concrete_type
+                        (upper_identifier)))))))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type
+                    (upper_identifier))
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type
+                          (upper_identifier))
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type
+                                (upper_identifier))))))))))))))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (fun_expression
+        (argument_patterns
+          (long_identifier
+            (identifier)))
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))))))
+
+================================================================================
+app header
+================================================================================
+
+platform "ruby-interop"
+    requires {} { main : arg -> ret where arg implements Decoding, ret implements Encoding }
+    exposes []
+    packages {}
+    imports [TotallyNotJson]
+    provides [mainForHost]
+
+main = 1
+--------------------------------------------------------------------------------
+
+(file
+  (platform_header
+    (name)
+    (platform_header_body
+      (requires
+        (requires_rigids)
+        (typed_ident
+          (lower_identifier)
+          (type_annotation
+            (function_type
+              (bound_variable
+                (lower_identifier))
+              (implements
+                (lower_identifier)
+                (lower_identifier)
+                (ability_chain
+                  (upper_identifier))
+                (lower_identifier)
+                (ability_chain
+                  (upper_identifier)))))))
+      (exposes)
+      (packages
+        (record))
+      (imports
+        (imports_entry
+          (module_name
+            (upper_identifier))))
+      (provides
+        (ident
+          (lower_identifier)))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (const
+        (int)))))

@@ -1,0 +1,946 @@
+================================================================================
+complex file
+================================================================================
+
+app "countdown"
+    packages { pf: "cli-platform/main.roc" }
+    imports [pf.Stdin, pf.Stdout, pf.Task.{ await, loop, succeed }]
+    provides [main] to pf
+
+main =
+    _ <- await (Stdout.line "\nLet's count down from 10 together - all you have to do is press <ENTER>.")
+    _ <- await Stdin.line
+    loop 10 tick
+
+tick = \ n ->
+    if n == 0 then
+        _ <- await (Stdout.line "SURPRISE! Happy Birthday! ")
+        succeed (Done {})
+    else
+        _ <- await (n |> Num.toStr |> \s -> "\(s)..." |> Stdout.line)
+        _ <- await Stdin.line
+        succeed (Step (n - 1))
+
+--------------------------------------------------------------------------------
+
+(file
+  (app_header
+    (app_name)
+    (app_header_body
+      (packages
+        (record
+          (record_field
+            (lower_identifier)
+            (const_pattern
+              (string)))))
+      (imports
+        (imports_entry
+          (lower_identifier)
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (lower_identifier)
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (lower_identifier)
+          (module_name
+            (upper_identifier))
+          (exposes_list
+            (ident
+              (lower_identifier))
+            (ident
+              (lower_identifier))
+            (ident
+              (lower_identifier)))))
+      (provides
+        (ident
+          (lower_identifier))
+        (to)
+        (ident
+          (lower_identifier)))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (backpassing_expression
+        (discard_expression)
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (paren_expression
+            (application_expression
+              (dot_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))
+              (const
+                (string
+                  (escape_char)))))))
+      (backpassing_expression
+        (discard_expression)
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (dot_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))))
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (application_expression
+          (const
+            (int))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (fun_expression
+        (argument_patterns
+          (long_identifier
+            (identifier)))
+        (if_expression
+          (infix_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (infix_op
+              (symbolic_op))
+            (const
+              (int)))
+          (backpassing_expression
+            (discard_expression)
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (application_expression
+                (paren_expression
+                  (application_expression
+                    (dot_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier))))
+                    (const
+                      (string))))
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (paren_expression
+                    (application_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (record))))))))
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (backpassing_expression
+            (discard_expression)
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (application_expression
+                (paren_expression
+                  (infix_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))
+                    (infix_op
+                      (symbolic_op))
+                    (infix_expression
+                      (dot_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))
+                      (infix_op
+                        (symbolic_op))
+                      (fun_expression
+                        (argument_patterns
+                          (long_identifier
+                            (identifier)))
+                        (infix_expression
+                          (const
+                            (string
+                              (interpolation_char
+                                (ident
+                                  (lower_identifier)))))
+                          (infix_op
+                            (symbolic_op))
+                          (dot_expression
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))))))
+                (backpassing_expression
+                  (discard_expression)
+                  (application_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))
+                    (application_expression
+                      (dot_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (paren_expression
+                          (application_expression
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))
+                            (paren_expression
+                              (infix_expression
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))
+                                (infix_op)
+                                (const
+                                  (int))))))))))))))))))
+
+================================================================================
+simple_env
+================================================================================
+
+main =
+    task =
+        a "E" 
+        |> t (\a -> e "") 
+        |> t (\{} -> Env.decode "SHLVL")
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (infix_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_op)
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (infix_expression
+            (const
+              (string))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (infix_expression
+                (paren_expression
+                  (fun_expression
+                    (argument_patterns
+                      (long_identifier
+                        (identifier)))
+                    (application_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (const
+                        (string)))))
+                (infix_op
+                  (symbolic_op))
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (paren_expression
+                    (fun_expression
+                      (argument_patterns
+                        (record_pattern
+                          (record)))
+                      (application_expression
+                        (dot_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier))))
+                        (const
+                          (string))))))))))))))
+
+================================================================================
+complex env decode
+================================================================================
+
+app "env"
+    packages { pf: "cli-platform/main.roc" }
+    imports [pf.Stdout, pf.Stderr, pf.Env, pf.Task.{ Task }]
+    provides [main] to pf
+
+main : Task {} []
+main =
+    task =
+        Env.decode "EDITOR"
+        |> Task.await (\editor -> Stdout.line "Your favorite editor is \(editor)!")
+        |> Task.await (\{} -> Env.decode "SHLVL")
+        |> Task.await
+            (\lvl ->
+                when lvl is
+                    1u8 -> Stdout.line "You're running this in a root shell!"
+                    n ->
+                        lvlStr = Num.toStr n
+
+                        Stdout.line "Your current shell level is \(lvlStr)!")
+        |> Task.await \{} -> Env.decode "LETTERS"
+
+    Task.attempt task \result ->
+        when result is
+            Ok letters ->
+                joinedLetters = Str.joinWith letters " "
+
+                Stdout.line "Your favorite letters are: \(joinedLetters)"
+
+            Err _ ->
+                Stderr.line "I couldn't find your favorite letters in the environment variables!"
+
+--------------------------------------------------------------------------------
+
+(file
+  (app_header
+    (app_name)
+    (app_header_body
+      (packages
+        (record
+          (record_field
+            (lower_identifier)
+            (const_pattern
+              (string)))))
+      (imports
+        (imports_entry
+          (lower_identifier)
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (lower_identifier)
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (lower_identifier)
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (lower_identifier)
+          (module_name
+            (upper_identifier))
+          (exposes_list
+            (ident
+              (upper_identifier)))))
+      (provides
+        (ident
+          (lower_identifier))
+        (to)
+        (ident
+          (lower_identifier)))))
+  (annotation
+    (annotation_pre_colon
+      (lower_identifier))
+    (type_annotation
+      (apply_type
+        (concrete_type
+          (upper_identifier))
+        (apply_type_args
+          (apply_type_arg
+            (record_type))
+          (apply_type_arg
+            (tags_type))))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (infix_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_op)
+        (application_expression
+          (dot_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))
+          (infix_expression
+            (const
+              (string))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (dot_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))
+              (infix_expression
+                (paren_expression
+                  (fun_expression
+                    (argument_patterns
+                      (long_identifier
+                        (identifier)))
+                    (application_expression
+                      (dot_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))
+                      (const
+                        (string
+                          (interpolation_char
+                            (ident
+                              (lower_identifier))))))))
+                (infix_op
+                  (symbolic_op))
+                (application_expression
+                  (dot_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier))))
+                  (infix_expression
+                    (paren_expression
+                      (fun_expression
+                        (argument_patterns
+                          (record_pattern
+                            (record)))
+                        (application_expression
+                          (dot_expression
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))
+                          (const
+                            (string)))))
+                    (infix_op
+                      (symbolic_op))
+                    (application_expression
+                      (dot_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))
+                      (infix_expression
+                        (paren_expression
+                          (fun_expression
+                            (argument_patterns
+                              (long_identifier
+                                (identifier)))
+                            (match_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (rules
+                                (rule
+                                  (const_pattern
+                                    (uint8))
+                                  (application_expression
+                                    (dot_expression
+                                      (long_identifier_or_op
+                                        (long_identifier
+                                          (identifier)))
+                                      (long_identifier_or_op
+                                        (long_identifier
+                                          (identifier))))
+                                    (const
+                                      (string))))
+                                (rule
+                                  (identifier_pattern
+                                    (long_identifier
+                                      (identifier)))
+                                  (infix_expression
+                                    (long_identifier_or_op
+                                      (long_identifier
+                                        (identifier)))
+                                    (infix_op)
+                                    (application_expression
+                                      (dot_expression
+                                        (long_identifier_or_op
+                                          (long_identifier
+                                            (identifier)))
+                                        (long_identifier_or_op
+                                          (long_identifier
+                                            (identifier))))
+                                      (long_identifier_or_op
+                                        (long_identifier
+                                          (identifier)))))
+                                  (application_expression
+                                    (dot_expression
+                                      (long_identifier_or_op
+                                        (long_identifier
+                                          (identifier)))
+                                      (long_identifier_or_op
+                                        (long_identifier
+                                          (identifier))))
+                                    (const
+                                      (string
+                                        (interpolation_char
+                                          (ident
+                                            (lower_identifier)))))))))))
+                        (infix_op
+                          (symbolic_op))
+                        (application_expression
+                          (dot_expression
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))
+                          (fun_expression
+                            (argument_patterns
+                              (record_pattern
+                                (record)))
+                            (application_expression
+                              (dot_expression
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier))))
+                              (const
+                                (string))))))))))))))
+      (application_expression
+        (dot_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (fun_expression
+            (argument_patterns
+              (long_identifier
+                (identifier)))
+            (match_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (rules
+                (rule
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier))
+                    (long_identifier
+                      (identifier)))
+                  (infix_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))
+                    (infix_op)
+                    (application_expression
+                      (dot_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (const
+                          (string)))))
+                  (application_expression
+                    (dot_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier))))
+                    (const
+                      (string
+                        (interpolation_char
+                          (ident
+                            (lower_identifier)))))))
+                (rule
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier))
+                    (wildcard_pattern))
+                  (application_expression
+                    (dot_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier))))
+                    (const
+                      (string))))))))))))
+
+================================================================================
+interface full
+================================================================================
+
+interface Dir
+    exposes [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
+    imports [Effect, Task.{ Task }, InternalTask, Path.{ Path }, InternalPath, InternalDir]
+
+ReadErr : InternalDir.ReadErr
+
+DeleteErr : InternalDir.DeleteErr
+
+DirEntry : InternalDir.DirEntry
+
+## Lists the files and directories inside the directory.
+list : Path -> Task (List Path) [DirReadErr Path ReadErr]
+list = \path ->
+    effect = Effect.map (Effect.dirList (InternalPath.toBytes path)) \result ->
+        when result is
+            Ok entries -> Ok (List.map entries InternalPath.fromOsBytes)
+            Err err -> Err (DirReadErr path err)
+
+    InternalTask.fromEffect effect
+
+## Deletes a directory if it's empty.
+deleteEmptyDir : Path -> Task {} [DirDeleteErr Path DeleteErr]
+
+## Recursively deletes the directory as well as all files and directories inside it.
+deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
+--------------------------------------------------------------------------------
+
+(file
+  (interface_header
+    (name)
+    (interface_header_body
+      (exposes
+        (ident
+          (upper_identifier))
+        (ident
+          (upper_identifier))
+        (ident
+          (upper_identifier))
+        (ident
+          (lower_identifier))
+        (ident
+          (lower_identifier))
+        (ident
+          (lower_identifier)))
+      (imports
+        (imports_entry
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (module_name
+            (upper_identifier))
+          (exposes_list
+            (ident
+              (upper_identifier))))
+        (imports_entry
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (module_name
+            (upper_identifier))
+          (exposes_list
+            (ident
+              (upper_identifier))))
+        (imports_entry
+          (module_name
+            (upper_identifier)))
+        (imports_entry
+          (module_name
+            (upper_identifier))))))
+  (alias
+    (apply_type
+      (concrete_type
+        (upper_identifier)))
+    (type_annotation
+      (apply_type
+        (concrete_type
+          (upper_identifier)
+          (upper_identifier)))))
+  (alias
+    (apply_type
+      (concrete_type
+        (upper_identifier)))
+    (type_annotation
+      (apply_type
+        (concrete_type
+          (upper_identifier)
+          (upper_identifier)))))
+  (alias
+    (apply_type
+      (concrete_type
+        (upper_identifier)))
+    (type_annotation
+      (apply_type
+        (concrete_type
+          (upper_identifier)
+          (upper_identifier)))))
+  (line_comment)
+  (annotation
+    (annotation_pre_colon
+      (lower_identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type
+            (upper_identifier)))
+        (apply_type
+          (concrete_type
+            (upper_identifier))
+          (apply_type_args
+            (apply_type_arg
+              (apply_type
+                (concrete_type
+                  (upper_identifier))
+                (apply_type_args
+                  (apply_type_arg
+                    (apply_type
+                      (concrete_type
+                        (upper_identifier)))))))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type
+                    (upper_identifier))
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type
+                          (upper_identifier))
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type
+                                (upper_identifier))))))))))))))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (fun_expression
+        (argument_patterns
+          (long_identifier
+            (identifier)))
+        (infix_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (infix_op)
+          (application_expression
+            (dot_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))
+            (application_expression
+              (paren_expression
+                (application_expression
+                  (dot_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier))))
+                  (paren_expression
+                    (application_expression
+                      (dot_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))))))
+              (fun_expression
+                (argument_patterns
+                  (long_identifier
+                    (identifier)))
+                (match_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (rules
+                    (rule
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier))
+                        (long_identifier
+                          (identifier)))
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (paren_expression
+                          (application_expression
+                            (dot_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier))))
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (dot_expression
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))))))))
+                    (rule
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier))
+                        (long_identifier
+                          (identifier)))
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (paren_expression
+                          (application_expression
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier))))))))))))))
+        (application_expression
+          (dot_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (line_comment)
+  (annotation
+    (annotation_pre_colon
+      (lower_identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type
+            (upper_identifier)))
+        (apply_type
+          (concrete_type
+            (upper_identifier))
+          (apply_type_args
+            (apply_type_arg
+              (record_type))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type
+                    (upper_identifier))
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type
+                          (upper_identifier))
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type
+                                (upper_identifier)))))))))))
+            (line_comment))))))
+  (annotation
+    (annotation_pre_colon
+      (lower_identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type
+            (upper_identifier)))
+        (apply_type
+          (concrete_type
+            (upper_identifier))
+          (apply_type_args
+            (apply_type_arg
+              (record_type))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type
+                    (upper_identifier))
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type
+                          (upper_identifier))
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type
+                                (upper_identifier)))))))))))))))))
