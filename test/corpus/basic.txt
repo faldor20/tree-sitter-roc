@@ -9,22 +9,29 @@ num=1
 
 (file
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (string_literal
-      (string_content)))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (const
+        (string))))
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (string_literal
-      (string_content)))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (const
+        (string))))
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (number_literal)))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (const
+        (int)))))
 
 ================================================================================
 arithmatic
@@ -37,73 +44,329 @@ num3 = 1 + num2
 
 (file
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (bin_op_expr
-      (number_literal)
-      (operator)
-      (number_literal)))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (infix_expression
+        (const
+          (int))
+        (infix_op)
+        (const
+          (int)))))
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (bin_op_expr
-      (number_literal)
-      (operator)
-      (value_expr
-        (lower_case_identifier))))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (infix_expression
+        (const
+          (int))
+        (infix_op)
+        (long_identifier_or_op
+          (long_identifier
+            (identifier))))))
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (bin_op_expr
-      (number_literal)
-      (operator)
-      (value_expr
-        (lower_case_identifier)))))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (infix_expression
+        (const
+          (int))
+        (infix_op)
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))))))
 
 ================================================================================
-functions
+functions with patterns
 ================================================================================
-add = \num1,num2 ->
-	sum = num1 +num2
-a=add 1 1
+add = \num1, num2 ->
+    when num1 is
+      1-> 1
+      2-> 
+        a<- p a
+        b=a
+        c<- p a
+        \num->a
+      _-> \num3->4
 
 
 --------------------------------------------------------------------------------
 
 (file
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (anonymous_function_expr
-      (backslash)
-      (pattern
-        (lower_pattern))
-      (pattern
-        (lower_pattern))
-      (arrow)
-      (value_declaration
-        (pattern
-          (lower_pattern))
-        (eq)
-        (bin_op_expr
-          (value_expr
-            (lower_case_identifier))
-          (operator)
-          (value_expr
-            (lower_case_identifier))))))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (fun_expression
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (match_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (rules
+            (rule
+              (const_pattern
+                (int))
+              (const
+                (int)))
+            (rule
+              (const_pattern
+                (int))
+              (backpassing_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))))
+              (infix_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (infix_op)
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))
+              (backpassing_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))))
+              (fun_expression
+                (argument_patterns
+                  (long_identifier
+                    (identifier)))
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))))
+            (rule
+              (wildcard_pattern)
+              (fun_expression
+                (argument_patterns
+                  (long_identifier
+                    (identifier)))
+                (const
+                  (int))))))))))
+
+================================================================================
+pipe_new
+================================================================================
+main=
+  a b
+  |> c
+
+main=
+  a b
+    |> c a
+    |> d b
+  g 10
+--------------------------------------------------------------------------------
+
+(file
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (function_call_expr
-      (value_expr
-        (lower_case_identifier))
-      (number_literal)
-      (number_literal))))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (infix_expression
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))
+        (infix_op
+          (symbolic_op))
+        (long_identifier_or_op
+          (long_identifier
+            (identifier))))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (infix_op
+            (symbolic_op))
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (infix_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (infix_op
+                (symbolic_op))
+              (application_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))))))
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (const
+          (int))))))
+
+================================================================================
+functions basic
+================================================================================
+add = \num1, num2 ->
+	sum = num1 +num2
+adda=
+  add2=(\num1,num2-> num1)
+
+  add2 a b
+
+a = add 1 1
+
+main = \filename ->
+    onFail b \ e, e -> Stdout.line "Ran into problem:"
+
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (fun_expression
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (infix_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (infix_op)
+          (infix_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (infix_op)
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
+        (infix_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (infix_op)
+          (infix_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (infix_op)
+            (application_expression
+              (paren_expression
+                (fun_expression
+                  (argument_patterns
+                    (long_identifier
+                      (identifier))
+                    (long_identifier
+                      (identifier)))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))))
+              (application_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier))))))))
+        (infix_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (infix_op)
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_expression
+              (const
+                (int))
+              (const
+                (int)))))
+        (infix_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (infix_op)
+          (fun_expression
+            (argument_patterns
+              (long_identifier
+                (identifier)))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (application_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (fun_expression
+                  (argument_patterns
+                    (long_identifier
+                      (identifier))
+                    (long_identifier
+                      (identifier)))
+                  (application_expression
+                    (dot_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier))))
+                    (const
+                      (string))))))))))))
 
 ================================================================================
 expressions
@@ -142,18 +405,23 @@ maybe =
       (lower_pattern))
     (eq)
     (if_else_expr
-      (value_expr
-        (lower_case_identifier))
-      (number_literal)
-      (number_literal))))
+      (if
+        (value_expr
+          (lower_case_identifier)))
+      (then
+        (number_literal))
+      (else
+        (number_literal)))))
 
 ================================================================================
 backpassing
 ================================================================================
-main=
-    text <- await Stdin.line
+interpretFile = \filename ->
+    ctx <- Context.with filename
 
-    Stdout.line "You just entered: \(text)"
+    result <- Task.attempt (interpretCtx ctx)
+
+    Task.fail (StringErr "Hit end of data while still parsing something")
 --------------------------------------------------------------------------------
 
 (file
@@ -161,49 +429,188 @@ main=
     (pattern
       (lower_pattern))
     (eq)
-    (backpassing_expr
+    (anonymous_function_expr
+      (backslash)
       (pattern
         (lower_pattern))
-      (function_call_expr
-        (value_expr
-          (lower_case_identifier))
-        (value_expr
-          (dot)
-          (lower_case_identifier))))
-    (function_call_expr
-      (value_expr
-        (dot)
-        (lower_case_identifier))
-      (string_literal
-        (string_content)))))
+      (arrow)
+      (backpassing_expr
+        (pattern
+          (lower_pattern))
+        (function_call_expr
+          (value_expr
+            (upper_case_identifier)
+            (dot)
+            (lower_case_identifier))
+          (value_expr
+            (lower_case_identifier)))
+        (backpass_body
+          (backpassing_expr
+            (pattern
+              (lower_pattern))
+            (function_call_expr
+              (value_expr
+                (upper_case_identifier)
+                (dot)
+                (lower_case_identifier))
+              (parenthesized_expr
+                (function_call_expr
+                  (value_expr
+                    (lower_case_identifier))
+                  (value_expr
+                    (lower_case_identifier)))))
+            (backpass_body
+              (function_call_expr
+                (value_expr
+                  (upper_case_identifier)
+                  (dot)
+                  (lower_case_identifier))
+                (parenthesized_expr
+                  (function_call_expr
+                    (value_expr
+                      (upper_case_qid
+                        (upper_case_identifier)))
+                    (string_literal
+                      (string_content))))))))))))
 
 ================================================================================
-records
+records basic
 ================================================================================
 user= {
     email: "hi",
     firstName: "hey",
     lastName: 1,
 }
+
+newScope = { scope & whileInfo }
+
+main=
+  Task.succeed (Step { popCtx & scopes: List.set ctx.scopes last newScope })
+
+  when popNumber ctx is
+      Ok (T popCtx n) ->
+        if n == 0 then
+            newScope = { scope & whileInfo: None }
+
+            Task.succeed (Step { popCtx & scopes: List.set ctx.scopes last newScope })
+        else
+            newScope = { scope & whileInfo: Some { state: InBody, body, cond } }
+
+            Task.succeed (Step { popCtx & scopes: List.append (List.set ctx.scopes last newScope) { data: None, buf: body, index: 0, whileInfo: None } })
+--------------------------------------------------------------------------------
+
+)))))
+
+================================================================================
+odd functions
+================================================================================
+main=
+  main = 
+   when a is
+      1-> 
+        if a then
+          b b
+          |> b a
+          |> b p
+        else 
+          c
+      2-> hi
+
+  h=10
+  h
+main2= a b
+ 
+
+
 --------------------------------------------------------------------------------
 
 (file
   (value_declaration
-    (pattern
-      (lower_pattern))
-    (eq)
-    (record_expr
-      (field
-        (lower_case_identifier)
-        (string_literal
-          (string_content)))
-      (field
-        (lower_case_identifier)
-        (string_literal
-          (string_content)))
-      (field
-        (lower_case_identifier)
-        (number_literal)))))
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (infix_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_op)
+        (match_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (rules
+            (rule
+              (const_pattern
+                (int))
+              (if_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (infix_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))
+                    (infix_op
+                      (symbolic_op))
+                    (application_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (infix_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (infix_op
+                          (symbolic_op))
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))))))))
+              (application_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))))
+            (rule
+              (const_pattern
+                (int))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))
+      (infix_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_op)
+        (const
+          (int)))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier)))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))))))
 
 ================================================================================
 when is
@@ -218,6 +625,319 @@ main=
 
 (file
   (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (match_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (rules
+          (rule
+            (identifier_pattern
+              (long_identifier
+                (identifier)))
+            (const
+              (int)))
+          (rule
+            (disjunct_pattern
+              (disjunct_pattern
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))
+                (identifier_pattern
+                  (long_identifier
+                    (identifier))))
+              (identifier_pattern
+                (long_identifier
+                  (identifier))))
+            (const
+              (int)))
+          (rule
+            (identifier_pattern
+              (long_identifier
+                (identifier)))
+            (const
+              (int))))))))
+
+================================================================================
+types simple
+================================================================================
+func : string,int-> int
+func = \ a, b-> 1
+
+func2 : string,(int->int)-> int
+func2 = \ a, b-> b 1
+
+main : Task {} [ ]
+main = task a
+--------------------------------------------------------------------------------
+
+(file
+  (annotation
+    (annotation_pre_colon
+      (lower_case_identifier))
+    (type_annotation
+      (function_type
+        (bound_variable
+          (lower_case_identifier))
+        (bound_variable
+          (lower_case_identifier))
+        (arrow)
+        (bound_variable
+          (lower_case_identifier)))))
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (anonymous_function_expr
+      (backslash)
+      (pattern
+        (lower_pattern))
+      (pattern
+        (lower_pattern))
+      (arrow)
+      (number_literal)))
+  (annotation
+    (annotation_pre_colon
+      (lower_case_identifier))
+    (type_annotation
+      (function_type
+        (bound_variable
+          (lower_case_identifier))
+        (function_type
+          (bound_variable
+            (lower_case_identifier))
+          (arrow)
+          (bound_variable
+            (lower_case_identifier)))
+        (arrow)
+        (bound_variable
+          (lower_case_identifier)))))
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (anonymous_function_expr
+      (backslash)
+      (pattern
+        (lower_pattern))
+      (pattern
+        (lower_pattern))
+      (arrow)
+      (function_call_expr
+        (value_expr
+          (lower_case_identifier))
+        (number_literal))))
+  (annotation
+    (annotation_pre_colon
+      (lower_case_identifier))
+    (type_annotation
+      (apply_type
+        (concrete_type
+          (upper_case_identifier))
+        (apply_type_args
+          (apply_type_arg
+            (record_type))
+          (apply_type_arg
+            (tags_type))))))
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (function_call_expr
+      (value_expr
+        (lower_case_identifier))
+      (value_expr
+        (lower_case_identifier)))))
+
+================================================================================
+pipe
+================================================================================
+
+main=
+  a
+  |> List.map \ b->b+1
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (infix_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_op
+          (symbolic_op))
+        (application_expression
+          (dot_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))
+          (fun_expression
+            (argument_patterns
+              (long_identifier
+                (identifier)))
+            (infix_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (infix_op)
+              (const
+                (int)))))))))
+
+================================================================================
+type annotation complex
+================================================================================
+
+findOneArg : Str, Str, MarkedArgs -> Result { val : Str, newlyTaken : Taken } [NotFound]
+findOneArg = \long, short, { args, taken } -> ()
+
+--------------------------------------------------------------------------------
+
+(file
+  (annotation
+    (annotation_pre_colon
+      (lower_case_identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type
+            (upper_case_identifier)))
+        (apply_type
+          (concrete_type
+            (upper_case_identifier)))
+        (apply_type
+          (concrete_type
+            (upper_case_identifier)))
+        (arrow)
+        (apply_type
+          (concrete_type
+            (upper_case_identifier))
+          (apply_type_args
+            (apply_type_arg
+              (record_type
+                (record_field_type
+                  (ident
+                    (lower_case_identifier))
+                  (type_annotation
+                    (apply_type
+                      (concrete_type
+                        (upper_case_identifier)))))
+                (record_field_type
+                  (ident
+                    (lower_case_identifier))
+                  (type_annotation
+                    (apply_type
+                      (concrete_type
+                        (upper_case_identifier)))))))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type
+                    (upper_case_identifier))))))))))
+  (value_declaration
+    (pattern
+      (lower_pattern))
+    (eq)
+    (anonymous_function_expr
+      (backslash)
+      (pattern
+        (lower_pattern))
+      (pattern
+        (lower_pattern))
+      (pattern
+        (record
+          (record_field
+            (lower_case_identifier))
+          (record_field
+            (lower_case_identifier))))
+      (arrow)
+      (unit_expr))))
+
+================================================================================
+literal
+================================================================================
+t=1u8
+b="a"
+b=""
+b="p \( hi )"
+b="p \n \( hi )"
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (application_expression
+        (const
+          (int))
+        (long_identifier_or_op
+          (long_identifier
+            (identifier))))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (const
+        (string))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (const
+        (string))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (const
+        (string
+          (interpolation_char
+            (ident
+              (lower_identifier)))))))
+  (value_declaration
+    (function_or_value_defn
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (const
+        (string
+          (escape_char)
+          (interpolation_char
+            (ident
+              (lower_identifier))))))))
+
+================================================================================
+record pattern
+================================================================================
+main=
+  when a is 
+  Some { state: InCond, body, cond } -> b
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
     (pattern
       (lower_pattern))
     (eq)
@@ -228,22 +948,63 @@ main=
       (is)
       (when_is_branch
         (pattern
-          (union_pattern))
+          (union_pattern
+            (upper_case_qid
+              (upper_case_identifier))
+            (record
+              (record_field
+                (lower_case_identifier)
+                (value_expr
+                  (upper_case_qid
+                    (upper_case_identifier))))
+              (record_field
+                (lower_case_identifier))
+              (record_field
+                (lower_case_identifier)))))
         (arrow)
-        (number_literal))
-      (when_is_branch
-        (pattern
-          (union_pattern))
-        (or)
-        (pattern
-          (union_pattern))
-        (or)
-        (pattern
-          (union_pattern))
-        (arrow)
-        (number_literal))
-      (when_is_branch
-        (pattern
-          (union_pattern))
-        (arrow)
-        (number_literal)))))
+        (value_expr
+          (lower_case_identifier))))))
+
+====
+interface module
+====
+
+interface Dir
+    exposes [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
+    imports [Effect, Task.{ Task }, InternalTask, Path.{ Path }, InternalPath, InternalDir]
+
+a=10
+
+---
+
+================================================================================
+interface full
+================================================================================
+
+interface Dir
+    exposes [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
+    imports [Effect, Task.{ Task }, InternalTask, Path.{ Path }, InternalPath, InternalDir]
+
+ReadErr : InternalDir.ReadErr
+
+DeleteErr : InternalDir.DeleteErr
+
+DirEntry : InternalDir.DirEntry
+
+## Lists the files and directories inside the directory.
+list : Path -> Task (List Path) [DirReadErr Path ReadErr]
+list = \path ->
+    effect = Effect.map (Effect.dirList (InternalPath.toBytes path)) \result ->
+        when result is
+            Ok entries -> Ok (List.map entries InternalPath.fromOsBytes)
+            Err err -> Err (DirReadErr path err)
+
+    InternalTask.fromEffect effect
+
+## Deletes a directory if it's empty.
+deleteEmptyDir : Path -> Task {} [DirDeleteErr Path DeleteErr]
+
+## Recursively deletes the directory as well as all files and directories inside it.
+deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
+--------------------------------------------------------------------------------
+
