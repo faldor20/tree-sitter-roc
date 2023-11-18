@@ -1652,6 +1652,29 @@ findOneArg = \long, short, { args, taken } -> ()
         (unit)))))
 
 ================================================================================
+infix
+================================================================================
+a= a>=b
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (application_expression
+      (identifier_pattern
+        (long_identifier
+          (identifier)))
+      (args
+        (infix_newline
+          (infix_op)
+          (identifier_pattern
+            (long_identifier
+              (identifier))))))))
+
+================================================================================
 literal
 ================================================================================
 t=0xff
