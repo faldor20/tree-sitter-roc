@@ -322,13 +322,72 @@
   {
     "type": "application_expression",
     "named": true,
-    "fields": {},
+    "fields": {
+      "caller": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "array_expression",
+            "named": true
+          },
+          {
+            "type": "const",
+            "named": true
+          },
+          {
+            "type": "dot_expression",
+            "named": true
+          },
+          {
+            "type": "fun_expression",
+            "named": true
+          },
+          {
+            "type": "identifier_pattern",
+            "named": true
+          },
+          {
+            "type": "index_expression",
+            "named": true
+          },
+          {
+            "type": "infix_expression",
+            "named": true
+          },
+          {
+            "type": "infix_newline",
+            "named": true
+          },
+          {
+            "type": "list_expression",
+            "named": true
+          },
+          {
+            "type": "paren_expression",
+            "named": true
+          },
+          {
+            "type": "record",
+            "named": true
+          },
+          {
+            "type": "record_update",
+            "named": true
+          },
+          {
+            "type": "tuple_expression",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "_expression_inner",
+          "type": "args",
           "named": true
         }
       ]
@@ -402,6 +461,69 @@
       "types": [
         {
           "type": "apply_type_arg",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "args",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "array_expression",
+          "named": true
+        },
+        {
+          "type": "const",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "fun_expression",
+          "named": true
+        },
+        {
+          "type": "identifier_pattern",
+          "named": true
+        },
+        {
+          "type": "index_expression",
+          "named": true
+        },
+        {
+          "type": "infix_expression",
+          "named": true
+        },
+        {
+          "type": "infix_newline",
+          "named": true
+        },
+        {
+          "type": "list_expression",
+          "named": true
+        },
+        {
+          "type": "paren_expression",
+          "named": true
+        },
+        {
+          "type": "record",
+          "named": true
+        },
+        {
+          "type": "record_update",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
           "named": true
         }
       ]
@@ -836,12 +958,8 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
-        {
-          "type": "dot_curly",
-          "named": true
-        },
         {
           "type": "ident",
           "named": true
@@ -1258,7 +1376,7 @@
   },
   {
     "type": "int",
-    "named": true,
+    "named": false,
     "fields": {}
   },
   {
@@ -2523,10 +2641,6 @@
   {
     "type": "done",
     "named": false
-  },
-  {
-    "type": "dot_curly",
-    "named": true
   },
   {
     "type": "downto",

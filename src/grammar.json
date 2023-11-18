@@ -88,18 +88,6 @@
               {
                 "type": "SYMBOL",
                 "name": "_virtual_end_section"
-              },
-              {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "_virtual_end_decl"
-                  },
-                  {
-                    "type": "BLANK"
-                  }
-                ]
               }
             ]
           }
@@ -688,13 +676,9 @@
         }
       ]
     },
-    "_expression_inner": {
+    "_expression_no_ap": {
       "type": "CHOICE",
       "members": [
-        {
-          "type": "SYMBOL",
-          "name": "infix_newline"
-        },
         {
           "type": "SYMBOL",
           "name": "identifier_pattern"
@@ -705,15 +689,60 @@
         },
         {
           "type": "SYMBOL",
-          "name": "index_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "backpassing_expression"
+          "name": "tuple_expression"
         },
         {
           "type": "SYMBOL",
           "name": "array_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "const"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "paren_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "record_update"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "record"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "infix_newline"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "list_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "fun_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "infix_expression"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "index_expression"
+        }
+      ]
+    },
+    "_expression_inner": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_expression_no_ap"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "backpassing_expression"
         },
         {
           "type": "SYMBOL",
@@ -729,31 +758,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "tuple_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "list_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "const"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "paren_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "infix_expression"
-        },
-        {
-          "type": "SYMBOL",
           "name": "application_expression"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "fun_expression"
         },
         {
           "type": "SYMBOL",
@@ -769,34 +774,39 @@
         },
         {
           "type": "SYMBOL",
-          "name": "record_update"
-        },
-        {
-          "type": "SYMBOL",
           "name": "value_declaration"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "record"
         }
       ]
     },
     "application_expression": {
       "type": "PREC_RIGHT",
-      "value": 16,
+      "value": 17,
       "content": {
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "_expression_inner"
-          },
-          {
-            "type": "REPEAT1",
+            "type": "FIELD",
+            "name": "caller",
             "content": {
               "type": "SYMBOL",
-              "name": "_expression_inner"
+              "name": "_expression_no_ap"
             }
+          },
+          {
+            "type": "ALIAS",
+            "content": {
+              "type": "REPEAT1",
+              "content": {
+                "type": "PREC_RIGHT",
+                "value": 18,
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_expression_no_ap"
+                }
+              }
+            },
+            "named": true,
+            "value": "args"
           }
         ]
       }
@@ -3859,8 +3869,8 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "dot_curly"
+          "type": "STRING",
+          "value": "{"
         },
         {
           "type": "CHOICE",
@@ -4069,8 +4079,17 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SYMBOL",
-              "name": "exposes_list"
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "."
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "exposes_list"
+                }
+              ]
             },
             {
               "type": "BLANK"
@@ -4080,33 +4099,29 @@
       ]
     },
     "module_name": {
-      "type": "PREC_LEFT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "upper_identifier"
-          },
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "."
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "upper_identifier"
-                }
-              ]
-            }
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "upper_identifier"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "."
+              },
+              {
+                "type": "SYMBOL",
+                "name": "upper_identifier"
+              }
+            ]
           }
-        ]
-      }
+        }
+      ]
     },
     "to": {
       "type": "STRING",
@@ -5468,6 +5483,9 @@
     [
       "symbolic_op",
       "infix_op"
+    ],
+    [
+      "module_name"
     ]
   ],
   "precedences": [],
@@ -5490,6 +5508,7 @@
     }
   ],
   "inline": [
+    "_expression_no_ap",
     "_module_elem",
     "_infix_or_prefix_op",
     "ReferenceError",

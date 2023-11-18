@@ -5,7 +5,7 @@ function imm(x) {
 
 const PREC = {
   SEQ_EXPR: 1,
-  APP_EXPR: 16,
+  APP_EXPR: 2,
   THEN_EXPR: 2,
   RARROW: 3,
   INFIX_OP: 4,
@@ -63,11 +63,15 @@ module.exports = grammar({
     [$.long_identifier, $._identifier_or_op],
     [$.symbolic_op, $.infix_op],
     // [$.union_type_case, $.long_identifier],
+    [$.module_name],
+    // [$._expression_inner,$.application_expression]
   ],
 
   words: $ => $.identifier,
 
-  inline: $ => [$._module_elem, $._infix_or_prefix_op, $._base_call, $.access_modifier, $._quote_op_left, $._quote_op_right, $._inner_literal_expressions, $._expression_or_range, $._infix_expression_inner, $._seq_expressions, $._seq_inline],
+  inline: $ => [$._expression_no_ap,
+
+  $._module_elem, $._infix_or_prefix_op, $._base_call, $.access_modifier, $._quote_op_left, $._quote_op_right, $._inner_literal_expressions, $._expression_or_range, $._infix_expression_inner, $._seq_expressions, $._seq_inline],
 
   supertypes: $ => [$._module_elem, $._pattern, $._expression_inner, $._type_defn_body],
 
@@ -80,8 +84,8 @@ module.exports = grammar({
       seq(
         optional(seq($._module_header)),
         repeat1(seq($._module_elem,
-      $._virtual_end_decl
-      )),
+          $._virtual_end_decl
+        )),
       ),
 
     _module_elem: $ =>
@@ -211,7 +215,6 @@ module.exports = grammar({
           $._virtual_open_section,
           field("body", $._expressions),
           $._virtual_end_section,
-        optional($._virtual_end_decl),
 
         ),
         ),
@@ -257,26 +260,26 @@ module.exports = grammar({
     //
     // Pattern rules (BEGIN)
     _pattern: $ =>
-    prec(1,
-      choice(
-        // alias("null", $.null_pattern),
-        alias("_", $.wildcard_pattern),
-        alias($.const, $.const_pattern),
-        $.identifier_pattern,
-        $.as_pattern,
-        $.disjunct_pattern,
-        $.conjunct_pattern,
-        $.cons_pattern,
-        // $.repeat_pattern,
-        $.paren_pattern,
-        $.list_pattern,
-        $.array_pattern,
-        $.record
-        // $.typed_pattern,
-        // $.attribute_pattern,
-        // :? atomic-type
-        // :? atomic-type as ident
-      )
+      prec(1,
+        choice(
+          // alias("null", $.null_pattern),
+          alias("_", $.wildcard_pattern),
+          alias($.const, $.const_pattern),
+          $.identifier_pattern,
+          $.as_pattern,
+          $.disjunct_pattern,
+          $.conjunct_pattern,
+          $.cons_pattern,
+          // $.repeat_pattern,
+          $.paren_pattern,
+          $.list_pattern,
+          $.array_pattern,
+          $.record
+          // $.typed_pattern,
+          // $.attribute_pattern,
+          // :? atomic-type
+          // :? atomic-type as ident
+        )
       ),
 
     // attribute_pattern: $ => prec.left(seq($.attributes, $._pattern)),
@@ -321,16 +324,16 @@ module.exports = grammar({
 
     list_pattern: $ =>
       prec(1,
-     choice(
-      seq('[', ']'),
-      seq('[', $._pattern, repeat(prec (2,seq(",", $._pattern))), ']'))
+        choice(
+          seq('[', ']'),
+          seq('[', $._pattern, repeat(prec(2, seq(",", $._pattern))), ']'))
       ),
 
-    array_pattern: $ => 
+    array_pattern: $ =>
       prec(1,
-    choice(
-      seq('[|', '|]'),
-      seq('[|', $._pattern, repeat(seq(";", $._pattern)), '|]'))),
+        choice(
+          seq('[|', '|]'),
+          seq('[|', $._pattern, repeat(seq(";", $._pattern)), '|]'))),
 
     record_pattern: $ => $.record,
     record_destructure_pattern: $ => $.record_destructure,
@@ -402,7 +405,7 @@ module.exports = grammar({
 
 
     //If i want to be able to combine these i need to be able to prefferentially match a whole token that is bigger than just the virtual_end_decl. but it's probably not worth my time  
-    infix_newline:$=>seq($.infix_op,$._expression_inner),
+    infix_newline: $ => seq($.infix_op, $._expression_inner),
 
     // _expressions: $ =>
     //   prec.left(PREC.SEQ_EXPR,
@@ -416,18 +419,30 @@ module.exports = grammar({
     //   ),
 
 
+    _expression_no_ap: $ => choice(
+
+      $.identifier_pattern,
+      $.dot_expression,
+      $.tuple_expression,
+      $.array_expression,
+      $.const,
+      $.paren_expression,
+      $.record_update,
+      $.record,
+      $.infix_newline,
+      $.list_expression,
+      $.fun_expression,
+      $.infix_expression,
+      $.index_expression,
+    ),
     _expression_inner: $ =>
       choice(
-      $.infix_newline,
+        $._expression_no_ap,
         // $.begin_end_expression,
         // $.long_identifier_or_op,
-      $.identifier_pattern,
-        $.dot_expression,
         // $.typed_expression,
-        $.index_expression,
         $.backpassing_expression,
         // $.object_instantiation_expression,
-        $.array_expression,
         // $.ce_expression,
         //TODO:what is this
         // $.prefixed_expression,
@@ -443,33 +458,31 @@ module.exports = grammar({
         $.try_expression,
         // $.literal_expression,
         // $.call_expression,
-        $.tuple_expression,
         // $.return_expression,
         // $.yield_expression,
         // (static-typars : (member-sig) expr)
         //DEFINITELY
-        $.list_expression,
-        $.const,
-        $.paren_expression,
         // $.discard_expression,
 
-        $.infix_expression,
         $.application_expression,
-        $.fun_expression,
-      $.else_expression,
+        $.else_expression,
         $.if_expression,
         $.when_is_expression,
-        $.record_update,
-      $.value_declaration,
-        $.record,
+        $.value_declaration,
       ),
     // discard_expression: $ => '_',
 
     application_expression: $ =>
-      prec.right(PREC.APP_EXPR,
+      prec.right(17,
         seq(
-          $._expression_inner,
-          repeat1($._expression_inner),
+          field("caller", $._expression_no_ap),
+          alias(
+            repeat1(
+              prec.right(18,
+                $._expression_no_ap),
+            ),
+            $.args
+          ),
         )
       ),
 
@@ -486,10 +499,10 @@ module.exports = grammar({
     tuple_expression: $ =>
       prec.left(PREC.TUPLE_EXPR,
         seq(
-        "(",
+          "(",
           $._expression_inner,
           repeat1(prec.left(PREC.TUPLE_EXPR, seq(",", $._expression_inner))),
-        ")",
+          ")",
         )
       ),
 
@@ -754,7 +767,7 @@ module.exports = grammar({
           $._expression_inner,
           repeat(prec.right(PREC.COMMA + 100, seq(',', $._expression_inner))),
 
-        optional(','),
+          optional(','),
           $._virtual_end_section,
         ),
       ),
@@ -766,12 +779,12 @@ module.exports = grammar({
       ),
 
     list_expression: $ =>
-    prec(10,
-      seq(
-        "[",
-        optional($._list_element),
-        "]",
-      )),
+      prec(10,
+        seq(
+          "[",
+          optional($._list_element),
+          "]",
+        )),
 
     array_expression: $ =>
       seq(
@@ -1793,8 +1806,8 @@ module.exports = grammar({
     lower_identifier: $ =>
       /[a-z][0-9a-zA-Z_]*/,
     upper_identifier: $ => /[A-Z][0-9a-zA-Z_]*/,
-    dot:$=>("."),
-    dot_curly:$=>(".{"),
+    dot: $ => ("."),
+    dot_curly: $ => (".{"),
     ident: $ => choice($.lower_identifier, $.upper_identifier),
 
 
@@ -1819,7 +1832,7 @@ module.exports = grammar({
 
 
 
-    exposes_list: $ => seq($.dot_curly, sep_tail($.ident, ','), '}'),
+    exposes_list: $ => seq('{', sep_tail($.ident, ','), '}'),
     exposes: $ => seq("exposes", "[", sep_tail($.ident, ","), ']'),
 
     imports: $ => seq(
@@ -1830,15 +1843,17 @@ module.exports = grammar({
     imports_entry: $ => seq(
       optional(seq($.lower_identifier, ".")),
       $.module_name,
-      optional( $.exposes_list)
+
+      optional(seq('.', $.exposes_list))
     )
     ,
 
-    module_name: $ => prec.left(
+    module_name: $ =>
+
       seq($.upper_identifier,
         repeat(seq('.', $.upper_identifier)
         ))
-    ),
+    ,
 
 
     //TODO make a function for all these comma separated trailing comma things
