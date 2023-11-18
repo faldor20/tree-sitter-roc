@@ -14,3 +14,7 @@
 
 	- [ ] i believe tags is getting matched incorrectly
 
+
+
+something about my whole setup is a bit messed up. i had to add else to the list of expressions because it wouldn't ever get passed when it was inside if... maybe i should try restarting this and basing it more off python, they seem to be very well set up
+

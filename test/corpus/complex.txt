@@ -156,10 +156,7 @@ tick = \ n ->
                       (long_identifier
                         (identifier)))
                     (record))))))))
-      (application_expression
-        (identifier_pattern
-          (long_identifier
-            (identifier)))
+      (else_expression
         (backpassing_expression
           (wildcard_pattern)
           (back_arrow)
@@ -167,77 +164,75 @@ tick = \ n ->
             (identifier_pattern
               (long_identifier
                 (identifier)))
+            (paren_expression
+              (infix_expression
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))
+                (infix_op
+                  (symbolic_op))
+                (infix_expression
+                  (dot_expression
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier))))
+                  (infix_op
+                    (symbolic_op))
+                  (fun_expression
+                    (backslash)
+                    (argument_patterns
+                      (long_identifier
+                        (identifier)))
+                    (arrow)
+                    (infix_expression
+                      (const
+                        (string
+                          (interpolation_char
+                            (ident
+                              (lower_identifier)))))
+                      (infix_op
+                        (symbolic_op))
+                      (dot_expression
+                        (identifier_pattern
+                          (long_identifier
+                            (identifier)))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))))))))))
+        (backpassing_expression
+          (wildcard_pattern)
+          (back_arrow)
+          (application_expression
+            (identifier_pattern
+              (long_identifier
+                (identifier)))
+            (dot_expression
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))
+        (application_expression
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (paren_expression
             (application_expression
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))
               (paren_expression
                 (infix_expression
                   (identifier_pattern
                     (long_identifier
                       (identifier)))
-                  (infix_op
-                    (symbolic_op))
-                  (infix_expression
-                    (dot_expression
-                      (identifier_pattern
-                        (long_identifier
-                          (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))
-                    (infix_op
-                      (symbolic_op))
-                    (fun_expression
-                      (backslash)
-                      (argument_patterns
-                        (long_identifier
-                          (identifier)))
-                      (arrow)
-                      (infix_expression
-                        (const
-                          (string
-                            (interpolation_char
-                              (ident
-                                (lower_identifier)))))
-                        (infix_op
-                          (symbolic_op))
-                        (dot_expression
-                          (identifier_pattern
-                            (long_identifier
-                              (identifier)))
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))))))))
-              (backpassing_expression
-                (wildcard_pattern)
-                (back_arrow)
-                (application_expression
-                  (identifier_pattern
-                    (long_identifier
-                      (identifier)))
-                  (application_expression
-                    (dot_expression
-                      (identifier_pattern
-                        (long_identifier
-                          (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))
-                    (application_expression
-                      (identifier_pattern
-                        (long_identifier
-                          (identifier)))
-                      (paren_expression
-                        (application_expression
-                          (identifier_pattern
-                            (long_identifier
-                              (identifier)))
-                          (paren_expression
-                            (infix_expression
-                              (identifier_pattern
-                                (long_identifier
-                                  (identifier)))
-                              (infix_op)
-                              (const
-                                (int)))))))))))))))))
+                  (infix_op)
+                  (const
+                    (int)))))))))))
 
 ================================================================================
 simple_env
@@ -1176,3 +1171,161 @@ view = \currentNavLink, htmlContent ->
                                 (identifier_pattern
                                   (long_identifier
                                     (identifier)))))))))))))))))))
+
+================================================================================
+if else
+================================================================================
+viewNavLink = \isCurrent, navlink ->
+    if isCurrent then
+        li [class "nav-link nav-link--current"] [
+            text navlink.text,
+        ]
+    else
+        li [class "nav-link"] [
+            a
+                [href navlink.url, title navlink.title]
+                [text navlink.text],
+        ]
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (long_identifier
+          (identifier))
+        (long_identifier
+          (identifier)))
+      (arrow)
+      (if_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
+        (application_expression
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (application_expression
+            (list_expression
+              (application_expression
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))
+                (const
+                  (string))))
+            (list_expression
+              (application_expression
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))
+                (dot_expression
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier)))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))))))))
+      (else_expression
+        (application_expression
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (application_expression
+            (list_expression
+              (application_expression
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))
+                (const
+                  (string))))
+            (list_expression
+              (application_expression
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))
+                (application_expression
+                  (list_expression
+                    (application_expression
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier)))
+                      (dot_expression
+                        (identifier_pattern
+                          (long_identifier
+                            (identifier)))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))))
+                    (application_expression
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier)))
+                      (dot_expression
+                        (identifier_pattern
+                          (long_identifier
+                            (identifier)))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))))
+                  (list_expression
+                    (application_expression
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier)))
+                      (dot_expression
+                        (identifier_pattern
+                          (long_identifier
+                            (identifier)))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))))))))))))))
+
+================================================================================
+if func
+================================================================================
+viewNavLink = \isCurrent, navlink ->
+    if isCurrent then
+      a b
+    else
+      a p
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (long_identifier
+          (identifier))
+        (long_identifier
+          (identifier)))
+      (arrow)
+      (if_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
+        (application_expression
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (identifier_pattern
+            (long_identifier
+              (identifier)))))
+      (else_expression
+        (application_expression
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (identifier_pattern
+            (long_identifier
+              (identifier))))))))

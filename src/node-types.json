@@ -24,6 +24,10 @@
         "named": true
       },
       {
+        "type": "else_expression",
+        "named": true
+      },
+      {
         "type": "for_expression",
         "named": true
       },
@@ -791,6 +795,22 @@
     }
   },
   {
+    "type": "else_expression",
+    "named": true,
+    "fields": {
+      "else_branch": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression_inner",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "escape_char",
     "named": true,
     "fields": {}
@@ -1055,16 +1075,6 @@
     "type": "if_expression",
     "named": true,
     "fields": {
-      "else_branch": {
-        "multiple": true,
-        "required": false,
-        "types": [
-          {
-            "type": "_expression_inner",
-            "named": true
-          }
-        ]
-      },
       "guard": {
         "multiple": false,
         "required": true,
@@ -1092,6 +1102,10 @@
       "types": [
         {
           "type": "elif_expression",
+          "named": true
+        },
+        {
+          "type": "else_expression",
           "named": true
         }
       ]
@@ -1244,7 +1258,7 @@
   },
   {
     "type": "int",
-    "named": false,
+    "named": true,
     "fields": {}
   },
   {

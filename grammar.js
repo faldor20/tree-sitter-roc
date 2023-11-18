@@ -456,6 +456,7 @@ module.exports = grammar({
         $.infix_expression,
         $.application_expression,
         $.fun_expression,
+      $.else_expression,
         $.if_expression,
         $.when_is_expression,
         $.record_update,
@@ -623,7 +624,7 @@ module.exports = grammar({
           optional("done"),
         )),
 
-    _else_expression: $ =>
+    else_expression: $ =>
       prec(PREC.ELSE_EXPR,
         seq(
           "else",
@@ -651,7 +652,7 @@ module.exports = grammar({
           "then",
           field("then", $._expressions),
           repeat($.elif_expression),
-          optional($._else_expression),
+          optional($.else_expression),
         )),
 
     fun_expression: $ =>
