@@ -14,7 +14,6 @@
 ; (is) @keyword.control.roc
 
 ; (colon) @keyword.other.roc
-(backslash) @keyword.other.roc
 ; (as) @keyword.other.roc
 ; (port) @keyword.other.roc
 ; (exposing) @keyword.other.roc
@@ -74,30 +73,6 @@
 ; (_ param:(pattern(lower_pattern)@variable.parameter))
 ; (lower_pattern) @variable
 
-[
-    "app"
-    "packages"
-    "imports"
-    "provides"
-    "if"
-    "then"
-    "else"
- ] @keyword.control
-
- (when) @keyword.control.roc
- (is) @keyword.control.roc
-[
-  "("
-  ")"
-  "["
-  "]"
-  "{"
-  "}"
-] @punctuation.bracket
-
-[
-  ","
-] @punctuation.delimiter
 
 
 ; (value_declaration (pattern)@function (anonymous_function_expr))
@@ -113,8 +88,12 @@
 ; strings
 (escape_char) @constant.character.escape
 
-(arrow)@operator
-(backslash)@operator
+[
+
+(arrow)
+(backslash)
+] @keyword.other.roc
+
 
 
 ;;from fsharp
@@ -157,9 +136,6 @@
   (symbolic_op)
 ] @operator
 
-
-
-
 [
   "if"
   "then"
@@ -172,28 +148,49 @@
   "for"
   "while"
 ] @keyword.control.return
+[
+    "app"
+    "packages"
+    "imports"
+    "provides"
+    "to"
+ ] @keyword.control
+
+ (when) @keyword.control.roc
+ (is) @keyword.control.roc
+[
+  "("
+  ")"
+  "["
+  "]"
+  "{"
+  "}"
+] @punctuation.bracket
+
+[
+  ","
+] @punctuation.delimiter
 
 
-(application_expression
+      (application_expression
 
-  caller:
-    (identifier_pattern
-      (long_identifier
-        (identifier)@function)))
+caller:        (identifier_pattern
+          (long_identifier
+            (identifier)@function)))
 
 (value_declaration(value_declaration_left (identifier_pattern)@function)(fun_expression))
 
-(fun_expression
-  (argument_patterns
-    (long_identifier
-      (identifier)@variable.parameter
-      )))
+    (fun_expression
+      (argument_patterns
+        (long_identifier
+          (identifier)@variable.parameter))
+         )
 
-(annotation
-  (annotation_pre_colon
-    (lower_identifier)@function)
-  (type_annotation
-    (function_type)))
+  (annotation
+    (annotation_pre_colon
+      (lower_identifier)@function)
+    (type_annotation
+      (function_type)))
 
 (dot_expression
   base: (identifier_pattern) @namespace
