@@ -52,10 +52,6 @@
         "named": true
       },
       {
-        "type": "infix_newline",
-        "named": true
-      },
-      {
         "type": "list_expression",
         "named": true
       },
@@ -351,10 +347,6 @@
             "named": true
           },
           {
-            "type": "infix_newline",
-            "named": true
-          },
-          {
             "type": "list_expression",
             "named": true
           },
@@ -498,10 +490,6 @@
           "named": true
         },
         {
-          "type": "infix_newline",
-          "named": true
-        },
-        {
           "type": "list_expression",
           "named": true
         },
@@ -561,6 +549,10 @@
       "types": [
         {
           "type": "_expression_inner",
+          "named": true
+        },
+        {
+          "type": "infix_newline",
           "named": true
         },
         {
@@ -922,6 +914,10 @@
           {
             "type": "_expression_inner",
             "named": true
+          },
+          {
+            "type": "infix_newline",
+            "named": true
           }
         ]
       }
@@ -937,6 +933,10 @@
         "types": [
           {
             "type": "_expression_inner",
+            "named": true
+          },
+          {
+            "type": "infix_newline",
             "named": true
           }
         ]
@@ -1026,6 +1026,10 @@
           "named": true
         },
         {
+          "type": "infix_newline",
+          "named": true
+        },
+        {
           "type": "range_expression",
           "named": true
         }
@@ -1054,6 +1058,10 @@
         },
         {
           "type": "backslash",
+          "named": true
+        },
+        {
+          "type": "infix_newline",
           "named": true
         }
       ]
@@ -1221,6 +1229,10 @@
           {
             "type": "_expression_inner",
             "named": true
+          },
+          {
+            "type": "infix_newline",
+            "named": true
           }
         ]
       }
@@ -1307,6 +1319,10 @@
         "types": [
           {
             "type": "_expression_inner",
+            "named": true
+          },
+          {
+            "type": "infix_newline",
             "named": true
           }
         ]
@@ -1448,6 +1464,10 @@
       "types": [
         {
           "type": "_expression_inner",
+          "named": true
+        },
+        {
+          "type": "infix_newline",
           "named": true
         },
         {
@@ -1593,6 +1613,10 @@
         {
           "type": "_expression_inner",
           "named": true
+        },
+        {
+          "type": "infix_newline",
+          "named": true
         }
       ]
     }
@@ -1699,6 +1723,10 @@
       "types": [
         {
           "type": "_expression_inner",
+          "named": true
+        },
+        {
+          "type": "infix_newline",
           "named": true
         }
       ]
@@ -1898,6 +1926,10 @@
         {
           "type": "arrow",
           "named": true
+        },
+        {
+          "type": "infix_newline",
+          "named": true
         }
       ]
     }
@@ -1938,6 +1970,10 @@
           "named": true
         },
         {
+          "type": "infix_newline",
+          "named": true
+        },
+        {
           "type": "range_expression",
           "named": true
         }
@@ -1954,6 +1990,10 @@
       "types": [
         {
           "type": "_expression_inner",
+          "named": true
+        },
+        {
+          "type": "infix_newline",
           "named": true
         }
       ]
@@ -2058,6 +2098,10 @@
       "types": [
         {
           "type": "_expression_inner",
+          "named": true
+        },
+        {
+          "type": "infix_newline",
           "named": true
         },
         {
@@ -2251,6 +2295,10 @@
           {
             "type": "_expression_inner",
             "named": true
+          },
+          {
+            "type": "infix_newline",
+            "named": true
           }
         ]
       }
@@ -2318,6 +2366,10 @@
       "types": [
         {
           "type": "_expression_inner",
+          "named": true
+        },
+        {
+          "type": "infix_newline",
           "named": true
         }
       ]

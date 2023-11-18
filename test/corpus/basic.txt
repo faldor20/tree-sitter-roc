@@ -45,42 +45,36 @@ num3 = 1 + num2
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (application_expression
+    (infix_expression
       (const
         (int))
-      (args
-        (infix_newline
-          (infix_op)
-          (const
-            (int))))))
+      (infix_op)
+      (const
+        (int))))
   (value_declaration
     (value_declaration_left
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (application_expression
+    (infix_expression
       (const
         (int))
-      (args
-        (infix_newline
-          (infix_op)
-          (identifier_pattern
-            (long_identifier
-              (identifier)))))))
+      (infix_op)
+      (identifier_pattern
+        (long_identifier
+          (identifier)))))
   (value_declaration
     (value_declaration_left
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (application_expression
+    (infix_expression
       (const
         (int))
-      (args
-        (infix_newline
-          (infix_op)
-          (identifier_pattern
-            (long_identifier
-              (identifier))))))))
+      (infix_op)
+      (identifier_pattern
+        (long_identifier
+          (identifier))))))
 
 ================================================================================
 functions with patterns
@@ -362,16 +356,14 @@ main = \filename ->
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (application_expression
+        (infix_expression
           (identifier_pattern
             (long_identifier
               (identifier)))
-          (args
-            (infix_newline
-              (infix_op)
-              (identifier_pattern
-                (long_identifier
-                  (identifier)))))))
+          (infix_op)
+          (identifier_pattern
+            (long_identifier
+              (identifier)))))
       (value_declaration
         (value_declaration_left
           (identifier_pattern
@@ -467,16 +459,14 @@ maybe =
         (identifier_pattern
           (long_identifier
             (identifier))))
-      (application_expression
+      (infix_expression
         (identifier_pattern
           (long_identifier
             (identifier)))
-        (args
-          (infix_newline
-            (infix_op)
-            (identifier_pattern
-              (long_identifier
-                (identifier)))))))
+        (infix_op)
+        (identifier_pattern
+          (long_identifier
+            (identifier)))))
     (identifier_pattern
       (long_identifier
         (identifier))))
@@ -652,32 +642,26 @@ main=
           (int)))
       (record_field_expr
         (lower_identifier)
-        (application_expression
+        (infix_expression
           (const
             (int))
-          (args
-            (infix_newline
-              (infix_op)
-              (const
-                (int))))))
+          (infix_op)
+          (const
+            (int))))
       (record_field_expr
         (lower_identifier)
-        (application_expression
+        (infix_expression
           (paren_expression
-            (application_expression
+            (infix_expression
               (const
                 (int))
-              (args
-                (infix_newline
-                  (infix_op
-                    (symbolic_op))
-                  (const
-                    (int))))))
-          (args
-            (infix_newline
-              (infix_op)
+              (infix_op
+                (symbolic_op))
               (const
-                (int))))))))
+                (int))))
+          (infix_op)
+          (const
+            (int))))))
   (value_declaration
     (value_declaration_left
       (identifier_pattern
@@ -762,15 +746,13 @@ main=
                     (identifier))))))
           (arrow)
           (if_expression
-            (application_expression
+            (infix_expression
               (identifier_pattern
                 (long_identifier
                   (identifier)))
-              (args
-                (infix_newline
-                  (infix_op)
-                  (const
-                    (int)))))
+              (infix_op)
+              (const
+                (int)))
             (application_expression
               (dot_expression
                 (value_declaration
@@ -1458,16 +1440,14 @@ transformFileContent = \currentUrl, htmlContent ->
                     (record_field_expr
                       (lower_identifier)))))
               (arrow)
-              (application_expression
+              (infix_expression
                 (identifier_pattern
                   (long_identifier
                     (identifier)))
-                (args
-                  (infix_newline
-                    (infix_op)
-                    (identifier_pattern
-                      (long_identifier
-                        (identifier))))))))))
+                (infix_op)
+                (identifier_pattern
+                  (long_identifier
+                    (identifier))))))))
       (infix_newline
         (infix_op
           (symbolic_op))
@@ -1569,15 +1549,13 @@ main=
               (long_identifier
                 (identifier)))
             (arrow)
-            (application_expression
+            (infix_expression
               (identifier_pattern
                 (long_identifier
                   (identifier)))
-              (args
-                (infix_newline
-                  (infix_op)
-                  (const
-                    (int)))))))))))
+              (infix_op)
+              (const
+                (int)))))))))
 
 ================================================================================
 type annotation complex
@@ -1663,16 +1641,14 @@ a= a>=b
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (application_expression
+    (infix_expression
       (identifier_pattern
         (long_identifier
           (identifier)))
-      (args
-        (infix_newline
-          (infix_op)
-          (identifier_pattern
-            (long_identifier
-              (identifier))))))))
+      (infix_op)
+      (identifier_pattern
+        (long_identifier
+          (identifier))))))
 
 ================================================================================
 literal

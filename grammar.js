@@ -22,23 +22,21 @@ const PREC = {
   COMMA: 13,
   DOTDOT: 14,
   PREFIX_EXPR: 0,
-  SPECIAL_INFIX: 16,
-  LARROW: 16,
-  TUPLE_EXPR: 16,
-  CE_EXPR: 17,
-  SPECIAL_PREFIX: 17,
-  DO_EXPR: 17,
-  IF_EXPR: 18,
-  NEW_OBJ: 18,
+  SPECIAL_INFIX: 20,
+  LARROW: 19,
+  TUPLE_EXPR: 19,
+  SPECIAL_PREFIX: 20,
+  DO_EXPR: 20,
+  IF_EXPR: 24,
   // DOT: 19,
-  DOT: 19,
-  INDEX_EXPR: 20,
-  PAREN_APP: 21,
-  TYPED_EXPR: 22,
+  DOT: 24,
+  INDEX_EXPR: 25,
+  PAREN_APP: 27,
+  TYPED_EXPR: 28,
   //roc
-  TYPE: 22,
-  PAREN_EXPR: 21,
-  DOTDOT_SLICE: 22,
+  TYPE: 28,
+  PAREN_EXPR: 25,
+  DOTDOT_SLICE: 28,
 }
 
 module.exports = grammar({
@@ -392,7 +390,7 @@ module.exports = grammar({
     _seq_expressions: $ =>
       seq(
         $._expression_inner,
-        repeat(seq($._virtual_end_decl, $._expressions)),
+        repeat(seq($._virtual_end_decl, choice($._expressions,$.infix_newline))),
       ),
 
     _expressions: $ =>
@@ -429,7 +427,7 @@ module.exports = grammar({
       $.paren_expression,
       $.record_update,
       $.record,
-      $.infix_newline,
+      // $.infix_newline,
       $.list_expression,
       $.fun_expression,
       $.infix_expression,
