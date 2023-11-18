@@ -62,6 +62,7 @@ module.exports = grammar({
     [$.symbolic_op, $.infix_op],
     // [$.union_type_case, $.long_identifier],
     [$.module_name],
+    [$.identifier,$.tag],
     // [$._expression_inner,$.application_expression]
   ],
 
@@ -90,6 +91,7 @@ module.exports = grammar({
       choice(
         $.annotation,
         $.alias,
+        $.opaque,
         $.value_declaration,
         // $.module_defn,
         // $.module_abbrev,
@@ -272,6 +274,7 @@ module.exports = grammar({
           $.paren_pattern,
           $.list_pattern,
           $.array_pattern,
+        $.tag_pattern,
           $.record
           // $.typed_pattern,
           // $.attribute_pattern,
@@ -301,7 +304,7 @@ module.exports = grammar({
     cons_pattern: $ => prec.left(0, seq($._pattern, "::", $._pattern)),
     disjunct_pattern: $ => prec.left(0, seq($._pattern, "|", $._pattern)),
     conjunct_pattern: $ => prec.left(0, seq($._pattern, "&", $._pattern)),
-    // typed_pattern: $ => prec.left(3, seq($._pattern, ":", $.type)),
+    tag_pattern: $ => prec.left(3, seq(choice($.opaque_tag,$.tag),$._pattern, )),
 
     argument_patterns: $ => seq($._atomic_pattern, repeat(seq(",", $._atomic_pattern))),
 
@@ -316,7 +319,9 @@ module.exports = grammar({
         $.list_pattern,
         $.record_pattern,
         $.array_pattern,
+        $.tag_pattern,
         seq("(", $._virtual_open_section, $._pattern, $._virtual_end_section, ")"),
+
         // :? atomic_type
       ),
 
@@ -1809,6 +1814,8 @@ module.exports = grammar({
     lower_identifier: $ =>
       /[a-z][0-9a-zA-Z_]*/,
     upper_identifier: $ => /[A-Z][0-9a-zA-Z_]*/,
+    tag: $ => $.upper_identifier,
+    opaque_tag: $ => token(seq('@',/[A-Z][0-9a-zA-Z_]*/)),
     dot: $ => ("."),
     dot_curly: $ => (".{"),
     ident: $ => choice($.lower_identifier, $.upper_identifier),
@@ -2023,7 +2030,6 @@ module.exports = grammar({
       $.type_annotation
     ),
 
-    tag: $ => $.upper_identifier,
 
     annotation_pre_colon: $ =>
       choice(
@@ -2040,6 +2046,8 @@ module.exports = grammar({
       ),
     alias: $ =>
       seq($.apply_type, ":", $.type_annotation, $._virtual_end_decl),
+    opaque: $ =>
+      seq($.apply_type, ":=", $.type_annotation, $._virtual_end_decl),
 
     effects: $ => seq(
       // '__',

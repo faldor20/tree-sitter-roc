@@ -102,6 +102,10 @@
         "named": true
       },
       {
+        "type": "opaque",
+        "named": true
+      },
+      {
         "type": "value_declaration",
         "named": true
       }
@@ -149,6 +153,10 @@
       },
       {
         "type": "record",
+        "named": true
+      },
+      {
+        "type": "tag_pattern",
         "named": true
       },
       {
@@ -1588,6 +1596,25 @@
     }
   },
   {
+    "type": "opaque",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "apply_type",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "packages",
     "named": true,
     "fields": {},
@@ -2048,6 +2075,29 @@
       "types": [
         {
           "type": "upper_identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "tag_pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_pattern",
+          "named": true
+        },
+        {
+          "type": "opaque_tag",
+          "named": true
+        },
+        {
+          "type": "tag",
           "named": true
         }
       ]
@@ -2724,6 +2774,10 @@
   {
     "type": "null",
     "named": false
+  },
+  {
+    "type": "opaque_tag",
+    "named": true
   },
   {
     "type": "or",

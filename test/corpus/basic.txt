@@ -31,6 +31,163 @@ num=1
       (int))))
 
 ================================================================================
+opaque tag pattern
+================================================================================
+bfs = \isTarget, root, @Graph graph ->
+    bfsHelper isTarget [root] (Set.single root) graph
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (long_identifier
+          (identifier))
+        (long_identifier
+          (identifier))
+        (tag_pattern
+          (opaque_tag)
+          (identifier_pattern
+            (long_identifier
+              (identifier)))))
+      (arrow)
+      (application_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
+        (args
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (list_expression
+            (identifier_pattern
+              (long_identifier
+                (identifier))))
+          (paren_expression
+            (application_expression
+              (dot_expression
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))
+              (args
+                (identifier_pattern
+                  (long_identifier
+                    (identifier))))))
+          (identifier_pattern
+            (long_identifier
+              (identifier))))))))
+
+================================================================================
+tag pattern
+================================================================================
+bfs = \isTarget, root, Graph graph ->
+    bfsHelper isTarget [root] (Set.single root) graph
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (long_identifier
+          (identifier))
+        (long_identifier
+          (identifier))
+        (tag_pattern
+          (tag
+            (upper_identifier))
+          (identifier_pattern
+            (long_identifier
+              (identifier)))))
+      (arrow)
+      (application_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
+        (args
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (list_expression
+            (identifier_pattern
+              (long_identifier
+                (identifier))))
+          (paren_expression
+            (application_expression
+              (dot_expression
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))
+              (args
+                (identifier_pattern
+                  (long_identifier
+                    (identifier))))))
+          (identifier_pattern
+            (long_identifier
+              (identifier))))))))
+
+================================================================================
+opaque type
+================================================================================
+Graph a := Dict a (List a) where a implements Eq
+--------------------------------------------------------------------------------
+
+(file
+  (opaque
+    (apply_type
+      (concrete_type
+        (upper_identifier))
+      (apply_type_args
+        (apply_type_arg
+          (bound_variable
+            (lower_identifier)))))
+    (type_annotation
+      (apply_type
+        (concrete_type
+          (upper_identifier))
+        (apply_type_args
+          (apply_type_arg
+            (bound_variable
+              (lower_identifier)))
+          (apply_type_arg
+            (apply_type
+              (concrete_type
+                (upper_identifier))
+              (apply_type_args
+                (apply_type_arg
+                  (bound_variable
+                    (lower_identifier))))))
+          (apply_type_arg
+            (bound_variable
+              (lower_identifier)))
+          (apply_type_arg
+            (bound_variable
+              (lower_identifier)))
+          (apply_type_arg
+            (bound_variable
+              (lower_identifier)))
+          (apply_type_arg
+            (apply_type
+              (concrete_type
+                (upper_identifier)))))))))
+
+================================================================================
 arithmatic
 ================================================================================
 num=1+1
@@ -732,16 +889,16 @@ main=
       (is)
       (rules
         (rule
-          (identifier_pattern
-            (long_identifier
-              (identifier))
+          (tag_pattern
+            (tag
+              (upper_identifier))
             (paren_pattern
-              (identifier_pattern
-                (long_identifier
-                  (identifier))
-                (long_identifier
-                  (identifier))
+              (tag_pattern
+                (tag
+                  (upper_identifier))
                 (identifier_pattern
+                  (long_identifier
+                    (identifier))
                   (long_identifier
                     (identifier))))))
           (arrow)
@@ -1799,7 +1956,7 @@ record pattern
 ================================================================================
 main=
   when a is 
-  Some { state: InCond, body, cond } -> b
+    Some { state: InCond, body, cond } -> b
 --------------------------------------------------------------------------------
 
 (file
@@ -1816,9 +1973,9 @@ main=
       (is)
       (rules
         (rule
-          (identifier_pattern
-            (long_identifier
-              (identifier))
+          (tag_pattern
+            (tag
+              (upper_identifier))
             (record
               (record_field_expr
                 (lower_identifier)

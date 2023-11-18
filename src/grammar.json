@@ -52,6 +52,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "opaque"
+        },
+        {
+          "type": "SYMBOL",
           "name": "value_declaration"
         }
       ]
@@ -204,6 +208,10 @@
           {
             "type": "SYMBOL",
             "name": "array_pattern"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "tag_pattern"
           },
           {
             "type": "SYMBOL",
@@ -403,6 +411,32 @@
         ]
       }
     },
+    "tag_pattern": {
+      "type": "PREC_LEFT",
+      "value": 3,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "opaque_tag"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "tag"
+              }
+            ]
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_pattern"
+          }
+        ]
+      }
+    },
     "argument_patterns": {
       "type": "SEQ",
       "members": [
@@ -458,6 +492,10 @@
         {
           "type": "SYMBOL",
           "name": "array_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tag_pattern"
         },
         {
           "type": "SEQ",
@@ -3426,6 +3464,26 @@
       "type": "PATTERN",
       "value": "[A-Z][0-9a-zA-Z_]*"
     },
+    "tag": {
+      "type": "SYMBOL",
+      "name": "upper_identifier"
+    },
+    "opaque_tag": {
+      "type": "TOKEN",
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "@"
+          },
+          {
+            "type": "PATTERN",
+            "value": "[A-Z][0-9a-zA-Z_]*"
+          }
+        ]
+      }
+    },
     "dot": {
       "type": "STRING",
       "value": "."
@@ -5121,10 +5179,6 @@
         }
       ]
     },
-    "tag": {
-      "type": "SYMBOL",
-      "name": "upper_identifier"
-    },
     "annotation_pre_colon": {
       "type": "CHOICE",
       "members": [
@@ -5165,6 +5219,27 @@
         {
           "type": "STRING",
           "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_annotation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_virtual_end_decl"
+        }
+      ]
+    },
+    "opaque": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "apply_type"
+        },
+        {
+          "type": "STRING",
+          "value": ":="
         },
         {
           "type": "SYMBOL",
@@ -5279,6 +5354,10 @@
     ],
     [
       "module_name"
+    ],
+    [
+      "identifier",
+      "tag"
     ]
   ],
   "precedences": [],

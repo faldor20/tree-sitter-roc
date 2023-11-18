@@ -620,11 +620,12 @@ main =
             (is)
             (rules
               (rule
-                (identifier_pattern
-                  (long_identifier
-                    (identifier))
-                  (long_identifier
-                    (identifier)))
+                (tag_pattern
+                  (tag
+                    (upper_identifier))
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier))))
                 (arrow)
                 (value_declaration
                   (value_declaration_left
@@ -660,9 +661,9 @@ main =
                           (ident
                             (lower_identifier))))))))
               (rule
-                (identifier_pattern
-                  (long_identifier
-                    (identifier))
+                (tag_pattern
+                  (tag
+                    (upper_identifier))
                   (wildcard_pattern))
                 (arrow)
                 (application_expression
@@ -877,11 +878,12 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                 (is)
                 (rules
                   (rule
-                    (identifier_pattern
-                      (long_identifier
-                        (identifier))
-                      (long_identifier
-                        (identifier)))
+                    (tag_pattern
+                      (tag
+                        (upper_identifier))
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier))))
                     (arrow)
                     (application_expression
                       (identifier_pattern
@@ -909,11 +911,12 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                               (long_identifier
                                 (identifier))))))))
                   (rule
-                    (identifier_pattern
-                      (long_identifier
-                        (identifier))
-                      (long_identifier
-                        (identifier)))
+                    (tag_pattern
+                      (tag
+                        (upper_identifier))
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier))))
                     (arrow)
                     (application_expression
                       (identifier_pattern
