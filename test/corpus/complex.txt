@@ -47,6 +47,7 @@ tick = \ n ->
           (module_name
             (upper_identifier))
           (exposes_list
+            (dot_curly)
             (ident
               (lower_identifier))
             (ident
@@ -376,6 +377,7 @@ main =
           (module_name
             (upper_identifier))
           (exposes_list
+            (dot_curly)
             (ident
               (upper_identifier)))))
       (provides
@@ -712,6 +714,7 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
           (module_name
             (upper_identifier))
           (exposes_list
+            (dot_curly)
             (ident
               (upper_identifier))))
         (imports_entry
@@ -721,6 +724,7 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
           (module_name
             (upper_identifier))
           (exposes_list
+            (dot_curly)
             (ident
               (upper_identifier))))
         (imports_entry

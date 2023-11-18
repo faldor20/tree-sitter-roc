@@ -816,8 +816,12 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
+        {
+          "type": "dot_curly",
+          "named": true
+        },
         {
           "type": "ident",
           "named": true
@@ -1240,7 +1244,7 @@
   },
   {
     "type": "int",
-    "named": true,
+    "named": false,
     "fields": {}
   },
   {
@@ -2505,6 +2509,10 @@
   {
     "type": "done",
     "named": false
+  },
+  {
+    "type": "dot_curly",
+    "named": true
   },
   {
     "type": "downto",

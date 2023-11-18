@@ -1637,7 +1637,7 @@ interface module
 
 interface Dir
     exposes [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
-    imports [Effect, Task.{ Task }, InternalTask, Path.{ Path }, InternalPath, InternalDir]
+    imports [Effect, pf.Task.Task.{ Task }, InternalTask, Path.{ Path }, InternalPath, InternalDir]
 
 a=10
 
@@ -1665,9 +1665,12 @@ a=10
           (module_name
             (upper_identifier)))
         (imports_entry
+          (lower_identifier)
           (module_name
+            (upper_identifier)
             (upper_identifier))
           (exposes_list
+            (dot_curly)
             (ident
               (upper_identifier))))
         (imports_entry
@@ -1677,6 +1680,7 @@ a=10
           (module_name
             (upper_identifier))
           (exposes_list
+            (dot_curly)
             (ident
               (upper_identifier))))
         (imports_entry
@@ -1699,7 +1703,7 @@ interf_prob
 
 interface Dir
     exposes [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
-    imports [Effect, Task.{ Task }, InternalTask, Path.{ Path }, InternalPath, InternalDir]
+    imports[Effect, Task.{ Task }, InternalTask, Path.{ Path }, InternalPath, InternalDir]
 
 AA: AA.BB
 BB : AA.BB
@@ -1738,6 +1742,7 @@ a = \path ->
           (module_name
             (upper_identifier))
           (exposes_list
+            (dot_curly)
             (ident
               (upper_identifier))))
         (imports_entry
@@ -1747,6 +1752,7 @@ a = \path ->
           (module_name
             (upper_identifier))
           (exposes_list
+            (dot_curly)
             (ident
               (upper_identifier))))
         (imports_entry

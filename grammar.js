@@ -382,7 +382,6 @@ module.exports = grammar({
     //         seq(
     //           $._virtual_end_decl,
     //           $.infix_op,
-    //           $._expressions,
     //         ),
     //       ),
     //     )),
@@ -402,6 +401,7 @@ module.exports = grammar({
       ),
 
 
+    //If i want to be able to combine these i need to be able to prefferentially match a whole token that is bigger than just the virtual_end_decl. but it's probably not worth my time  
     infix_newline:$=>seq($.infix_op,$._expression_inner),
 
     // _expressions: $ =>
@@ -1792,6 +1792,8 @@ module.exports = grammar({
     lower_identifier: $ =>
       /[a-z][0-9a-zA-Z_]*/,
     upper_identifier: $ => /[A-Z][0-9a-zA-Z_]*/,
+    dot:$=>("."),
+    dot_curly:$=>(".{"),
     ident: $ => choice($.lower_identifier, $.upper_identifier),
 
 
@@ -1816,7 +1818,7 @@ module.exports = grammar({
 
 
 
-    exposes_list: $ => seq("{", sep_tail($.ident, ','), '}'),
+    exposes_list: $ => seq($.dot_curly, sep_tail($.ident, ','), '}'),
     exposes: $ => seq("exposes", "[", sep_tail($.ident, ","), ']'),
 
     imports: $ => seq(
@@ -1827,7 +1829,7 @@ module.exports = grammar({
     imports_entry: $ => seq(
       optional(seq($.lower_identifier, ".")),
       $.module_name,
-      optional(seq(".", $.exposes_list))
+      optional( $.exposes_list)
     )
     ,
 
