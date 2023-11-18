@@ -79,7 +79,9 @@ module.exports = grammar({
 
       seq(
         optional(seq($._module_header)),
-        repeat1($._module_elem),
+        repeat1(seq($._module_elem,
+      $._virtual_end_decl
+      )),
       ),
 
     _module_elem: $ =>
@@ -265,7 +267,7 @@ module.exports = grammar({
         $.disjunct_pattern,
         $.conjunct_pattern,
         $.cons_pattern,
-        $.repeat_pattern,
+        // $.repeat_pattern,
         $.paren_pattern,
         $.list_pattern,
         $.array_pattern,
@@ -321,7 +323,7 @@ module.exports = grammar({
       prec(1,
      choice(
       seq('[', ']'),
-      seq('[', $._pattern, repeat(seq(";", $._pattern)), ']'))
+      seq('[', $._pattern, repeat(prec (2,seq(",", $._pattern))), ']'))
       ),
 
     array_pattern: $ => 
@@ -483,8 +485,10 @@ module.exports = grammar({
     tuple_expression: $ =>
       prec.left(PREC.TUPLE_EXPR,
         seq(
+        "(",
           $._expression_inner,
           repeat1(prec.left(PREC.TUPLE_EXPR, seq(",", $._expression_inner))),
+        ")",
         )
       ),
 
@@ -747,7 +751,9 @@ module.exports = grammar({
         seq(
           $._virtual_open_section,
           $._expression_inner,
-          repeat(prec.right(PREC.COMMA + 100, seq($._virtual_end_decl, $._expression_inner))),
+          repeat(prec.right(PREC.COMMA + 100, seq(',', $._expression_inner))),
+
+        optional(','),
           $._virtual_end_section,
         ),
       ),
@@ -759,11 +765,12 @@ module.exports = grammar({
       ),
 
     list_expression: $ =>
+    prec(10,
       seq(
         "[",
         optional($._list_element),
         "]",
-      ),
+      )),
 
     array_expression: $ =>
       seq(

@@ -260,13 +260,13 @@ main =
         (identifier_pattern
           (long_identifier
             (identifier))))
-      (infix_expression
-        (application_expression
-          (identifier_pattern
-            (long_identifier
-              (identifier)))
-          (const
-            (string)))
+      (application_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
+        (const
+          (string)))
+      (infix_newline
         (infix_op
           (symbolic_op))
         (application_expression
@@ -285,7 +285,8 @@ main =
                   (long_identifier
                     (identifier)))
                 (const
-                  (string))))))
+                  (string)))))))
+      (infix_newline
         (infix_op
           (symbolic_op))
         (application_expression
@@ -405,17 +406,17 @@ main =
         (identifier_pattern
           (long_identifier
             (identifier))))
-      (infix_expression
-        (application_expression
-          (dot_expression
-            (identifier_pattern
-              (long_identifier
-                (identifier)))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier))))
-          (const
-            (string)))
+      (application_expression
+        (dot_expression
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))
+        (const
+          (string)))
+      (infix_newline
         (infix_op
           (symbolic_op))
         (application_expression
@@ -445,7 +446,8 @@ main =
                   (string
                     (interpolation_char
                       (ident
-                        (lower_identifier)))))))))
+                        (lower_identifier))))))))))
+      (infix_newline
         (infix_op
           (symbolic_op))
         (application_expression
@@ -472,7 +474,8 @@ main =
                     (long_identifier
                       (identifier))))
                 (const
-                  (string))))))
+                  (string)))))))
+      (infix_newline
         (infix_op
           (symbolic_op))
         (application_expression
@@ -544,7 +547,8 @@ main =
                         (string
                           (interpolation_char
                             (ident
-                              (lower_identifier))))))))))))
+                              (lower_identifier)))))))))))))
+      (infix_newline
         (infix_op
           (symbolic_op))
         (application_expression
@@ -944,8 +948,8 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                           (apply_type_arg
                             (apply_type
                               (concrete_type
-                                (upper_identifier)))))))))))
-            (line_comment))))))
+                                (upper_identifier))))))))))))))))
+  (line_comment)
   (annotation
     (annotation_pre_colon
       (lower_identifier))
@@ -976,3 +980,195 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                             (apply_type
                               (concrete_type
                                 (upper_identifier)))))))))))))))))
+
+================================================================================
+lists_complex
+================================================================================
+view : NavLink, Str -> Html.Node
+view = \currentNavLink, htmlContent ->
+    html [lang "en"] [
+        head [] [
+            meta [httpEquiv "content-type", content "text/html; charset=utf-8"],
+            Html.title [] [text currentNavLink.title],
+            link [rel "stylesheet", href "style.css"],
+        ],
+        body [] [
+            div [class "main"] [
+                div [class "navbar"] [
+                    viewNavbar currentNavLink,
+                ],
+                div [class "article"] [
+                    text htmlContent,
+                ],
+            ],
+        ],
+    ]
+
+--------------------------------------------------------------------------------
+
+(file
+  (annotation
+    (annotation_pre_colon
+      (lower_identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type
+            (upper_identifier)))
+        (apply_type
+          (concrete_type
+            (upper_identifier)))
+        (arrow)
+        (apply_type
+          (concrete_type
+            (upper_identifier)
+            (upper_identifier))))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (long_identifier
+          (identifier))
+        (long_identifier
+          (identifier)))
+      (arrow)
+      (application_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
+        (application_expression
+          (list_expression
+            (application_expression
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))
+              (const
+                (string))))
+          (list_expression
+            (application_expression
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))
+              (application_expression
+                (list_expression)
+                (list_expression
+                  (application_expression
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (list_expression
+                      (application_expression
+                        (identifier_pattern
+                          (long_identifier
+                            (identifier)))
+                        (const
+                          (string)))
+                      (application_expression
+                        (identifier_pattern
+                          (long_identifier
+                            (identifier)))
+                        (const
+                          (string)))))
+                  (application_expression
+                    (dot_expression
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier)))
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier))))
+                    (application_expression
+                      (list_expression)
+                      (list_expression
+                        (application_expression
+                          (identifier_pattern
+                            (long_identifier
+                              (identifier)))
+                          (dot_expression
+                            (identifier_pattern
+                              (long_identifier
+                                (identifier)))
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))
+                  (application_expression
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (list_expression
+                      (application_expression
+                        (identifier_pattern
+                          (long_identifier
+                            (identifier)))
+                        (const
+                          (string)))
+                      (application_expression
+                        (identifier_pattern
+                          (long_identifier
+                            (identifier)))
+                        (const
+                          (string))))))))
+            (application_expression
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))
+              (application_expression
+                (list_expression)
+                (list_expression
+                  (application_expression
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (application_expression
+                      (list_expression
+                        (application_expression
+                          (identifier_pattern
+                            (long_identifier
+                              (identifier)))
+                          (const
+                            (string))))
+                      (list_expression
+                        (application_expression
+                          (identifier_pattern
+                            (long_identifier
+                              (identifier)))
+                          (application_expression
+                            (list_expression
+                              (application_expression
+                                (identifier_pattern
+                                  (long_identifier
+                                    (identifier)))
+                                (const
+                                  (string))))
+                            (list_expression
+                              (application_expression
+                                (identifier_pattern
+                                  (long_identifier
+                                    (identifier)))
+                                (identifier_pattern
+                                  (long_identifier
+                                    (identifier)))))))
+                        (application_expression
+                          (identifier_pattern
+                            (long_identifier
+                              (identifier)))
+                          (application_expression
+                            (list_expression
+                              (application_expression
+                                (identifier_pattern
+                                  (long_identifier
+                                    (identifier)))
+                                (const
+                                  (string))))
+                            (list_expression
+                              (application_expression
+                                (identifier_pattern
+                                  (long_identifier
+                                    (identifier)))
+                                (identifier_pattern
+                                  (long_identifier
+                                    (identifier)))))))))))))))))))

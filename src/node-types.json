@@ -152,10 +152,6 @@
         "named": true
       },
       {
-        "type": "repeat_pattern",
-        "named": true
-      },
-      {
         "type": "wildcard_pattern",
         "named": true
       }
@@ -1702,21 +1698,6 @@
         },
         {
           "type": "record_field_expr",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "repeat_pattern",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_pattern",
           "named": true
         }
       ]
