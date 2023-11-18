@@ -9,29 +9,26 @@ num=1
 
 (file
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (const
-        (string))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (string)))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (const
-        (string))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (string)))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (const
-        (int)))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (int))))
 
 ================================================================================
 arithmatic
@@ -44,43 +41,40 @@ num3 = 1 + num2
 
 (file
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (infix_expression
-        (const
-          (int))
-        (infix_op)
-        (const
-          (int)))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (infix_expression
+      (const
+        (int))
+      (infix_op)
+      (const
+        (int))))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (infix_expression
-        (const
-          (int))
-        (infix_op)
-        (long_identifier_or_op
-          (long_identifier
-            (identifier))))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (infix_expression
+      (const
+        (int))
+      (infix_op)
+      (identifier_pattern
+        (long_identifier
+          (identifier)))))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (infix_expression
-        (const
-          (int))
-        (infix_op)
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (infix_expression
+      (const
+        (int))
+      (infix_op)
+      (identifier_pattern
+        (long_identifier
+          (identifier))))))
 
 ================================================================================
 functions with patterns
@@ -90,7 +84,8 @@ add = \num1, num2 ->
       1-> 1
       2-> 
         a<- p a
-        b=a
+        b=
+          a a
         c<- p a
         \num->a
       _-> \num3->4
@@ -100,75 +95,91 @@ add = \num1, num2 ->
 
 (file
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (long_identifier
+          (identifier))
+        (long_identifier
+          (identifier)))
+      (arrow)
+      (when_is_expression
+        (when)
         (identifier_pattern
           (long_identifier
-            (identifier))))
-      (fun_expression
-        (argument_patterns
-          (long_identifier
-            (identifier))
-          (long_identifier
             (identifier)))
-        (match_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (rules
-            (rule
-              (const_pattern
-                (int))
-              (const
-                (int)))
-            (rule
-              (const_pattern
-                (int))
-              (backpassing_expression
-                (long_identifier_or_op
+        (is)
+        (rules
+          (rule
+            (const_pattern
+              (int))
+            (arrow)
+            (const
+              (int)))
+          (rule
+            (const_pattern
+              (int))
+            (arrow)
+            (backpassing_expression
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))
+              (back_arrow)
+              (application_expression
+                (identifier_pattern
                   (long_identifier
                     (identifier)))
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier)))
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier)))))
-              (infix_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (infix_op)
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier))))
-              (backpassing_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier)))
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier)))))
-              (fun_expression
-                (argument_patterns
-                  (long_identifier
-                    (identifier)))
-                (long_identifier_or_op
+                (identifier_pattern
                   (long_identifier
                     (identifier)))))
-            (rule
-              (wildcard_pattern)
-              (fun_expression
-                (argument_patterns
+            (value_declaration
+              (value_declaration_left
+                (identifier_pattern
+                  (long_identifier
+                    (identifier))))
+              (application_expression
+                (identifier_pattern
                   (long_identifier
                     (identifier)))
-                (const
-                  (int))))))))))
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))))
+            (backpassing_expression
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))
+              (back_arrow)
+              (application_expression
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))))
+            (fun_expression
+              (backslash)
+              (argument_patterns
+                (long_identifier
+                  (identifier)))
+              (arrow)
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))))
+          (rule
+            (wildcard_pattern)
+            (arrow)
+            (fun_expression
+              (backslash)
+              (argument_patterns
+                (long_identifier
+                  (identifier)))
+              (arrow)
+              (const
+                (int)))))))))
 
 ================================================================================
 pipe_new
@@ -186,75 +197,74 @@ main=
 
 (file
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (infix_expression
+      (application_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
         (identifier_pattern
           (long_identifier
             (identifier))))
+      (infix_op
+        (symbolic_op))
+      (identifier_pattern
+        (long_identifier
+          (identifier)))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (application_expression
+      (identifier_pattern
+        (long_identifier
+          (identifier)))
       (infix_expression
-        (application_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (long_identifier_or_op
-            (long_identifier
-              (identifier))))
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
         (infix_op
           (symbolic_op))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier))))))
-  (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (application_expression
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))
-        (infix_expression
-          (long_identifier_or_op
+        (application_expression
+          (identifier_pattern
             (long_identifier
               (identifier)))
-          (infix_op
-            (symbolic_op))
-          (application_expression
-            (long_identifier_or_op
+          (infix_expression
+            (identifier_pattern
               (long_identifier
                 (identifier)))
-            (infix_expression
-              (long_identifier_or_op
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (identifier_pattern
                 (long_identifier
                   (identifier)))
-              (infix_op
-                (symbolic_op))
-              (application_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier))))))))
-      (application_expression
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))
-        (const
-          (int))))))
+              (identifier_pattern
+                (long_identifier
+                  (identifier))))))))
+    (application_expression
+      (identifier_pattern
+        (long_identifier
+          (identifier)))
+      (const
+        (int)))))
 
 ================================================================================
 functions basic
 ================================================================================
-add = \num1, num2 ->
-	sum = num1 +num2
+
+a = add 1 1
 adda=
-  add2=(\num1,num2-> num1)
+  add2 = (\num1,num2-> num1)
 
   add2 a b
 
-a = add 1 1
+add = \num1, num2 ->
+	sum = num1 +num2
 
 main = \filename ->
     onFail b \ e, e -> Stdout.line "Ran into problem:"
@@ -264,109 +274,115 @@ main = \filename ->
 
 (file
   (value_declaration
-    (function_or_value_defn
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (application_expression
+      (identifier_pattern
+        (long_identifier
+          (identifier)))
+      (application_expression
+        (const
+          (int))
+        (const
+          (int)))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (value_declaration
       (value_declaration_left
         (identifier_pattern
           (long_identifier
             (identifier))))
-      (fun_expression
-        (argument_patterns
-          (long_identifier
-            (identifier))
+      (paren_expression
+        (fun_expression
+          (backslash)
+          (argument_patterns
+            (long_identifier
+              (identifier))
+            (long_identifier
+              (identifier)))
+          (arrow)
+          (identifier_pattern
+            (long_identifier
+              (identifier))))))
+    (application_expression
+      (identifier_pattern
+        (long_identifier
+          (identifier)))
+      (application_expression
+        (identifier_pattern
           (long_identifier
             (identifier)))
+        (identifier_pattern
+          (long_identifier
+            (identifier))))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (long_identifier
+          (identifier))
+        (long_identifier
+          (identifier)))
+      (arrow)
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
         (infix_expression
-          (long_identifier_or_op
+          (identifier_pattern
             (long_identifier
               (identifier)))
           (infix_op)
-          (infix_expression
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))
-            (infix_op)
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))))
-        (infix_expression
-          (long_identifier_or_op
+          (identifier_pattern
+            (long_identifier
+              (identifier)))))
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (fun_expression
+          (backslash)
+          (argument_patterns
             (long_identifier
               (identifier)))
-          (infix_op)
-          (infix_expression
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))
-            (infix_op)
-            (application_expression
-              (paren_expression
-                (fun_expression
-                  (argument_patterns
-                    (long_identifier
-                      (identifier))
-                    (long_identifier
-                      (identifier)))
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier)))))
-              (application_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier)))
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier))))))))
-        (infix_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (infix_op)
+          (arrow)
           (application_expression
-            (long_identifier_or_op
+            (identifier_pattern
               (long_identifier
                 (identifier)))
             (application_expression
-              (const
-                (int))
-              (const
-                (int)))))
-        (infix_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (infix_op)
-          (fun_expression
-            (argument_patterns
-              (long_identifier
-                (identifier)))
-            (application_expression
-              (long_identifier_or_op
+              (identifier_pattern
                 (long_identifier
                   (identifier)))
-              (application_expression
-                (long_identifier_or_op
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
                   (long_identifier
                     (identifier)))
-                (fun_expression
-                  (argument_patterns
-                    (long_identifier
-                      (identifier))
-                    (long_identifier
-                      (identifier)))
-                  (application_expression
-                    (dot_expression
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))
-                    (const
-                      (string))))))))))))
+                (arrow)
+                (application_expression
+                  (dot_expression
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier))))
+                  (const
+                    (string)))))))))))
 
 ================================================================================
 expressions
@@ -385,43 +401,41 @@ maybe =
 
 (file
   (value_declaration
-    (function_or_value_defn
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (value_declaration
       (value_declaration_left
         (identifier_pattern
           (long_identifier
             (identifier))))
       (infix_expression
-        (long_identifier_or_op
+        (identifier_pattern
           (long_identifier
             (identifier)))
         (infix_op)
-        (infix_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (infix_op)
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))))
-      (long_identifier_or_op
-        (long_identifier
-          (identifier)))))
-  (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
         (identifier_pattern
           (long_identifier
-            (identifier))))
-      (if_expression
-        (const)
-        (const
-          (int)))
-      (application_expression
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))
-        (const
-          (int))))))
+            (identifier)))))
+    (identifier_pattern
+      (long_identifier
+        (identifier))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (if_expression
+      (const)
+      (const
+        (int)))
+    (application_expression
+      (identifier_pattern
+        (long_identifier
+          (identifier)))
+      (const
+        (int)))))
 
 ================================================================================
 backpassing
@@ -440,76 +454,63 @@ interpretFile = \filename ->
 
 (file
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (backpassing_expression
+      (wildcard_pattern)
+      (back_arrow)
+      (application_expression
         (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (backpassing_expression
-        (discard_expression)
-        (application_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (paren_expression
-            (application_expression
-              (dot_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier))))
-              (const
-                (string))))))))
-  (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (fun_expression
-        (argument_patterns
           (long_identifier
             (identifier)))
-        (backpassing_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
+        (paren_expression
           (application_expression
             (dot_expression
-              (long_identifier_or_op
+              (identifier_pattern
                 (long_identifier
                   (identifier)))
               (long_identifier_or_op
                 (long_identifier
                   (identifier))))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))))
-        (backpassing_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (application_expression
-            (dot_expression
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier)))
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier))))
-            (paren_expression
-              (application_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))))))
+            (const
+              (string)))))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (long_identifier
+          (identifier)))
+      (arrow)
+      (backpassing_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
+        (back_arrow)
         (application_expression
           (dot_expression
+            (identifier_pattern
+              (long_identifier
+                (identifier)))
             (long_identifier_or_op
+              (long_identifier
+                (identifier))))
+          (identifier_pattern
+            (long_identifier
+              (identifier)))))
+      (backpassing_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
+        (back_arrow)
+        (application_expression
+          (dot_expression
+            (identifier_pattern
               (long_identifier
                 (identifier)))
             (long_identifier_or_op
@@ -517,11 +518,27 @@ interpretFile = \filename ->
                 (identifier))))
           (paren_expression
             (application_expression
-              (long_identifier_or_op
+              (identifier_pattern
                 (long_identifier
                   (identifier)))
-              (const
-                (string)))))))))
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))))))
+      (application_expression
+        (dot_expression
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))
+        (paren_expression
+          (application_expression
+            (identifier_pattern
+              (long_identifier
+                (identifier)))
+            (const
+              (string))))))))
 
 ================================================================================
 records basic
@@ -551,226 +568,261 @@ main=
 
 (file
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (record
-        (record_field
-          (lower_identifier)
-          (const_pattern
-            (string)))
-        (record_field
-          (lower_identifier)
-          (const_pattern
-            (string)))
-        (record_field
-          (lower_identifier)
-          (const_pattern
-            (int))))))
-  (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (record_update
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (record
+      (record_field
         (lower_identifier)
-        (record_field
-          (lower_identifier)))))
+        (const_pattern
+          (string)))
+      (record_field
+        (lower_identifier)
+        (const_pattern
+          (string)))
+      (record_field
+        (lower_identifier)
+        (const_pattern
+          (int)))))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (record_update
+      (lower_identifier)
+      (record_field_expr
+        (lower_identifier))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (application_expression
+      (dot_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
+        (long_identifier_or_op
+          (long_identifier
+            (identifier))))
+      (paren_expression
+        (application_expression
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (record_update
+            (lower_identifier)
+            (record_field_expr
+              (lower_identifier)
+              (application_expression
+                (dot_expression
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier)))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier))))
+                (application_expression
+                  (dot_expression
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier))))
+                  (application_expression
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))))))))))
+    (when_is_expression
+      (when)
+      (application_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
         (identifier_pattern
           (long_identifier
             (identifier))))
-      (application_expression
-        (dot_expression
-          (long_identifier_or_op
+      (is)
+      (rules
+        (rule
+          (identifier_pattern
             (long_identifier
-              (identifier)))
-          (long_identifier_or_op
-            (long_identifier
-              (identifier))))
-        (paren_expression
-          (application_expression
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))
-            (record_update
-              (lower_identifier)
-              (record_field
-                (lower_identifier)
+              (identifier))
+            (paren_pattern
+              (identifier_pattern
+                (long_identifier
+                  (identifier))
+                (long_identifier
+                  (identifier))
                 (identifier_pattern
                   (long_identifier
-                    (identifier)
-                    (identifier))
-                  (long_identifier
-                    (identifier)
-                    (identifier))
-                  (identifier_pattern
-                    (long_identifier
-                      (identifier))
-                    (long_identifier
-                      (identifier)))))))))
-      (match_expression
-        (application_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (long_identifier_or_op
-            (long_identifier
-              (identifier))))
-        (rules
-          (rule
-            (identifier_pattern
-              (long_identifier
-                (identifier))
-              (paren_pattern
-                (identifier_pattern
-                  (long_identifier
-                    (identifier))
-                  (long_identifier
-                    (identifier))
-                  (identifier_pattern
-                    (long_identifier
-                      (identifier))))))
-            (if_expression
-              (infix_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (infix_op
-                  (symbolic_op))
-                (const
-                  (int)))
-              (infix_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (infix_op)
-                (application_expression
-                  (record_update
-                    (lower_identifier)
-                    (record_field
-                      (lower_identifier)
-                      (identifier_pattern
-                        (long_identifier
-                          (identifier)))))
-                  (application_expression
-                    (dot_expression
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))
-                    (paren_expression
-                      (application_expression
-                        (long_identifier_or_op
-                          (long_identifier
-                            (identifier)))
-                        (record_update
-                          (lower_identifier)
-                          (record_field
-                            (lower_identifier)
-                            (identifier_pattern
-                              (long_identifier
-                                (identifier)
-                                (identifier))
-                              (long_identifier
-                                (identifier)
-                                (identifier))
-                              (identifier_pattern
-                                (long_identifier
-                                  (identifier))
-                                (long_identifier
-                                  (identifier))))))))))))
-            (application_expression
-              (long_identifier_or_op
+                    (identifier))))))
+          (arrow)
+          (if_expression
+            (infix_expression
+              (identifier_pattern
                 (long_identifier
                   (identifier)))
-              (infix_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (infix_op)
-                (application_expression
-                  (record_update
+              (infix_op)
+              (const
+                (int)))
+            (application_expression
+              (value_declaration
+                (value_declaration_left
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier))))
+                (record_update
+                  (lower_identifier)
+                  (record_field_expr
                     (lower_identifier)
-                    (record_field
-                      (lower_identifier)
-                      (identifier_pattern
-                        (long_identifier
-                          (identifier))
-                        (record_pattern
-                          (record
-                            (record_field
-                              (lower_identifier)
-                              (identifier_pattern
-                                (long_identifier
-                                  (identifier))))
-                            (record_field
-                              (lower_identifier))
-                            (record_field
-                              (lower_identifier)))))))
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier))))))
+              (application_expression
+                (dot_expression
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier)))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier))))
+                (paren_expression
                   (application_expression
-                    (dot_expression
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))
-                    (paren_expression
-                      (application_expression
-                        (long_identifier_or_op
-                          (long_identifier
-                            (identifier)))
-                        (record_update
-                          (lower_identifier)
-                          (record_field
-                            (lower_identifier)
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (record_update
+                      (lower_identifier)
+                      (record_field_expr
+                        (lower_identifier)
+                        (application_expression
+                          (dot_expression
                             (identifier_pattern
                               (long_identifier
-                                (identifier)
-                                (identifier))
-                              (ERROR
-                                (paren_pattern
+                                (identifier)))
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))
+                          (application_expression
+                            (dot_expression
+                              (identifier_pattern
+                                (long_identifier
+                                  (identifier)))
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier))))
+                            (application_expression
+                              (identifier_pattern
+                                (long_identifier
+                                  (identifier)))
+                              (identifier_pattern
+                                (long_identifier
+                                  (identifier)))))))))))))
+          (application_expression
+            (identifier_pattern
+              (long_identifier
+                (identifier)))
+            (application_expression
+              (value_declaration
+                (value_declaration_left
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier))))
+                (record_update
+                  (lower_identifier)
+                  (record_field_expr
+                    (lower_identifier)
+                    (application_expression
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier)))
+                      (record
+                        (record_field
+                          (lower_identifier)
+                          (identifier_pattern
+                            (long_identifier
+                              (identifier))))
+                        (record_field
+                          (lower_identifier))
+                        (record_field
+                          (lower_identifier)))))))
+              (application_expression
+                (dot_expression
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier)))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier))))
+                (paren_expression
+                  (application_expression
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (record_update
+                      (lower_identifier)
+                      (record_field_expr
+                        (lower_identifier)
+                        (application_expression
+                          (dot_expression
+                            (identifier_pattern
+                              (long_identifier
+                                (identifier)))
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))
+                          (application_expression
+                            (paren_expression
+                              (application_expression
+                                (dot_expression
                                   (identifier_pattern
                                     (long_identifier
-                                      (identifier)
-                                      (identifier))
+                                      (identifier)))
+                                  (long_identifier_or_op
                                     (long_identifier
-                                      (identifier)
-                                      (identifier))
+                                      (identifier))))
+                                (application_expression
+                                  (dot_expression
                                     (identifier_pattern
                                       (long_identifier
-                                        (identifier))
-                                      (long_identifier
-                                        (identifier))))))
-                              (record_pattern
-                                (record
-                                  (record_field
-                                    (lower_identifier)
-                                    (identifier_pattern
+                                        (identifier)))
+                                    (long_identifier_or_op
                                       (long_identifier
                                         (identifier))))
-                                  (record_field
-                                    (lower_identifier)
+                                  (application_expression
                                     (identifier_pattern
                                       (long_identifier
-                                        (identifier))))
-                                  (record_field
-                                    (lower_identifier)
-                                    (const_pattern
-                                      (int)))
-                                  (record_field
-                                    (lower_identifier)
+                                        (identifier)))
                                     (identifier_pattern
                                       (long_identifier
-                                        (identifier)))))))))))))))))))))
+                                        (identifier)))))))
+                            (record
+                              (record_field
+                                (lower_identifier)
+                                (identifier_pattern
+                                  (long_identifier
+                                    (identifier))))
+                              (record_field
+                                (lower_identifier)
+                                (identifier_pattern
+                                  (long_identifier
+                                    (identifier))))
+                              (record_field
+                                (lower_identifier)
+                                (const_pattern
+                                  (int)))
+                              (record_field
+                                (lower_identifier)
+                                (identifier_pattern
+                                  (long_identifier
+                                    (identifier)))))))))))))))))))
 
 ================================================================================
 odd functions
@@ -797,91 +849,93 @@ main2= a b
 
 (file
   (value_declaration
-    (function_or_value_defn
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (value_declaration
       (value_declaration_left
         (identifier_pattern
           (long_identifier
             (identifier))))
-      (infix_expression
-        (long_identifier_or_op
+      (when_is_expression
+        (when)
+        (identifier_pattern
           (long_identifier
             (identifier)))
-        (infix_op)
-        (match_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (rules
-            (rule
-              (const_pattern
-                (int))
-              (if_expression
-                (long_identifier_or_op
+        (is)
+        (rules
+          (rule
+            (const_pattern
+              (int))
+            (arrow)
+            (if_expression
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))
+              (application_expression
+                (identifier_pattern
                   (long_identifier
                     (identifier)))
-                (application_expression
-                  (long_identifier_or_op
+                (infix_expression
+                  (identifier_pattern
                     (long_identifier
                       (identifier)))
-                  (infix_expression
-                    (long_identifier_or_op
+                  (infix_op
+                    (symbolic_op))
+                  (application_expression
+                    (identifier_pattern
                       (long_identifier
                         (identifier)))
-                    (infix_op
-                      (symbolic_op))
-                    (application_expression
-                      (long_identifier_or_op
+                    (infix_expression
+                      (identifier_pattern
                         (long_identifier
                           (identifier)))
-                      (infix_expression
-                        (long_identifier_or_op
+                      (infix_op
+                        (symbolic_op))
+                      (application_expression
+                        (identifier_pattern
                           (long_identifier
                             (identifier)))
-                        (infix_op
-                          (symbolic_op))
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))))))))
-              (application_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))))
-            (rule
-              (const_pattern
-                (int))
-              (long_identifier_or_op
+                        (identifier_pattern
+                          (long_identifier
+                            (identifier)))))))))
+            (application_expression
+              (identifier_pattern
                 (long_identifier
-                  (identifier)))))))
-      (infix_expression
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))
-        (infix_op)
-        (const
-          (int)))
-      (long_identifier_or_op
-        (long_identifier
-          (identifier)))))
-  (value_declaration
-    (function_or_value_defn
+                  (identifier)))
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))))
+          (rule
+            (const_pattern
+              (int))
+            (arrow)
+            (identifier_pattern
+              (long_identifier
+                (identifier)))))))
+    (value_declaration
       (value_declaration_left
         (identifier_pattern
           (long_identifier
             (identifier))))
-      (application_expression
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))))))
+      (const
+        (int)))
+    (identifier_pattern
+      (long_identifier
+        (identifier))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (application_expression
+      (identifier_pattern
+        (long_identifier
+          (identifier)))
+      (identifier_pattern
+        (long_identifier
+          (identifier))))))
 
 ================================================================================
 when is
@@ -896,42 +950,46 @@ main=
 
 (file
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (match_expression
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))
-        (rules
-          (rule
-            (identifier_pattern
-              (long_identifier
-                (identifier)))
-            (const
-              (int)))
-          (rule
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (when_is_expression
+      (when)
+      (identifier_pattern
+        (long_identifier
+          (identifier)))
+      (is)
+      (rules
+        (rule
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (arrow)
+          (const
+            (int)))
+        (rule
+          (disjunct_pattern
             (disjunct_pattern
-              (disjunct_pattern
-                (identifier_pattern
-                  (long_identifier
-                    (identifier)))
-                (identifier_pattern
-                  (long_identifier
-                    (identifier))))
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))
               (identifier_pattern
                 (long_identifier
                   (identifier))))
-            (const
-              (int)))
-          (rule
             (identifier_pattern
               (long_identifier
-                (identifier)))
-            (const
-              (int))))))))
+                (identifier))))
+          (arrow)
+          (const
+            (int)))
+        (rule
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (arrow)
+          (const
+            (int)))))))
 
 ================================================================================
 types simple
@@ -978,22 +1036,24 @@ main = task a
           (lower_identifier))
         (bound_variable
           (lower_identifier))
+        (arrow)
         (bound_variable
           (lower_identifier)))))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (fun_expression
-        (argument_patterns
-          (long_identifier
-            (identifier))
-          (long_identifier
-            (identifier)))
-        (const
-          (int)))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (long_identifier
+          (identifier))
+        (long_identifier
+          (identifier)))
+      (arrow)
+      (const
+        (int))))
   (annotation
     (annotation_pre_colon
       (lower_identifier))
@@ -1004,28 +1064,31 @@ main = task a
         (function_type
           (bound_variable
             (lower_identifier))
+          (arrow)
           (bound_variable
             (lower_identifier)))
+        (arrow)
         (bound_variable
           (lower_identifier)))))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (long_identifier
+          (identifier))
+        (long_identifier
+          (identifier)))
+      (arrow)
+      (application_expression
         (identifier_pattern
           (long_identifier
-            (identifier))))
-      (fun_expression
-        (argument_patterns
-          (long_identifier
-            (identifier))
-          (long_identifier
             (identifier)))
-        (application_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (const
-            (int))))))
+        (const
+          (int)))))
   (annotation
     (annotation_pre_colon
       (lower_identifier))
@@ -1039,18 +1102,17 @@ main = task a
           (apply_type_arg
             (tags_type))))))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (application_expression
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (application_expression
+      (identifier_pattern
+        (long_identifier
+          (identifier)))
+      (identifier_pattern
+        (long_identifier
+          (identifier))))))
 
 ================================================================================
 pipe
@@ -1064,36 +1126,37 @@ main=
 
 (file
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (infix_expression
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))
-        (infix_op
-          (symbolic_op))
-        (application_expression
-          (dot_expression
-            (long_identifier_or_op
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (infix_expression
+      (identifier_pattern
+        (long_identifier
+          (identifier)))
+      (infix_op
+        (symbolic_op))
+      (application_expression
+        (dot_expression
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))
+        (fun_expression
+          (backslash)
+          (argument_patterns
+            (long_identifier
+              (identifier)))
+          (arrow)
+          (infix_expression
+            (identifier_pattern
               (long_identifier
                 (identifier)))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier))))
-          (fun_expression
-            (argument_patterns
-              (long_identifier
-                (identifier)))
-            (infix_expression
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier)))
-              (infix_op)
-              (const
-                (int)))))))))
+            (infix_op)
+            (const
+              (int))))))))
 
 ================================================================================
 type annotation complex
@@ -1119,6 +1182,7 @@ findOneArg = \long, short, { args, taken } -> ()
         (apply_type
           (concrete_type
             (upper_identifier)))
+        (arrow)
         (apply_type
           (concrete_type
             (upper_identifier))
@@ -1145,25 +1209,26 @@ findOneArg = \long, short, { args, taken } -> ()
                   (concrete_type
                     (upper_identifier))))))))))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (fun_expression
-        (argument_patterns
-          (long_identifier
-            (identifier))
-          (long_identifier
-            (identifier))
-          (record_pattern
-            (record
-              (record_field
-                (lower_identifier))
-              (record_field
-                (lower_identifier)))))
-        (const
-          (unit))))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (long_identifier
+          (identifier))
+        (long_identifier
+          (identifier))
+        (record_pattern
+          (record
+            (record_field
+              (lower_identifier))
+            (record_field
+              (lower_identifier)))))
+      (arrow)
+      (const
+        (unit)))))
 
 ================================================================================
 literal
@@ -1177,52 +1242,47 @@ b="p \n \( hi )"
 
 (file
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (const
-        (uint8))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (uint8)))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (const
-        (string))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (string)))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (const
-        (string))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (string)))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (const
-        (string
-          (interpolation_char
-            (ident
-              (lower_identifier)))))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (string
+        (interpolation_char
+          (ident
+            (lower_identifier))))))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (const
-        (string
-          (escape_char)
-          (interpolation_char
-            (ident
-              (lower_identifier))))))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (string
+        (escape_char)
+        (interpolation_char
+          (ident
+            (lower_identifier)))))))
 
 ================================================================================
 record pattern
@@ -1234,34 +1294,35 @@ main=
 
 (file
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (match_expression
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))
-        (rules
-          (rule
-            (identifier_pattern
-              (long_identifier
-                (identifier))
-              (record_pattern
-                (record
-                  (record_field
-                    (lower_identifier)
-                    (identifier_pattern
-                      (long_identifier
-                        (identifier))))
-                  (record_field
-                    (lower_identifier))
-                  (record_field
-                    (lower_identifier)))))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))))))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (when_is_expression
+      (when)
+      (identifier_pattern
+        (long_identifier
+          (identifier)))
+      (is)
+      (rules
+        (rule
+          (identifier_pattern
+            (long_identifier
+              (identifier))
+            (record
+              (record_field
+                (lower_identifier)
+                (identifier_pattern
+                  (long_identifier
+                    (identifier))))
+              (record_field
+                (lower_identifier))
+              (record_field
+                (lower_identifier))))
+          (arrow)
+          (identifier_pattern
+            (long_identifier
+              (identifier))))))))
 
 ================================================================================
 interface module
@@ -1318,13 +1379,12 @@ a=10
           (module_name
             (upper_identifier))))))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (const
-        (int)))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (int))))
 
 ================================================================================
 interf_prob
@@ -1424,6 +1484,7 @@ a = \path ->
         (apply_type
           (concrete_type
             (upper_identifier)))
+        (arrow)
         (apply_type
           (concrete_type
             (upper_identifier))
@@ -1453,18 +1514,19 @@ a = \path ->
                               (concrete_type
                                 (upper_identifier))))))))))))))))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (fun_expression
-        (argument_patterns
-          (long_identifier
-            (identifier)))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (long_identifier
+          (identifier)))
+      (arrow)
+      (identifier_pattern
+        (long_identifier
+          (identifier))))))
 
 ================================================================================
 app header
@@ -1492,6 +1554,7 @@ main = 1
             (function_type
               (bound_variable
                 (lower_identifier))
+              (arrow)
               (implements
                 (lower_identifier)
                 (lower_identifier)
@@ -1511,10 +1574,9 @@ main = 1
         (ident
           (lower_identifier)))))
   (value_declaration
-    (function_or_value_defn
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (const
-        (int)))))
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (int))))
