@@ -29,9 +29,9 @@ tick = \ n ->
     (app_header_body
       (packages
         (record
-          (record_field
+          (record_field_expr
             (lower_identifier)
-            (const_pattern
+            (const
               (string)))))
       (imports
         (imports_entry
@@ -372,9 +372,9 @@ main =
     (app_header_body
       (packages
         (record
-          (record_field
+          (record_field_expr
             (lower_identifier)
-            (const_pattern
+            (const
               (string)))))
       (imports
         (imports_entry

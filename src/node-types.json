@@ -1718,7 +1718,7 @@
       "required": false,
       "types": [
         {
-          "type": "record_field",
+          "type": "record_field_expr",
           "named": true
         }
       ]
@@ -1734,25 +1734,6 @@
       "types": [
         {
           "type": "ident",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "record_field",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_pattern",
-          "named": true
-        },
-        {
-          "type": "lower_identifier",
           "named": true
         }
       ]

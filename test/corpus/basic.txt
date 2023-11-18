@@ -610,6 +610,8 @@ user= {
     email: "hi",
     firstName: "hey",
     lastName: 1,
+    lastName: 1+1,
+    lastName:( 1*1)+1,
 }
 
 newScope = { scope & whileInfo }
@@ -636,18 +638,46 @@ main=
         (long_identifier
           (identifier))))
     (record
-      (record_field
+      (record_field_expr
         (lower_identifier)
-        (const_pattern
+        (const
           (string)))
-      (record_field
+      (record_field_expr
         (lower_identifier)
-        (const_pattern
+        (const
           (string)))
-      (record_field
+      (record_field_expr
         (lower_identifier)
-        (const_pattern
-          (int)))))
+        (const
+          (int)))
+      (record_field_expr
+        (lower_identifier)
+        (application_expression
+          (const
+            (int))
+          (args
+            (infix_newline
+              (infix_op)
+              (const
+                (int))))))
+      (record_field_expr
+        (lower_identifier)
+        (application_expression
+          (paren_expression
+            (application_expression
+              (const
+                (int))
+              (args
+                (infix_newline
+                  (infix_op
+                    (symbolic_op))
+                  (const
+                    (int))))))
+          (args
+            (infix_newline
+              (infix_op)
+              (const
+                (int))))))))
   (value_declaration
     (value_declaration_left
       (identifier_pattern
@@ -701,10 +731,10 @@ main=
                     (args
                       (identifier_pattern
                         (long_identifier
-                          (identifier)))
-                      (identifier_pattern
-                        (long_identifier
-                          (identifier))))))))))))
+                          (identifier)))))
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier))))))))))
     (when_is_expression
       (when)
       (application_expression
@@ -792,10 +822,10 @@ main=
                             (args
                               (identifier_pattern
                                 (long_identifier
-                                  (identifier)))
-                              (identifier_pattern
-                                (long_identifier
-                                  (identifier)))))))))))))
+                                  (identifier)))))
+                          (identifier_pattern
+                            (long_identifier
+                              (identifier)))))))))))
           (else_expression
             (value_declaration
               (value_declaration_left
@@ -812,14 +842,14 @@ main=
                         (identifier)))
                     (args
                       (record
-                        (record_field
+                        (record_field_expr
                           (lower_identifier)
                           (identifier_pattern
                             (long_identifier
                               (identifier))))
-                        (record_field
+                        (record_field_expr
                           (lower_identifier))
-                        (record_field
+                        (record_field_expr
                           (lower_identifier))))))))
             (application_expression
               (dot_expression
@@ -873,27 +903,27 @@ main=
                                         (identifier)))
                                     (identifier_pattern
                                       (long_identifier
-                                        (identifier))))))
-                              (record
-                                (record_field
-                                  (lower_identifier)
-                                  (identifier_pattern
-                                    (long_identifier
-                                      (identifier))))
-                                (record_field
-                                  (lower_identifier)
-                                  (identifier_pattern
-                                    (long_identifier
-                                      (identifier))))
-                                (record_field
-                                  (lower_identifier)
-                                  (const_pattern
-                                    (int)))
-                                (record_field
-                                  (lower_identifier)
-                                  (identifier_pattern
-                                    (long_identifier
-                                      (identifier))))))))))))))))))))
+                                        (identifier))))))))
+                          (record
+                            (record_field_expr
+                              (lower_identifier)
+                              (identifier_pattern
+                                (long_identifier
+                                  (identifier))))
+                            (record_field_expr
+                              (lower_identifier)
+                              (identifier_pattern
+                                (long_identifier
+                                  (identifier))))
+                            (record_field_expr
+                              (lower_identifier)
+                              (const
+                                (int)))
+                            (record_field_expr
+                              (lower_identifier)
+                              (identifier_pattern
+                                (long_identifier
+                                  (identifier))))))))))))))))))
 
 ================================================================================
 val_infix
@@ -1041,43 +1071,43 @@ navLinks = [
           (identifier))))
     (list_expression
       (record
-        (record_field
+        (record_field_expr
           (lower_identifier)
-          (const_pattern
+          (const
             (string)))
-        (record_field
+        (record_field_expr
           (lower_identifier)
-          (const_pattern
+          (const
             (string)))
-        (record_field
+        (record_field_expr
           (lower_identifier)
-          (const_pattern
+          (const
             (string))))
       (record
-        (record_field
+        (record_field_expr
           (lower_identifier)
-          (const_pattern
+          (const
             (string)))
-        (record_field
+        (record_field_expr
           (lower_identifier)
-          (const_pattern
+          (const
             (string)))
-        (record_field
+        (record_field_expr
           (lower_identifier)
-          (const_pattern
+          (const
             (string))))
       (record
-        (record_field
+        (record_field_expr
           (lower_identifier)
-          (const_pattern
+          (const
             (string)))
-        (record_field
+        (record_field_expr
           (lower_identifier)
-          (const_pattern
+          (const
             (string)))
-        (record_field
+        (record_field_expr
           (lower_identifier)
-          (const_pattern
+          (const
             (string)))))))
 
 ================================================================================
@@ -1425,7 +1455,7 @@ transformFileContent = \currentUrl, htmlContent ->
               (argument_patterns
                 (record_pattern
                   (record
-                    (record_field
+                    (record_field_expr
                       (lower_identifier)))))
               (arrow)
               (application_expression
@@ -1613,9 +1643,9 @@ findOneArg = \long, short, { args, taken } -> ()
           (identifier))
         (record_pattern
           (record
-            (record_field
+            (record_field_expr
               (lower_identifier))
-            (record_field
+            (record_field_expr
               (lower_identifier)))))
       (arrow)
       (const
@@ -1791,14 +1821,14 @@ main=
             (long_identifier
               (identifier))
             (record
-              (record_field
+              (record_field_expr
                 (lower_identifier)
                 (identifier_pattern
                   (long_identifier
                     (identifier))))
-              (record_field
+              (record_field_expr
                 (lower_identifier))
-              (record_field
+              (record_field_expr
                 (lower_identifier))))
           (arrow)
           (identifier_pattern

@@ -1737,6 +1737,8 @@ module.exports = grammar({
           $.symbolic_op,
           "||",
           "==",
+          ">=",
+          "<=",
           "!=",
           ":=",
           "::",
@@ -1816,17 +1818,17 @@ module.exports = grammar({
 
 
     ///BEGIN roc
-    record_field: $ => prec.left(
-      seq(
-        $.lower_identifier, optional(seq(":", $._pattern)
-        ))
-    ),
+    // record_field: $ => prec.left(
+    //   seq(
+    //     $.lower_identifier, optional(seq(":", $._pattern)
+    //     ))
+    // ),
     record_field_expr: $ => prec.left(
       seq(
-        $.lower_identifier, optional(seq(":", $._expression_inner)
+        $.lower_identifier, optional(seq(":", repeat1( $._expression_inner))
         ))
     ),
-    record: ($) => seq("{", sep_tail($.record_field, ","), "}"),
+    record: ($) => seq("{", sep_tail($.record_field_expr, ","), "}"),
 
     record_destructure: $ => seq('{', sep_tail($.ident, ","), '}'),
 

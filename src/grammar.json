@@ -3434,40 +3434,6 @@
         }
       ]
     },
-    "record_field": {
-      "type": "PREC_LEFT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "lower_identifier"
-          },
-          {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": ":"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "_pattern"
-                  }
-                ]
-              },
-              {
-                "type": "BLANK"
-              }
-            ]
-          }
-        ]
-      }
-    },
     "record_field_expr": {
       "type": "PREC_LEFT",
       "value": 0,
@@ -3489,8 +3455,11 @@
                     "value": ":"
                   },
                   {
-                    "type": "SYMBOL",
-                    "name": "_expression_inner"
+                    "type": "REPEAT1",
+                    "content": {
+                      "type": "SYMBOL",
+                      "name": "_expression_inner"
+                    }
                   }
                 ]
               },
@@ -3517,7 +3486,7 @@
               "members": [
                 {
                   "type": "SYMBOL",
-                  "name": "record_field"
+                  "name": "record_field_expr"
                 },
                 {
                   "type": "REPEAT",
@@ -3530,7 +3499,7 @@
                       },
                       {
                         "type": "SYMBOL",
-                        "name": "record_field"
+                        "name": "record_field_expr"
                       }
                     ]
                   }
