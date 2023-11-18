@@ -1624,7 +1624,20 @@ findOneArg = \long, short, { args, taken } -> ()
 ================================================================================
 literal
 ================================================================================
+t=0xff
+t=0xff
+t=0b001
+t=0b00_10
+
 t=1u8
+
+t=1u128
+t=1i128
+t=1i8
+t=1.1
+t=1.1f32
+t=1.1dec
+t=1nat
 b="a"
 b=""
 b="p \( hi )"
@@ -1638,7 +1651,84 @@ b="p \n \( hi )"
         (long_identifier
           (identifier))))
     (const
-      (uint8)))
+      (xint)))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (xint)))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (xint)))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (xint)))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (uint)))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (uint)))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (iint)))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (iint)))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (float)))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (float)))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (decimal)))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (natural)))
   (value_declaration
     (value_declaration_left
       (identifier_pattern

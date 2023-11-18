@@ -1664,10 +1664,13 @@ module.exports = grammar({
       // $.bytearray,
       // $.verbatim_bytearray
 
-      $.uint8,
-      $.uint16,
-      $.uint32,
-      $.uint64,
+      $.float,
+      $.xint,
+      $.decimal,
+      $.natural,
+      $.uint,
+      $.iint,
+
       $.char, $.string,
       $.int,
       "false", "true", $.unit),
@@ -1755,19 +1758,27 @@ module.exports = grammar({
     // Numbers
     _octaldigit_imm: $ => imm(/[0-7]/),
     _bitdigit_imm: $ => imm(/[0-1]/),
-    int: $ => seq(/[0-9]/, repeat($._digit_char_imm)),
+    int: $ => token(seq(/[0-9][0-9_]*/,)),
 
     //ROC
-    uint8: $ => seq(choice(alias($.int, "$int"), $.xint), imm('u8')),
-    uint16: $ => seq(choice(alias($.int, "$int"), $.xint), imm('u16')),
-    uint64: $ => seq(choice(alias($.int, "int"), $.xint), imm('u32')),
-    //ROC
+    uint: $ => token(seq(/[0-9][0-9_]*/, imm(/u(32|8|16|64|128)/))),
+    iint: $ => token(seq(/[0-9][0-9_]*/, imm(/i(32|8|16|64|128)/))),
+    decimal: $ => token(/[0-9]+(\.)?[0-9]*(dec)/),
+    natural: $ => token(/[0-9]+(nat)/),
 
+    float: $ =>  token(
+      seq(/[0-9]+(\.)?[0-9]*((f32)|(f64))?/)),
+    _hex_int: $ =>
+      token(seq(/0[x][0-9abcdef]*/,)),
+    _binary_int: $ =>
+      token(seq(/0[b]/, /[01][01_]*/)),
     xint: $ => choice(
-      seq(/0[xX]/, repeat1($._hex_digit_imm)),
-      seq(/0[oO]/, repeat1($._octaldigit_imm)),
-      seq(/0[bB]/, repeat1($._bitdigit_imm)),
+      $._binary_int,
+      $._hex_int
     ),
+    //ROC
+
+    bignum: $ => seq($.int, imm(/[QRZING]/)),
 
     sbyte: $ => seq(choice($.int, $.xint), imm('y')),
     byte: $ => seq(choice($.int, $.xint), imm('uy')),
@@ -1779,15 +1790,7 @@ module.exports = grammar({
     unativeint: $ => seq(choice($.int, $.xint), imm('un')),
     int64: $ => seq(choice($.int, $.xint), imm('L')),
 
-    ieee32: $ => choice(seq($.float, imm("f")), seq($.xint, imm("lf"))),
-    ieee64: $ => seq($.xint, imm("LF")),
 
-    bignum: $ => seq($.int, imm(/[QRZING]/)),
-    decimal: $ => seq(choice($.float, $.int), imm(/[Mm]/)),
-
-    float: $ => token(choice(
-      seq(/[0-9]+/, imm(/\.[0-9]*/)),
-      seq(/[0-9]+/, optional(imm(/\.[0-9]*/)), imm(/[eE]/), optional(imm(/[+-]/)), imm(/[0-9]+/)))),
     //
     // Constants (END)
     //

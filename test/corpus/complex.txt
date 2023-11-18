@@ -526,7 +526,7 @@ main =
                   (rules
                     (rule
                       (const_pattern
-                        (uint8))
+                        (uint))
                       (arrow)
                       (application_expression
                         (dot_expression
