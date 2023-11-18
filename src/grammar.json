@@ -628,39 +628,6 @@
         ]
       }
     },
-    "_seq_infix": {
-      "type": "PREC_RIGHT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_expression_inner"
-          },
-          {
-            "type": "REPEAT1",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_virtual_end_decl"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "infix_op"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_expressions"
-                }
-              ]
-            }
-          }
-        ]
-      }
-    },
     "_seq_expressions": {
       "type": "SEQ",
       "members": [
@@ -693,24 +660,32 @@
         "type": "CHOICE",
         "members": [
           {
-            "type": "ALIAS",
-            "content": {
-              "type": "SYMBOL",
-              "name": "_seq_infix"
-            },
-            "named": true,
-            "value": "infix_expression"
-          },
-          {
             "type": "SYMBOL",
             "name": "_seq_expressions"
           }
         ]
       }
     },
+    "infix_newline": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "infix_op"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_expression_inner"
+        }
+      ]
+    },
     "_expression_inner": {
       "type": "CHOICE",
       "members": [
+        {
+          "type": "SYMBOL",
+          "name": "infix_newline"
+        },
         {
           "type": "SYMBOL",
           "name": "identifier_pattern"

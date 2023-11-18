@@ -48,6 +48,10 @@
         "named": true
       },
       {
+        "type": "infix_newline",
+        "named": true
+      },
+      {
         "type": "list_expression",
         "named": true
       },
@@ -1187,6 +1191,25 @@
   },
   {
     "type": "infix_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression_inner",
+          "named": true
+        },
+        {
+          "type": "infix_op",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "infix_newline",
     "named": true,
     "fields": {},
     "children": {

@@ -371,18 +371,19 @@ module.exports = grammar({
     //
     //
 
-    _seq_infix: $ =>
-      prec.right(
-        seq(
-          $._expression_inner,
-          repeat1(
-            seq(
-              $._virtual_end_decl,
-              $.infix_op,
-              $._expressions,
-            ),
-          ),
-        )),
+    //TODO: we should try to bring this back at some point
+    // _seq_infix: $ =>
+    //   prec.right(
+    //     seq(
+    //       $._expression_inner,
+    //       repeat1(
+    //         seq(
+    //           $._virtual_end_decl,
+    //           $.infix_op,
+    //           $._expressions,
+    //         ),
+    //       ),
+    //     )),
 
     _seq_expressions: $ =>
       seq(
@@ -393,13 +394,29 @@ module.exports = grammar({
     _expressions: $ =>
       prec.left(PREC.SEQ_EXPR,
         choice(
-          alias($._seq_infix, $.infix_expression),
+          // alias($._seq_infix, $.infix_expression),
           $._seq_expressions,
         ),
       ),
 
+
+    infix_newline:$=>seq($.infix_op,$._expression_inner),
+
+    // _expressions: $ =>
+    //   prec.left(PREC.SEQ_EXPR,
+
+    //     choice(
+    //       seq(
+    //         $._expression_inner,
+    //         repeat(
+    //           seq($._virtual_end_decl, $._expressions)
+    //         ))),
+    //   ),
+
+
     _expression_inner: $ =>
       choice(
+      $.infix_newline,
         // $.begin_end_expression,
         // $.long_identifier_or_op,
       $.identifier_pattern,

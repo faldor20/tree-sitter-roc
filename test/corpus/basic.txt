@@ -825,6 +825,97 @@ main=
                                     (identifier)))))))))))))))))))
 
 ================================================================================
+val_infix
+================================================================================
+main =
+  val =
+    val2
+  a
+  |>b
+  |>p a 
+  |>b
+  a
+m=
+  a
+  |>b
+  |>p a 
+  |>b
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (value_declaration
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (identifier_pattern
+      (long_identifier
+        (identifier)))
+    (infix_newline
+      (infix_op
+        (symbolic_op))
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (infix_newline
+      (infix_op
+        (symbolic_op))
+      (application_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
+        (identifier_pattern
+          (long_identifier
+            (identifier)))))
+    (infix_newline
+      (infix_op
+        (symbolic_op))
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (identifier_pattern
+      (long_identifier
+        (identifier))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (identifier_pattern
+      (long_identifier
+        (identifier)))
+    (infix_newline
+      (infix_op
+        (symbolic_op))
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (infix_newline
+      (infix_op
+        (symbolic_op))
+      (application_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
+        (identifier_pattern
+          (long_identifier
+            (identifier)))))
+    (infix_newline
+      (infix_op
+        (symbolic_op))
+      (identifier_pattern
+        (long_identifier
+          (identifier))))))
+
+================================================================================
 odd functions
 ================================================================================
 main=
