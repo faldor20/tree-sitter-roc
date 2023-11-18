@@ -14,6 +14,7 @@
 ; (is) @keyword.control.roc
 
 ; (colon) @keyword.other.roc
+(backslash) @keyword.other.roc
 ; (as) @keyword.other.roc
 ; (port) @keyword.other.roc
 ; (exposing) @keyword.other.roc
@@ -112,8 +113,8 @@
 ; strings
 (escape_char) @constant.character.escape
 
-(arrow)@keyword.other.roc
-(backslash) @keyword.other.roc
+(arrow)@operator
+(backslash)@operator
 
 
 ;;from fsharp
@@ -173,18 +174,44 @@
 ] @keyword.control.return
 
 
-      (application_expression
-        (identifier_pattern
-          (long_identifier
-            (identifier)@function)))
+(application_expression
+
+  caller:
+    (identifier_pattern
+      (long_identifier
+        (identifier)@function)))
 
 (value_declaration(value_declaration_left (identifier_pattern)@function)(fun_expression))
+
+(fun_expression
+  (argument_patterns
+    (long_identifier
+      (identifier)@variable.parameter
+      )))
+
+(annotation
+  (annotation_pre_colon
+    (lower_identifier)@function)
+  (type_annotation
+    (function_type)))
+
 (dot_expression
   base: (identifier_pattern) @namespace
   field: (long_identifier_or_op) @function)
 
 
+(module_name)@module
 
+(imports
+  (imports_entry
+    (lower_identifier)@namespace))
+
+(packages
+  (record
+    (record_field
+      (lower_identifier)@namespace)))
+
+(concrete_type)@type
 (string)@string
 
 [
