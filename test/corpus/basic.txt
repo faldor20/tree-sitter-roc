@@ -1,4 +1,36 @@
 ================================================================================
+list patterns
+================================================================================
+a=
+  when a is
+    [..,1]->a
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (when_is_expression
+      (when)
+      (long_identifier_or_op
+        (long_identifier
+          (identifier)))
+      (is)
+      (rules
+        (rule
+          (list_pattern
+            (range_pattern)
+            (const_pattern
+              (int)))
+          (arrow)
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))))))
+
+================================================================================
 variables
 ================================================================================
 string="hi"

@@ -207,6 +207,14 @@
           },
           {
             "type": "SYMBOL",
+            "name": "list_pattern"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "list_pattern"
+          },
+          {
+            "type": "SYMBOL",
             "name": "array_pattern"
           },
           {
@@ -220,6 +228,10 @@
           {
             "type": "SYMBOL",
             "name": "tuple_pattern"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "range_pattern"
           }
         ]
       }
@@ -246,6 +258,15 @@
         {
           "type": "STRING",
           "value": ")"
+        }
+      ]
+    },
+    "range_pattern": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": ".."
         }
       ]
     },

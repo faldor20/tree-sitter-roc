@@ -156,6 +156,10 @@
         "named": true
       },
       {
+        "type": "range_pattern",
+        "named": true
+      },
+      {
         "type": "record",
         "named": true
       },
@@ -1718,6 +1722,11 @@
   },
   {
     "type": "range_op_name",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "range_pattern",
     "named": true,
     "fields": {}
   },

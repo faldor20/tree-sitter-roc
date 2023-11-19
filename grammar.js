@@ -276,10 +276,13 @@ module.exports = grammar({
           // $.repeat_pattern,
           $.paren_pattern,
           $.list_pattern,
+          $.list_pattern,
+          $.list_pattern,
           $.array_pattern,
           $.tag_pattern,
           $.record,
           $.tuple_pattern,
+        $.range_pattern,
           // $.typed_pattern,
           // $.attribute_pattern,
           // :? atomic-type
@@ -290,6 +293,7 @@ module.exports = grammar({
     // attribute_pattern: $ => prec.left(seq($.attributes, $._pattern)),
 
     paren_pattern: $ => seq("(", $._virtual_open_section, $._pattern, $._virtual_end_section, ")"),
+    range_pattern:$=>seq(".."),
 
     repeat_pattern: $ =>
       prec.right(
