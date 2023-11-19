@@ -66,7 +66,7 @@ module.exports = grammar({
     // [$.union_type_case, $.long_identifier],
     [$.long_module_name],
     // [$.identifier, $.tag],
-    // [$._expression_inner,$.application_expression]
+     [$._expression_inner,$._pattern]
   ],
 
   words: $ => $.identifier,
@@ -271,7 +271,6 @@ module.exports = grammar({
     //
     // Pattern rules (BEGIN)
     _pattern: $ =>
-      prec(1,
         choice(
           // alias("null", $.null_pattern),
           alias("_", $.wildcard_pattern),
@@ -295,7 +294,6 @@ module.exports = grammar({
           // $.attribute_pattern,
           // :? atomic-type
           // :? atomic-type as ident
-        )
       ),
 
     // attribute_pattern: $ => prec.left(seq($.attributes, $._pattern)),

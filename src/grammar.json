@@ -183,87 +183,83 @@
       ]
     },
     "_pattern": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "ALIAS",
-            "content": {
-              "type": "STRING",
-              "value": "_"
-            },
-            "named": true,
-            "value": "wildcard_pattern"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": "_"
           },
-          {
-            "type": "ALIAS",
-            "content": {
-              "type": "SYMBOL",
-              "name": "const"
-            },
-            "named": true,
-            "value": "const_pattern"
-          },
-          {
+          "named": true,
+          "value": "wildcard_pattern"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
             "type": "SYMBOL",
-            "name": "identifier_pattern"
+            "name": "const"
           },
-          {
-            "type": "SYMBOL",
-            "name": "as_pattern"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "disjunct_pattern"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "conjunct_pattern"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "cons_pattern"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "paren_pattern"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "list_pattern"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "list_pattern"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "list_pattern"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "array_pattern"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "tag_pattern"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "record"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "tuple_pattern"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "range_pattern"
-          }
-        ]
-      }
+          "named": true,
+          "value": "const_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "as_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "disjunct_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "conjunct_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "cons_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "paren_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "list_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "list_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "list_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "array_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tag_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "record"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tuple_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "range_pattern"
+        }
+      ]
     },
     "paren_pattern": {
       "type": "SEQ",
@@ -5450,6 +5446,10 @@
     ],
     [
       "long_module_name"
+    ],
+    [
+      "_expression_inner",
+      "_pattern"
     ]
   ],
   "precedences": [],
