@@ -60,6 +60,10 @@
         "named": true
       },
       {
+        "type": "prefixed_expression",
+        "named": true
+      },
+      {
         "type": "record",
         "named": true
       },
@@ -365,6 +369,10 @@
             "named": true
           },
           {
+            "type": "prefixed_expression",
+            "named": true
+          },
+          {
             "type": "record",
             "named": true
           },
@@ -509,6 +517,10 @@
         },
         {
           "type": "paren_expression",
+          "named": true
+        },
+        {
+          "type": "prefixed_expression",
           "named": true
         },
         {
@@ -1679,6 +1691,40 @@
     }
   },
   {
+    "type": "prefix_op",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "symbolic_op",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "prefixed_expression",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression_inner",
+          "named": true
+        },
+        {
+          "type": "prefix_op",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "provides",
     "named": true,
     "fields": {},
@@ -2047,6 +2093,10 @@
         },
         {
           "type": "paren_expression",
+          "named": true
+        },
+        {
+          "type": "prefixed_expression",
           "named": true
         },
         {
@@ -2860,14 +2910,6 @@
   },
   {
     "type": "y",
-    "named": false
-  },
-  {
-    "type": "yield",
-    "named": false
-  },
-  {
-    "type": "yield!",
     "named": false
   },
   {

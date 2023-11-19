@@ -858,6 +858,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "prefixed_expression"
+        },
+        {
+          "type": "SYMBOL",
           "name": "infix_expression"
         },
         {
@@ -1063,24 +1067,15 @@
         ]
       }
     },
-    "yield_expression": {
+    "prefixed_expression": {
       "type": "PREC_LEFT",
-      "value": 20,
+      "value": -1,
       "content": {
         "type": "SEQ",
         "members": [
           {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "yield"
-              },
-              {
-                "type": "STRING",
-                "value": "yield!"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "prefix_op"
           },
           {
             "type": "SYMBOL",
@@ -1091,7 +1086,7 @@
     },
     "infix_expression": {
       "type": "PREC_RIGHT",
-      "value": 20,
+      "value": 22,
       "content": {
         "type": "SEQ",
         "members": [

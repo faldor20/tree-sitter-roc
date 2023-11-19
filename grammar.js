@@ -22,7 +22,7 @@ const PREC = {
   COMMA: 13,
   DOTDOT: 14,
   PREFIX_EXPR: 0,
-  SPECIAL_INFIX: 20,
+  SPECIAL_INFIX: 22,
   LARROW: 19,
   TUPLE_EXPR: 19,
   SPECIAL_PREFIX: 20,
@@ -456,6 +456,7 @@ module.exports = grammar({
       // $.infix_newline,
       $.list_expression,
       $.fun_expression,
+      $.prefixed_expression,
       $.infix_expression,
       $.index_expression,
       $.long_identifier_or_op,
@@ -474,7 +475,6 @@ module.exports = grammar({
         // $.object_instantiation_expression,
         // $.ce_expression,
         //TODO:what is this
-        // $.prefixed_expression,
         // $.brace_expression,
         // [ comp_or_range_expr ]
         // [| comp_or_range_expr |]
@@ -577,12 +577,12 @@ module.exports = grammar({
     //     seq($.object_construction, "as", $.identifier),
     //   ),
 
-    // prefixed_expression: $ =>
-    //   prec.left(PREC.PREFIX_EXPR,
-    //     seq(
-    //       choice("lazy", "assert", "upcast", "downcast", "%", "%%", $.prefix_op),
-    //       $._expression_inner,
-    //     )),
+    prefixed_expression: $ =>
+      prec.left(-1,
+        seq(
+          $.prefix_op,
+          $._expression_inner,
+        )),
 
     // return_expression: $ =>
     //   prec.left(PREC.SPECIAL_PREFIX,
@@ -591,12 +591,12 @@ module.exports = grammar({
     //       $._expression_inner,
     //     )),
 
-    yield_expression: $ =>
-      prec.left(PREC.SPECIAL_PREFIX,
-        seq(
-          choice("yield", "yield!"),
-          $._expression_inner,
-        )),
+    // yield_expression: $ =>
+    //   prec.left(PREC.SPECIAL_PREFIX,
+    //     seq(
+    //       choice("yield", "yield!"),
+    //       $._expression_inner,
+    //     )),
 
     // ce_expression: $ =>
     //   prec(PREC.CE_EXPR,

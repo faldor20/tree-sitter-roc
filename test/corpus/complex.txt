@@ -154,36 +154,42 @@ tick = \ n ->
                 (identifier)))
             (args
               (paren_expression
-                (infix_expression
+                (application_expression
                   (long_identifier_or_op
                     (long_identifier
                       (identifier)))
-                  (infix_op
-                    (symbolic_op))
-                  (infix_expression
-                    (long_identifier_or_op
-                      (long_identifier
-                        (module)
-                        (identifier)))
-                    (infix_op
-                      (symbolic_op))
-                    (fun_expression
-                      (backslash)
-                      (argument_patterns
-                        (long_identifier
-                          (identifier)))
-                      (arrow)
-                      (infix_expression
-                        (const
-                          (string
-                            (interpolation_char
-                              (ident))))
-                        (infix_op
-                          (symbolic_op))
+                  (args
+                    (prefixed_expression
+                      (prefix_op
+                        (symbolic_op))
+                      (application_expression
                         (long_identifier_or_op
                           (long_identifier
                             (module)
-                            (identifier)))))))))))
+                            (identifier)))
+                        (args
+                          (prefixed_expression
+                            (prefix_op
+                              (symbolic_op))
+                            (fun_expression
+                              (backslash)
+                              (argument_patterns
+                                (long_identifier
+                                  (identifier)))
+                              (arrow)
+                              (application_expression
+                                (const
+                                  (string
+                                    (interpolation_char
+                                      (ident))))
+                                (args
+                                  (prefixed_expression
+                                    (prefix_op
+                                      (symbolic_op))
+                                    (long_identifier_or_op
+                                      (long_identifier
+                                        (module)
+                                        (identifier)))))))))))))))))
         (backpassing_expression
           (wildcard_pattern)
           (back_arrow)
@@ -207,13 +213,15 @@ tick = \ n ->
                   (tag))
                 (args
                   (paren_expression
-                    (infix_expression
+                    (application_expression
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (infix_op)
-                      (const
-                        (int)))))))))))))
+                      (args
+                        (prefixed_expression
+                          (prefix_op)
+                          (const
+                            (int)))))))))))))))
 
 ================================================================================
 simple_env
