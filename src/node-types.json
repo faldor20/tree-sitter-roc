@@ -36,10 +36,6 @@
         "named": true
       },
       {
-        "type": "identifier_pattern",
-        "named": true
-      },
-      {
         "type": "if_expression",
         "named": true
       },
@@ -56,6 +52,10 @@
         "named": true
       },
       {
+        "type": "long_identifier_or_op",
+        "named": true
+      },
+      {
         "type": "paren_expression",
         "named": true
       },
@@ -65,6 +65,10 @@
       },
       {
         "type": "record_update",
+        "named": true
+      },
+      {
+        "type": "tag_expression",
         "named": true
       },
       {
@@ -173,17 +177,7 @@
   {
     "type": "ability_chain",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "upper_identifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "active_pattern_op_name",
@@ -244,12 +238,8 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
-        {
-          "type": "lower_identifier",
-          "named": true
-        },
         {
           "type": "tag",
           "named": true
@@ -343,10 +333,6 @@
             "named": true
           },
           {
-            "type": "identifier_pattern",
-            "named": true
-          },
-          {
             "type": "index_expression",
             "named": true
           },
@@ -359,6 +345,10 @@
             "named": true
           },
           {
+            "type": "long_identifier_or_op",
+            "named": true
+          },
+          {
             "type": "paren_expression",
             "named": true
           },
@@ -368,6 +358,10 @@
           },
           {
             "type": "record_update",
+            "named": true
+          },
+          {
+            "type": "tag_expression",
             "named": true
           },
           {
@@ -486,10 +480,6 @@
           "named": true
         },
         {
-          "type": "identifier_pattern",
-          "named": true
-        },
-        {
           "type": "index_expression",
           "named": true
         },
@@ -502,6 +492,10 @@
           "named": true
         },
         {
+          "type": "long_identifier_or_op",
+          "named": true
+        },
+        {
           "type": "paren_expression",
           "named": true
         },
@@ -511,6 +505,10 @@
         },
         {
           "type": "record_update",
+          "named": true
+        },
+        {
+          "type": "tag_expression",
           "named": true
         },
         {
@@ -557,14 +555,6 @@
       "types": [
         {
           "type": "_expression_inner",
-          "named": true
-        },
-        {
-          "type": "infix_newline",
-          "named": true
-        },
-        {
-          "type": "short_comp_expression",
           "named": true
         }
       ]
@@ -658,17 +648,7 @@
   {
     "type": "bound_variable",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "lower_identifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "char",
@@ -678,17 +658,7 @@
   {
     "type": "concrete_type",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "upper_identifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "conjunct_pattern",
@@ -866,21 +836,7 @@
   {
     "type": "effect_name",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "lower_identifier",
-          "named": true
-        },
-        {
-          "type": "upper_identifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "effects",
@@ -1172,21 +1128,7 @@
   {
     "type": "ident",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "lower_identifier",
-          "named": true
-        },
-        {
-          "type": "upper_identifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "identifier",
@@ -1271,10 +1213,6 @@
         {
           "type": "ability_chain",
           "named": true
-        },
-        {
-          "type": "lower_identifier",
-          "named": true
         }
       ]
     }
@@ -1307,11 +1245,11 @@
           "named": true
         },
         {
-          "type": "lower_identifier",
+          "type": "identifier",
           "named": true
         },
         {
-          "type": "module_name",
+          "type": "long_module_name",
           "named": true
         }
       ]
@@ -1473,14 +1411,6 @@
         {
           "type": "_expression_inner",
           "named": true
-        },
-        {
-          "type": "infix_newline",
-          "named": true
-        },
-        {
-          "type": "short_comp_expression",
-          "named": true
         }
       ]
     }
@@ -1513,6 +1443,10 @@
           "named": true
         },
         {
+          "type": "module",
+          "named": true
+        },
+        {
           "type": "op_name",
           "named": true
         }
@@ -1535,19 +1469,24 @@
     }
   },
   {
-    "type": "module_name",
+    "type": "long_module_name",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "upper_identifier",
+          "type": "module",
           "named": true
         }
       ]
     }
+  },
+  {
+    "type": "module",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "name",
@@ -1563,10 +1502,6 @@
         },
         {
           "type": "interpolation_char",
-          "named": true
-        },
-        {
-          "type": "upper_identifier",
           "named": true
         }
       ]
@@ -1800,14 +1735,10 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "_expression_inner",
-          "named": true
-        },
-        {
-          "type": "lower_identifier",
           "named": true
         }
       ]
@@ -1871,10 +1802,6 @@
       "required": true,
       "types": [
         {
-          "type": "lower_identifier",
-          "named": true
-        },
-        {
           "type": "record_field_expr",
           "named": true
         }
@@ -1903,21 +1830,7 @@
   {
     "type": "requires_rigid",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "lower_identifier",
-          "named": true
-        },
-        {
-          "type": "upper_identifier",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "requires_rigids",
@@ -1971,37 +1884,6 @@
       "types": [
         {
           "type": "rule",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "short_comp_expression",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_expression_inner",
-          "named": true
-        },
-        {
-          "type": "_pattern",
-          "named": true
-        },
-        {
-          "type": "arrow",
-          "named": true
-        },
-        {
-          "type": "infix_newline",
-          "named": true
-        },
-        {
-          "type": "range_expression",
           "named": true
         }
       ]
@@ -2068,13 +1950,70 @@
   {
     "type": "tag",
     "named": true,
+    "fields": {}
+  },
+  {
+    "type": "tag_expression",
+    "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
-          "type": "upper_identifier",
+          "type": "array_expression",
+          "named": true
+        },
+        {
+          "type": "const",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "fun_expression",
+          "named": true
+        },
+        {
+          "type": "index_expression",
+          "named": true
+        },
+        {
+          "type": "infix_expression",
+          "named": true
+        },
+        {
+          "type": "list_expression",
+          "named": true
+        },
+        {
+          "type": "long_identifier_or_op",
+          "named": true
+        },
+        {
+          "type": "module",
+          "named": true
+        },
+        {
+          "type": "paren_expression",
+          "named": true
+        },
+        {
+          "type": "record",
+          "named": true
+        },
+        {
+          "type": "record_update",
+          "named": true
+        },
+        {
+          "type": "tag_expression",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
           "named": true
         }
       ]
@@ -2315,13 +2254,9 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "lower_identifier",
-          "named": true
-        },
         {
           "type": "type_annotation",
           "named": true
@@ -2756,14 +2691,6 @@
     "named": true
   },
   {
-    "type": "lower",
-    "named": false
-  },
-  {
-    "type": "lower_identifier",
-    "named": true
-  },
-  {
     "type": "n",
     "named": false
   },
@@ -2834,14 +2761,6 @@
   {
     "type": "un",
     "named": false
-  },
-  {
-    "type": "upper",
-    "named": false
-  },
-  {
-    "type": "upper_identifier",
-    "named": true
   },
   {
     "type": "uy",

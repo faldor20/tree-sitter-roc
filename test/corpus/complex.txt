@@ -30,35 +30,29 @@ tick = \ n ->
       (packages
         (record
           (record_field_expr
-            (lower_identifier)
             (const
               (string)))))
       (imports
         (imports_entry
-          (lower_identifier)
-          (module_name
-            (upper_identifier)))
+          (identifier)
+          (long_module_name
+            (module)))
         (imports_entry
-          (lower_identifier)
-          (module_name
-            (upper_identifier)))
+          (identifier)
+          (long_module_name
+            (module)))
         (imports_entry
-          (lower_identifier)
-          (module_name
-            (upper_identifier))
+          (identifier)
+          (long_module_name
+            (module))
           (exposes_list
-            (ident
-              (lower_identifier))
-            (ident
-              (lower_identifier))
-            (ident
-              (lower_identifier)))))
+            (ident)
+            (ident)
+            (ident))))
       (provides
-        (ident
-          (lower_identifier))
+        (ident)
         (to)
-        (ident
-          (lower_identifier)))))
+        (ident))))
   (value_declaration
     (value_declaration_left
       (identifier_pattern
@@ -68,19 +62,16 @@ tick = \ n ->
       (wildcard_pattern)
       (back_arrow)
       (application_expression
-        (identifier_pattern
+        (long_identifier_or_op
           (long_identifier
             (identifier)))
         (args
           (paren_expression
             (application_expression
-              (dot_expression
-                (identifier_pattern
-                  (long_identifier
-                    (identifier)))
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier))))
+              (long_identifier_or_op
+                (long_identifier
+                  (module)
+                  (identifier)))
               (args
                 (const
                   (string
@@ -88,26 +79,23 @@ tick = \ n ->
     (backpassing_expression
       (wildcard_pattern)
       (back_arrow)
-      (dot_expression
-        (application_expression
-          (identifier_pattern
-            (long_identifier
-              (identifier)))
-          (args
-            (identifier_pattern
-              (long_identifier
-                (identifier)))))
+      (application_expression
         (long_identifier_or_op
           (long_identifier
-            (identifier)))))
+            (identifier)))
+        (args
+          (long_identifier_or_op
+            (long_identifier
+              (module)
+              (identifier))))))
     (application_expression
-      (identifier_pattern
+      (long_identifier_or_op
         (long_identifier
           (identifier)))
       (args
         (const
           (int))
-        (identifier_pattern
+        (long_identifier_or_op
           (long_identifier
             (identifier))))))
   (value_declaration
@@ -123,7 +111,7 @@ tick = \ n ->
       (arrow)
       (if_expression
         (infix_expression
-          (identifier_pattern
+          (long_identifier_or_op
             (long_identifier
               (identifier)))
           (infix_op)
@@ -133,30 +121,26 @@ tick = \ n ->
           (wildcard_pattern)
           (back_arrow)
           (application_expression
-            (identifier_pattern
+            (long_identifier_or_op
               (long_identifier
                 (identifier)))
             (args
               (paren_expression
                 (application_expression
-                  (dot_expression
-                    (identifier_pattern
-                      (long_identifier
-                        (identifier)))
-                    (long_identifier_or_op
-                      (long_identifier
-                        (identifier))))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (module)
+                      (identifier)))
                   (args
                     (const
                       (string)))))
-              (identifier_pattern
+              (long_identifier_or_op
                 (long_identifier
                   (identifier)))
               (paren_expression
                 (application_expression
-                  (identifier_pattern
-                    (long_identifier
-                      (identifier)))
+                  (tag_expression
+                    (module))
                   (args
                     (record))))))))
       (else_expression
@@ -164,25 +148,22 @@ tick = \ n ->
           (wildcard_pattern)
           (back_arrow)
           (application_expression
-            (identifier_pattern
+            (long_identifier_or_op
               (long_identifier
                 (identifier)))
             (args
               (paren_expression
                 (infix_expression
-                  (identifier_pattern
+                  (long_identifier_or_op
                     (long_identifier
                       (identifier)))
                   (infix_op
                     (symbolic_op))
                   (infix_expression
-                    (dot_expression
-                      (identifier_pattern
-                        (long_identifier
-                          (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))
+                    (long_identifier_or_op
+                      (long_identifier
+                        (module)
+                        (identifier)))
                     (infix_op
                       (symbolic_op))
                     (fun_expression
@@ -195,46 +176,38 @@ tick = \ n ->
                         (const
                           (string
                             (interpolation_char
-                              (ident
-                                (lower_identifier)))))
+                              (ident))))
                         (infix_op
                           (symbolic_op))
-                        (dot_expression
-                          (identifier_pattern
-                            (long_identifier
-                              (identifier)))
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier))))))))))))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (module)
+                            (identifier)))))))))))
         (backpassing_expression
           (wildcard_pattern)
           (back_arrow)
-          (dot_expression
-            (application_expression
-              (identifier_pattern
-                (long_identifier
-                  (identifier)))
-              (args
-                (identifier_pattern
-                  (long_identifier
-                    (identifier)))))
+          (application_expression
             (long_identifier_or_op
               (long_identifier
-                (identifier)))))
+                (identifier)))
+            (args
+              (long_identifier_or_op
+                (long_identifier
+                  (module)
+                  (identifier))))))
         (application_expression
-          (identifier_pattern
+          (long_identifier_or_op
             (long_identifier
               (identifier)))
           (args
             (paren_expression
               (application_expression
-                (identifier_pattern
-                  (long_identifier
-                    (identifier)))
+                (tag_expression
+                  (module))
                 (args
                   (paren_expression
                     (infix_expression
-                      (identifier_pattern
+                      (long_identifier_or_op
                         (long_identifier
                           (identifier)))
                       (infix_op)
@@ -264,7 +237,7 @@ main =
           (long_identifier
             (identifier))))
       (application_expression
-        (identifier_pattern
+        (long_identifier_or_op
           (long_identifier
             (identifier)))
         (args
@@ -274,7 +247,7 @@ main =
         (infix_op
           (symbolic_op))
         (application_expression
-          (identifier_pattern
+          (long_identifier_or_op
             (long_identifier
               (identifier)))
           (args
@@ -286,7 +259,7 @@ main =
                     (identifier)))
                 (arrow)
                 (application_expression
-                  (identifier_pattern
+                  (long_identifier_or_op
                     (long_identifier
                       (identifier)))
                   (args
@@ -296,7 +269,7 @@ main =
         (infix_op
           (symbolic_op))
         (application_expression
-          (identifier_pattern
+          (long_identifier_or_op
             (long_identifier
               (identifier)))
           (args
@@ -308,13 +281,10 @@ main =
                     (record)))
                 (arrow)
                 (application_expression
-                  (dot_expression
-                    (identifier_pattern
-                      (long_identifier
-                        (identifier)))
-                    (long_identifier_or_op
-                      (long_identifier
-                        (identifier))))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (module)
+                      (identifier)))
                   (args
                     (const
                       (string))))))))))))
@@ -363,42 +333,36 @@ main =
       (packages
         (record
           (record_field_expr
-            (lower_identifier)
             (const
               (string)))))
       (imports
         (imports_entry
-          (lower_identifier)
-          (module_name
-            (upper_identifier)))
+          (identifier)
+          (long_module_name
+            (module)))
         (imports_entry
-          (lower_identifier)
-          (module_name
-            (upper_identifier)))
+          (identifier)
+          (long_module_name
+            (module)))
         (imports_entry
-          (lower_identifier)
-          (module_name
-            (upper_identifier)))
+          (identifier)
+          (long_module_name
+            (module)))
         (imports_entry
-          (lower_identifier)
-          (module_name
-            (upper_identifier))
+          (identifier)
+          (long_module_name
+            (module))
           (exposes_list
-            (ident
-              (upper_identifier)))))
+            (ident))))
       (provides
-        (ident
-          (lower_identifier))
+        (ident)
         (to)
-        (ident
-          (lower_identifier)))))
+        (ident))))
   (annotation
-    (annotation_pre_colon
-      (lower_identifier))
+    (annotation_pre_colon)
     (type_annotation
       (apply_type
-        (concrete_type
-          (upper_identifier))
+        (concrete_type)
         (apply_type_args
           (apply_type_arg
             (record_type))
@@ -415,13 +379,10 @@ main =
           (long_identifier
             (identifier))))
       (application_expression
-        (dot_expression
-          (identifier_pattern
-            (long_identifier
-              (identifier)))
-          (long_identifier_or_op
-            (long_identifier
-              (identifier))))
+        (long_identifier_or_op
+          (long_identifier
+            (module)
+            (identifier)))
         (args
           (const
             (string))))
@@ -429,13 +390,10 @@ main =
         (infix_op
           (symbolic_op))
         (application_expression
-          (dot_expression
-            (identifier_pattern
-              (long_identifier
-                (identifier)))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier))))
+          (long_identifier_or_op
+            (long_identifier
+              (module)
+              (identifier)))
           (args
             (paren_expression
               (fun_expression
@@ -445,30 +403,23 @@ main =
                     (identifier)))
                 (arrow)
                 (application_expression
-                  (dot_expression
-                    (identifier_pattern
-                      (long_identifier
-                        (identifier)))
-                    (long_identifier_or_op
-                      (long_identifier
-                        (identifier))))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (module)
+                      (identifier)))
                   (args
                     (const
                       (string
                         (interpolation_char
-                          (ident
-                            (lower_identifier))))))))))))
+                          (ident)))))))))))
       (infix_newline
         (infix_op
           (symbolic_op))
         (application_expression
-          (dot_expression
-            (identifier_pattern
-              (long_identifier
-                (identifier)))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier))))
+          (long_identifier_or_op
+            (long_identifier
+              (module)
+              (identifier)))
           (args
             (paren_expression
               (fun_expression
@@ -478,13 +429,10 @@ main =
                     (record)))
                 (arrow)
                 (application_expression
-                  (dot_expression
-                    (identifier_pattern
-                      (long_identifier
-                        (identifier)))
-                    (long_identifier_or_op
-                      (long_identifier
-                        (identifier))))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (module)
+                      (identifier)))
                   (args
                     (const
                       (string)))))))))
@@ -492,13 +440,10 @@ main =
         (infix_op
           (symbolic_op))
         (application_expression
-          (dot_expression
-            (identifier_pattern
-              (long_identifier
-                (identifier)))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier))))
+          (long_identifier_or_op
+            (long_identifier
+              (module)
+              (identifier)))
           (args
             (paren_expression
               (fun_expression
@@ -509,7 +454,7 @@ main =
                 (arrow)
                 (when_is_expression
                   (when)
-                  (identifier_pattern
+                  (long_identifier_or_op
                     (long_identifier
                       (identifier)))
                   (is)
@@ -519,13 +464,10 @@ main =
                         (uint))
                       (arrow)
                       (application_expression
-                        (dot_expression
-                          (identifier_pattern
-                            (long_identifier
-                              (identifier)))
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier))))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (module)
+                            (identifier)))
                         (args
                           (const
                             (string)))))
@@ -540,42 +482,32 @@ main =
                             (long_identifier
                               (identifier))))
                         (application_expression
-                          (dot_expression
-                            (identifier_pattern
-                              (long_identifier
-                                (identifier)))
-                            (long_identifier_or_op
-                              (long_identifier
-                                (identifier))))
+                          (long_identifier_or_op
+                            (long_identifier
+                              (module)
+                              (identifier)))
                           (args
-                            (identifier_pattern
+                            (long_identifier_or_op
                               (long_identifier
                                 (identifier))))))
                       (application_expression
-                        (dot_expression
-                          (identifier_pattern
-                            (long_identifier
-                              (identifier)))
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier))))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (module)
+                            (identifier)))
                         (args
                           (const
                             (string
                               (interpolation_char
-                                (ident
-                                  (lower_identifier)))))))))))))))
+                                (ident))))))))))))))
       (infix_newline
         (infix_op
           (symbolic_op))
         (application_expression
-          (dot_expression
-            (identifier_pattern
-              (long_identifier
-                (identifier)))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier))))
+          (long_identifier_or_op
+            (long_identifier
+              (module)
+              (identifier)))
           (args
             (fun_expression
               (backslash)
@@ -584,26 +516,20 @@ main =
                   (record)))
               (arrow)
               (application_expression
-                (dot_expression
-                  (identifier_pattern
-                    (long_identifier
-                      (identifier)))
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier))))
+                (long_identifier_or_op
+                  (long_identifier
+                    (module)
+                    (identifier)))
                 (args
                   (const
                     (string)))))))))
     (application_expression
-      (dot_expression
-        (identifier_pattern
-          (long_identifier
-            (identifier)))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier))))
+      (long_identifier_or_op
+        (long_identifier
+          (module)
+          (identifier)))
       (args
-        (identifier_pattern
+        (long_identifier_or_op
           (long_identifier
             (identifier)))
         (fun_expression
@@ -614,15 +540,14 @@ main =
           (arrow)
           (when_is_expression
             (when)
-            (identifier_pattern
+            (long_identifier_or_op
               (long_identifier
                 (identifier)))
             (is)
             (rules
               (rule
                 (tag_pattern
-                  (tag
-                    (upper_identifier))
+                  (tag)
                   (identifier_pattern
                     (long_identifier
                       (identifier))))
@@ -633,47 +558,36 @@ main =
                       (long_identifier
                         (identifier))))
                   (application_expression
-                    (dot_expression
-                      (identifier_pattern
-                        (long_identifier
-                          (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))
+                    (long_identifier_or_op
+                      (long_identifier
+                        (module)
+                        (identifier)))
                     (args
-                      (identifier_pattern
+                      (long_identifier_or_op
                         (long_identifier
                           (identifier)))
                       (const
                         (string)))))
                 (application_expression
-                  (dot_expression
-                    (identifier_pattern
-                      (long_identifier
-                        (identifier)))
-                    (long_identifier_or_op
-                      (long_identifier
-                        (identifier))))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (module)
+                      (identifier)))
                   (args
                     (const
                       (string
                         (interpolation_char
-                          (ident
-                            (lower_identifier))))))))
+                          (ident)))))))
               (rule
                 (tag_pattern
-                  (tag
-                    (upper_identifier))
+                  (tag)
                   (wildcard_pattern))
                 (arrow)
                 (application_expression
-                  (dot_expression
-                    (identifier_pattern
-                      (long_identifier
-                        (identifier)))
-                    (long_identifier_or_op
-                      (long_identifier
-                        (identifier))))
+                  (long_identifier_or_op
+                    (long_identifier
+                      (module)
+                      (identifier)))
                   (args
                     (const
                       (string))))))))))))
@@ -714,108 +628,83 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
     (name)
     (interface_header_body
       (exposes
-        (ident
-          (upper_identifier))
-        (ident
-          (upper_identifier))
-        (ident
-          (upper_identifier))
-        (ident
-          (lower_identifier))
-        (ident
-          (lower_identifier))
-        (ident
-          (lower_identifier)))
+        (ident)
+        (ident)
+        (ident)
+        (ident)
+        (ident)
+        (ident))
       (imports
         (imports_entry
-          (module_name
-            (upper_identifier)))
+          (long_module_name
+            (module)))
         (imports_entry
-          (module_name
-            (upper_identifier))
+          (long_module_name
+            (module))
           (exposes_list
-            (ident
-              (upper_identifier))))
+            (ident)))
         (imports_entry
-          (module_name
-            (upper_identifier)))
+          (long_module_name
+            (module)))
         (imports_entry
-          (module_name
-            (upper_identifier))
+          (long_module_name
+            (module))
           (exposes_list
-            (ident
-              (upper_identifier))))
+            (ident)))
         (imports_entry
-          (module_name
-            (upper_identifier)))
+          (long_module_name
+            (module)))
         (imports_entry
-          (module_name
-            (upper_identifier))))))
+          (long_module_name
+            (module))))))
   (alias
     (apply_type
-      (concrete_type
-        (upper_identifier)))
+      (concrete_type))
     (type_annotation
       (apply_type
-        (concrete_type
-          (upper_identifier)
-          (upper_identifier)))))
+        (concrete_type))))
   (alias
     (apply_type
-      (concrete_type
-        (upper_identifier)))
+      (concrete_type))
     (type_annotation
       (apply_type
-        (concrete_type
-          (upper_identifier)
-          (upper_identifier)))))
+        (concrete_type))))
   (alias
     (apply_type
-      (concrete_type
-        (upper_identifier)))
+      (concrete_type))
     (type_annotation
       (apply_type
-        (concrete_type
-          (upper_identifier)
-          (upper_identifier)))))
+        (concrete_type))))
   (line_comment)
   (annotation
-    (annotation_pre_colon
-      (lower_identifier))
+    (annotation_pre_colon)
     (type_annotation
       (function_type
         (apply_type
-          (concrete_type
-            (upper_identifier)))
+          (concrete_type))
         (arrow)
         (apply_type
-          (concrete_type
-            (upper_identifier))
+          (concrete_type)
           (apply_type_args
             (apply_type_arg
               (apply_type
-                (concrete_type
-                  (upper_identifier))
+                (concrete_type)
                 (apply_type_args
                   (apply_type_arg
                     (apply_type
-                      (concrete_type
-                        (upper_identifier)))))))
+                      (concrete_type))))))
             (apply_type_arg
               (tags_type
                 (apply_type
-                  (concrete_type
-                    (upper_identifier))
+                  (concrete_type)
                   (apply_type_args
                     (apply_type_arg
                       (apply_type
-                        (concrete_type
-                          (upper_identifier))
+                        (concrete_type)
                         (apply_type_args
                           (apply_type_arg
                             (apply_type
-                              (concrete_type
-                                (upper_identifier))))))))))))))))
+                              (concrete_type)))))))))))))))
   (value_declaration
     (value_declaration_left
       (identifier_pattern
@@ -833,35 +722,26 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
             (long_identifier
               (identifier))))
         (application_expression
-          (dot_expression
-            (identifier_pattern
-              (long_identifier
-                (identifier)))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier))))
+          (long_identifier_or_op
+            (long_identifier
+              (module)
+              (identifier)))
           (args
             (paren_expression
               (application_expression
-                (dot_expression
-                  (identifier_pattern
-                    (long_identifier
-                      (identifier)))
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier))))
+                (long_identifier_or_op
+                  (long_identifier
+                    (module)
+                    (identifier)))
                 (args
                   (paren_expression
                     (application_expression
-                      (dot_expression
-                        (identifier_pattern
-                          (long_identifier
-                            (identifier)))
-                        (long_identifier_or_op
-                          (long_identifier
-                            (identifier))))
+                      (long_identifier_or_op
+                        (long_identifier
+                          (module)
+                          (identifier)))
                       (args
-                        (identifier_pattern
+                        (long_identifier_or_op
                           (long_identifier
                             (identifier)))))))))
             (fun_expression
@@ -872,143 +752,117 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
               (arrow)
               (when_is_expression
                 (when)
-                (identifier_pattern
+                (long_identifier_or_op
                   (long_identifier
                     (identifier)))
                 (is)
                 (rules
                   (rule
                     (tag_pattern
-                      (tag
-                        (upper_identifier))
+                      (tag)
                       (identifier_pattern
                         (long_identifier
                           (identifier))))
                     (arrow)
                     (application_expression
-                      (identifier_pattern
-                        (long_identifier
-                          (identifier)))
-                      (args
-                        (paren_expression
-                          (dot_expression
-                            (application_expression
-                              (dot_expression
-                                (identifier_pattern
-                                  (long_identifier
-                                    (identifier)))
-                                (long_identifier_or_op
-                                  (long_identifier
-                                    (identifier))))
-                              (args
-                                (identifier_pattern
-                                  (long_identifier
-                                    (identifier)))
-                                (identifier_pattern
-                                  (long_identifier
-                                    (identifier)))))
-                            (long_identifier_or_op
-                              (long_identifier
-                                (identifier))))))))
-                  (rule
-                    (tag_pattern
-                      (tag
-                        (upper_identifier))
-                      (identifier_pattern
-                        (long_identifier
-                          (identifier))))
-                    (arrow)
-                    (application_expression
-                      (identifier_pattern
-                        (long_identifier
-                          (identifier)))
+                      (tag_expression
+                        (module))
                       (args
                         (paren_expression
                           (application_expression
-                            (identifier_pattern
+                            (long_identifier_or_op
                               (long_identifier
+                                (module)
                                 (identifier)))
                             (args
-                              (identifier_pattern
+                              (long_identifier_or_op
                                 (long_identifier
                                   (identifier)))
-                              (identifier_pattern
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (module)
+                                  (identifier)))))))))
+                  (rule
+                    (tag_pattern
+                      (tag)
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier))))
+                    (arrow)
+                    (application_expression
+                      (tag_expression
+                        (module))
+                      (args
+                        (paren_expression
+                          (application_expression
+                            (tag_expression
+                              (module))
+                            (args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (long_identifier_or_op
                                 (long_identifier
                                   (identifier)))))))))))))))
       (application_expression
-        (dot_expression
-          (identifier_pattern
-            (long_identifier
-              (identifier)))
-          (long_identifier_or_op
-            (long_identifier
-              (identifier))))
+        (long_identifier_or_op
+          (long_identifier
+            (module)
+            (identifier)))
         (args
-          (identifier_pattern
+          (long_identifier_or_op
             (long_identifier
               (identifier)))))))
   (line_comment)
   (annotation
-    (annotation_pre_colon
-      (lower_identifier))
+    (annotation_pre_colon)
     (type_annotation
       (function_type
         (apply_type
-          (concrete_type
-            (upper_identifier)))
+          (concrete_type))
         (arrow)
         (apply_type
-          (concrete_type
-            (upper_identifier))
+          (concrete_type)
           (apply_type_args
             (apply_type_arg
               (record_type))
             (apply_type_arg
               (tags_type
                 (apply_type
-                  (concrete_type
-                    (upper_identifier))
+                  (concrete_type)
                   (apply_type_args
                     (apply_type_arg
                       (apply_type
-                        (concrete_type
-                          (upper_identifier))
+                        (concrete_type)
                         (apply_type_args
                           (apply_type_arg
                             (apply_type
-                              (concrete_type
-                                (upper_identifier))))))))))))))))
+                              (concrete_type)))))))))))))))
   (line_comment)
   (annotation
-    (annotation_pre_colon
-      (lower_identifier))
+    (annotation_pre_colon)
     (type_annotation
       (function_type
         (apply_type
-          (concrete_type
-            (upper_identifier)))
+          (concrete_type))
         (arrow)
         (apply_type
-          (concrete_type
-            (upper_identifier))
+          (concrete_type)
           (apply_type_args
             (apply_type_arg
               (record_type))
             (apply_type_arg
               (tags_type
                 (apply_type
-                  (concrete_type
-                    (upper_identifier))
+                  (concrete_type)
                   (apply_type_args
                     (apply_type_arg
                       (apply_type
-                        (concrete_type
-                          (upper_identifier))
+                        (concrete_type)
                         (apply_type_args
                           (apply_type_arg
                             (apply_type
-                              (concrete_type
-                                (upper_identifier)))))))))))))))))
+                              (concrete_type))))))))))))))))
 
 ================================================================================
 lists_complex
@@ -1037,21 +891,16 @@ view = \currentNavLink, htmlContent ->
 
 (file
   (annotation
-    (annotation_pre_colon
-      (lower_identifier))
+    (annotation_pre_colon)
     (type_annotation
       (function_type
         (apply_type
-          (concrete_type
-            (upper_identifier)))
+          (concrete_type))
         (apply_type
-          (concrete_type
-            (upper_identifier)))
+          (concrete_type))
         (arrow)
         (apply_type
-          (concrete_type
-            (upper_identifier)
-            (upper_identifier))))))
+          (concrete_type)))))
   (value_declaration
     (value_declaration_left
       (identifier_pattern
@@ -1066,13 +915,13 @@ view = \currentNavLink, htmlContent ->
           (identifier)))
       (arrow)
       (application_expression
-        (identifier_pattern
+        (long_identifier_or_op
           (long_identifier
             (identifier)))
         (args
           (list_expression
             (application_expression
-              (identifier_pattern
+              (long_identifier_or_op
                 (long_identifier
                   (identifier)))
               (args
@@ -1080,90 +929,87 @@ view = \currentNavLink, htmlContent ->
                   (string)))))
           (list_expression
             (application_expression
-              (identifier_pattern
+              (long_identifier_or_op
                 (long_identifier
                   (identifier)))
               (args
                 (list_expression)
                 (list_expression
                   (application_expression
-                    (identifier_pattern
+                    (long_identifier_or_op
                       (long_identifier
                         (identifier)))
                     (args
                       (list_expression
                         (application_expression
-                          (identifier_pattern
+                          (long_identifier_or_op
                             (long_identifier
                               (identifier)))
                           (args
                             (const
                               (string))))
                         (application_expression
-                          (identifier_pattern
+                          (long_identifier_or_op
                             (long_identifier
                               (identifier)))
                           (args
                             (const
                               (string)))))))
                   (application_expression
-                    (dot_expression
-                      (identifier_pattern
-                        (long_identifier
-                          (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))
+                    (long_identifier_or_op
+                      (long_identifier
+                        (module)
+                        (identifier)))
                     (args
                       (list_expression)
                       (list_expression
                         (dot_expression
                           (application_expression
-                            (identifier_pattern
+                            (long_identifier_or_op
                               (long_identifier
                                 (identifier)))
                             (args
-                              (identifier_pattern
+                              (long_identifier_or_op
                                 (long_identifier
                                   (identifier)))))
                           (long_identifier_or_op
                             (long_identifier
                               (identifier)))))))
                   (application_expression
-                    (identifier_pattern
+                    (long_identifier_or_op
                       (long_identifier
                         (identifier)))
                     (args
                       (list_expression
                         (application_expression
-                          (identifier_pattern
+                          (long_identifier_or_op
                             (long_identifier
                               (identifier)))
                           (args
                             (const
                               (string))))
                         (application_expression
-                          (identifier_pattern
+                          (long_identifier_or_op
                             (long_identifier
                               (identifier)))
                           (args
                             (const
                               (string))))))))))
             (application_expression
-              (identifier_pattern
+              (long_identifier_or_op
                 (long_identifier
                   (identifier)))
               (args
                 (list_expression)
                 (list_expression
                   (application_expression
-                    (identifier_pattern
+                    (long_identifier_or_op
                       (long_identifier
                         (identifier)))
                     (args
                       (list_expression
                         (application_expression
-                          (identifier_pattern
+                          (long_identifier_or_op
                             (long_identifier
                               (identifier)))
                           (args
@@ -1171,13 +1017,13 @@ view = \currentNavLink, htmlContent ->
                               (string)))))
                       (list_expression
                         (application_expression
-                          (identifier_pattern
+                          (long_identifier_or_op
                             (long_identifier
                               (identifier)))
                           (args
                             (list_expression
                               (application_expression
-                                (identifier_pattern
+                                (long_identifier_or_op
                                   (long_identifier
                                     (identifier)))
                                 (args
@@ -1185,21 +1031,21 @@ view = \currentNavLink, htmlContent ->
                                     (string)))))
                             (list_expression
                               (application_expression
-                                (identifier_pattern
+                                (long_identifier_or_op
                                   (long_identifier
                                     (identifier)))
                                 (args
-                                  (identifier_pattern
+                                  (long_identifier_or_op
                                     (long_identifier
                                       (identifier))))))))
                         (application_expression
-                          (identifier_pattern
+                          (long_identifier_or_op
                             (long_identifier
                               (identifier)))
                           (args
                             (list_expression
                               (application_expression
-                                (identifier_pattern
+                                (long_identifier_or_op
                                   (long_identifier
                                     (identifier)))
                                 (args
@@ -1207,11 +1053,11 @@ view = \currentNavLink, htmlContent ->
                                     (string)))))
                             (list_expression
                               (application_expression
-                                (identifier_pattern
+                                (long_identifier_or_op
                                   (long_identifier
                                     (identifier)))
                                 (args
-                                  (identifier_pattern
+                                  (long_identifier_or_op
                                     (long_identifier
                                       (identifier))))))))))))))))))))
 
@@ -1246,17 +1092,17 @@ viewNavLink = \isCurrent, navlink ->
           (identifier)))
       (arrow)
       (if_expression
-        (identifier_pattern
+        (long_identifier_or_op
           (long_identifier
             (identifier)))
         (application_expression
-          (identifier_pattern
+          (long_identifier_or_op
             (long_identifier
               (identifier)))
           (args
             (list_expression
               (application_expression
-                (identifier_pattern
+                (long_identifier_or_op
                   (long_identifier
                     (identifier)))
                 (args
@@ -1265,11 +1111,11 @@ viewNavLink = \isCurrent, navlink ->
             (list_expression
               (dot_expression
                 (application_expression
-                  (identifier_pattern
+                  (long_identifier_or_op
                     (long_identifier
                       (identifier)))
                   (args
-                    (identifier_pattern
+                    (long_identifier_or_op
                       (long_identifier
                         (identifier)))))
                 (long_identifier_or_op
@@ -1277,13 +1123,13 @@ viewNavLink = \isCurrent, navlink ->
                     (identifier))))))))
       (else_expression
         (application_expression
-          (identifier_pattern
+          (long_identifier_or_op
             (long_identifier
               (identifier)))
           (args
             (list_expression
               (application_expression
-                (identifier_pattern
+                (long_identifier_or_op
                   (long_identifier
                     (identifier)))
                 (args
@@ -1291,18 +1137,18 @@ viewNavLink = \isCurrent, navlink ->
                     (string)))))
             (list_expression
               (application_expression
-                (identifier_pattern
+                (long_identifier_or_op
                   (long_identifier
                     (identifier)))
                 (args
                   (list_expression
                     (dot_expression
                       (application_expression
-                        (identifier_pattern
+                        (long_identifier_or_op
                           (long_identifier
                             (identifier)))
                         (args
-                          (identifier_pattern
+                          (long_identifier_or_op
                             (long_identifier
                               (identifier)))))
                       (long_identifier_or_op
@@ -1310,11 +1156,11 @@ viewNavLink = \isCurrent, navlink ->
                           (identifier))))
                     (dot_expression
                       (application_expression
-                        (identifier_pattern
+                        (long_identifier_or_op
                           (long_identifier
                             (identifier)))
                         (args
-                          (identifier_pattern
+                          (long_identifier_or_op
                             (long_identifier
                               (identifier)))))
                       (long_identifier_or_op
@@ -1323,11 +1169,11 @@ viewNavLink = \isCurrent, navlink ->
                   (list_expression
                     (dot_expression
                       (application_expression
-                        (identifier_pattern
+                        (long_identifier_or_op
                           (long_identifier
                             (identifier)))
                         (args
-                          (identifier_pattern
+                          (long_identifier_or_op
                             (long_identifier
                               (identifier)))))
                       (long_identifier_or_op
@@ -1360,23 +1206,23 @@ viewNavLink = \isCurrent, navlink ->
           (identifier)))
       (arrow)
       (if_expression
-        (identifier_pattern
+        (long_identifier_or_op
           (long_identifier
             (identifier)))
         (application_expression
-          (identifier_pattern
+          (long_identifier_or_op
             (long_identifier
               (identifier)))
           (args
-            (identifier_pattern
+            (long_identifier_or_op
               (long_identifier
                 (identifier))))))
       (else_expression
         (application_expression
-          (identifier_pattern
+          (long_identifier_or_op
             (long_identifier
               (identifier)))
           (args
-            (identifier_pattern
+            (long_identifier_or_op
               (long_identifier
                 (identifier)))))))))
