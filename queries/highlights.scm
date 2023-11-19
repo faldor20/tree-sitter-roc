@@ -143,6 +143,7 @@
   "elif"
 ] @keyword.control.conditional
 
+(interface_header(name)@type.interface)
 
 [
   "for"
@@ -154,6 +155,9 @@
     "imports"
     "provides"
     "to"
+    "interface"
+    "exposes"
+    "expect"
  ] @keyword.control
 
  (when) @keyword.control.roc
@@ -174,8 +178,9 @@
 
       (application_expression
 
-caller:        (identifier_pattern
+caller: (long_identifier_or_op
           (long_identifier
+            (module)
             (identifier)@function)))
 
 (value_declaration(value_declaration_left (identifier_pattern)@function)(fun_expression))
@@ -187,32 +192,38 @@ caller:        (identifier_pattern
          )
 
   (annotation
-    (annotation_pre_colon
-      (lower_identifier)@function)
+    (annotation_pre_colon )@function
     (type_annotation
       (function_type)))
 
-(dot_expression
-  base: (identifier_pattern) @namespace
-  field: (long_identifier_or_op) @function)
 
 
-(module_name)@module
+(module)@module
 
 (imports
   (imports_entry
-    (lower_identifier)@namespace))
+          (long_module_name
+            (module)
+              @namespace)))
 
 (packages
   (record
-    (record_field
-      (lower_identifier)@namespace)))
+    (record_field_expr
+      (identifier)@namespace)))
 
 (concrete_type)@type
+
+(tag)@constructor
+(opaque_tag)@constructor
+
 (string)@string
 
 [
   (int)
-  (uint8)
-  (uint16)
+  (uint)
+  (iint)
+  (float)
+  (xint)
+  (decimal)
+  (natural)
 ] @constant.numeric
