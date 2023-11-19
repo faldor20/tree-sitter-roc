@@ -31,10 +31,57 @@ num=1
       (int))))
 
 ================================================================================
+tuple pattern
+================================================================================
+update = \dict, (vertex, edges) ->
+    Dict.insert dict vertex edges
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (long_identifier
+          (identifier))
+        (tuple_pattern
+          (identifier_pattern
+            (long_identifier
+              (identifier)))
+          (identifier_pattern
+            (long_identifier
+              (identifier)))))
+      (arrow)
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (module)
+            (identifier)))
+        (args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))))))
+
+================================================================================
 opaque tag pattern
 ================================================================================
 bfs = \isTarget, root, @Graph graph ->
     bfsHelper isTarget [root] (Set.single root) graph
+
+fromDict : Dict a (List a) -> Graph a
+fromDict = @Graph
+
+
 --------------------------------------------------------------------------------
 
 (file
@@ -80,7 +127,35 @@ bfs = \isTarget, root, @Graph graph ->
                     (identifier))))))
           (long_identifier_or_op
             (long_identifier
-              (identifier))))))))
+              (identifier)))))))
+  (annotation
+    (annotation_pre_colon)
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (bound_variable))
+            (apply_type_arg
+              (apply_type
+                (concrete_type)
+                (apply_type_args
+                  (apply_type_arg
+                    (bound_variable)))))))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (bound_variable)))))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (tag_expression
+      (opaque_tag))))
 
 ================================================================================
 tag pattern
@@ -728,7 +803,7 @@ interpretFile = \filename ->
           (paren_expression
             (application_expression
               (tag_expression
-                (module))
+                (tag))
               (args
                 (const
                   (string))))))))))
@@ -824,7 +899,7 @@ main=
         (paren_expression
           (application_expression
             (tag_expression
-              (module))
+              (tag))
             (args
               (record_update
                 (record_field_expr
@@ -892,7 +967,7 @@ main=
                   (record_update
                     (record_field_expr
                       (tag_expression
-                        (module)))))
+                        (tag)))))
                 (ERROR)
                 (long_identifier_or_op
                   (long_identifier
@@ -901,7 +976,7 @@ main=
                 (paren_expression
                   (application_expression
                     (tag_expression
-                      (module))
+                      (tag))
                     (args
                       (record_update
                         (record_field_expr
@@ -936,12 +1011,12 @@ main=
                 (record_field_expr
                   (application_expression
                     (tag_expression
-                      (module))
+                      (tag))
                     (args
                       (record
                         (record_field_expr
                           (tag_expression
-                            (module)))
+                            (tag)))
                         (record_field_expr)
                         (record_field_expr)))))))
             (application_expression
@@ -953,7 +1028,7 @@ main=
                 (paren_expression
                   (application_expression
                     (tag_expression
-                      (module))
+                      (tag))
                     (args
                       (record_update
                         (record_field_expr
@@ -988,7 +1063,7 @@ main=
                           (record
                             (record_field_expr
                               (tag_expression
-                                (module)))
+                                (tag)))
                             (record_field_expr
                               (long_identifier_or_op
                                 (long_identifier
@@ -998,7 +1073,7 @@ main=
                                 (int)))
                             (record_field_expr
                               (tag_expression
-                                (module)))))))))))))))))
+                                (tag)))))))))))))))))
 
 ================================================================================
 val_infix
@@ -1846,7 +1921,7 @@ main=
             (record
               (record_field_expr
                 (tag_expression
-                  (module)))
+                  (tag)))
               (record_field_expr)
               (record_field_expr)))
           (arrow)

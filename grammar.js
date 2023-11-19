@@ -278,7 +278,8 @@ module.exports = grammar({
           $.list_pattern,
           $.array_pattern,
           $.tag_pattern,
-          $.record
+          $.record,
+          $.tuple_pattern,
           // $.typed_pattern,
           // $.attribute_pattern,
           // :? atomic-type
@@ -296,6 +297,17 @@ module.exports = grammar({
           $._pattern, ",",
           repeat(prec.right(seq($._virtual_end_decl, $._pattern, ","))),
           $._pattern
+        )),
+    tuple_pattern: $ =>
+      prec.right(5,
+        seq(
+        '(',
+        $._virtual_open_section,
+          $._pattern, ",",
+          repeat(prec.right(5,seq($._pattern, ","))),
+          $._pattern,
+        $._virtual_end_section,
+        ')'
         )),
 
     identifier_pattern: $ =>
@@ -320,6 +332,7 @@ module.exports = grammar({
         $.const,
         $.long_identifier,
         $.list_pattern,
+      $.tuple_pattern,
         $.record_pattern,
         $.array_pattern,
         $.tag_pattern,
@@ -483,7 +496,7 @@ module.exports = grammar({
         $.value_declaration,
 
       ),
-    tag_expression: $ => prec.left(2,seq($.module, optional($._expression_no_ap))),
+    tag_expression: $ => prec.left(25,seq(choice($.opaque_tag,$.tag), optional($._expression_no_ap))),
     // discard_expression: $ => '_',
 
     application_expression: $ =>

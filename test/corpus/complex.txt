@@ -140,7 +140,7 @@ tick = \ n ->
               (paren_expression
                 (application_expression
                   (tag_expression
-                    (module))
+                    (tag))
                   (args
                     (record))))))))
       (else_expression
@@ -203,7 +203,7 @@ tick = \ n ->
             (paren_expression
               (application_expression
                 (tag_expression
-                  (module))
+                  (tag))
                 (args
                   (paren_expression
                     (infix_expression
@@ -766,7 +766,7 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                     (arrow)
                     (application_expression
                       (tag_expression
-                        (module))
+                        (tag))
                       (args
                         (paren_expression
                           (application_expression
@@ -791,12 +791,12 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                     (arrow)
                     (application_expression
                       (tag_expression
-                        (module))
+                        (tag))
                       (args
                         (paren_expression
                           (application_expression
                             (tag_expression
-                              (module))
+                              (tag))
                             (args
                               (long_identifier_or_op
                                 (long_identifier

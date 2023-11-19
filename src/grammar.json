@@ -216,6 +216,10 @@
           {
             "type": "SYMBOL",
             "name": "record"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "tuple_pattern"
           }
         ]
       }
@@ -286,6 +290,63 @@
           {
             "type": "SYMBOL",
             "name": "_pattern"
+          }
+        ]
+      }
+    },
+    "tuple_pattern": {
+      "type": "PREC_RIGHT",
+      "value": 5,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "STRING",
+            "value": "("
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_virtual_open_section"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_pattern"
+          },
+          {
+            "type": "STRING",
+            "value": ","
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "PREC_RIGHT",
+              "value": 5,
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_pattern"
+                  },
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  }
+                ]
+              }
+            }
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_pattern"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "_virtual_end_section"
+          },
+          {
+            "type": "STRING",
+            "value": ")"
           }
         ]
       }
@@ -492,6 +553,10 @@
         {
           "type": "SYMBOL",
           "name": "list_pattern"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "tuple_pattern"
         },
         {
           "type": "SYMBOL",
@@ -835,13 +900,22 @@
     },
     "tag_expression": {
       "type": "PREC_LEFT",
-      "value": 2,
+      "value": 25,
       "content": {
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "module"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "opaque_tag"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "tag"
+              }
+            ]
           },
           {
             "type": "CHOICE",
