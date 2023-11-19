@@ -56,7 +56,36 @@
         },
         {
           "type": "SYMBOL",
+          "name": "expect"
+        },
+        {
+          "type": "SYMBOL",
           "name": "value_declaration"
+        }
+      ]
+    },
+    "expect": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "expect"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_virtual_open_section"
+        },
+        {
+          "type": "FIELD",
+          "name": "body",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_expressions"
+          }
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_virtual_end_section"
         }
       ]
     },

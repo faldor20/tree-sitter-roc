@@ -95,6 +95,7 @@ module.exports = grammar({
         $.annotation,
         $.alias,
         $.opaque,
+        $.expect,
         $.value_declaration,
         // $.module_defn,
         // $.module_abbrev,
@@ -210,6 +211,13 @@ module.exports = grammar({
     //
 
 
+    expect: $ =>
+      seq(
+        "expect",
+        $._virtual_open_section,
+        field("body", $._expressions),
+        $._virtual_end_section,
+      ),
     value_declaration: $ =>
       choice(
         prec.right(10, seq(
@@ -282,7 +290,7 @@ module.exports = grammar({
           $.tag_pattern,
           $.record,
           $.tuple_pattern,
-        $.range_pattern,
+          $.range_pattern,
           // $.typed_pattern,
           // $.attribute_pattern,
           // :? atomic-type
@@ -293,7 +301,7 @@ module.exports = grammar({
     // attribute_pattern: $ => prec.left(seq($.attributes, $._pattern)),
 
     paren_pattern: $ => seq("(", $._virtual_open_section, $._pattern, $._virtual_end_section, ")"),
-    range_pattern:$=>seq(".."),
+    range_pattern: $ => seq(".."),
 
     repeat_pattern: $ =>
       prec.right(
@@ -305,13 +313,13 @@ module.exports = grammar({
     tuple_pattern: $ =>
       prec.right(5,
         seq(
-        '(',
-        $._virtual_open_section,
+          '(',
+          $._virtual_open_section,
           $._pattern, ",",
-          repeat(prec.right(5,seq($._pattern, ","))),
+          repeat(prec.right(5, seq($._pattern, ","))),
           $._pattern,
-        $._virtual_end_section,
-        ')'
+          $._virtual_end_section,
+          ')'
         )),
 
     identifier_pattern: $ =>
@@ -336,7 +344,7 @@ module.exports = grammar({
         $.const,
         $.long_identifier,
         $.list_pattern,
-      $.tuple_pattern,
+        $.tuple_pattern,
         $.record_pattern,
         $.array_pattern,
         $.tag_pattern,
@@ -500,7 +508,7 @@ module.exports = grammar({
         $.value_declaration,
 
       ),
-    tag_expression: $ => prec.left(25,seq(choice($.opaque_tag,$.tag), optional($._expression_no_ap))),
+    tag_expression: $ => prec.left(25, seq(choice($.opaque_tag, $.tag), optional($._expression_no_ap))),
     // discard_expression: $ => '_',
 
     application_expression: $ =>
@@ -1719,10 +1727,10 @@ module.exports = grammar({
 
     long_identifier: $ =>
       prec(100,
-      
-        seq(alias(optional(/[A-Z][A-Za-z_]*(\.[A-Z][A-Za-z_]*)*\./),$.module), $.identifier)),
-        // seq(alias(repeat(prec.right(100,seq($._upper_identifier,'.'))),$.module), $.identifier)),
-        // seq(optional(seq($.module,$.dot)), $.identifier)),
+
+        seq(alias(optional(/[A-Z][A-Za-z_]*(\.[A-Z][A-Za-z_]*)*\./), $.module), $.identifier)),
+    // seq(alias(repeat(prec.right(100,seq($._upper_identifier,'.'))),$.module), $.identifier)),
+    // seq(optional(seq($.module,$.dot)), $.identifier)),
 
     _op_call: $ => choice(
       seq('(', $.op_name, ')'),

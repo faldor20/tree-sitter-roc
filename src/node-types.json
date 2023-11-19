@@ -110,6 +110,10 @@
         "named": true
       },
       {
+        "type": "expect",
+        "named": true
+      },
+      {
         "type": "opaque",
         "named": true
       },
@@ -945,6 +949,26 @@
     "type": "escape_char",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "expect",
+    "named": true,
+    "fields": {
+      "body": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "_expression_inner",
+            "named": true
+          },
+          {
+            "type": "infix_newline",
+            "named": true
+          }
+        ]
+      }
+    }
   },
   {
     "type": "exposes",
@@ -2746,6 +2770,10 @@
   },
   {
     "type": "else",
+    "named": false
+  },
+  {
+    "type": "expect",
     "named": false
   },
   {

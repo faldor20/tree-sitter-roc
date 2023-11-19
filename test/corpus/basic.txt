@@ -1,4 +1,85 @@
 ================================================================================
+expect
+================================================================================
+
+expect
+    actual = dfs (\v -> Str.startsWith v "C") "A" testGraphMultipath
+    expected = Ok "Ccorrect"
+
+    actual == expected
+a=
+    !(true||false)
+--------------------------------------------------------------------------------
+
+(file
+  (expect
+    (value_declaration
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (args
+          (paren_expression
+            (fun_expression
+              (backslash)
+              (argument_patterns
+                (long_identifier
+                  (identifier)))
+              (arrow)
+              (application_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (module)
+                    (identifier)))
+                (args
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (const
+                    (string))))))
+          (const
+            (string))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))))
+    (value_declaration
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (application_expression
+        (tag_expression
+          (tag))
+        (args
+          (const
+            (string)))))
+    (infix_expression
+      (long_identifier_or_op
+        (long_identifier
+          (identifier)))
+      (infix_op)
+      (long_identifier_or_op
+        (long_identifier
+          (identifier)))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (prefixed_expression
+      (prefix_op
+        (symbolic_op))
+      (paren_expression
+        (infix_expression
+          (const)
+          (infix_op)
+          (const))))))
+
+================================================================================
 prefix
 ================================================================================
 a=!(true||false)
