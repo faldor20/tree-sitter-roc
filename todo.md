@@ -25,3 +25,10 @@ If i make use of inlining i can split up my expressions better, infact i should 
 I can probably fix a bunch of my issues using the conflicts field, which should make tree-sitter explore the next token;w
  b
 
+I made a significant error.
+roc is actually like elm in that you cannot have a sequence of expressions in a function body.
+eg :
+main=
+	a b 
+	c d
+this syntax is invalid because there is no "void" type

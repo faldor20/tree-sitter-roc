@@ -1,165 +1,238 @@
-app "breakout"
-    packages { pf: "platform/main.roc" }
-    imports [pf.Game.{ Bounds, Elem, Event }]
-    provides [program] { Model } to pf
+## The Graph interface represents a [graph](https://en.wikipedia.org/wiki/Graph_(discrete_mathematics))
+## using an [adjacency list](https://en.wikipedia.org/wiki/Adjacency_list)
+## and exposes functions for working with graphs, such as creating one from a list and
+## performing a depth-first or breadth-first search.
+interface Graph
+    exposes [
+        Graph,
+        fromList,
+        fromDict,
+        dfs,
+        bfs,
+    ]
+    imports []
 
-paddleWidth = 0.2 # width of the paddle, as a % of screen width
-paddleHeight = 50 # height of the paddle, in pixels
-paddleSpeed = 65 # how many pixels the paddle moves per keypress
-blockHeight = 80 # height of a block, in pixels
-blockBorder = 0.025 # border of a block, as a % of its width
-ballSize = 55
-numRows = 4
-numCols = 8
-numBlocks = numRows * numCols
+## Graph type representing a graph as a dictionary of adjacency lists,
+## where each key is a vertex and each value is a list of its adjacent vertices.
+#Graph a := Dict a (List a) where a implements Eq
 
-Model : {
-    # Screen height and width
-    height : F32,
-    width : F32,
-    # Paddle X-coordinate
-    paddleX : F32,
-    # Ball coordinates
-    ballX : F32,
-    ballY : F32,
-    dBallX : F32,
-    # delta x - how much it moves per tick
-    dBallY : F32,
-    # delta y - how much it moves per tick
-}
+## Create a Graph from an adjacency list.
+# fromList : List (a, List a) -> Graph a
+fromList = \adjacencyList ->
+    emptyDict = Dict.withCapacity (List.len adjacencyList)
 
-init : Bounds -> Model
-init = \{ width, height } -> {
-    # Screen height and width
-    width,
-    height,
-    # Paddle X-coordinate
-    paddleX: (width * 0.5) - (paddleWidth * width * 0.5),
-    # Ball coordinates
-    ballX: width * 0.5,
-    ballY: height * 0.4,
-    # Delta - how much ball moves in each tick
-    dBallX: 4,
-    dBallY: 4,
-}
+    update = \dict, (vertex, edges) ->
+        Dict.insert dict vertex edges
 
-update : Model, Event -> Model
-update = \model, event ->
-    when event is
-        Resize size ->
-            { model & width: size.width, height: size.height }
+    List.walk adjacencyList emptyDict update
+    |> @Graph
 
-        KeyDown Left ->
-            { model & paddleX: model.paddleX - paddleSpeed }
+## Create a Graph from an adjacency list.
+fromDict : Dict a (List a) -> Graph a
+fromDict = @Graph
 
-        KeyDown Right ->
-            { model & paddleX: model.paddleX + paddleSpeed }
+## Perform a depth-first search on a graph to find a target vertex.
+## [Algorithm animation](https://en.wikipedia.org/wiki/Depth-first_search#/media/File:Depth-First-Search.gif)
+##
+## - `isTarget` : A function that returns true if a vertex is the target.
+## - `root`     : The starting vertex for the search.
+## - `graph`    : The graph to perform the search on.
+dfs : (a -> Bool), a, Graph a -> Result a [NotFound]
+dfs = \isTarget, root, @Graph graph ->
+    dfsHelper isTarget [root] (Set.empty {}) graph
 
-        Tick _ ->
-            tick model
+# A helper function for performing the depth-first search.
+#
+# `isTarget` : A function that returns true if a vertex is the target.
+# `stack`    : A List of vertices to visit.
+# `visited`  : A Set of visited vertices.
+# `graph`    : The graph to perform the search on.
+dfsHelper : (a -> Bool), List a, Set a, Dict a (List a) -> Result a [NotFound]
+dfsHelper = \isTarget, stack, visited, graph ->
+    when stack is
+        [] ->
+            Err NotFound
 
-        _ ->
-            model
+        [.., current] ->
+            rest = List.dropLast stack 1
 
-tick : Model -> Model
-tick = \model ->
-    model
-    |> moveBall
+            if isTarget current then
+                Ok current
+            else if Set.contains visited current then
+                dfsHelper isTarget rest visited graph
+            else
+                newVisited = Set.insert visited current
 
-moveBall : Model -> Model
-moveBall = \model ->
-    ballX = model.ballX + model.dBallX
-    ballY = model.ballY + model.dBallY
+                when Dict.get graph current is
+                    Ok neighbors ->
+                        # filter out all visited neighbors
+                        filtered =
+                            neighbors
+                            |> List.keepIf (\n -> !(Set.contains newVisited n))
+                            |> List.reverse
 
-    paddleTop = model.height - blockHeight - (paddleHeight * 2)
-    paddleLeft = model.paddleX
-    paddleRight = paddleLeft + (model.width * paddleWidth)
+                        # newly explored nodes are added to LIFO stack
+                        newStack = List.concat rest filtered
 
-    # If its y used to be less than the paddle, and now it's greater than or equal,
-    # then this is the frame where the ball collided with it.
-    crossingPaddle = model.ballY < paddleTop && ballY >= paddleTop
+                        dfsHelper isTarget newStack newVisited graph
 
-    # If it collided with the paddle, bounce off.
-    directionChange =
-        if crossingPaddle && (ballX >= paddleLeft && ballX <= paddleRight) then
-            -1f32
-        else
-            1f32
+                    Err KeyNotFound ->
+                        dfsHelper isTarget rest newVisited graph
 
-    dBallX = model.dBallX * directionChange
-    dBallY = model.dBallY * directionChange
+## Perform a breadth-first search on a graph to find a target vertex.
+## [Algorithm animation](https://en.wikipedia.org/wiki/Breadth-first_search#/media/File:Animated_BFS.gif)
+##
+## - `isTarget` : A function that returns true if a vertex is the target.
+## - `root`     : The starting vertex for the search.
+## - `graph`    : The graph to perform the search on.
+bfs : (a -> Bool), a, Graph a -> Result a [NotFound]
+bfs = \isTarget, root, @Graph graph ->
+    bfsHelper isTarget [root] (Set.single root) graph
 
-    { model & ballX, ballY, dBallX, dBallY }
+# A helper function for performing the breadth-first search.
+#
+# `isTarget` : A function that returns true if a vertex is the target.
+# `queue`    : A List of vertices to visit.
+# `seen`  : A Set of all seen vertices.
+# `graph`    : The graph to perform the search on.
+bfsHelper : (a -> Bool), List a, Set a, Dict a (List a) -> Result a [NotFound]
+bfsHelper = \isTarget, queue, seen, graph ->
+    when queue is
+        [] ->
+            Err NotFound
 
-render : Model -> List Elem
-render = \model ->
+        [current, ..] ->
+            rest = List.dropFirst queue 1
 
-    blocks = List.map
-        (List.range { start: At 0, end: Length numBlocks })
-        \index ->
-            col =
-                Num.rem index numCols
-                |> Num.toF32
+            if isTarget current then
+                Ok current
+            else
+                when Dict.get graph current is
+                    Ok neighbors ->
+                        # filter out all seen neighbors
+                        filtered = List.keepIf neighbors (\n -> !(Set.contains seen n))
 
-            row =
-                index
-                // numCols
-                |> Num.toF32
+                        # newly explored nodes are added to the FIFO queue
+                        newQueue = List.concat rest filtered
 
-            red = col / Num.toF32 numCols
-            green = row / Num.toF32 numRows
-            blue = Num.toF32 index / Num.toF32 numBlocks
+                        # the new nodes are also added to the seen set
+                        newSeen = List.walk filtered seen Set.insert
 
-            color = { r: red * 0.8, g: 0.2 + green * 0.6, b: 0.2 + blue * 0.8, a: 1 }
+                        bfsHelper isTarget newQueue newSeen graph
 
-            { row, col, color }
+                    Err KeyNotFound ->
+                        bfsHelper isTarget rest seen graph
 
-    blockWidth = model.width / numCols
+# Test DFS with multiple paths
+expect
+    actual = dfs (\v -> Str.startsWith v "C") "A" testGraphMultipath
+    expected = Ok "Ccorrect"
 
-    rects =
-        List.joinMap
-            blocks
-            \{ row, col, color } ->
-                left = Num.toF32 col * blockWidth
-                top = Num.toF32 (row * blockHeight)
-                border = blockBorder * blockWidth
+    actual == expected
 
-                outer = Rect {
-                    left,
-                    top,
-                    width: blockWidth,
-                    height: blockHeight,
-                    color: { r: color.r * 0.8, g: color.g * 0.8, b: color.b * 0.8, a: 1 },
-                }
+# Test BFS with multiple paths
+expect
+    actual = bfs (\v -> Str.startsWith v "C") "A" testGraphMultipath
+    expected = Ok "Ccorrect"
 
-                inner = Rect {
-                    left: left + border,
-                    top: top + border,
-                    width: blockWidth - (border * 2),
-                    height: blockHeight - (border * 2),
-                    color,
-                }
+    actual == expected
 
-                [outer, inner]
+# Test DFS
+expect
+    actual = dfs (\v -> Str.startsWith v "F") "A" testGraphSmall
+    expected = Ok "F-DFS"
 
-    ball =
-        color = { r: 0.7, g: 0.3, b: 0.9, a: 1.0 }
-        width = ballSize
-        height = ballSize
-        left = model.ballX
-        top = model.ballY
+    actual == expected
 
-        Rect { left, top, width, height, color }
+## Test BFS
+expect
+    actual = bfs (\v -> Str.startsWith v "F") "A" testGraphSmall
+    expected = Ok "F-BFS"
 
-    paddle =
-        color = { r: 0.8, g: 0.8, b: 0.8, a: 1.0 }
-        width = model.width * paddleWidth
-        height = paddleHeight
-        left = model.paddleX
-        top = model.height - blockHeight - height
+    actual == expected
 
-        Rect { left, top, width, height, color }
+# Test NotFound DFS
+expect
+    actual = dfs (\v -> v == "not a node") "A" testGraphSmall
+    expected = Err NotFound
 
-    List.concat rects [paddle, ball]
+    actual == expected
 
-program = { init, update, render }
+# Test NotFound BFS
+expect
+    actual = dfs (\v -> v == "not a node") "A" testGraphSmall
+    expected = Err NotFound
+
+    actual == expected
+
+# Test DFS large
+expect
+    actual = dfs (\v -> v == "AE") "A" testGraphLarge
+    expected = Ok "AE"
+
+    actual == expected
+
+## Test BFS large
+expect
+    actual = bfs (\v -> v == "AE") "A" testGraphLarge
+    expected = Ok "AE"
+
+    actual == expected
+
+# Some helpers for testing
+testGraphSmall =
+    fromList    
+        [
+            ("A", ["B", "C", "F-BFS"]),
+            ("B", ["D", "E"]),
+            ("C", []),
+            ("D", []),
+            ("E", ["F-DFS"]),
+            ("F-BFS", []),
+            ("F-DFS", []),
+        ]
+
+testGraphLarge =
+    fromList
+        [
+            ("A", ["B", "C", "D"]),
+            ("B", ["E", "F", "G"]),
+            ("C", ["H", "I", "J"]),
+            ("D", ["K", "L", "M"]),
+            ("E", ["N", "O"]),
+            ("F", ["P", "Q"]),
+            ("G", ["R", "S"]),
+            ("H", ["T", "U"]),
+            ("I", ["V", "W"]),
+            ("J", ["X", "Y"]),
+            ("K", ["Z", "AA"]),
+            ("L", ["AB", "AC"]),
+            ("M", ["AD", "AE"]),
+            ("N", []),
+            ("O", []),
+            ("P", []),
+            ("Q", []),
+            ("R", []),
+            ("S", []),
+            ("T", []),
+            ("U", []),
+            ("V", []),
+            ("W", []),
+            ("X", []),
+            ("Y", []),
+            ("Z", []),
+            ("AA", []),
+            ("AB", []),
+            ("AC", []),
+            ("AD", []),
+            ("AE", []),
+        ]
+
+testGraphMultipath =
+    fromList
+        [
+            ("A", ["B", "Ccorrect"]),
+            ("B", ["Ccorrect", "Cwrong"]),
+            ("Ccorrect", []),
+            ("Cwrong", []),
+        ]

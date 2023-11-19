@@ -17,7 +17,9 @@
     #in
     (flake-utils.lib.eachDefaultSystem
       (system:
-        let pkgs = import nixpkgs { inherit system; }; in
+        let pkgs = import nixpkgs { inherit system;overlays=[(final: prev:{
+            tree-sitter = prev.tree-sitter.override {  webUISupport=true;     };   
+        })]; }; in
         {
           # defaultPackage = defaultPackage pkgs;
           devShell = pkgs.mkShell {

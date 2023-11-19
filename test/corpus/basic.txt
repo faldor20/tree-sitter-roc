@@ -440,8 +440,7 @@ add = \num1, num2 ->
       1-> 1
       2-> 
         a<- p a
-        b=
-          a a
+        b= a a
         c<- p a
         \num->a
       _-> \num3->4
@@ -551,7 +550,12 @@ main=
   a b
     |> c a
     |> d b
-  g 10
+main=
+  b=
+    a b
+      |> c a
+      |> d b
+  g=10
 --------------------------------------------------------------------------------
 
 (file
@@ -608,14 +612,54 @@ main=
           (args
             (long_identifier_or_op
               (long_identifier
-                (identifier)))))))
-    (application_expression
-      (long_identifier_or_op
+                (identifier))))))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
         (long_identifier
-          (identifier)))
-      (args
-        (const
-          (int))))))
+          (identifier))))
+    (value_declaration
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (infix_expression
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (args
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
+        (infix_op
+          (symbolic_op))
+        (infix_expression
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))
+          (infix_op
+            (symbolic_op))
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))))
+    (value_declaration
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (const
+        (int)))))
 
 ================================================================================
 functions basic
@@ -1274,11 +1318,14 @@ val_infix
 main =
   val =
     val2
-  a
-  |>b
-  |>p a 
-  |>b
-  a
+  b=
+    a
+    |>b
+    |>p a 
+    |>b
+  b
+
+
 m=
   a
   |>b
@@ -1300,32 +1347,37 @@ m=
       (long_identifier_or_op
         (long_identifier
           (identifier))))
-    (long_identifier_or_op
-      (long_identifier
-        (identifier)))
-    (infix_newline
-      (infix_op
-        (symbolic_op))
+    (value_declaration
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
       (long_identifier_or_op
         (long_identifier
-          (identifier))))
-    (infix_newline
-      (infix_op
-        (symbolic_op))
-      (application_expression
+          (identifier)))
+      (infix_newline
+        (infix_op
+          (symbolic_op))
         (long_identifier_or_op
           (long_identifier
-            (identifier)))
-        (args
+            (identifier))))
+      (infix_newline
+        (infix_op
+          (symbolic_op))
+        (application_expression
           (long_identifier_or_op
             (long_identifier
-              (identifier))))))
-    (infix_newline
-      (infix_op
-        (symbolic_op))
-      (long_identifier_or_op
-        (long_identifier
-          (identifier))))
+              (identifier)))
+          (args
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))))
+      (infix_newline
+        (infix_op
+          (symbolic_op))
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))))
     (long_identifier_or_op
       (long_identifier
         (identifier))))
@@ -1458,15 +1510,16 @@ odd functions
 ================================================================================
 main=
   main = 
-   when a is
-      1-> 
-        if a then
-          b b
-          |> b a
-          |> b p
-        else 
-          c
-      2-> hi
+  k=
+     when a is
+        1-> 
+          if a then
+            b b
+            |> b a
+            |> b p
+          else 
+            c
+        2-> hi
 
   h=10
   h
@@ -1487,32 +1540,26 @@ main2= a b
         (identifier_pattern
           (long_identifier
             (identifier))))
-      (when_is_expression
-        (when)
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))
-        (is)
-        (rules
-          (rule
-            (const_pattern
-              (int))
-            (arrow)
-            (if_expression
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier)))
-              (infix_expression
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier)))
-                  (args
-                    (long_identifier_or_op
-                      (long_identifier
-                        (identifier)))))
-                (infix_op
-                  (symbolic_op))
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (when_is_expression
+          (when)
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (is)
+          (rules
+            (rule
+              (const_pattern
+                (int))
+              (arrow)
+              (if_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
                 (infix_expression
                   (application_expression
                     (long_identifier_or_op
@@ -1524,35 +1571,46 @@ main2= a b
                           (identifier)))))
                   (infix_op
                     (symbolic_op))
-                  (application_expression
-                    (long_identifier_or_op
-                      (long_identifier
-                        (identifier)))
-                    (args
+                  (infix_expression
+                    (application_expression
                       (long_identifier_or_op
                         (long_identifier
-                          (identifier))))))))
-            (else_expression
+                          (identifier)))
+                      (args
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))))
+                    (infix_op
+                      (symbolic_op))
+                    (application_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (args
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))))))
+              (else_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))))
+            (rule
+              (const_pattern
+                (int))
+              (arrow)
               (long_identifier_or_op
                 (long_identifier
-                  (identifier)))))
-          (rule
-            (const_pattern
-              (int))
-            (arrow)
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))))))
-    (value_declaration
-      (value_declaration_left
-        (identifier_pattern
-          (long_identifier
-            (identifier))))
-      (const
-        (int)))
-    (long_identifier_or_op
-      (long_identifier
-        (identifier))))
+                  (identifier)))))))
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (const
+          (int)))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier)))))
   (value_declaration
     (value_declaration_left
       (identifier_pattern
