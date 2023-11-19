@@ -13,7 +13,7 @@ const PREC = {
   LET_EXPR: 20,
   LET_DECL: 7,
   DO_EXPR: 8,
-  FUN_EXPR: 8,
+  FUN_EXPR: 30,
   MATCH_EXPR: 8,
   MATCH_DECL: 9,
   DO_DECL: 10,
@@ -27,7 +27,7 @@ const PREC = {
   TUPLE_EXPR: 19,
   SPECIAL_PREFIX: 20,
   DO_EXPR: 20,
-  IF_EXPR: 24,
+  IF_EXPR: 80,
   // DOT: 19,
   DOT: 24,
   INDEX_EXPR: 25,
@@ -58,21 +58,23 @@ module.exports = grammar({
   ],
 
   conflicts: $ => [
-    // [$.long_identifier, $._identifier_or_op],
     [$.identifier_pattern, $.long_identifier_or_op],
-    // [$.identifier_pattern, $.tag_expression],
-    // [$.tag_expression],
     [$.symbolic_op, $.infix_op],
-    // [$.union_type_case, $.long_identifier],
     [$.long_module_name],
-    // [$.identifier, $.tag],
+    // [$.application_expression, $.infix_expression],
+    // [$.application_expression, $.infix_expression, $._pattern],
     [$._expression_inner, $._pattern]
   ],
 
   words: $ => $.ident,
 
-  inline: $ => [$._expression_no_ap,
-  $._module_elem, $._infix_or_prefix_op, $._quote_op_left, $._quote_op_right, $._inner_literal_expressions, $._expression_or_range, $._infix_expression_inner, $._seq_expressions, $._seq_inline],
+  inline: $ => [
+    $._assignement_expression,
+    $._keyword_expression,
+    $._contextual_expression,
+    $._atom_expression,
+    $._atom_context_expression,
+    $._module_elem, $._infix_or_prefix_op, $._quote_op_left, $._quote_op_right, $._inner_literal_expressions, $._expression_or_range, $._infix_expression_inner, $._seq_expressions, $._seq_inline],
 
   supertypes: $ => [$._module_elem, $._pattern, $._expression_inner],
 
@@ -108,11 +110,11 @@ module.exports = grammar({
       ),
     value_declaration: $ =>
       choice(
-        prec.right(10, seq(
+        prec.right(100, seq(
           $.value_declaration_left,
           "=",
           $._virtual_open_section,
-          field("body", $._expressions),
+          field("body",$._expressions ),
           $._virtual_end_section,
 
         ),
@@ -270,27 +272,22 @@ module.exports = grammar({
     //       ),
     //     )),
 
-    _seq_expressions: $ =>
-      seq(
-        $._expression_inner,
-        repeat(seq($._virtual_end_decl, choice($._expressions, $.infix_newline))),
-      ),
 
     _expressions: $ =>
       prec.left(PREC.SEQ_EXPR,
-        choice(
           // alias($._seq_infix, $.infix_expression),
-          $._seq_expressions,
-        ),
+      seq(
+        $._expression_inner,
+        repeat(seq($._virtual_end_decl, choice($._expression_inner, $.infix_newline))),
+      ),
       ),
 
 
     //If i want to be able to combine these i need to be able to prefferentially match a whole token that is bigger than just the virtual_end_decl. but it's probably not worth my time  
-    infix_newline: $ => seq($.infix_op, $._expression_inner),
+    infix_newline: $ => seq($.infix_op, $._atom_context_expression),
 
     // _expressions: $ =>
     //   prec.left(PREC.SEQ_EXPR,
-
     //     choice(
     //       seq(
     //         $._expression_inner,
@@ -300,7 +297,12 @@ module.exports = grammar({
     //   ),
 
 
-    _expression_no_ap: $ => choice(
+    /**
+      *These expressions are all self contained and don't require any state before or after
+      *this means these can be the start of a function call, or a function argument 
+      *Note: This contains paren_expression meaning we could theoretically have anything be an atomic expression as long as it is wrapped in parens 
+      */
+    _atom_expression: $ => choice(
 
       // $.identifier_pattern,
 
@@ -312,84 +314,87 @@ module.exports = grammar({
       $.record,
       // $.infix_newline,
       $.list_expression,
-      $.fun_expression,
       $.prefixed_expression,
-      $.infix_expression,
       $.index_expression,
       $.long_identifier_or_op,
+      $.tag_expression,
+      //NOTE: fun is both atomic and a keyword
+      $.fun_expression,
 
       // $.long_identifier,
       // $.module_identifier,
 
-      $.tag_expression,
     ),
-    _expression_inner: $ =>
-      choice(
-        $._expression_no_ap,
-        // $.begin_end_expression,
-        // $.typed_expression,
-        $.backpassing_expression,
-        // $.object_instantiation_expression,
-        // $.ce_expression,
-        //TODO:what is this
-        // $.brace_expression,
-        // [ comp_or_range_expr ]
-        // [| comp_or_range_expr |]
-        // "null",
-        // $.typecast_expression,
-        // $.function_expression,
+    _atom_context_expression: $ => choice(
 
+      $._atom_expression,
+      $._contextual_expression,
+      ),
+    /**
+    * these expressions ruqire parsing over other expressions and finding elments between them
+      Something like an application_expression falls into this category because it matches a sequence of independant expressions that are a valid function call 
+    */
+    _contextual_expression: $ =>
+      choice(
+        $.infix_expression,
+        $.application_expression,
+      ),
+    /**
+    * expressions that perform assignment of variables 
+    */
+    _assignement_expression: $ =>
+      choice(
+        $.backpassing_expression,
+        $.value_declaration,
+      ),
+
+    /**
+    * expressions that are started by a keyword(including \ for function definition), these are mostly control flow expressions
+    */
+    _keyword_expression: $ =>
+      choice(
+        $.fun_expression,
         $.while_expression,
         $.for_expression,
         $.try_expression,
-        // $.literal_expression,
-        // $.call_expression,
-        // $.return_expression,
-        // $.yield_expression,
-        // (static-typars : (member-sig) expr)
-        //DEFINITELY
-        // $.discard_expression,
-
-        $.application_expression,
-        $.else_expression,
         $.if_expression,
         $.when_is_expression,
-        $.value_declaration,
-
       ),
-    tag_expression: $ => prec.left(25, seq(choice($.opaque_tag, $.tag), optional($._expression_no_ap))),
+
+    _expression_inner: $ =>
+      choice(
+        $._keyword_expression,
+        $._assignement_expression,
+        $._atom_expression,
+        $._contextual_expression,
+      ),
+
+    tag_expression: $ => prec.left(1001, seq(choice($.opaque_tag, $.tag), optional($._atom_expression))),
     // discard_expression: $ => '_',
 
     application_expression: $ =>
-      prec.right(17,
+      prec.right(100,
         seq(
-          field("caller", $._expression_no_ap),
+          field("caller", $._atom_expression
+          ),
           alias(
             repeat1(
-              prec.right(18,
-                $._expression_no_ap),
+              prec.right(101,
+                $._atom_expression
+              ),
             ),
             $.args
           ),
         )
       ),
 
-    call_expression: $ =>
-      prec.right(PREC.PAREN_APP + 100,
-        seq(
-          $._expression_inner,
-          imm("("),
-          optional($._expressions),
-          ")",
-        )
-      ),
 
     tuple_expression: $ =>
       prec.left(PREC.TUPLE_EXPR,
         seq(
           "(",
-          $._expression_inner,
-          repeat1(prec.left(PREC.TUPLE_EXPR, seq(",", $._expression_inner))),
+          $._atom_context_expression,
+          repeat1(prec.left(PREC.TUPLE_EXPR, seq(",", $._atom_context_expression))),
           ")",
         )
       ),
@@ -398,7 +403,7 @@ module.exports = grammar({
       prec.left(-1,
         seq(
           $.prefix_op,
-          $._expression_inner,
+          $._atom_context_expression,
         )),
 
     // yield_expression: $ =>
@@ -412,9 +417,9 @@ module.exports = grammar({
     infix_expression: $ =>
       prec.right(PREC.SPECIAL_INFIX,
         seq(
-          $._expression_inner,
+          $._atom_context_expression,
           $.infix_op,
-          $._expression_inner,
+          $._atom_context_expression,
         )),
 
     paren_expression: $ => prec(PREC.PAREN_EXPR, seq("(", $._virtual_open_section, $._expressions, $._virtual_end_section, ")")),
@@ -454,29 +459,30 @@ module.exports = grammar({
           field("else_branch", $._expressions),
           $._virtual_end_section,
         )),
-
+    then_expression:$=>
+      seq(
+          "then",
+          $._virtual_open_section,
+          field("then", $._expressions),
+          $._virtual_end_section,
+        ),
     elif_expression: $ =>
       prec(PREC.ELSE_EXPR,
         seq(
           "elif",
           field("guard", $._expression_inner),
-          "then",
-          $._virtual_open_section,
-          field("then", $._expressions),
-          $._virtual_end_section,
+        $.then_expression
         )),
 
     if_expression: $ =>
       prec.left(PREC.IF_EXPR,
         seq(
           "if",
-          field("guard", $._expression_inner),
-          "then",
-          field("then", $._expressions),
+          field("guard", $._atom_context_expression),
+          $.then_expression,
           repeat($.elif_expression),
-          optional($.else_expression),
+          $.else_expression,
         )),
-
     fun_expression: $ =>
       prec.right(PREC.FUN_EXPR,
         seq(

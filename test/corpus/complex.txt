@@ -118,36 +118,87 @@ tick = \ n ->
           (infix_op)
           (const
             (int)))
-        (backpassing_expression
-          (wildcard_pattern)
-          (back_arrow)
+        (then_expression
+          (backpassing_expression
+            (wildcard_pattern)
+            (back_arrow)
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (args
+                (paren_expression
+                  (application_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (module)
+                        (identifier)))
+                    (args
+                      (const
+                        (string))))))))
           (application_expression
             (long_identifier_or_op
               (long_identifier
                 (identifier)))
             (args
-              (paren_expression
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
-                    (const
-                      (string)))))
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier)))
               (paren_expression
                 (application_expression
                   (tag_expression
                     (tag))
                   (args
-                    (record))))))))
-      (else_expression
-        (backpassing_expression
-          (wildcard_pattern)
-          (back_arrow)
+                    (record)))))))
+        (else_expression
+          (backpassing_expression
+            (wildcard_pattern)
+            (back_arrow)
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (args
+                (paren_expression
+                  (infix_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))
+                    (infix_op
+                      (symbolic_op))
+                    (infix_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (module)
+                          (identifier)))
+                      (infix_op
+                        (symbolic_op))
+                      (fun_expression
+                        (backslash)
+                        (argument_patterns
+                          (long_identifier
+                            (identifier)))
+                        (arrow)
+                        (infix_expression
+                          (const
+                            (string
+                              (interpolation_char
+                                (ident))))
+                          (infix_op
+                            (symbolic_op))
+                          (long_identifier_or_op
+                            (long_identifier
+                              (module)
+                              (identifier)))))))))))
+          (backpassing_expression
+            (wildcard_pattern)
+            (back_arrow)
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (args
+                (long_identifier_or_op
+                  (long_identifier
+                    (module)
+                    (identifier))))))
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -155,73 +206,17 @@ tick = \ n ->
             (args
               (paren_expression
                 (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier)))
+                  (tag_expression
+                    (tag))
                   (args
-                    (prefixed_expression
-                      (prefix_op
-                        (symbolic_op))
-                      (application_expression
+                    (paren_expression
+                      (infix_expression
                         (long_identifier_or_op
                           (long_identifier
-                            (module)
                             (identifier)))
-                        (args
-                          (prefixed_expression
-                            (prefix_op
-                              (symbolic_op))
-                            (fun_expression
-                              (backslash)
-                              (argument_patterns
-                                (long_identifier
-                                  (identifier)))
-                              (arrow)
-                              (application_expression
-                                (const
-                                  (string
-                                    (interpolation_char
-                                      (ident))))
-                                (args
-                                  (prefixed_expression
-                                    (prefix_op
-                                      (symbolic_op))
-                                    (long_identifier_or_op
-                                      (long_identifier
-                                        (module)
-                                        (identifier)))))))))))))))))
-        (backpassing_expression
-          (wildcard_pattern)
-          (back_arrow)
-          (application_expression
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))
-            (args
-              (long_identifier_or_op
-                (long_identifier
-                  (module)
-                  (identifier))))))
-        (application_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (args
-            (paren_expression
-              (application_expression
-                (tag_expression
-                  (tag))
-                (args
-                  (paren_expression
-                    (application_expression
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))
-                      (args
-                        (prefixed_expression
-                          (prefix_op)
-                          (const
-                            (int)))))))))))))))
+                        (infix_op)
+                        (const
+                          (int))))))))))))))
 
 ================================================================================
 simple_env
@@ -1110,90 +1105,91 @@ viewNavLink = \isCurrent, navlink ->
         (long_identifier_or_op
           (long_identifier
             (identifier)))
-        (application_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (args
-            (list_expression
-              (application_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (args
-                  (const
-                    (string)))))
-            (list_expression
-              (dot_expression
+        (then_expression
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (args
+              (list_expression
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
                       (identifier)))
                   (args
+                    (const
+                      (string)))))
+              (list_expression
+                (dot_expression
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier)))))
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier))))))))
-      (else_expression
-        (application_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (args
-            (list_expression
-              (application_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (args
-                  (const
-                    (string)))))
-            (list_expression
-              (application_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (args
-                  (list_expression
-                    (dot_expression
-                      (application_expression
-                        (long_identifier_or_op
-                          (long_identifier
-                            (identifier)))
-                        (args
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))
-                    (dot_expression
-                      (application_expression
-                        (long_identifier_or_op
-                          (long_identifier
-                            (identifier)))
-                        (args
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))))
+                        (identifier)))
+                    (args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))))
-                  (list_expression
-                    (dot_expression
-                      (application_expression
-                        (long_identifier_or_op
-                          (long_identifier
-                            (identifier)))
-                        (args
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier))))))))
+        (else_expression
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (args
+              (list_expression
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (args
+                    (const
+                      (string)))))
+              (list_expression
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (args
+                    (list_expression
+                      (dot_expression
+                        (application_expression
                           (long_identifier_or_op
                             (long_identifier
-                              (identifier)))))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))))))))))))
+                              (identifier)))
+                          (args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))
+                      (dot_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))))
+                    (list_expression
+                      (dot_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))))))))))))))
 
 ================================================================================
 if func
@@ -1224,20 +1220,21 @@ viewNavLink = \isCurrent, navlink ->
         (long_identifier_or_op
           (long_identifier
             (identifier)))
-        (application_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (args
+        (then_expression
+          (application_expression
             (long_identifier_or_op
               (long_identifier
-                (identifier))))))
-      (else_expression
-        (application_expression
-          (long_identifier_or_op
-            (long_identifier
-              (identifier)))
-          (args
+                (identifier)))
+            (args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))
+        (else_expression
+          (application_expression
             (long_identifier_or_op
               (long_identifier
-                (identifier)))))))))
+                (identifier)))
+            (args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))))))

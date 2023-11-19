@@ -219,14 +219,14 @@ struct Scanner {
         indent_length_stack.pop_back();
         return true;
       }
-      else if (valid_symbols[VIRTUAL_END_SECTION] && lexer->lookahead == '|') {
-        skip(lexer);
-        if (lexer->lookahead == '}' || lexer->lookahead == ']') {
-          lexer->result_symbol = VIRTUAL_END_SECTION;
-          indent_length_stack.pop_back();
-          return true;
-        }
-      }
+      // else if (valid_symbols[VIRTUAL_END_SECTION] && lexer->lookahead == '|') {
+      //   skip(lexer);
+      //   if (lexer->lookahead == '}' || lexer->lookahead == ']') {
+      //     lexer->result_symbol = VIRTUAL_END_SECTION;
+      //     indent_length_stack.pop_back();
+      //     return true;
+      //   }
+      // }
       else if (lexer->eof(lexer)) {
           if (valid_symbols[VIRTUAL_END_SECTION])
           {
