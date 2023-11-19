@@ -800,6 +800,21 @@ maybe =
       (identifier_pattern
         (long_identifier
           (identifier))))
+    (paren_expression
+      (const
+        (string))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (int)))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
     (application_expression
       (long_identifier_or_op
         (long_identifier
