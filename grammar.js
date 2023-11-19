@@ -1863,14 +1863,14 @@ module.exports = grammar({
     // ),
     record_field_expr: $ => prec.left(
       seq(
-        $._lower_identifier, optional(seq(":", repeat1($._expression_inner))
+        $.identifier, optional(seq(":", repeat1($._expression_inner))
         ))
     ),
     record: ($) => seq("{", sep_tail($.record_field_expr, ","), "}"),
 
     record_destructure: $ => seq('{', sep_tail($.ident, ","), '}'),
 
-    record_update: $ => seq('{', $._lower_identifier, "&", sep1_tail($.record_field_expr, ","), '}'),
+    record_update: $ => seq('{', $.identifier, "&", sep1_tail($.record_field_expr, ","), '}'),
 
 
 
@@ -1963,8 +1963,8 @@ module.exports = grammar({
       $.wildcard
     ),
 
-    implements: $ => prec.right(seq($._lower_identifier, "where", sep1($._implements_body, ","))),
-    _implements_body: $ => seq($._lower_identifier, "implements", $.ability_chain),
+    implements: $ => prec.right(seq($.identifier, "where", sep1($._implements_body, ","))),
+    _implements_body: $ => seq($.identifier, "implements", $.ability_chain),
     _ability: $ => sep1($._upper_identifier, "."),
     ability_chain: $ => sep1($._ability, "&"),
 
@@ -2036,7 +2036,7 @@ module.exports = grammar({
     ),
 
     requires_rigid: $ => seq(
-      $._lower_identifier,
+      $.identifier,
       optional(seq('=>', $._upper_identifier))
     ),
 
@@ -2051,7 +2051,7 @@ module.exports = grammar({
       $.type_annotation
     ),
     typed_ident: $ => seq(
-      $._lower_identifier,
+      $.identifier,
       ':',
       $.type_annotation
     ),
@@ -2061,7 +2061,7 @@ module.exports = grammar({
       choice(
         //TODO implimeent apply $.apply,
         $.tag,
-        $._lower_identifier
+        $.identifier
       ),
     /**
     *The top level entry into type annotations 
@@ -2083,7 +2083,7 @@ module.exports = grammar({
     ),
 
     effect_name: $ => seq(
-      $._lower_identifier,
+      $.identifier,
       '.',
       $._upper_identifier
     ),

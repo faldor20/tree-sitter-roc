@@ -30,6 +30,7 @@ tick = \ n ->
       (packages
         (record
           (record_field_expr
+            (identifier)
             (const
               (string)))))
       (imports
@@ -333,6 +334,7 @@ main =
       (packages
         (record
           (record_field_expr
+            (identifier)
             (const
               (string)))))
       (imports
@@ -359,7 +361,8 @@ main =
         (to)
         (ident))))
   (annotation
-    (annotation_pre_colon)
+    (annotation_pre_colon
+      (identifier))
     (type_annotation
       (apply_type
         (concrete_type)
@@ -677,7 +680,8 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
         (concrete_type))))
   (line_comment)
   (annotation
-    (annotation_pre_colon)
+    (annotation_pre_colon
+      (identifier))
     (type_annotation
       (function_type
         (apply_type
@@ -815,7 +819,8 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
               (identifier)))))))
   (line_comment)
   (annotation
-    (annotation_pre_colon)
+    (annotation_pre_colon
+      (identifier))
     (type_annotation
       (function_type
         (apply_type
@@ -840,7 +845,8 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                               (concrete_type)))))))))))))))
   (line_comment)
   (annotation
-    (annotation_pre_colon)
+    (annotation_pre_colon
+      (identifier))
     (type_annotation
       (function_type
         (apply_type
@@ -891,7 +897,8 @@ view = \currentNavLink, htmlContent ->
 
 (file
   (annotation
-    (annotation_pre_colon)
+    (annotation_pre_colon
+      (identifier))
     (type_annotation
       (function_type
         (apply_type

@@ -129,7 +129,8 @@ fromDict = @Graph
             (long_identifier
               (identifier)))))))
   (annotation
-    (annotation_pre_colon)
+    (annotation_pre_colon
+      (identifier))
     (type_annotation
       (function_type
         (apply_type
@@ -829,15 +830,19 @@ newScope = { scope & whileInfo }
           (identifier))))
     (record
       (record_field_expr
+        (identifier)
         (const
           (string)))
       (record_field_expr
+        (identifier)
         (const
           (string)))
       (record_field_expr
+        (identifier)
         (const
           (int)))
       (record_field_expr
+        (identifier)
         (infix_expression
           (const
             (int))
@@ -845,6 +850,7 @@ newScope = { scope & whileInfo }
           (const
             (int))))
       (record_field_expr
+        (identifier)
         (infix_expression
           (paren_expression
             (infix_expression
@@ -863,7 +869,9 @@ newScope = { scope & whileInfo }
         (long_identifier
           (identifier))))
     (record_update
-      (record_field_expr))))
+      (identifier)
+      (record_field_expr
+        (identifier)))))
 
 ================================================================================
 records complex
@@ -902,7 +910,9 @@ main=
               (tag))
             (args
               (record_update
+                (identifier)
                 (record_field_expr
+                  (identifier)
                   (application_expression
                     (dot_expression
                       (application_expression
@@ -965,7 +975,9 @@ main=
                       (long_identifier
                         (identifier))))
                   (record_update
+                    (identifier)
                     (record_field_expr
+                      (identifier)
                       (tag_expression
                         (tag)))))
                 (ERROR)
@@ -979,7 +991,9 @@ main=
                       (tag))
                     (args
                       (record_update
+                        (identifier)
                         (record_field_expr
+                          (identifier)
                           (application_expression
                             (dot_expression
                               (application_expression
@@ -1008,17 +1022,22 @@ main=
                   (long_identifier
                     (identifier))))
               (record_update
+                (identifier)
                 (record_field_expr
+                  (identifier)
                   (application_expression
                     (tag_expression
                       (tag))
                     (args
                       (record
                         (record_field_expr
+                          (identifier)
                           (tag_expression
                             (tag)))
-                        (record_field_expr)
-                        (record_field_expr)))))))
+                        (record_field_expr
+                          (identifier))
+                        (record_field_expr
+                          (identifier))))))))
             (application_expression
               (long_identifier_or_op
                 (long_identifier
@@ -1031,7 +1050,9 @@ main=
                       (tag))
                     (args
                       (record_update
+                        (identifier)
                         (record_field_expr
+                          (identifier)
                           (application_expression
                             (long_identifier_or_op
                               (long_identifier
@@ -1062,16 +1083,20 @@ main=
                                         (identifier))))))))
                           (record
                             (record_field_expr
+                              (identifier)
                               (tag_expression
                                 (tag)))
                             (record_field_expr
+                              (identifier)
                               (long_identifier_or_op
                                 (long_identifier
                                   (identifier))))
                             (record_field_expr
+                              (identifier)
                               (const
                                 (int)))
                             (record_field_expr
+                              (identifier)
                               (tag_expression
                                 (tag)))))))))))))))))
 
@@ -1222,32 +1247,41 @@ navLinks = [
     (list_expression
       (record
         (record_field_expr
+          (identifier)
           (const
             (string)))
         (record_field_expr
+          (identifier)
           (const
             (string)))
         (record_field_expr
+          (identifier)
           (const
             (string))))
       (record
         (record_field_expr
+          (identifier)
           (const
             (string)))
         (record_field_expr
+          (identifier)
           (const
             (string)))
         (record_field_expr
+          (identifier)
           (const
             (string))))
       (record
         (record_field_expr
+          (identifier)
           (const
             (string)))
         (record_field_expr
+          (identifier)
           (const
             (string)))
         (record_field_expr
+          (identifier)
           (const
             (string)))))))
 
@@ -1452,7 +1486,8 @@ transformFileContent = \currentUrl, htmlContent ->
       (apply_type
         (concrete_type))))
   (annotation
-    (annotation_pre_colon)
+    (annotation_pre_colon
+      (identifier))
     (type_annotation
       (function_type
         (bound_variable)
@@ -1475,7 +1510,8 @@ transformFileContent = \currentUrl, htmlContent ->
       (const
         (int))))
   (annotation
-    (annotation_pre_colon)
+    (annotation_pre_colon
+      (identifier))
     (type_annotation
       (function_type
         (bound_variable)
@@ -1506,7 +1542,8 @@ transformFileContent = \currentUrl, htmlContent ->
           (const
             (int))))))
   (annotation
-    (annotation_pre_colon)
+    (annotation_pre_colon
+      (identifier))
     (type_annotation
       (apply_type
         (concrete_type)
@@ -1529,7 +1566,8 @@ transformFileContent = \currentUrl, htmlContent ->
           (long_identifier
             (identifier))))))
   (annotation
-    (annotation_pre_colon)
+    (annotation_pre_colon
+      (identifier))
     (type_annotation
       (function_type
         (apply_type
@@ -1567,7 +1605,8 @@ transformFileContent = \currentUrl, htmlContent ->
               (argument_patterns
                 (record_pattern
                   (record
-                    (record_field_expr))))
+                    (record_field_expr
+                      (identifier)))))
               (arrow)
               (infix_expression
                 (long_identifier_or_op
@@ -1682,7 +1721,8 @@ findOneArg = \long, short, { args, taken } -> ()
 
 (file
   (annotation
-    (annotation_pre_colon)
+    (annotation_pre_colon
+      (identifier))
     (type_annotation
       (function_type
         (apply_type
@@ -1725,8 +1765,10 @@ findOneArg = \long, short, { args, taken } -> ()
           (identifier))
         (record_pattern
           (record
-            (record_field_expr)
-            (record_field_expr))))
+            (record_field_expr
+              (identifier))
+            (record_field_expr
+              (identifier)))))
       (arrow)
       (const
         (unit)))))
@@ -1920,10 +1962,13 @@ main=
             (tag)
             (record
               (record_field_expr
+                (identifier)
                 (tag_expression
                   (tag)))
-              (record_field_expr)
-              (record_field_expr)))
+              (record_field_expr
+                (identifier))
+              (record_field_expr
+                (identifier))))
           (arrow)
           (long_identifier_or_op
             (long_identifier
@@ -2058,7 +2103,8 @@ a = \path ->
         (concrete_type))))
   (line_comment)
   (annotation
-    (annotation_pre_colon)
+    (annotation_pre_colon
+      (identifier))
     (type_annotation
       (function_type
         (apply_type
@@ -2122,12 +2168,16 @@ main = 1
       (requires
         (requires_rigids)
         (typed_ident
+          (identifier)
           (type_annotation
             (function_type
               (bound_variable)
               (arrow)
               (implements
+                (identifier)
+                (identifier)
                 (ability_chain)
+                (identifier)
                 (ability_chain))))))
       (exposes)
       (packages
