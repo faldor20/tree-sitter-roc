@@ -66,16 +66,15 @@ module.exports = grammar({
     // [$.union_type_case, $.long_identifier],
     [$.long_module_name],
     // [$.identifier, $.tag],
-     [$._expression_inner,$._pattern]
+    [$._expression_inner, $._pattern]
   ],
 
-  words: $ => $.identifier,
+  words: $ => $.ident,
 
   inline: $ => [$._expression_no_ap,
+  $._module_elem, $._infix_or_prefix_op, $._quote_op_left, $._quote_op_right, $._inner_literal_expressions, $._expression_or_range, $._infix_expression_inner, $._seq_expressions, $._seq_inline],
 
-  $._module_elem, $._infix_or_prefix_op, $._base_call, $.access_modifier, $._quote_op_left, $._quote_op_right, $._inner_literal_expressions, $._expression_or_range, $._infix_expression_inner, $._seq_expressions, $._seq_inline],
-
-  supertypes: $ => [$._module_elem, $._pattern, $._expression_inner, $._type_defn_body],
+  supertypes: $ => [$._module_elem, $._pattern, $._expression_inner],
 
   rules: {
     //
@@ -97,118 +96,7 @@ module.exports = grammar({
         $.opaque,
         $.expect,
         $.value_declaration,
-        // $.module_defn,
-        // $.module_abbrev,
-        // $.import_decl,
-        // $.compiler_directive_decl,
-        // $.fsi_directive_decl,
-        // $.type_definition,
-
-        // $.exception_defn
       ),
-
-    // namespace: $ =>
-    //   seq(
-    //     "namespace",
-    //     choice(
-    //       "global",
-    //       field("name", $.long_identifier),
-    //     ),
-    //     repeat($._module_elem),
-    //   ),
-
-    // named_module: $ =>
-    //   seq(
-    //     "module",
-    //     optional($.access_modifier),
-    //     field("name", $.long_identifier),
-    //     repeat($._module_elem)
-    //   ),
-
-    // module_abbrev: $ =>
-    //   seq(
-    //     "module",
-    //     $.identifier,
-    //     "=",
-    //     $._virtual_open_section,
-    //     $.long_identifier,
-    //     $._virtual_end_section,
-    //   ),
-
-    // module_defn: $ =>
-    //   prec.left(
-    //     seq(
-    //       // optional($.attributes),
-    //       "module",
-    //       optional($.access_modifier),
-    //       $.identifier,
-    //       "=",
-    //       $._virtual_open_section,
-    //       repeat1($._module_elem),
-    //       $._virtual_end_section,
-    //     )),
-
-    // compiler_directive_decl: $ =>
-    //   prec.right
-    //     (
-    //       seq(
-    //         "#nowarn",
-    //         repeat($.string),
-    //       )
-    //     ),
-
-
-    // fsi_directive_decl: $ =>
-    //   prec.right
-    //     (
-    //       choice(
-    //         seq("#r", repeat($.string)),
-    //         seq("#load", repeat($.string)),
-    //       )),
-
-    // import_decl: $ =>
-    //   seq(
-    //     "open",
-    //     $.long_identifier,
-    //   ),
-
-    //
-    // Attributes (BEGIN)
-    //
-    // attributes: $ => prec.left(repeat1($.attribute_set)),
-    // attribute_set: $ =>
-    //   seq(
-    //     "[<",
-    //     $.attribute,
-    //     repeat(seq(";", $.attribute)),
-    //     ">]"
-    //   ),
-    // attribute: $ => seq(
-    //   optional(seq($.attribute_target, ":")),
-    //   $.object_construction
-    // ),
-    // attribute_target: $ => choice(
-    //   "assembly",
-    //   "module",
-    //   "return",
-    //   "field",
-    //   "property",
-    //   "param",
-    //   "type",
-    //   "constructor",
-    //   "event"
-    // ),
-
-    // object_construction: $ =>
-    //   prec.left(
-    //   seq(
-    //     $.type,
-    //     optional($._expressions),
-    //   )),
-
-    //
-    // Attributes (END)
-    //
 
 
     expect: $ =>
@@ -235,35 +123,7 @@ module.exports = grammar({
         $._pattern,
       )),
 
-    do: $ => prec(PREC.DO_EXPR,
-      seq(
-        "do",
-        $._virtual_open_section,
-        $._expressions,
-        $._virtual_end_section,
-      )),
 
-    // _function_or_value_defns: $ =>
-    //   seq($._function_or_value_defn_body, repeat1(seq("and", $._function_or_value_defn_body))),
-
-    // function_or_value_defn: $ =>
-    //   $._function_or_value_defn_body,
-
-    // _function_or_value_defn_body: $ =>
-    //   "",
-
-    // function_declaration_left: $ =>
-    //   prec.left(2, seq(
-    //     optional("inline"),
-    //     optional($.access_modifier),
-    //     $._identifier_or_op,
-    //     optional($.type_arguments),
-    //     $.argument_patterns,
-    //     optional(seq(":", $.type))
-    //   )),
-
-
-    access_modifier: $ => choice("private", "internal", "public"),
     //
     // Top-level rules (END)
     //
@@ -271,29 +131,28 @@ module.exports = grammar({
     //
     // Pattern rules (BEGIN)
     _pattern: $ =>
-        choice(
-          // alias("null", $.null_pattern),
-          alias("_", $.wildcard_pattern),
-          alias($.const, $.const_pattern),
-          $.identifier_pattern,
-          $.as_pattern,
-          $.disjunct_pattern,
-          $.conjunct_pattern,
-          $.cons_pattern,
-          // $.repeat_pattern,
-          $.paren_pattern,
-          $.list_pattern,
-          $.list_pattern,
-          $.list_pattern,
-          $.array_pattern,
-          $.tag_pattern,
-          $.record,
-          $.tuple_pattern,
-          $.range_pattern,
-          // $.typed_pattern,
-          // $.attribute_pattern,
-          // :? atomic-type
-          // :? atomic-type as ident
+      choice(
+        // alias("null", $.null_pattern),
+        alias("_", $.wildcard_pattern),
+        alias($.const, $.const_pattern),
+        $.identifier_pattern,
+        $.as_pattern,
+        $.disjunct_pattern,
+        $.conjunct_pattern,
+        $.cons_pattern,
+        // $.repeat_pattern,
+        $.paren_pattern,
+        $.list_pattern,
+        $.list_pattern,
+        $.list_pattern,
+        $.tag_pattern,
+        $.record,
+        $.tuple_pattern,
+        $.range_pattern,
+        // $.typed_pattern,
+        // $.attribute_pattern,
+        // :? atomic-type
+        // :? atomic-type as ident
       ),
 
     // attribute_pattern: $ => prec.left(seq($.attributes, $._pattern)),
@@ -344,7 +203,6 @@ module.exports = grammar({
         $.list_pattern,
         $.tuple_pattern,
         $.record_pattern,
-        $.array_pattern,
         $.tag_pattern,
         seq("(", $._virtual_open_section, $._pattern, $._virtual_end_section, ")"),
 
@@ -357,12 +215,6 @@ module.exports = grammar({
           seq('[', ']'),
           seq('[', $._pattern, repeat(prec(2, seq(",", $._pattern))), ']'))
       ),
-
-    array_pattern: $ =>
-      prec(1,
-        choice(
-          seq('[|', '|]'),
-          seq('[|', $._pattern, repeat(seq(";", $._pattern)), '|]'))),
 
     record_pattern: $ => $.record,
     record_destructure_pattern: $ => $.record_destructure,
@@ -454,7 +306,6 @@ module.exports = grammar({
 
       $.dot_expression,
       $.tuple_expression,
-      $.array_expression,
       $.const,
       $.paren_expression,
       $.record_update,
@@ -543,59 +394,12 @@ module.exports = grammar({
         )
       ),
 
-    // brace_expression: $ =>
-    //   prec(PREC.PAREN_EXPR,
-    //   seq(
-    //     "{",
-    //       choice(
-    //         $.with_field_expression,
-    //         $.field_expression,
-    //         $.object_expression,
-    //       ),
-    //     "}",
-    //   )),
-
-    // with_field_expression: $ =>
-    //   seq(
-    //     $._expressions,
-    //     "with",
-    //     $._virtual_open_section,
-    //     $.field_initializers,
-    //     $._virtual_end_section,
-    //   ),
-
-    // field_expression: $ => $.field_initializers,
-
-    // object_expression: $ =>
-    //   prec(PREC.NEW_EXPR,
-    //   seq(
-    //     "new",
-    //     $._base_call,
-    //     $._virtual_open_section,
-    //     // $._object_members,
-    //     $._interface_implementations,
-    //     $._virtual_end_section,
-    //   )),
-
-    // _base_call: $ =>
-    //   choice(
-    //     // $.object_construction,
-    //     seq($.object_construction, "as", $.identifier),
-    //   ),
-
     prefixed_expression: $ =>
       prec.left(-1,
         seq(
           $.prefix_op,
           $._expression_inner,
         )),
-
-    // return_expression: $ =>
-    //   prec.left(PREC.SPECIAL_PREFIX,
-    //     seq(
-    //       choice("return", "return!"),
-    //       $._expression_inner,
-    //     )),
 
     // yield_expression: $ =>
     //   prec.left(PREC.SPECIAL_PREFIX,
@@ -604,16 +408,6 @@ module.exports = grammar({
     //       $._expression_inner,
     //     )),
 
-    // ce_expression: $ =>
-    //   prec(PREC.CE_EXPR,
-    //     seq(
-    //       $._expression_inner,
-    //       "{",
-    //       $._virtual_open_section,
-    //       $._comp_or_range_expression,
-    //       $._virtual_end_section,
-    //       "}",
-    //     )),
 
     infix_expression: $ =>
       prec.right(PREC.SPECIAL_INFIX,
@@ -622,28 +416,6 @@ module.exports = grammar({
           $.infix_op,
           $._expression_inner,
         )),
-
-    // literal_expression: $ =>
-    //   prec(PREC.PAREN_EXPR,
-    //     choice(
-    //       seq("<@", $._expression_inner, "@>"),
-    //       seq("<@@", $._expression_inner, "@@>"),
-    //     )),
-
-    // typecast_expression: $ =>
-    //   prec(PREC.SPECIAL_INFIX,
-    //     seq(
-    //       $._expression_inner,
-    //       choice(
-    //         ":",
-    //         ":>",
-    //         ":?",
-    //         ":?>"
-    //       ),
-    //       $.type
-    //     )),
-
-    // begin_end_expression: $ => prec(PREC.PAREN_EXPR, seq("begin", $._expressions, "end")),
 
     paren_expression: $ => prec(PREC.PAREN_EXPR, seq("(", $._virtual_open_section, $._expressions, $._virtual_end_section, ")")),
 
@@ -738,23 +510,6 @@ module.exports = grammar({
           $.rules,
         )),
 
-    // function_expression: $ =>
-    //   prec(PREC.MATCH_EXPR,
-    //     seq(
-    //       "function",
-    //       $.rules,
-    //     )),
-
-    // object_instantiation_expression: $ =>
-    //   prec(PREC.NEW_OBJ,
-    //     seq(
-    //       "new",
-    //       $.type,
-    //       imm("("),
-    //       $._expression_inner,
-    //       ")"
-    //     )),
-
     backpassing_expression: $ =>
       prec.right(PREC.LARROW,
         seq(
@@ -771,10 +526,7 @@ module.exports = grammar({
           optional(imm(".")),
           imm("["),
           $._virtual_open_section,
-          choice(
-            field("index", $._expressions),
-            $.slice_ranges,
-          ),
+          field("index", $._expressions),
           $._virtual_end_section,
           "]",
         )),
@@ -786,16 +538,6 @@ module.exports = grammar({
           imm("."),
           field("field", $.long_identifier_or_op),
         )),
-
-    // typed_expression: $ =>
-    //   prec(PREC.PAREN_EXPR,
-    //     seq(
-    //       $._expression_inner,
-    //       imm("<"),
-    //       // optional($.types),
-    //       ">",
-    //     )),
-
 
     _list_elements: $ =>
       prec.right(PREC.COMMA + 100,
@@ -821,13 +563,6 @@ module.exports = grammar({
           optional($._list_element),
           "]",
         )),
-
-    array_expression: $ =>
-      seq(
-        "[|",
-        optional($._list_element),
-        "|]",
-      ),
 
     range_expression: $ =>
       prec.left(PREC.DOTDOT,
@@ -864,756 +599,6 @@ module.exports = grammar({
           repeat($.rule),
           $._virtual_end_section,
         )),
-
-    //
-    // Expressions (END)
-    //
-
-    //
-    // Computation expression (BEGIN)
-    //
-
-    // _comp_or_range_expression: $ =>
-    //   choice(
-    //     $._expressions,
-    //     $.short_comp_expression,
-    //     // $.range_expression, TODO
-    //   ),
-
-    // _comp_expressions: $ =>
-    //   choice(
-    //     $.let_ce_expressions,
-    //     $.do_ce_expressions,
-    //     $.use_ce_expressions,
-    //     $.yield_ce_expressions,
-    //     $.return_ce_expressions,
-    //     $.if_ce_expressions,
-    //     $.match_ce_expressions,
-    //     $.try_ce_expressions,
-    //     $.while_expressions,
-    //     $.for_ce_expressions,
-    //     $.sequential_ce_expressions,
-    //     $._expressions,
-    //   ),
-
-    // for_ce_expressions: $ =>
-    //   prec.left(
-    //   seq(
-    //     "for",
-    //     choice(
-    //         seq($._pattern, "in", $._expressions_or_range),
-    //         seq($.identifier, "=", $._expressions, "to", $._expression),
-    //     ),
-    //     "do",
-    //       $._virtual_open_section,
-    //       $._comp_expressions,
-    //       $._virtual_end_section,
-    //     optional("done"),
-    //   )),
-    //
-    // try_ce_expressions: $ =>
-    //   prec(PREC.MATCH_EXPR,
-    //   seq(
-    //     "try",
-    //     $._virtual_open_section,
-    //     $._comp_expressions,
-    //     $._virtual_end_section,
-    //     choice(
-    //       seq("with", $.comp_rules),
-    //       seq("finally", $.comp_rules)
-    //     ),
-    //   )),
-    //
-    // match_ce_expressions: $ =>
-    //   prec(PREC.MATCH_EXPR,
-    //   seq(
-    //     "match",
-    //     $._expressions,
-    //     "with",
-    //     $.comp_rules,
-    //   )),
-    //
-    // sequential_ce_expressions: $ =>
-    //   prec.left(PREC.SEQ_EXPR,
-    //   seq(
-    //     $._comp_expressions,
-    //     repeat1(prec.right(PREC.SEQ_EXPR, seq(choice(";", $._newline), $._comp_expressions))),
-    //   )),
-    //
-    // _else_ce_expressions: $ =>
-    //   prec(PREC.ELSE_EXPR,
-    //   seq(
-    //     "else",
-    //     $._virtual_open_section,
-    //     field("else_branch", $._comp_expressions),
-    //     $._virtual_end_section,
-    //   )),
-    //
-    // elif_ce_expressions: $ =>
-    //   prec(PREC.ELSE_EXPR,
-    //   seq(
-    //     "elif",
-    //     $._virtual_open_section,
-    //     field("guard", $._expressions),
-    //     $._virtual_end_section,
-    //     "then",
-    //     $._virtual_open_section,
-    //     field("then", $._comp_expressions),
-    //     $._virtual_end_section,
-    //   )),
-    //
-    // if_ce_expressions: $ =>
-    //   prec.left(PREC.IF_EXPR,
-    //   seq(
-    //     "if",
-    //     $._virtual_open_section,
-    //     field("guard", $._expressions),
-    //     $._virtual_end_section,
-    //     "then",
-    //     field("then", $._comp_expressions),
-    //     repeat($.elif_ce_expressions),
-    //     optional($._else_ce_expressions),
-    //   )),
-    //
-    // return_ce_expressions: $ =>
-    //   prec.left(PREC.PREFIX_EXPR,
-    //   seq(
-    //     choice("return!", "return"),
-    //     $._expressions,
-    //   )),
-    //
-    // yield_ce_expressions: $ =>
-    //   prec.left(PREC.PREFIX_EXPR,
-    //   seq(
-    //     choice("yield!", "yield"),
-    //     $._expressions,
-    //   )),
-    //
-    // do_ce_expressions: $ =>
-    //   seq(
-    //     choice("do!", "do"),
-    //     $._expressions,
-    //     $._comp_expressions,
-    //   ),
-    //
-    // use_ce_expressions: $ =>
-    //   seq(
-    //     choice("use!", "use"),
-    //     $._pattern,
-    //     "=",
-    //     $._virtual_open_section,
-    //     $._expressions,
-    //     $._virtual_end_section,
-    //     $._comp_expressions,
-    //   ),
-    //
-    // let_ce_expressions: $ =>
-    //   seq(
-    //     choice("let!", "let"),
-    //     $._pattern,
-    //     "=",
-    //     $._virtual_open_section,
-    //     $._expressions,
-    //     $._virtual_end_section,
-    //     $._comp_expressions,
-    //   ),
-
-    // short_comp_expression: $ =>
-    //   seq(
-    //     "for",
-    //     $._pattern,
-    //     "in",
-    //     $._expression_or_range,
-    //     $.arrow,
-    //     $._expressions,
-    //   ),
-
-    // comp_rule: $ =>
-    //   seq(
-    //     $._pattern,
-    //     $.arrow,
-    //     $._comp_expressions,
-    //   ),
-    //
-    // comp_rules: $ =>
-    //   prec.left(2,
-    //   seq(
-    //     optional("|"),
-    //     $.comp_rule,
-    //     repeat(seq("|", $.comp_rule)),
-    //   )),
-
-    slice_ranges: $ =>
-      seq($.slice_range, repeat(seq(",", $.slice_range))),
-
-    _slice_range_special: $ =>
-      prec.left(PREC.DOTDOT_SLICE,
-        choice(
-          seq($._expressions, ".."),
-          seq("..", $._expressions),
-          seq($._expressions, "..", $._expressions),
-        )
-      ),
-
-    slice_range: $ =>
-      choice(
-        $._slice_range_special,
-        $._expressions,
-        "*",
-      ),
-
-    //
-    // Computation expression (END)
-    //
-
-    //
-    // Type rules (BEGIN)
-    //
-    type: $ =>
-      prec(4, choice(
-        $.long_identifier,
-        // prec.right(seq($.long_identifier, "<", optional($.type_attributes), ">")),
-        seq("(", $.type, ")"),
-        prec.right(seq($.type, $.arrow, $.type)),
-        prec.right(seq($.type, repeat1(prec.right(seq("*", $.type))))),
-        prec.left(4, seq($.type, $.long_identifier)),
-        seq($.type, "[", repeat(","), "]"), // TODO: FIXME
-        seq($.type, $.type_argument_defn),
-        $.type_argument,
-        prec.right(seq($.type_argument, ":>", $.type)),
-        prec.right(seq(imm("#"), $.type)),
-      )),
-
-    // types: $ =>
-    //   seq(
-    //     $.type,
-    //     repeat1(prec.left(PREC.COMMA, seq(",", $.type))),
-    //   ),
-
-    // type_attribute: $ =>
-    //   choice(
-    //     $.type,
-    //     // measure
-    //     // static-parameter
-    //   ),
-    // type_attributes: $ => seq($.type_attribute, repeat(prec.left(PREC.COMMA, seq(",", $.type_attribute)))),
-
-    // atomic_type: $ =>
-    //   choice(
-    //     seq("#", $.type),
-    //     $.type_argument,
-    //     seq("(", $.type, ")"),
-    //     $.long_identifier,
-    //     seq($.long_identifier, "<", $.type_attributes, ">"),
-    //   ),
-
-    // constraint: $ =>
-    //   choice(
-    //     seq($.type_argument, ":>", $.type),
-    //     seq($.type_argument, ":", "null"),
-    //     // seq($.static_type_argument, ":", "(", $.trait_member_constraint, ")"),
-    //     seq($.type_argument, ":", "(", "new", ":", "unit", $.arrow, "'T", ")"),
-    //     seq($.type_argument, ":", "struct"),
-    //     seq($.type_argument, ":", "not", "struct"),
-    //     seq($.type_argument, ":", "enum", "<", $.type, ">"),
-    //     seq($.type_argument, ":", "unmanaged"),
-    //     seq($.type_argument, ":", "equality"),
-    //     seq($.type_argument, ":", "comparison"),
-    //     seq($.type_argument, ":", "delegate", "<", $.type, ",", $.type, ">"),
-    //   ),
-
-    // type_argument_constraints: $ =>
-    //   seq(
-    //     "when",
-    //     $.constraint,
-    //     repeat(seq("and", $.constraint))
-    //   ),
-
-    type_argument: $ =>
-      choice(
-        "_",
-        seq("'", $.identifier),
-        seq("^", $.identifier),
-      ),
-
-    type_argument_defn: $ =>
-      seq(
-        // optional($.attributes),
-        $.type_argument
-      ),
-
-    static_type_argument: $ =>
-      choice(
-        seq(choice("^", "'"), $.identifier),
-        seq(choice("^", "'"), $.identifier, repeat(seq("or", choice("^", "'"), $.identifier)))
-      ),
-
-    type_arguments: $ =>
-      seq(
-        "<",
-        $.type_argument_defn,
-        repeat(prec.left(PREC.COMMA, seq(",", $.type_argument_defn))),
-        // optional($.type_argument_constraints),
-        ">"
-      ),
-
-    // trait_member_constraint: $ =>
-    //   seq(
-    //     optional("static"),
-    //     "member",
-    //     $.identifier,
-    //     ':',
-    //     $.type
-    //   ),
-
-    // member_signature: $ =>
-    //   seq(
-    //     $.identifier,
-    //     optional($.type_arguments),
-    //     ":",
-    //     $.type,
-    //     optional(
-    //       choice(
-    //         seq("with", "get"),
-    //         seq("with", "set"),
-    //         seq("with", "get", ",", "set"),
-    //         seq("with", "set", ",", "get"),
-    //       )
-    //     )
-    //   ),
-
-    // argument_spec: $ =>
-    //   seq(
-    //     // optional($.attributes),
-    //     optional($.argument_name_spec),
-    //     $.type,
-    //   ),
-    // arguments_spec: $ =>
-    //   seq(
-    //     $.argument_spec,
-    //     repeat(seq("*", $.argument_spec))
-    //   ),
-
-    // argument_name_spec: $ =>
-    //   seq(
-    //     optional("?"),
-    //     $.identifier,
-    //     ":"
-    //   ),
-
-    // interface_spec: $ =>
-    //   seq(
-    //     "interface",
-    //     $.type
-    //   ),
-
-    // static_parameter: $ =>
-    //   choice(
-    //     $.static_parameter_value,
-    //     seq("id", "=", $.static_parameter_value)
-    //   ),
-
-    // static_parameter_value: $ =>
-    //   choice(
-    //     $.const,
-    //     seq($.const, $._expressions)
-    //   ),
-
-    // type_definition: $ =>
-    //   prec.left(seq(
-    //     // optional($.attributes),
-    //     "type",
-    //     $._type_defn_body,
-    //     repeat(seq(
-    //       // optional($.attributes),
-    //       "and",
-    //       $._type_defn_body,
-    //     )))),
-
-    _type_defn_body: $ =>
-      choice(
-        // $.delegate_type_defn,
-        // $.record_type_defn,
-        // $.union_type_defn,
-        // $.anon_type_defn,
-        // $.class_type_defn,
-        // $.struct_type_defn,
-        // $.interface_type_defn,
-        // $.enum_type_defn,
-        // $.type_abbrev_defn,
-        // $.type_extension,
-      ),
-
-    type_name: $ =>
-      seq(
-        // optional($.attributes),
-        optional($.access_modifier),
-        choice(
-          seq($.identifier, optional($.type_arguments)),
-          seq(optional($.type_argument), $.identifier) // Covers `type 'a option = Option<'a>`
-        ),
-      ),
-
-    // // type_extension: $ =>
-    // //   seq(
-    // //     $.type_name,
-    // //     $.type_extension_elements,
-    // //   ),
-
-    // delegate_type_defn: $ =>
-    //   seq(
-    //     $.type_name,
-    //     "=",
-    //     $._virtual_open_section,
-    //     $.delegate_signature,
-    //     $._virtual_end_section,
-    //   ),
-
-    // delegate_signature: $ =>
-    //   seq(
-    //     "delegate",
-    //     "of",
-    //     $.type,
-    //   ),
-
-    // type_abbrev_defn: $ =>
-    //   seq(
-    //     $.type_name,
-    //     "=",
-    //     $._virtual_open_section,
-    //     $.type,
-    //     $._virtual_end_section,
-    //   ),
-
-    // class_type_defn: $ =>
-    //   seq(
-    //     $.type_name,
-    //     optional($.primary_constr_args),
-    //     "=",
-    //     "class",
-    //     $.class_type_body,
-    //     "end",
-    //   ),
-    //
-    // struct_type_defn: $ =>
-    //   seq(
-    //     $.type_name,
-    //     optional($.primary_constr_args),
-    //     "=",
-    //     "struct",
-    //     $.class_type_body,
-    //     "end",
-    //   ),
-    //
-    // interface_type_defn: $ =>
-    //   seq(
-    //     $.type_name,
-    //     optional($.primary_constr_args),
-    //     "=",
-    //     "interface",
-    //     $.class_type_body,
-    //     "end",
-    //   ),
-
-    // _class_type_body_inner: $ =>
-    //   choice(
-    //     $.class_inherits_decl,
-    //     $._class_function_or_value_defn,
-    //     $._type_defn_elements,
-    //   ),
-
-    // _class_type_body: $ =>
-    //   seq(
-    //     $._virtual_open_section,
-    //     $._class_type_body_inner,
-    //     repeat(seq($._virtual_end_decl,$._class_type_body_inner)),
-    //     $._virtual_end_section,
-    //   ),
-
-    // record_type_defn: $ =>
-    //   prec.left(
-    //     seq(
-    //       $.type_name,
-    //       "=",
-    //       $._virtual_open_section,
-    //       "{",
-    //       $._virtual_open_section,
-    //       $.record_fields,
-    //       $._virtual_end_section,
-    //       "}",
-    //       // optional($.type_extension_elements),
-    //       $._virtual_end_section,
-    //     )),
-
-    // record_fields: $ =>
-    //   seq(
-    //     $.record_field,
-    //     repeat(seq($._virtual_end_decl, $.record_field)),
-    //     optional(";"),
-    //   ),
-
-    // record_field: $ =>
-    //   seq(
-    //     // optional($.attributes),
-    //     optional("mutable"),
-    //     optional($.access_modifier),
-    //     $.identifier,
-    //     ":",
-    //     $.type
-    //   ),
-
-    // enum_type_defn: $ =>
-    //   seq(
-    //     $.type_name,
-    //     "=",
-    //     $._virtual_open_section,
-    //     $.enum_type_cases,
-    //     $._virtual_end_section,
-    //   ),
-
-    // enum_type_cases: $ =>
-    //   seq(
-    //     optional("|"),
-    //     $.enum_type_case,
-    //     repeat(seq($._virtual_end_decl, "|", $.enum_type_case))
-    //   ),
-
-    // enum_type_case: $ =>
-    //   seq(
-    //     $.identifier,
-    //     "=",
-    //     $.const
-    //   ),
-
-    // union_type_defn: $ =>
-    //   prec.left(
-    //     seq(
-    //       $.type_name,
-    //       "=",
-    //       $._virtual_open_section,
-    //       $.union_type_cases,
-    //       // optional($.type_extension_elements),
-    //       $._virtual_end_section,
-    //     )),
-
-    // union_type_cases: $ =>
-    //   seq(
-    //     optional("|"),
-    //     $.union_type_case,
-    //     repeat(seq("|", $.union_type_case))
-    //   ),
-
-    // union_type_case: $ =>
-    //   prec(8,
-    //     seq(
-    //       // optional($.attributes),
-    //       choice(
-    //         $.identifier,
-    //         seq($.identifier, "of", $.union_type_fields),
-    //         seq($.identifier, ":", $.type),
-    //       ))),
-
-    // union_type_fields: $ =>
-    //   seq(
-    //     $.union_type_field,
-    //     repeat(seq("*", $.union_type_field)),
-    //   ),
-
-    // union_type_field: $ =>
-    //   prec.left(choice(
-    //     $.type,
-    //     seq($.identifier, ":", $.type)
-    //   )),
-
-    // anon_type_defn: $ =>
-    //   seq(
-    //     $.type_name,
-    //     $.primary_constr_args,
-    //     "=",
-    //     $._virtual_open_section,
-    //     // $._class_type_body,
-    //     $._virtual_end_section,
-    //   ),
-
-    // primary_constr_args: $ =>
-    //   seq(
-    //     // optional($.attributes),
-    //     optional($.access_modifier),
-    //     "(",
-    //     optional(seq(
-    //       $.simple_pattern,
-    //       repeat(prec.left(PREC.COMMA, seq(",", $.simple_pattern))))),
-    //     ")"
-    //   ),
-
-    // simple_pattern: $ =>
-    //   choice(
-    //     $.identifier,
-    //     seq($.simple_pattern, ":", $.type)
-    //   ),
-
-    // _class_function_or_value_defn: $ =>
-    //   seq(
-    //     optional($.attributes),
-    //     optional("static"),
-    //     choice(
-    //       $.function_or_value_defn,
-    //       seq("do", $._virtual_open_section, $._expressions, $._virtual_end_section),
-    //     )
-    //   ),
-
-    // type_extension_elements: $ =>
-    //   seq(
-    //     choice(
-    //       seq(
-    //         "with",
-    //         $._virtual_open_section,
-    //         $._type_defn_elements,
-    //         $._virtual_end_section,
-    //       ),
-    //       $._type_defn_elements,
-    //     )
-    //   ),
-
-    // _type_defn_elements: $ =>
-    //   choice(
-    //     $._member_defns,
-    //     $._interface_implementations,
-    //     // $.interface_signature
-    //   ),
-
-    // _interface_implementations: $ => prec.right(repeat1($.interface_implementation)),
-    // interface_implementation: $ =>
-    //   prec.left(
-    //   seq(
-    //     "interface",
-    //     $.type,
-    //     optional($._object_members),
-    //   )),
-
-    // _member_defns: $ =>
-    //   prec.left(
-    //   seq(
-    //     $.member_defn,
-    //     repeat(seq($._virtual_end_decl, $.member_defn)),
-    //   )),
-
-    // _object_members: $ =>
-    //   seq(
-    //     "with",
-    //     $._virtual_open_section,
-    //     $._member_defns,
-    //     $._virtual_end_section,
-    //   ),
-
-    // member_defn: $ =>
-    //   seq(
-    //     optional($.attributes),
-    //     choice(
-    //       seq(optional("static"), "member", optional($.access_modifier), $.method_or_prop_defn),
-    //       seq("abstract", optional("member"), optional($.access_modifier), $.member_signature),
-    //       seq("override", optional($.access_modifier), $.method_or_prop_defn),
-    //       seq("default", optional($.access_modifier), $.method_or_prop_defn),
-    //       seq(optional("static"), "val", optional("mutable"), optional($.access_modifier), $.identifier, ":", $.type),
-    //       $.additional_constr_defn,
-    //     ),
-    //   ),
-
-    // property_or_ident: $ =>
-    //   choice(
-    //     seq(field("instance", $.identifier), ".", $.identifier),
-    //     $.identifier,
-    //   ),
-
-    // _method_defn: $ =>
-    //   choice(
-    //     seq($.property_or_ident, $._pattern, "=", $._virtual_open_section, $._expressions, $._virtual_end_section),
-    //   ),
-
-    // _property_defn: $ =>
-    //   seq(
-    //     $.property_or_ident,
-    //     "=",
-    //     $._virtual_open_section,
-    //     $._expressions,
-    //     $._virtual_end_section,
-    //     optional(
-    //       seq(
-    //         "with",
-    //         choice(
-    //           "get",
-    //           "set",
-    //           seq("get", ",", "set"),
-    //           seq("set", ",", "get"),
-    //         )
-    //       )
-    //     ),
-    //   ),
-
-    // method_or_prop_defn: $ =>
-    //   prec(3,
-    //     choice(
-    //       // seq($.property_or_ident, "with", $._virtual_open_section, $._function_or_value_defns, $._virtual_end_section),
-    //       $._method_defn,
-    //       $._property_defn,
-    //     )
-    //   ),
-
-    // additional_constr_defn: $ =>
-    //   seq(
-    //     // optional($.attributes),
-    //     optional($.access_modifier),
-    //     "new",
-    //     $._pattern,
-    //     $.as_defn,
-    //     "=",
-    //     // $.additional_constr_expr
-    //   ),
-
-    // additional_constr_expr: $ =>
-    //   choice(
-    //     seq($.additional_constr_expr, ";", $.additional_constr_expr),
-    //     seq($.additional_constr_expr, "then", $._expressions),
-    //     seq("if", $._expressions, "then", $.additional_constr_expr, "else", $.additional_constr_expr),
-    //     // seq("let", $._function_or_value_defn_body, "in", $.additional_constr_expr), // TODO: "in" is optional?
-    //     $.additional_constr_init_expr
-    //   ),
-
-    // additional_constr_init_expr: $ =>
-    //   choice(
-    //     seq("{", $.class_inherits_decl, $.field_initializers, "}"),
-    //     seq("new", $.type, $._expressions)
-    //   ),
-
-    // class_inherits_decl: $ =>
-    //   prec.left(
-    //     seq(
-    //       "inherit",
-    //       $.type,
-    //       $._virtual_open_section,
-    //       optional($._expressions),
-    //       $._virtual_end_section,
-    //     )
-    //   ),
-
-    // as_defn: $ => seq("as", $.identifier),
-
-    // field_initializer: $ => prec.right(seq($.long_identifier, "=",
-    //   $._virtual_open_section,
-    //   $._expressions,
-    //   $._virtual_end_section,
-    // )),
-
-    // field_initializers: $ =>
-    //   prec.left(PREC.COMMA + 100,
-    //     seq(
-    //       $.field_initializer,
-    //       repeat(prec.left(PREC.COMMA + 100, seq($._virtual_end_decl, $.field_initializer)))
-    //     )),
-
-    //
-    // Type rules (END)
-    //
 
     //
     // Constants (BEGIN)
