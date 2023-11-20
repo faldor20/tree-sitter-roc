@@ -2,7 +2,7 @@
 record optional field
 ================================================================================
 a:{field? B, field: C}
-func=\{field? B, field: C}-> field
+func=\{field? B, field: C,def? "hi"}-> field
 
 --------------------------------------------------------------------------------
 
@@ -31,16 +31,19 @@ func=\{field? B, field: C}-> field
       (backslash)
       (argument_patterns
         (record_pattern
-          (record_field_type_optional
-            (ident)
-            (type_annotation
-              (apply_type
-                (concrete_type))))
+          (record_field_optional_pattern
+            (identifier)
+            (tag_expression
+              (tag)))
           (record_field_type
             (ident)
             (type_annotation
               (apply_type
-                (concrete_type))))))
+                (concrete_type))))
+          (record_field_optional_pattern
+            (identifier)
+            (const
+              (string)))))
       (arrow)
       (long_identifier_or_op
         (long_identifier

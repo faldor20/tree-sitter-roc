@@ -252,14 +252,15 @@ module.exports = grammar({
 				sep_tail(
 					choice(
 						$.record_field_type,
-						$.record_field_type_optional,
+						$.record_field_optional_pattern,
 						$.identifier,
 					),
 					",",
 				),
 				"}",
 			),
-		record_destructure_pattern: ($) => $.record_destructure,
+		record_field_optional_pattern: ($) =>
+			seq($.identifier, "?", $._atom_context_expression),
 
 		// record_pattern: $ =>
 		//   prec.left(

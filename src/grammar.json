@@ -678,7 +678,7 @@
                     },
                     {
                       "type": "SYMBOL",
-                      "name": "record_field_type_optional"
+                      "name": "record_field_optional_pattern"
                     },
                     {
                       "type": "SYMBOL",
@@ -704,7 +704,7 @@
                           },
                           {
                             "type": "SYMBOL",
-                            "name": "record_field_type_optional"
+                            "name": "record_field_optional_pattern"
                           },
                           {
                             "type": "SYMBOL",
@@ -740,9 +740,22 @@
         }
       ]
     },
-    "record_destructure_pattern": {
-      "type": "SYMBOL",
-      "name": "record_destructure"
+    "record_field_optional_pattern": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "?"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_atom_context_expression"
+        }
+      ]
     },
     "_pattern_param": {
       "type": "PREC",

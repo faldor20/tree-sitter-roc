@@ -2010,21 +2010,6 @@
     }
   },
   {
-    "type": "record_destructure",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "ident",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "record_field_expr",
     "named": true,
     "fields": {},
@@ -2038,6 +2023,77 @@
         },
         {
           "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "record_field_optional_pattern",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "application_expression",
+          "named": true
+        },
+        {
+          "type": "const",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "fun_expression",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "index_expression",
+          "named": true
+        },
+        {
+          "type": "infix_expression",
+          "named": true
+        },
+        {
+          "type": "list_expression",
+          "named": true
+        },
+        {
+          "type": "long_identifier_or_op",
+          "named": true
+        },
+        {
+          "type": "paren_expression",
+          "named": true
+        },
+        {
+          "type": "prefixed_expression",
+          "named": true
+        },
+        {
+          "type": "record",
+          "named": true
+        },
+        {
+          "type": "record_update",
+          "named": true
+        },
+        {
+          "type": "tag_expression",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
           "named": true
         }
       ]
@@ -2094,11 +2150,11 @@
           "named": true
         },
         {
-          "type": "record_field_type",
+          "type": "record_field_optional_pattern",
           "named": true
         },
         {
-          "type": "record_field_type_optional",
+          "type": "record_field_type",
           "named": true
         }
       ]
