@@ -1,4 +1,167 @@
 ================================================================================
+escaping
+================================================================================
+
+a=
+  '\n'
+a=
+ ['\\', 'n']
+
+a='\\' == ['\\', '\\']
+a='"' == ['\\', '"']
+a="\n\t\r\\a"
+
+input = "the quick brown fox jumps over the lazy doga\r\nbc\\\"xz"
+actual = Encode.toBytes input json
+expected = Str.toUtf8 "\"the quick brown fox jumps over the lazy doga\\r\\nbc\\\\\\\"xz\""
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (char
+        (escape_char))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (list_expression
+      (const
+        (char
+          (escape_char)))
+      (const
+        (char))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (infix_expression
+      (const
+        (char
+          (escape_char)))
+      (infix_op)
+      (list_expression
+        (const
+          (char
+            (escape_char)))
+        (const
+          (char
+            (escape_char))))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (infix_expression
+      (const
+        (char))
+      (infix_op)
+      (list_expression
+        (const
+          (char
+            (escape_char)))
+        (const
+          (char)))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (string
+        (escape_char)
+        (escape_char)
+        (escape_char)
+        (escape_char))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (string
+        (escape_char)
+        (escape_char)
+        (escape_char)
+        (escape_char))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (application_expression
+      (long_identifier_or_op
+        (long_identifier
+          (module)
+          (identifier)))
+      (args
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (long_identifier_or_op
+          (long_identifier
+            (identifier))))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (application_expression
+      (long_identifier_or_op
+        (long_identifier
+          (module)
+          (identifier)))
+      (args
+        (const
+          (string
+            (escape_char)
+            (escape_char)
+            (escape_char)
+            (escape_char)
+            (escape_char)
+            (escape_char)
+            (escape_char)
+            (escape_char)))))))
+
+================================================================================
+apply type function
+================================================================================
+FieldNameMapping : [
+    CamelCase, # camelCase
+   Custom (Str -> Str), # provide a custom formatting
+]
+
+--------------------------------------------------------------------------------
+
+(file
+  (alias
+    (apply_type
+      (concrete_type))
+    (type_annotation
+      (tags_type
+        (apply_type
+          (concrete_type))
+        (line_comment)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (function_type
+                (apply_type
+                  (concrete_type))
+                (arrow)
+                (apply_type
+                  (concrete_type))))))
+        (line_comment)))))
+
+================================================================================
 record optional field
 ================================================================================
 a:{field? B, field: C}

@@ -664,13 +664,6 @@ module.exports = grammar({
 		//
 		// Constants (BEGIN)
 		//
-		_escape_char: ($) => imm(/\\["\'ntbrafv]/),
-		escape_char: ($) => imm(/\\["\'ntbrafv]/),
-		_non_escape_char: ($) => imm(/\\[^"\'ntbrafv]/),
-		// using \u0008 to model \b
-		_simple_char_char: ($) => imm(/[^\n\t\r\u0008\a\f\v'\\]/),
-		_hex_digit_imm: ($) => imm(/[0-9a-fA-F]/),
-		_digit_char_imm: ($) => imm(/[0-9]/),
 
 		_unicodegraph_short: ($) =>
 			seq(
@@ -694,6 +687,13 @@ module.exports = grammar({
 			),
 		_trigraph: ($) =>
 			seq(imm("\\"), $._digit_char_imm, $._digit_char_imm, $._digit_char_imm),
+		_escape_char: ($) => imm(/\\[\\"\'ntbrafv]/),
+		escape_char: ($) => imm(/\\[\\"\'ntbrafv]/),
+		_non_escape_char: ($) => imm(/\\[^"\'ntbrafv]/),
+		// using \u0008 to model \b
+		_simple_char_char: ($) => imm(/[^\n\t\r\u0008\a\f\v'\\]/),
+		_hex_digit_imm: ($) => imm(/[0-9a-fA-F]/),
+		_digit_char_imm: ($) => imm(/[0-9]/),
 
 		_char_char: ($) =>
 			choice(
@@ -718,7 +718,7 @@ module.exports = grammar({
 		//   $._string_char,
 		//   seq('\\', $._string_elem)
 		// ),
-		char: ($) => seq("'", $._char_char, imm("'")),
+		char: ($) => seq("'", choice($.escape_char, $._simple_char_char), imm("'")),
 		interpolation_char: ($) => seq(imm(/\\\(/), $.ident, ")"),
 
 		//TODO: make escaed chars work
@@ -753,15 +753,6 @@ module.exports = grammar({
 
 		const: ($) =>
 			choice(
-				//       $.sbyte, $.int16, $.int32, $.int64, $.byte, $.uint16, $.uint32,
-				//       $.nativeint, $.unativeint, $.decimal,
-				//       $.uint64, $.ieee32, $.ieee64, $.bignum,
-
-				// $.bytechar,       // $.verbatim_string,
-				// $.triple_quoted_string,
-				// $.bytearray,
-				// $.verbatim_bytearray
-
 				$.float,
 				$.xint,
 				$.decimal,
@@ -998,7 +989,8 @@ module.exports = grammar({
 				optional($._virtual_end_decl),
 			),
 
-		type_annotation: ($) =>
+		type_annotation: ($) => $._type_annotation,
+		_type_annotation: ($) =>
 			prec(PREC.TYPE, choice($._type_annotation_no_fun, $.function_type)),
 
 		_type_annotation_paren_fun: ($) =>
@@ -1016,7 +1008,7 @@ module.exports = grammar({
 		_type_annotation_no_fun: ($) =>
 			prec.right(
 				choice(
-					seq("(", $._type_annotation_no_fun_body, ")"),
+					seq("(", $._type_annotation, ")"),
 					$._type_annotation_no_fun_body,
 				),
 			),
