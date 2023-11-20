@@ -1,17 +1,17 @@
 {
-  "name": "tree-sitter-roc",
-  "version": "1.0.0",
-  "description": "",
-  "main": "grammar.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "author": "",
-  "license": "ISC",
-  "dependencies": {
-    "nan": "^2.18.0"
-  },
-  "devDependencies": {
-    "tree-sitter-cli": "^0.20.8"
-  }
+	"name": "tree-sitter-roc",
+	"version": "1.0.0",
+	"description": "",
+	"main": "grammar.js",
+	"scripts": {
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC",
+	"dependencies": {
+		"nan": "^2.18.0"
+	},
+	"devDependencies": {
+		"tree-sitter-cli": "^0.20.8"
+	}
 }
