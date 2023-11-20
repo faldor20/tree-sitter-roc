@@ -1,4 +1,50 @@
 ================================================================================
+type annotaions within scopes
+================================================================================
+main=
+  a:Int
+  a=1
+expect
+  a:Int
+  a=1
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (annotation_type_def
+      (annotation_pre_colon
+        (identifier))
+      (type_annotation
+        (apply_type
+          (concrete_type))))
+    (value_declaration
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (const
+        (int))))
+  (expect
+    (annotation_type_def
+      (annotation_pre_colon
+        (identifier))
+      (type_annotation
+        (apply_type
+          (concrete_type))))
+    (value_declaration
+      (value_declaration_left
+        (identifier_pattern
+          (long_identifier
+            (identifier))))
+      (const
+        (int)))))
+
+================================================================================
 escaping
 ================================================================================
 
@@ -141,9 +187,9 @@ FieldNameMapping : [
 --------------------------------------------------------------------------------
 
 (file
-  (alias
-    (apply_type
-      (concrete_type))
+  (annotation_type_def
+    (annotation_pre_colon
+      (tag))
     (type_annotation
       (tags_type
         (apply_type
@@ -170,7 +216,7 @@ func=\{field? B, field: C,def? "hi"}-> field
 --------------------------------------------------------------------------------
 
 (file
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon
       (identifier))
     (type_annotation
@@ -465,7 +511,7 @@ Json := { fieldNameMapping : FieldNameMapping, skipMissingProperties : Bool }
 --------------------------------------------------------------------------------
 
 (file
-  (opaque
+  (opaque_type_def
     (apply_type
       (concrete_type))
     (colon_equals)
@@ -562,7 +608,7 @@ fromDict = @Graph
           (long_identifier_or_op
             (long_identifier
               (identifier)))))))
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon
       (identifier))
     (type_annotation
@@ -652,7 +698,7 @@ Graph a := Dict a (List a) where a implements Eq
 --------------------------------------------------------------------------------
 
 (file
-  (opaque
+  (opaque_type_def
     (apply_type
       (concrete_type)
       (apply_type_args
@@ -1489,11 +1535,28 @@ newScope = { scope & whileInfo }
 ================================================================================
 record_update
 ================================================================================
+main={a & a: B a}
 main=
   Task.succeed (Step { popCtx & scopes: List.set ctx.scopes last newScope })
 --------------------------------------------------------------------------------
 
 (file
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (record_update
+      (identifier)
+      (record_field_expr
+        (identifier)
+        (application_expression
+          (tag_expression
+            (tag))
+          (args
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))))))
   (value_declaration
     (value_declaration_left
       (identifier_pattern
@@ -2199,19 +2262,19 @@ transformFileContent = \currentUrl, htmlContent ->
 --------------------------------------------------------------------------------
 
 (file
-  (alias
+  (alias_type_def
     (apply_type
       (concrete_type))
     (type_annotation
       (apply_type
         (concrete_type))))
-  (alias
+  (alias_type_def
     (apply_type
       (concrete_type))
     (type_annotation
       (apply_type
         (concrete_type))))
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon
       (identifier))
     (type_annotation
@@ -2235,7 +2298,7 @@ transformFileContent = \currentUrl, htmlContent ->
       (arrow)
       (const
         (int))))
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon
       (identifier))
     (type_annotation
@@ -2267,7 +2330,7 @@ transformFileContent = \currentUrl, htmlContent ->
         (args
           (const
             (int))))))
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon
       (identifier))
     (type_annotation
@@ -2291,7 +2354,7 @@ transformFileContent = \currentUrl, htmlContent ->
         (long_identifier_or_op
           (long_identifier
             (identifier))))))
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon
       (identifier))
     (type_annotation
@@ -2444,7 +2507,7 @@ findOneArg = \long, short, { args, taken } -> ()
 --------------------------------------------------------------------------------
 
 (file
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon
       (identifier))
     (type_annotation
@@ -2804,26 +2867,26 @@ a = \path ->
         (imports_entry
           (long_module_name
             (module))))))
-  (alias
+  (alias_type_def
     (apply_type
       (concrete_type))
     (type_annotation
       (apply_type
         (concrete_type))))
-  (alias
+  (alias_type_def
     (apply_type
       (concrete_type))
     (type_annotation
       (apply_type
         (concrete_type))))
-  (alias
-    (apply_type
-      (concrete_type))
+  (annotation_type_def
+    (annotation_pre_colon
+      (tag))
     (type_annotation
       (apply_type
         (concrete_type))))
   (line_comment)
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon
       (identifier))
     (type_annotation

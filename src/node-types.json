@@ -4,6 +4,14 @@
     "named": true,
     "subtypes": [
       {
+        "type": "alias_type_def",
+        "named": true
+      },
+      {
+        "type": "annotation_type_def",
+        "named": true
+      },
+      {
         "type": "application_expression",
         "named": true
       },
@@ -45,6 +53,10 @@
       },
       {
         "type": "long_identifier_or_op",
+        "named": true
+      },
+      {
+        "type": "opaque_type_def",
         "named": true
       },
       {
@@ -94,11 +106,11 @@
     "named": true,
     "subtypes": [
       {
-        "type": "alias",
+        "type": "alias_type_def",
         "named": true
       },
       {
-        "type": "annotation",
+        "type": "annotation_type_def",
         "named": true
       },
       {
@@ -110,7 +122,7 @@
         "named": true
       },
       {
-        "type": "opaque",
+        "type": "opaque_type_def",
         "named": true
       },
       {
@@ -198,7 +210,7 @@
     }
   },
   {
-    "type": "alias",
+    "type": "alias_type_def",
     "named": true,
     "fields": {},
     "children": {
@@ -207,25 +219,6 @@
       "types": [
         {
           "type": "apply_type",
-          "named": true
-        },
-        {
-          "type": "type_annotation",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "annotation",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "annotation_pre_colon",
           "named": true
         },
         {
@@ -249,6 +242,25 @@
         },
         {
           "type": "tag",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "annotation_type_def",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation_pre_colon",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
           "named": true
         }
       ]
@@ -1378,15 +1390,63 @@
     "named": true,
     "fields": {
       "index": {
-        "multiple": true,
+        "multiple": false,
         "required": true,
         "types": [
           {
-            "type": "_expression_inner",
+            "type": "application_expression",
             "named": true
           },
           {
-            "type": "infix_newline",
+            "type": "const",
+            "named": true
+          },
+          {
+            "type": "dot_expression",
+            "named": true
+          },
+          {
+            "type": "fun_expression",
+            "named": true
+          },
+          {
+            "type": "index_expression",
+            "named": true
+          },
+          {
+            "type": "infix_expression",
+            "named": true
+          },
+          {
+            "type": "list_expression",
+            "named": true
+          },
+          {
+            "type": "long_identifier_or_op",
+            "named": true
+          },
+          {
+            "type": "paren_expression",
+            "named": true
+          },
+          {
+            "type": "prefixed_expression",
+            "named": true
+          },
+          {
+            "type": "record",
+            "named": true
+          },
+          {
+            "type": "record_update",
+            "named": true
+          },
+          {
+            "type": "tag_expression",
+            "named": true
+          },
+          {
+            "type": "tuple_expression",
             "named": true
           }
         ]
@@ -1749,7 +1809,7 @@
     }
   },
   {
-    "type": "opaque",
+    "type": "opaque_type_def",
     "named": true,
     "fields": {},
     "children": {
@@ -1992,11 +2052,59 @@
       "required": true,
       "types": [
         {
-          "type": "_expression_inner",
+          "type": "application_expression",
           "named": true
         },
         {
-          "type": "infix_newline",
+          "type": "const",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "fun_expression",
+          "named": true
+        },
+        {
+          "type": "index_expression",
+          "named": true
+        },
+        {
+          "type": "infix_expression",
+          "named": true
+        },
+        {
+          "type": "list_expression",
+          "named": true
+        },
+        {
+          "type": "long_identifier_or_op",
+          "named": true
+        },
+        {
+          "type": "paren_expression",
+          "named": true
+        },
+        {
+          "type": "prefixed_expression",
+          "named": true
+        },
+        {
+          "type": "record",
+          "named": true
+        },
+        {
+          "type": "record_update",
+          "named": true
+        },
+        {
+          "type": "tag_expression",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
           "named": true
         }
       ]
@@ -2036,11 +2144,63 @@
       "required": true,
       "types": [
         {
-          "type": "_expression_inner",
+          "type": "application_expression",
+          "named": true
+        },
+        {
+          "type": "const",
+          "named": true
+        },
+        {
+          "type": "dot_expression",
+          "named": true
+        },
+        {
+          "type": "fun_expression",
           "named": true
         },
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "index_expression",
+          "named": true
+        },
+        {
+          "type": "infix_expression",
+          "named": true
+        },
+        {
+          "type": "list_expression",
+          "named": true
+        },
+        {
+          "type": "long_identifier_or_op",
+          "named": true
+        },
+        {
+          "type": "paren_expression",
+          "named": true
+        },
+        {
+          "type": "prefixed_expression",
+          "named": true
+        },
+        {
+          "type": "record",
+          "named": true
+        },
+        {
+          "type": "record_update",
+          "named": true
+        },
+        {
+          "type": "tag_expression",
+          "named": true
+        },
+        {
+          "type": "tuple_expression",
           "named": true
         }
       ]

@@ -362,7 +362,7 @@ main =
         (ident)
         (to)
         (ident))))
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon
       (identifier))
     (type_annotation
@@ -660,26 +660,26 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
         (imports_entry
           (long_module_name
             (module))))))
-  (alias
+  (alias_type_def
     (apply_type
       (concrete_type))
     (type_annotation
       (apply_type
         (concrete_type))))
-  (alias
+  (alias_type_def
     (apply_type
       (concrete_type))
     (type_annotation
       (apply_type
         (concrete_type))))
-  (alias
-    (apply_type
-      (concrete_type))
+  (annotation_type_def
+    (annotation_pre_colon
+      (tag))
     (type_annotation
       (apply_type
         (concrete_type))))
   (line_comment)
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon
       (identifier))
     (type_annotation
@@ -817,7 +817,7 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
             (long_identifier
               (identifier)))))))
   (line_comment)
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon
       (identifier))
     (type_annotation
@@ -842,7 +842,7 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                       (apply_type
                         (concrete_type))))))))))))
   (line_comment)
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon
       (identifier))
     (type_annotation
@@ -893,7 +893,7 @@ view = \currentNavLink, htmlContent ->
 --------------------------------------------------------------------------------
 
 (file
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon
       (identifier))
     (type_annotation

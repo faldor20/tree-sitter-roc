@@ -44,15 +44,15 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "annotation"
+          "name": "annotation_type_def"
         },
         {
           "type": "SYMBOL",
-          "name": "alias"
+          "name": "alias_type_def"
         },
         {
           "type": "SYMBOL",
-          "name": "opaque"
+          "name": "opaque_type_def"
         },
         {
           "type": "SYMBOL",
@@ -60,11 +60,11 @@
         },
         {
           "type": "SYMBOL",
-          "name": "value_declaration"
+          "name": "implements_definition"
         },
         {
           "type": "SYMBOL",
-          "name": "implements_definition"
+          "name": "value_declaration"
         }
       ]
     },
@@ -914,6 +914,18 @@
         {
           "type": "SYMBOL",
           "name": "value_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "annotation_type_def"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "alias_type_def"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "opaque_type_def"
         }
       ]
     },
@@ -1601,7 +1613,7 @@
             "name": "index",
             "content": {
               "type": "SYMBOL",
-              "name": "_expressions"
+              "name": "_atom_context_expression"
             }
           },
           {
@@ -1746,7 +1758,7 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "_expressions"
+            "name": "_atom_context_expression"
           },
           {
             "type": "STRING",
@@ -1754,7 +1766,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "_expressions"
+            "name": "_atom_context_expression"
           },
           {
             "type": "CHOICE",
@@ -1768,7 +1780,7 @@
                   },
                   {
                     "type": "SYMBOL",
-                    "name": "_expressions"
+                    "name": "_atom_context_expression"
                   }
                 ]
               },
@@ -3093,7 +3105,7 @@
                     "type": "REPEAT1",
                     "content": {
                       "type": "SYMBOL",
-                      "name": "_expression_inner"
+                      "name": "_atom_context_expression"
                     }
                   }
                 ]
@@ -3949,7 +3961,7 @@
     },
     "_type_annotation": {
       "type": "PREC",
-      "value": 28,
+      "value": 0,
       "content": {
         "type": "CHOICE",
         "members": [
@@ -4309,29 +4321,33 @@
       ]
     },
     "ability_chain": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "_ability"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "&"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_ability"
-              }
-            ]
+      "type": "PREC_RIGHT",
+      "value": 0,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_ability"
+          },
+          {
+            "type": "REPEAT",
+            "content": {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "&"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_ability"
+                }
+              ]
+            }
           }
-        }
-      ]
+        ]
+      }
     },
     "tag_union": {
       "type": "CHOICE",
@@ -4416,7 +4432,7 @@
     },
     "tags_type": {
       "type": "PREC",
-      "value": 28,
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
@@ -4507,7 +4523,7 @@
     },
     "apply_type": {
       "type": "PREC_LEFT",
-      "value": 28,
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
@@ -4531,33 +4547,29 @@
       }
     },
     "concrete_type": {
-      "type": "PREC",
-      "value": 1,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "_upper_identifier"
-          },
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "."
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_upper_identifier"
-                }
-              ]
-            }
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_upper_identifier"
+        },
+        {
+          "type": "REPEAT",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "."
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_upper_identifier"
+              }
+            ]
           }
-        ]
-      }
+        }
+      ]
     },
     "apply_type_args": {
       "type": "PREC_RIGHT",
@@ -4875,66 +4887,6 @@
         }
       ]
     },
-    "annotation": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "annotation_pre_colon"
-        },
-        {
-          "type": "STRING",
-          "value": ":"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "type_annotation"
-        }
-      ]
-    },
-    "alias": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "apply_type"
-        },
-        {
-          "type": "STRING",
-          "value": ":"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "type_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_virtual_end_decl"
-        }
-      ]
-    },
-    "opaque": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "apply_type"
-        },
-        {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": ":="
-          },
-          "named": true,
-          "value": "colon_equals"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "type_annotation"
-        }
-      ]
-    },
     "effects": {
       "type": "SEQ",
       "members": [
@@ -4966,6 +4918,66 @@
         {
           "type": "SYMBOL",
           "name": "_upper_identifier"
+        }
+      ]
+    },
+    "annotation_type_def": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "annotation_pre_colon"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_annotation"
+        }
+      ]
+    },
+    "alias_type_def": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "apply_type"
+        },
+        {
+          "type": "STRING",
+          "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_annotation"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_virtual_end_decl"
+        }
+      ]
+    },
+    "opaque_type_def": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "apply_type"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": ":="
+          },
+          "named": true,
+          "value": "colon_equals"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_annotation"
         }
       ]
     },
@@ -5042,6 +5054,14 @@
     [
       "_expression_inner",
       "_pattern"
+    ],
+    [
+      "_type_annotation_paren_fun",
+      "_type_annotation"
+    ],
+    [
+      "concrete_type",
+      "tag"
     ]
   ],
   "precedences": [],

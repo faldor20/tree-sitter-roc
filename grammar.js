@@ -32,7 +32,7 @@ const PREC = {
 	PAREN_APP: 27,
 	TYPED_EXPR: 28,
 	//roc
-	TYPE: 28,
+	TYPE: 0,
 	PAREN_EXPR: 25,
 	DOTDOT_SLICE: 28,
 };
@@ -62,6 +62,8 @@ module.exports = grammar({
 		// [$.application_expression, $.infix_expression],
 		// [$.application_expression, $.infix_expression, $._pattern],
 		[$._expression_inner, $._pattern],
+		[$._type_annotation_paren_fun, $._type_annotation],
+		[$.concrete_type, $.tag],
 	],
 
 	words: ($) => $.ident,
@@ -97,12 +99,12 @@ module.exports = grammar({
 
 		_module_elem: ($) =>
 			choice(
-				$.annotation,
-				$.alias,
-				$.opaque,
+				$.annotation_type_def,
+				$.alias_type_def,
+				$.opaque_type_def,
 				$.expect,
-				$.value_declaration,
 				$.implements_definition,
+				$.value_declaration,
 			),
 
 		expect: ($) =>
@@ -378,10 +380,16 @@ module.exports = grammar({
 		_contextual_expression: ($) =>
 			choice($.infix_expression, $.application_expression),
 		/**
-		 * expressions that perform assignment of variables
+		 * expressions that perform assignment of variables or types
 		 */
 		_assignement_expression: ($) =>
-			choice($.backpassing_expression, $.value_declaration),
+			choice(
+				$.backpassing_expression,
+				$.value_declaration,
+				$.annotation_type_def,
+				$.alias_type_def,
+				$.opaque_type_def,
+			),
 
 		/**
 		 * expressions that are started by a keyword(including \ for function definition), these are mostly control flow expressions
@@ -592,7 +600,7 @@ module.exports = grammar({
 					optional(imm(".")),
 					imm("["),
 					$._virtual_open_section,
-					field("index", $._expressions),
+					field("index", $._atom_context_expression),
 					$._virtual_end_section,
 					"]",
 				),
@@ -629,10 +637,10 @@ module.exports = grammar({
 			prec.left(
 				PREC.DOTDOT,
 				seq(
-					$._expressions,
+					$._atom_context_expression,
 					"..",
-					$._expressions,
-					optional(seq("..", $._expressions)),
+					$._atom_context_expression,
+					optional(seq("..", $._atom_context_expression)),
 				),
 			),
 
@@ -904,7 +912,10 @@ module.exports = grammar({
 		// ),
 		record_field_expr: ($) =>
 			prec.left(
-				seq($.identifier, optional(seq(":", repeat1($._expression_inner)))),
+				seq(
+					$.identifier,
+					optional(seq(":", repeat1($._atom_context_expression))),
+				),
 			),
 		record: ($) => seq("{", sep_tail($.record_field_expr, ","), "}"),
 
@@ -1064,7 +1075,7 @@ module.exports = grammar({
 			),
 		//    init : {} -> f where f implements InspectFormatter
 		_ability: ($) => sep1($._upper_identifier, "."),
-		ability_chain: ($) => sep1($._ability, "&"),
+		ability_chain: ($) => prec.right(sep1($._ability, "&")),
 
 		tag_union: ($) =>
 			choice(
@@ -1101,7 +1112,7 @@ module.exports = grammar({
 			prec.left(PREC.TYPE, seq($.concrete_type, optional($.apply_type_args))),
 
 		concrete_type: ($) =>
-			prec(1, seq($._upper_identifier, repeat(seq(".", $._upper_identifier)))),
+			seq($._upper_identifier, repeat(seq(".", $._upper_identifier))),
 
 		//we need a n optional \n to stop this eating the value that follows it
 		apply_type_args: ($) =>
@@ -1151,14 +1162,6 @@ module.exports = grammar({
 				$.tag,
 				$.identifier,
 			),
-		/**
-		 *The top level entry into type annotations
-		 */
-		annotation: ($) => seq($.annotation_pre_colon, ":", $.type_annotation),
-		alias: ($) =>
-			seq($.apply_type, ":", $.type_annotation, $._virtual_end_decl),
-		opaque: ($) =>
-			seq($.apply_type, alias(":=", $.colon_equals), $.type_annotation),
 
 		effects: ($) =>
 			seq(
@@ -1169,6 +1172,16 @@ module.exports = grammar({
 			),
 
 		effect_name: ($) => seq($.identifier, ".", $._upper_identifier),
+
+		/**
+		 *The top level entry into type annotations
+		 */
+		annotation_type_def: ($) =>
+			seq($.annotation_pre_colon, ":", $.type_annotation),
+		alias_type_def: ($) =>
+			seq($.apply_type, ":", $.type_annotation, $._virtual_end_decl),
+		opaque_type_def: ($) =>
+			seq($.apply_type, alias(":=", $.colon_equals), $.type_annotation),
 
 		line_comment: ($) => token(prec(1, seq(/#/, repeat(/[^\n]/)))),
 
