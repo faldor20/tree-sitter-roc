@@ -98,6 +98,7 @@ module.exports = grammar({
         $.opaque,
         $.expect,
         $.value_declaration,
+        $.implements_definition
       ),
 
 
@@ -114,7 +115,7 @@ module.exports = grammar({
           $.value_declaration_left,
           "=",
           $._virtual_open_section,
-          field("body",$._expressions ),
+          field("body", $._expressions),
           $._virtual_end_section,
 
         ),
@@ -275,11 +276,11 @@ module.exports = grammar({
 
     _expressions: $ =>
       prec.left(PREC.SEQ_EXPR,
-          // alias($._seq_infix, $.infix_expression),
-      seq(
-        $._expression_inner,
-        repeat(seq($._virtual_end_decl, choice($._expression_inner, $.infix_newline))),
-      ),
+        // alias($._seq_infix, $.infix_expression),
+        seq(
+          $._expression_inner,
+          repeat(seq($._virtual_end_decl, choice($._expression_inner, $.infix_newline))),
+        ),
       ),
 
 
@@ -329,7 +330,7 @@ module.exports = grammar({
 
       $._atom_expression,
       $._contextual_expression,
-      ),
+    ),
     /**
     * these expressions ruqire parsing over other expressions and finding elments between them
       Something like an application_expression falls into this category because it matches a sequence of independant expressions that are a valid function call 
@@ -459,19 +460,19 @@ module.exports = grammar({
           field("else_branch", $._expressions),
           $._virtual_end_section,
         )),
-    then_expression:$=>
+    then_expression: $ =>
       seq(
-          "then",
-          $._virtual_open_section,
-          field("then", $._expressions),
-          $._virtual_end_section,
-        ),
+        "then",
+        $._virtual_open_section,
+        field("then", $._expressions),
+        $._virtual_end_section,
+      ),
     elif_expression: $ =>
       prec(PREC.ELSE_EXPR,
         seq(
           "elif",
           field("guard", $._expression_inner),
-        $.then_expression
+          $.then_expression
         )),
 
     if_expression: $ =>
@@ -947,7 +948,10 @@ module.exports = grammar({
       seq('(', $.function_type, ')'))
     ),
 
-    function_type: $ => seq(sep1(field("param", $._type_annotation_paren_fun), ","), $.arrow, repeat(seq($._type_annotation_paren_fun, $.arrow)), $._type_annotation_paren_fun),
+    function_type: $ => seq(sep1(field("param", $._type_annotation_paren_fun), ","),
+      $.arrow,
+      sep1($._type_annotation_paren_fun, $.arrow),
+    ),
 
     _type_annotation_no_fun: $ => prec.right(choice(
       seq('(', $._type_annotation_no_fun_body, ')'),
@@ -955,20 +959,39 @@ module.exports = grammar({
     )),
 
     _type_annotation_no_fun_body: $ => choice(
+      $.record_type,
       $.apply_type,
-      $.implements,
+      $.where_implements,
+      $.implements_implementation,
       $.tags_type,
       $.bound_variable,
-      $.record_type,
       $.inferred,
       $.wildcard
     ),
 
-    implements: $ => prec.right(seq($.identifier, "where", sep1($._implements_body, ","))),
-    _implements_body: $ => seq($.identifier, "implements", $.ability_chain),
+    implements: $ => "implements",
+    where_implements: $ => prec.right(seq($._type_annotation_no_fun, alias("where", $.where), sep1($._implements_body, ","))),
+    _implements_body: $ => seq($.identifier, $.implements, $.ability_chain),
+
+    implements_implementation: $ => seq($._type_annotation_no_fun, $.implements, "[",
+      $._virtual_open,
+      sep1_tail($.apply_type, ","),
+      $._virtual_close, "]"),
+
+    implements_definition: $ =>
+      prec(10,
+        seq($._upper_identifier, $.implements,
+
+          $.record_type
+          // "{",
+          //   $._virtual_open,
+          //   sep1($.alias, $._virtual_end_decl),
+          //   $._virtual_close,
+          // "}"
+        )),
+    //    init : {} -> f where f implements InspectFormatter
     _ability: $ => sep1($._upper_identifier, "."),
     ability_chain: $ => sep1($._ability, "&"),
-
 
 
     tag_union: $ => choice(
@@ -1006,9 +1029,10 @@ module.exports = grammar({
 
     inferred: $ => '_',
 
-    apply_type: $ => prec.right(PREC.TYPE, seq(
+    apply_type: $ => prec.left(PREC.TYPE, seq(
       $.concrete_type,
       optional($.apply_type_args)
+
     )),
 
     concrete_type: $ => prec(1, seq(
@@ -1074,7 +1098,7 @@ module.exports = grammar({
     alias: $ =>
       seq($.apply_type, ":", $.type_annotation, $._virtual_end_decl),
     opaque: $ =>
-      seq($.apply_type, ":=", $.type_annotation, $._virtual_end_decl),
+      seq($.apply_type, alias(":=", $.colon_equals), $.type_annotation),
 
     effects: $ => seq(
       // '__',

@@ -61,6 +61,10 @@
         {
           "type": "SYMBOL",
           "name": "value_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "implements_definition"
         }
       ]
     },
@@ -3925,24 +3929,29 @@
           "name": "arrow"
         },
         {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "_type_annotation_paren_fun"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "arrow"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_type_annotation_paren_fun"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "arrow"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "_type_annotation_paren_fun"
+                  }
+                ]
               }
-            ]
-          }
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_type_annotation_paren_fun"
+            }
+          ]
         }
       ]
     },
@@ -3981,11 +3990,19 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "record_type"
+        },
+        {
+          "type": "SYMBOL",
           "name": "apply_type"
         },
         {
           "type": "SYMBOL",
-          "name": "implements"
+          "name": "where_implements"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "implements_implementation"
         },
         {
           "type": "SYMBOL",
@@ -3994,10 +4011,6 @@
         {
           "type": "SYMBOL",
           "name": "bound_variable"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "record_type"
         },
         {
           "type": "SYMBOL",
@@ -4010,6 +4023,10 @@
       ]
     },
     "implements": {
+      "type": "STRING",
+      "value": "implements"
+    },
+    "where_implements": {
       "type": "PREC_RIGHT",
       "value": 0,
       "content": {
@@ -4017,10 +4034,15 @@
         "members": [
           {
             "type": "SYMBOL",
-            "name": "identifier"
+            "name": "_type_annotation_no_fun"
           },
           {
-            "type": "STRING",
+            "type": "ALIAS",
+            "content": {
+              "type": "STRING",
+              "value": "where"
+            },
+            "named": true,
             "value": "where"
           },
           {
@@ -4059,14 +4081,101 @@
           "name": "identifier"
         },
         {
-          "type": "STRING",
-          "value": "implements"
+          "type": "SYMBOL",
+          "name": "implements"
         },
         {
           "type": "SYMBOL",
           "name": "ability_chain"
         }
       ]
+    },
+    "implements_implementation": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "_type_annotation_no_fun"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "implements"
+        },
+        {
+          "type": "STRING",
+          "value": "["
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_virtual_open"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "apply_type"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "apply_type"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "_virtual_close"
+        },
+        {
+          "type": "STRING",
+          "value": "]"
+        }
+      ]
+    },
+    "implements_definition": {
+      "type": "PREC",
+      "value": 10,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_upper_identifier"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "implements"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "record_type"
+          }
+        ]
+      }
     },
     "_ability": {
       "type": "SEQ",
@@ -4291,7 +4400,7 @@
       "value": "_"
     },
     "apply_type": {
-      "type": "PREC_RIGHT",
+      "type": "PREC_LEFT",
       "value": 28,
       "content": {
         "type": "SEQ",
@@ -4671,16 +4780,17 @@
           "name": "apply_type"
         },
         {
-          "type": "STRING",
-          "value": ":="
+          "type": "ALIAS",
+          "content": {
+            "type": "STRING",
+            "value": ":="
+          },
+          "named": true,
+          "value": "colon_equals"
         },
         {
           "type": "SYMBOL",
           "name": "type_annotation"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_virtual_end_decl"
         }
       ]
     },

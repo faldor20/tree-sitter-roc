@@ -707,11 +707,10 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                   (apply_type_args
                     (apply_type_arg
                       (apply_type
-                        (concrete_type)
-                        (apply_type_args
-                          (apply_type_arg
-                            (apply_type
-                              (concrete_type)))))))))))))))
+                        (concrete_type)))
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type))))))))))))
   (value_declaration
     (value_declaration_left
       (identifier_pattern
@@ -841,11 +840,10 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                   (apply_type_args
                     (apply_type_arg
                       (apply_type
-                        (concrete_type)
-                        (apply_type_args
-                          (apply_type_arg
-                            (apply_type
-                              (concrete_type)))))))))))))))
+                        (concrete_type)))
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type))))))))))))
   (line_comment)
   (annotation
     (annotation_pre_colon
@@ -867,11 +865,10 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                   (apply_type_args
                     (apply_type_arg
                       (apply_type
-                        (concrete_type)
-                        (apply_type_args
-                          (apply_type_arg
-                            (apply_type
-                              (concrete_type))))))))))))))))
+                        (concrete_type)))
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)))))))))))))
 
 ================================================================================
 lists_complex

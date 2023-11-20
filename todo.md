@@ -1,5 +1,6 @@
 - [ ] fix naming
 	- [ ] long_identifier_or_op
+- [ ] add impliments syntax
 
 - [ ] remove old fsharp code
 - [ ] test for parsing invalid code
@@ -16,6 +17,7 @@
 
 
 - [ ] Make a record pattern seperate from a record expression
+
 
 Something about my whole setup is a bit messed up. i had to add else to the list of expressions because it wouldn't ever get passed when it was inside if... maybe i should try restarting this and basing it more off python, they seem to be very well set up
 

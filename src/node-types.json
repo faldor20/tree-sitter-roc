@@ -106,6 +106,10 @@
         "named": true
       },
       {
+        "type": "implements_definition",
+        "named": true
+      },
+      {
         "type": "opaque",
         "named": true
       },
@@ -417,7 +421,7 @@
           "named": true
         },
         {
-          "type": "implements",
+          "type": "implements_implementation",
           "named": true
         },
         {
@@ -430,6 +434,10 @@
         },
         {
           "type": "tags_type",
+          "named": true
+        },
+        {
+          "type": "where_implements",
           "named": true
         },
         {
@@ -1051,7 +1059,7 @@
             "named": true
           },
           {
-            "type": "implements",
+            "type": "implements_implementation",
             "named": true
           },
           {
@@ -1064,6 +1072,10 @@
           },
           {
             "type": "tags_type",
+            "named": true
+          },
+          {
+            "type": "where_implements",
             "named": true
           },
           {
@@ -1094,7 +1106,7 @@
           "named": true
         },
         {
-          "type": "implements",
+          "type": "implements_implementation",
           "named": true
         },
         {
@@ -1107,6 +1119,10 @@
         },
         {
           "type": "tags_type",
+          "named": true
+        },
+        {
+          "type": "where_implements",
           "named": true
         },
         {
@@ -1236,7 +1252,7 @@
     }
   },
   {
-    "type": "implements",
+    "type": "implements_definition",
     "named": true,
     "fields": {},
     "children": {
@@ -1244,11 +1260,58 @@
       "required": true,
       "types": [
         {
-          "type": "ability_chain",
+          "type": "implements",
           "named": true
         },
         {
-          "type": "identifier",
+          "type": "record_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "implements_implementation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "apply_type",
+          "named": true
+        },
+        {
+          "type": "bound_variable",
+          "named": true
+        },
+        {
+          "type": "implements",
+          "named": true
+        },
+        {
+          "type": "implements_implementation",
+          "named": true
+        },
+        {
+          "type": "inferred",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tags_type",
+          "named": true
+        },
+        {
+          "type": "where_implements",
+          "named": true
+        },
+        {
+          "type": "wildcard",
           "named": true
         }
       ]
@@ -1677,6 +1740,10 @@
       "types": [
         {
           "type": "apply_type",
+          "named": true
+        },
+        {
+          "type": "colon_equals",
           "named": true
         },
         {
@@ -2435,7 +2502,7 @@
           "named": true
         },
         {
-          "type": "implements",
+          "type": "implements_implementation",
           "named": true
         },
         {
@@ -2448,6 +2515,10 @@
         },
         {
           "type": "tags_type",
+          "named": true
+        },
+        {
+          "type": "where_implements",
           "named": true
         },
         {
@@ -2563,6 +2634,65 @@
         },
         {
           "type": "when",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "where_implements",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ability_chain",
+          "named": true
+        },
+        {
+          "type": "apply_type",
+          "named": true
+        },
+        {
+          "type": "bound_variable",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "implements",
+          "named": true
+        },
+        {
+          "type": "implements_implementation",
+          "named": true
+        },
+        {
+          "type": "inferred",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tags_type",
+          "named": true
+        },
+        {
+          "type": "where",
+          "named": true
+        },
+        {
+          "type": "where_implements",
+          "named": true
+        },
+        {
+          "type": "wildcard",
           "named": true
         }
       ]
@@ -2789,6 +2919,10 @@
     "named": true
   },
   {
+    "type": "colon_equals",
+    "named": true
+  },
+  {
     "type": "decimal",
     "named": true
   },
@@ -2850,7 +2984,7 @@
   },
   {
     "type": "implements",
-    "named": false
+    "named": true
   },
   {
     "type": "imports",
@@ -2954,7 +3088,7 @@
   },
   {
     "type": "where",
-    "named": false
+    "named": true
   },
   {
     "type": "while",
