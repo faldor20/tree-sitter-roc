@@ -1,4 +1,33 @@
 ================================================================================
+tuple issue
+================================================================================
+input = 
+  (1, 42)
+expec = 
+  ""
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (tuple_expression
+      (const
+        (int))
+      (const
+        (int))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (const
+      (string))))
+
+================================================================================
 type annotaions within scopes
 ================================================================================
 main=

@@ -1,0 +1,10 @@
+===
+multiline expressions inside a record
+===
+main=
+  {
+    a:
+      b=10
+      b
+  }
+---

@@ -22,7 +22,7 @@ const PREC = {
 	PREFIX_EXPR: 0,
 	SPECIAL_INFIX: 22,
 	LARROW: 19,
-	TUPLE_EXPR: 19,
+	TUPLE_EXPR: 30,
 	SPECIAL_PREFIX: 20,
 	DO_EXPR: 20,
 	IF_EXPR: 80,
@@ -75,6 +75,8 @@ module.exports = grammar({
 		$._atom_expression,
 		$._atom_context_expression,
 		$._module_elem,
+		$._virtual_open,
+		$._virtual_close,
 		$._infix_or_prefix_op,
 		$._quote_op_left,
 		$._quote_op_right,
@@ -117,7 +119,8 @@ module.exports = grammar({
 		value_declaration: ($) =>
 			choice(
 				prec.right(
-					100,
+					PREC.LET_EXPR,
+
 					seq(
 						$.value_declaration_left,
 						"=",
@@ -127,7 +130,7 @@ module.exports = grammar({
 					),
 				),
 			),
-		value_declaration_left: ($) => prec.left(10, seq($._pattern)),
+		value_declaration_left: ($) => seq($._pattern),
 
 		//
 		// Top-level rules (END)
@@ -183,13 +186,13 @@ module.exports = grammar({
 			),
 		tuple_pattern: ($) =>
 			prec.right(
-				5,
+				PREC.TUPLE_EXPR,
 				seq(
 					"(",
 					$._virtual_open_section,
 					$._pattern,
 					",",
-					repeat(prec.right(5, seq($._pattern, ","))),
+					repeat(prec.right(seq($._pattern, ","))),
 					$._pattern,
 					$._virtual_end_section,
 					")",
@@ -429,14 +432,15 @@ module.exports = grammar({
 			),
 
 		tuple_expression: ($) =>
-			prec.left(
+			prec.right(
 				PREC.TUPLE_EXPR,
 				seq(
 					"(",
+					$._virtual_open_section,
 					$._atom_context_expression,
-					repeat1(
-						prec.left(PREC.TUPLE_EXPR, seq(",", $._atom_context_expression)),
-					),
+					",",
+					sep1($._atom_context_expression, ","),
+					$._virtual_end_section,
 					")",
 				),
 			),
