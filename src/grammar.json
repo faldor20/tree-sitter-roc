@@ -657,8 +657,88 @@
       }
     },
     "record_pattern": {
-      "type": "SYMBOL",
-      "name": "record"
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "record_field_type"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "record_field_type_optional"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    }
+                  ]
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "record_field_type"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "record_field_type_optional"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "identifier"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                },
+                {
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": ","
+                    },
+                    {
+                      "type": "BLANK"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
     },
     "record_destructure_pattern": {
       "type": "SYMBOL",
@@ -4643,8 +4723,17 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "record_field_type"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "record_field_type"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "record_field_type_optional"
+                    }
+                  ]
                 },
                 {
                   "type": "REPEAT",
@@ -4656,8 +4745,17 @@
                         "value": ","
                       },
                       {
-                        "type": "SYMBOL",
-                        "name": "record_field_type"
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "record_field_type"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "record_field_type_optional"
+                          }
+                        ]
                       }
                     ]
                   }
@@ -4697,6 +4795,23 @@
         {
           "type": "STRING",
           "value": ":"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "type_annotation"
+        }
+      ]
+    },
+    "record_field_type_optional": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "ident"
+        },
+        {
+          "type": "STRING",
+          "value": "?"
         },
         {
           "type": "SYMBOL",

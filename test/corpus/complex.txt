@@ -281,8 +281,7 @@ main =
               (fun_expression
                 (backslash)
                 (argument_patterns
-                  (record_pattern
-                    (record)))
+                  (record_pattern))
                 (arrow)
                 (application_expression
                   (long_identifier_or_op
@@ -431,8 +430,7 @@ main =
               (fun_expression
                 (backslash)
                 (argument_patterns
-                  (record_pattern
-                    (record)))
+                  (record_pattern))
                 (arrow)
                 (application_expression
                   (long_identifier_or_op
@@ -518,8 +516,7 @@ main =
             (fun_expression
               (backslash)
               (argument_patterns
-                (record_pattern
-                  (record)))
+                (record_pattern))
               (arrow)
               (application_expression
                 (long_identifier_or_op

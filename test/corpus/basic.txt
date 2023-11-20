@@ -1,4 +1,52 @@
 ================================================================================
+record optional field
+================================================================================
+a:{field? B, field: C}
+func=\{field? B, field: C}-> field
+
+--------------------------------------------------------------------------------
+
+(file
+  (annotation
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (record_type
+        (record_field_type_optional
+          (ident)
+          (type_annotation
+            (apply_type
+              (concrete_type))))
+        (record_field_type
+          (ident)
+          (type_annotation
+            (apply_type
+              (concrete_type)))))))
+  (value_declaration
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (fun_expression
+      (backslash)
+      (argument_patterns
+        (record_pattern
+          (record_field_type_optional
+            (ident)
+            (type_annotation
+              (apply_type
+                (concrete_type))))
+          (record_field_type
+            (ident)
+            (type_annotation
+              (apply_type
+                (concrete_type))))))
+      (arrow)
+      (long_identifier_or_op
+        (long_identifier
+          (identifier))))))
+
+================================================================================
 expect
 ================================================================================
 
@@ -2116,9 +2164,7 @@ transformFileContent = \currentUrl, htmlContent ->
               (backslash)
               (argument_patterns
                 (record_pattern
-                  (record
-                    (record_field_expr
-                      (identifier)))))
+                  (identifier)))
               (arrow)
               (infix_expression
                 (long_identifier_or_op
@@ -2276,11 +2322,8 @@ findOneArg = \long, short, { args, taken } -> ()
         (long_identifier
           (identifier))
         (record_pattern
-          (record
-            (record_field_expr
-              (identifier))
-            (record_field_expr
-              (identifier)))))
+          (identifier)
+          (identifier)))
       (arrow)
       (const
         (unit)))))

@@ -246,13 +246,25 @@ module.exports = grammar({
 				),
 			),
 
-		record_pattern: ($) => $.record,
+		record_pattern: ($) =>
+			seq(
+				"{",
+				sep_tail(
+					choice(
+						$.record_field_type,
+						$.record_field_type_optional,
+						$.identifier,
+					),
+					",",
+				),
+				"}",
+			),
 		record_destructure_pattern: ($) => $.record_destructure,
 
 		// record_pattern: $ =>
 		//   prec.left(
 		//     seq(
-		//       '{', $.field_pattern, repeat(seq(";", $.field_pattern)))),
+		//       '{', $.field_pattern, repeat(seq(",", $.field_pattern)))),
 
 		_pattern_param: ($) =>
 			prec(
@@ -1126,9 +1138,18 @@ module.exports = grammar({
 			seq($.identifier, optional(seq("=>", $._upper_identifier))),
 
 		record_empty: ($) => prec(1, seq("{", "}")),
-		record_type: ($) => seq("{", sep_tail($.record_field_type, ","), "}"),
+		record_type: ($) =>
+			seq(
+				"{",
+				sep_tail(
+					choice($.record_field_type, $.record_field_type_optional),
+					",",
+				),
+				"}",
+			),
 
 		record_field_type: ($) => seq($.ident, ":", $.type_annotation),
+		record_field_type_optional: ($) => seq($.ident, "?", $.type_annotation),
 		typed_ident: ($) => seq($.identifier, ":", $.type_annotation),
 
 		annotation_pre_colon: ($) =>
