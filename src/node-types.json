@@ -958,19 +958,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "_expression_inner",
-          "named": true
-        },
-        {
-          "type": "backpassing_expression",
-          "named": true
-        },
-        {
-          "type": "value_declaration",
+          "type": "expression_body",
           "named": true
         }
       ]
@@ -2486,19 +2478,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "_expression_inner",
-          "named": true
-        },
-        {
-          "type": "backpassing_expression",
-          "named": true
-        },
-        {
-          "type": "value_declaration",
+          "type": "expression_body",
           "named": true
         }
       ]
@@ -2792,6 +2776,10 @@
     "type": "xint",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "\n",
+    "named": false
   },
   {
     "type": "!=",

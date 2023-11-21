@@ -149,6 +149,14 @@ module.exports = grammar({
 				$._expression_inner,
 			),
 
+		//An expression body that may or may not be indented
+		//TODO: use this everywhewe
+		_expression_body_maybe_block: ($) =>
+			choice(
+				seq("\n", $._virtual_open, $.expression_body, $._virtual_close),
+				seq($.expression_body),
+			),
+
 		value_declaration_top: ($) =>
 			choice(
 				prec.left(
@@ -256,6 +264,7 @@ module.exports = grammar({
 				$.tuple_pattern,
 				$.record_pattern,
 				$.tag_pattern,
+				$.range_pattern,
 				seq("(", $._pattern, ")"),
 
 				// :? atomic_type
@@ -568,18 +577,14 @@ module.exports = grammar({
 				PREC.ELSE_EXPR,
 				seq(
 					$._else,
-					$._virtual_open,
-					alias(field("else_branch", $.expression_body), $.else),
-					$._virtual_close,
+					alias(field("else_branch", $._expression_body_maybe_block), $.else),
 				),
 			),
 
 		_then_expression: ($) =>
 			seq(
 				$._then,
-				optional($._virtual_open),
-				alias(field("then", $.expression_body), $.then),
-				optional($._virtual_close),
+				alias(field("then", $._expression_body_maybe_block), $.then),
 			),
 		elif_expression: ($) =>
 			prec(
@@ -588,9 +593,7 @@ module.exports = grammar({
 					"elif",
 					field("guard", $._expression_inner),
 					"then",
-					$._virtual_open,
-					alias(field("then", $.expression_body), $.then),
-					$._virtual_close,
+					alias(field("then", $._expression_body_maybe_block), $.then),
 				),
 			),
 
@@ -627,10 +630,7 @@ module.exports = grammar({
 					$.backslash,
 					$.argument_patterns,
 					$.arrow,
-					choice(
-						seq($.expression_body),
-						seq($._virtual_open, $.expression_body, $._virtual_close),
-					),
+					$._expression_body_maybe_block,
 				),
 			),
 
@@ -664,9 +664,9 @@ module.exports = grammar({
 				seq(
 					$._pattern,
 					$.arrow,
-					$._virtual_open,
+					optional($._virtual_open),
 					$.expression_body,
-					$._virtual_close,
+					optional($._virtual_close),
 				),
 			),
 
@@ -979,19 +979,11 @@ module.exports = grammar({
 		//     $._lower_identifier, optional(seq(":", $._pattern)
 		//     ))
 		// ),
+
 		record_field_expr: ($) =>
-			prec.left(
-				seq(
-					$.identifier,
-					optional(
-						seq(
-							":",
-							optional($._virtual_open),
-							$.expression_body,
-							optional($._virtual_close),
-						),
-					),
-				),
+			prec.right(
+				0,
+				seq($.identifier, optional(seq(":", $._expression_body_maybe_block))),
 			),
 		record: ($) => seq("{", sep_tail($.record_field_expr, ","), "}"),
 

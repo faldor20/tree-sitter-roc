@@ -1149,38 +1149,40 @@ encodeBool = \b ->
                     (long_identifier
                       (identifier)))
                   (then
-                    (application_expression
-                      (long_identifier_or_op
-                        (long_identifier
-                          (module)
-                          (identifier)))
-                      (args
+                    (expression_body
+                      (application_expression
                         (long_identifier_or_op
                           (long_identifier
-                            (identifier))))
-                      (paren_expression
-                        (application_expression
+                            (module)
+                            (identifier)))
+                        (args
                           (long_identifier_or_op
                             (long_identifier
-                              (module)
-                              (identifier)))
-                          (const
-                            (string))))))
+                              (identifier))))
+                        (paren_expression
+                          (application_expression
+                            (long_identifier_or_op
+                              (long_identifier
+                                (module)
+                                (identifier)))
+                            (const
+                              (string)))))))
                   (else
-                    (application_expression
-                      (long_identifier_or_op
-                        (long_identifier
-                          (module)
-                          (identifier)))
-                      (args
+                    (expression_body
+                      (application_expression
                         (long_identifier_or_op
                           (long_identifier
-                            (identifier))))
-                      (paren_expression
-                        (application_expression
+                            (module)
+                            (identifier)))
+                        (args
                           (long_identifier_or_op
                             (long_identifier
-                              (module)
-                              (identifier)))
-                          (const
-                            (string)))))))))))))))
+                              (identifier))))
+                        (paren_expression
+                          (application_expression
+                            (long_identifier_or_op
+                              (long_identifier
+                                (module)
+                                (identifier)))
+                            (const
+                              (string))))))))))))))))

@@ -31,3 +31,75 @@ main=
             (long_identifier_or_op
               (long_identifier
                 (identifier)))))))))
+
+================================================================================
+list pattern issue
+================================================================================
+
+decodeBool = Decode.custom \bytes, @Json {} ->
+    when bytes is
+        a -> { result: a,res:b }
+        a -> { result:a }
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (module)
+            (identifier)))
+        (fun_expression
+          (backslash)
+          (argument_patterns
+            (long_identifier
+              (identifier))
+            (tag_pattern
+              (opaque_tag)
+              (record)))
+          (arrow)
+          (expression_body
+            (when_is_expression
+              (when)
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (is)
+              (rules
+                (rule
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier)))
+                  (arrow)
+                  (expression_body
+                    (record
+                      (record_field_expr
+                        (identifier)
+                        (expression_body
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))))
+                      (record_field_expr
+                        (identifier)
+                        (expression_body
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier))))))))
+                (rule
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier)))
+                  (arrow)
+                  (expression_body
+                    (record
+                      (record_field_expr
+                        (identifier)
+                        (expression_body
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier))))))))))))))))
