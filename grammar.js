@@ -185,8 +185,6 @@ module.exports = grammar({
 				// $.repeat_pattern,
 				$.paren_pattern,
 				$.list_pattern,
-				$.list_pattern,
-				$.list_pattern,
 				$.tag_pattern,
 				$.record,
 				$.tuple_pattern,
@@ -226,7 +224,6 @@ module.exports = grammar({
 
 		identifier_pattern: ($) =>
 			prec.left(
-				5,
 				seq(
 					$.long_identifier,
 					// optional($._pattern_param),
@@ -269,7 +266,7 @@ module.exports = grammar({
 				1,
 				choice(
 					seq("[", "]"),
-					seq("[", $._pattern, repeat(prec(2, seq(",", $._pattern))), "]"),
+					seq("[", $._pattern, repeat(seq(",", $._pattern)), "]"),
 				),
 			),
 

@@ -534,6 +534,18 @@ a=!(true||false)
             (infix_op)
             (const)))))))
 
+===
+list_decl
+===
+
+a=[Bool.true]
+expect
+  input = [Bool.true, Bool.false]
+  actual = Encode.toBytes input json
+  expected = Str.toUtf8 "[true,false]"
+
+  actual == expected
+---
 ================================================================================
 list patterns
 ================================================================================

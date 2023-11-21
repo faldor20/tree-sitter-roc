@@ -295,14 +295,6 @@
         },
         {
           "type": "SYMBOL",
-          "name": "list_pattern"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "list_pattern"
-        },
-        {
-          "type": "SYMBOL",
           "name": "tag_pattern"
         },
         {
@@ -441,7 +433,7 @@
     },
     "identifier_pattern": {
       "type": "PREC_LEFT",
-      "value": 5,
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
@@ -681,21 +673,17 @@
               {
                 "type": "REPEAT",
                 "content": {
-                  "type": "PREC",
-                  "value": 2,
-                  "content": {
-                    "type": "SEQ",
-                    "members": [
-                      {
-                        "type": "STRING",
-                        "value": ","
-                      },
-                      {
-                        "type": "SYMBOL",
-                        "name": "_pattern"
-                      }
-                    ]
-                  }
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": ","
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "_pattern"
+                    }
+                  ]
                 }
               },
               {
