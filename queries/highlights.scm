@@ -122,14 +122,11 @@
 
 [
   "," 
-  ";"
 ] @punctuation.delimiter
 
 [
   "|" 
   "="
-  ">"
-  "<"
   "-"
   "~"
   (infix_op)
@@ -146,15 +143,10 @@
 (interface_header(name)@type.interface)
 
 [
-  "for"
-  "while"
-] @keyword.control.return
-[
     "app"
     "packages"
     "imports"
     "provides"
-    "to"
     "interface"
     "exposes"
     "expect"
@@ -183,7 +175,7 @@ caller: (long_identifier_or_op
             (module)
             (identifier)@function)))
 
-(value_declaration(value_declaration_left (identifier_pattern)@function)(fun_expression))
+(value_declaration(value_declaration_left (identifier_pattern)@function)(value_declaration_content(fun_expression)))
 
     (fun_expression
       (argument_patterns
@@ -191,7 +183,7 @@ caller: (long_identifier_or_op
           (identifier)@variable.parameter))
          )
 
-  (annotation
+  (annotation_type_def
     (annotation_pre_colon )@function
     (type_annotation
       (function_type)))
