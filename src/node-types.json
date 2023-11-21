@@ -990,7 +990,7 @@
         "required": true,
         "types": [
           {
-            "type": "value_declaration_content",
+            "type": "expression_body",
             "named": true
           }
         ]
@@ -1022,6 +1022,29 @@
       "types": [
         {
           "type": "ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "expression_body",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "_expression_inner",
+          "named": true
+        },
+        {
+          "type": "backpassing_expression",
+          "named": true
+        },
+        {
+          "type": "value_declaration",
           "named": true
         }
       ]
@@ -1075,7 +1098,7 @@
           "named": true
         },
         {
-          "type": "value_declaration_content",
+          "type": "expression_body",
           "named": true
         }
       ]
@@ -1979,11 +2002,11 @@
       "required": true,
       "types": [
         {
-          "type": "identifier",
+          "type": "expression_body",
           "named": true
         },
         {
-          "type": "value_declaration_content",
+          "type": "identifier",
           "named": true
         }
       ]
@@ -2221,7 +2244,7 @@
           "named": true
         },
         {
-          "type": "value_declaration_content",
+          "type": "expression_body",
           "named": true
         }
       ]
@@ -2605,7 +2628,7 @@
         "required": true,
         "types": [
           {
-            "type": "value_declaration_content",
+            "type": "expression_body",
             "named": true
           }
         ]
@@ -2621,29 +2644,6 @@
         },
         {
           "type": "value_declaration_left",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "value_declaration_content",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_expression_inner",
-          "named": true
-        },
-        {
-          "type": "backpassing_expression",
-          "named": true
-        },
-        {
-          "type": "value_declaration",
           "named": true
         }
       ]
@@ -2673,7 +2673,7 @@
         "required": true,
         "types": [
           {
-            "type": "value_declaration_content",
+            "type": "expression_body",
             "named": true
           }
         ]

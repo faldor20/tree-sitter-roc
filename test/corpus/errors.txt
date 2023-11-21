@@ -414,19 +414,19 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (application_expression
         (tag_expression
           (opaque_tag))
         (record
           (record_field_expr
             (identifier)
-            (value_declaration_content
+            (expression_body
               (tag_expression
                 (tag))))
           (record_field_expr
             (identifier)
-            (value_declaration_content
+            (expression_body
               (long_identifier_or_op
                 (long_identifier
                   (module)
@@ -440,7 +440,7 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -456,7 +456,7 @@ encodeBool = \b ->
                   (module)
                   (identifier))))))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (tag_expression
               (opaque_tag))
@@ -506,14 +506,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (infix_expression
             (long_identifier_or_op
               (long_identifier
@@ -536,14 +536,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -558,7 +558,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -581,14 +581,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -603,7 +603,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -626,14 +626,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -648,7 +648,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -671,14 +671,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -693,7 +693,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -716,14 +716,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -738,7 +738,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -761,14 +761,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -783,7 +783,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -806,14 +806,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -828,7 +828,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -851,14 +851,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -873,7 +873,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -896,14 +896,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -918,7 +918,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -941,14 +941,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -963,7 +963,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -986,14 +986,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -1008,7 +1008,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -1031,14 +1031,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -1053,7 +1053,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -1076,14 +1076,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -1098,7 +1098,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -1121,14 +1121,14 @@ encodeBool = \b ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -1143,7 +1143,7 @@ encodeBool = \b ->
                   (opaque_tag)
                   (record)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (if_expression
                   (long_identifier_or_op
                     (long_identifier

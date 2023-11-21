@@ -29,7 +29,7 @@ main =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (if_expression
         (long_identifier_or_op
           (long_identifier
@@ -47,7 +47,7 @@ main =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (if_expression
         (long_identifier_or_op
           (long_identifier
@@ -69,7 +69,7 @@ main =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (if_expression
         (long_identifier_or_op
           (long_identifier
@@ -91,7 +91,7 @@ main =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (when_is_expression
         (when)
         (long_identifier_or_op
@@ -103,7 +103,7 @@ main =
             (const_pattern
               (int))
             (arrow)
-            (value_declaration_content
+            (expression_body
               (if_expression
                 (long_identifier_or_op
                   (long_identifier
@@ -120,7 +120,7 @@ main =
             (const_pattern
               (int))
             (arrow)
-            (value_declaration_content
+            (expression_body
               (long_identifier_or_op
                 (long_identifier
                   (identifier))))))))))
@@ -144,7 +144,7 @@ expec = ""
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (tuple_expression
         (const
           (int))
@@ -155,7 +155,7 @@ expec = ""
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (tuple_expression
         (const
           (int))
@@ -166,7 +166,7 @@ expec = ""
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (string)))))
 
@@ -186,7 +186,7 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (value_declaration
         (annotation_type_def
           (annotation_pre_colon
@@ -198,7 +198,7 @@ main=
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (const
             (int))))
       (long_identifier_or_op
@@ -229,7 +229,7 @@ expected = Str.toUtf8 "\"the quick brown fox jumps over the lazy doga\\r\\nbc\\\
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (char
           (escape_char)))))
@@ -238,7 +238,7 @@ expected = Str.toUtf8 "\"the quick brown fox jumps over the lazy doga\\r\\nbc\\\
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (list_expression
         (const
           (char
@@ -250,7 +250,7 @@ expected = Str.toUtf8 "\"the quick brown fox jumps over the lazy doga\\r\\nbc\\\
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (infix_expression
         (const
           (char
@@ -268,7 +268,7 @@ expected = Str.toUtf8 "\"the quick brown fox jumps over the lazy doga\\r\\nbc\\\
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (infix_expression
         (const
           (char))
@@ -284,7 +284,7 @@ expected = Str.toUtf8 "\"the quick brown fox jumps over the lazy doga\\r\\nbc\\\
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (string
           (escape_char)
@@ -296,7 +296,7 @@ expected = Str.toUtf8 "\"the quick brown fox jumps over the lazy doga\\r\\nbc\\\
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (string
           (escape_char)
@@ -308,7 +308,7 @@ expected = Str.toUtf8 "\"the quick brown fox jumps over the lazy doga\\r\\nbc\\\
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (application_expression
         (long_identifier_or_op
           (long_identifier
@@ -326,7 +326,7 @@ expected = Str.toUtf8 "\"the quick brown fox jumps over the lazy doga\\r\\nbc\\\
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (application_expression
         (long_identifier_or_op
           (long_identifier
@@ -403,7 +403,7 @@ func=\{field? B, field: C,def? "hi"}-> field
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -422,7 +422,7 @@ func=\{field? B, field: C,def? "hi"}-> field
               (const
                 (string)))))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (long_identifier_or_op
             (long_identifier
               (identifier))))))))
@@ -442,13 +442,13 @@ a=
 
 (file
   (expect
-    (value_declaration_content
+    (expression_body
       (value_declaration
         (value_declaration_left
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -461,7 +461,7 @@ a=
                     (long_identifier
                       (identifier)))
                   (arrow)
-                  (value_declaration_content
+                  (expression_body
                     (application_expression
                       (long_identifier_or_op
                         (long_identifier
@@ -483,7 +483,7 @@ a=
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (application_expression
             (tag_expression
               (tag))
@@ -502,7 +502,7 @@ a=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (prefixed_expression
         (prefix_op
           (symbolic_op))
@@ -524,7 +524,7 @@ a=!(true||false)
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (prefixed_expression
         (prefix_op
           (symbolic_op))
@@ -549,7 +549,7 @@ a=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (when_is_expression
         (when)
         (long_identifier_or_op
@@ -563,7 +563,7 @@ a=
               (const_pattern
                 (int)))
             (arrow)
-            (value_declaration_content
+            (expression_body
               (long_identifier_or_op
                 (long_identifier
                   (identifier))))))))))
@@ -583,7 +583,7 @@ num=1
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (string))))
   (value_declaration_top
@@ -591,7 +591,7 @@ num=1
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (string))))
   (value_declaration_top
@@ -599,7 +599,7 @@ num=1
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (int)))))
 
@@ -616,7 +616,7 @@ update = \dict, (vertex, edges) ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -630,7 +630,7 @@ update = \dict, (vertex, edges) ->
               (long_identifier
                 (identifier)))))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -751,7 +751,7 @@ fromDict = @Graph
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -765,7 +765,7 @@ fromDict = @Graph
               (long_identifier
                 (identifier)))))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -817,7 +817,7 @@ fromDict = @Graph
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (tag_expression
         (opaque_tag)))))
 
@@ -835,7 +835,7 @@ bfs = \isTarget, root, Graph graph ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -849,7 +849,7 @@ bfs = \isTarget, root, Graph graph ->
               (long_identifier
                 (identifier)))))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -922,7 +922,7 @@ num3 = 1 + num2
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (infix_expression
         (const
           (int))
@@ -934,7 +934,7 @@ num3 = 1 + num2
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (infix_expression
         (const
           (int))
@@ -947,7 +947,7 @@ num3 = 1 + num2
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (infix_expression
         (const
           (int))
@@ -978,7 +978,7 @@ add = \num1, num2 ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -987,7 +987,7 @@ add = \num1, num2 ->
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (when_is_expression
             (when)
             (long_identifier_or_op
@@ -999,14 +999,14 @@ add = \num1, num2 ->
                 (const_pattern
                   (int))
                 (arrow)
-                (value_declaration_content
+                (expression_body
                   (const
                     (int))))
               (rule
                 (const_pattern
                   (int))
                 (arrow)
-                (value_declaration_content
+                (expression_body
                   (backpassing_expression
                     (identifier_pattern
                       (long_identifier
@@ -1024,7 +1024,7 @@ add = \num1, num2 ->
                       (identifier_pattern
                         (long_identifier
                           (identifier))))
-                    (value_declaration_content
+                    (expression_body
                       (application_expression
                         (long_identifier_or_op
                           (long_identifier
@@ -1050,21 +1050,21 @@ add = \num1, num2 ->
                       (long_identifier
                         (identifier)))
                     (arrow)
-                    (value_declaration_content
+                    (expression_body
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))))))
               (rule
                 (wildcard_pattern)
                 (arrow)
-                (value_declaration_content
+                (expression_body
                   (fun_expression
                     (backslash)
                     (argument_patterns
                       (long_identifier
                         (identifier)))
                     (arrow)
-                    (value_declaration_content
+                    (expression_body
                       (const
                         (int)))))))))))))
 
@@ -1097,7 +1097,7 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (application_expression
         (long_identifier_or_op
           (long_identifier
@@ -1110,7 +1110,7 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (seq_infix
         (application_expression
           (long_identifier_or_op
@@ -1129,7 +1129,7 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (application_expression
         (long_identifier_or_op
           (long_identifier
@@ -1164,13 +1164,13 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (value_declaration
         (value_declaration_left
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (seq_infix
             (application_expression
               (long_identifier_or_op
@@ -1202,7 +1202,7 @@ main=
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (const
             (int))))
       (long_identifier_or_op
@@ -1228,7 +1228,7 @@ add = \ a, b -> a+b
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -1237,7 +1237,7 @@ add = \ a, b -> a+b
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (infix_expression
             (long_identifier_or_op
               (long_identifier
@@ -1251,7 +1251,7 @@ add = \ a, b -> a+b
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -1260,13 +1260,13 @@ add = \ a, b -> a+b
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (value_declaration
             (value_declaration_left
               (identifier_pattern
                 (long_identifier
                   (identifier))))
-            (value_declaration_content
+            (expression_body
               (long_identifier_or_op
                 (long_identifier
                   (identifier)))))
@@ -1283,7 +1283,7 @@ add = \ a, b -> a+b
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -1292,7 +1292,7 @@ add = \ a, b -> a+b
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (infix_expression
             (long_identifier_or_op
               (long_identifier
@@ -1335,7 +1335,7 @@ main = \filename ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (application_expression
         (long_identifier_or_op
           (long_identifier
@@ -1349,13 +1349,13 @@ main = \filename ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (value_declaration
         (value_declaration_left
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -1383,7 +1383,7 @@ main = \filename ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (application_expression
         (long_identifier_or_op
           (long_identifier
@@ -1398,13 +1398,13 @@ main = \filename ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (value_declaration
         (value_declaration_left
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (fun_expression
             (backslash)
             (argument_patterns
@@ -1413,7 +1413,7 @@ main = \filename ->
               (long_identifier
                 (identifier)))
             (arrow)
-            (value_declaration_content
+            (expression_body
               (long_identifier_or_op
                 (long_identifier
                   (identifier)))))))
@@ -1442,7 +1442,7 @@ main = \filename ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -1451,13 +1451,13 @@ main = \filename ->
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (value_declaration
             (value_declaration_left
               (identifier_pattern
                 (long_identifier
                   (identifier))))
-            (value_declaration_content
+            (expression_body
               (infix_expression
                 (long_identifier_or_op
                   (long_identifier
@@ -1474,14 +1474,14 @@ main = \filename ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -1498,7 +1498,7 @@ main = \filename ->
                 (long_identifier
                   (identifier)))
               (arrow)
-              (value_declaration_content
+              (expression_body
                 (application_expression
                   (long_identifier_or_op
                     (long_identifier
@@ -1527,7 +1527,7 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (if_expression
         (long_identifier_or_op
           (long_identifier
@@ -1538,7 +1538,7 @@ main=
               (identifier_pattern
                 (long_identifier
                   (identifier))))
-            (value_declaration_content
+            (expression_body
               (const
                 (int))))
           (long_identifier_or_op
@@ -1550,7 +1550,7 @@ main=
               (identifier_pattern
                 (long_identifier
                   (identifier))))
-            (value_declaration_content
+            (expression_body
               (infix_expression
                 (long_identifier_or_op
                   (long_identifier
@@ -1589,7 +1589,7 @@ maybe =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (paren_expression
         (const
           (string)))))
@@ -1598,7 +1598,7 @@ maybe =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (int))))
   (value_declaration_top
@@ -1606,7 +1606,7 @@ maybe =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (application_expression
         (long_identifier_or_op
           (long_identifier
@@ -1635,13 +1635,13 @@ maybe =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (value_declaration
         (value_declaration_left
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (infix_expression
             (long_identifier_or_op
               (long_identifier
@@ -1658,7 +1658,7 @@ maybe =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (if_expression
         (const)
         (then
@@ -1690,7 +1690,7 @@ main =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (backpassing_expression
         (wildcard_pattern)
         (back_arrow)
@@ -1711,14 +1711,14 @@ main =
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (fun_expression
             (backslash)
             (argument_patterns
               (long_identifier
                 (identifier)))
             (arrow)
-            (value_declaration_content
+            (expression_body
               (backpassing_expression
                 (identifier_pattern
                   (long_identifier
@@ -1788,26 +1788,26 @@ newScope = { scope & whileInfo }
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (record
         (record_field_expr
           (identifier)
-          (value_declaration_content
+          (expression_body
             (const
               (string))))
         (record_field_expr
           (identifier)
-          (value_declaration_content
+          (expression_body
             (const
               (string))))
         (record_field_expr
           (identifier)
-          (value_declaration_content
+          (expression_body
             (const
               (int))))
         (record_field_expr
           (identifier)
-          (value_declaration_content
+          (expression_body
             (infix_expression
               (const
                 (int))
@@ -1816,7 +1816,7 @@ newScope = { scope & whileInfo }
                 (int)))))
         (record_field_expr
           (identifier)
-          (value_declaration_content
+          (expression_body
             (infix_expression
               (paren_expression
                 (infix_expression
@@ -1834,7 +1834,7 @@ newScope = { scope & whileInfo }
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (record_update
         (identifier)
         (record_field_expr
@@ -1854,12 +1854,12 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (record_update
         (identifier)
         (record_field_expr
           (identifier)
-          (value_declaration_content
+          (expression_body
             (application_expression
               (tag_expression
                 (tag))
@@ -1871,7 +1871,7 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (application_expression
         (long_identifier_or_op
           (long_identifier
@@ -1885,7 +1885,7 @@ main=
               (identifier)
               (record_field_expr
                 (identifier)
-                (value_declaration_content
+                (expression_body
                   (application_expression
                     (dot_expression
                       (application_expression
@@ -1924,7 +1924,7 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (if_expression
         (infix_expression
           (long_identifier_or_op
@@ -1967,13 +1967,13 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (value_declaration
         (value_declaration_left
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -1987,7 +1987,7 @@ main=
                   (identifier)
                   (record_field_expr
                     (identifier)
-                    (value_declaration_content
+                    (expression_body
                       (application_expression
                         (dot_expression
                           (application_expression
@@ -2032,7 +2032,7 @@ main=
                     (long_identifier
                       (identifier))))))
             (arrow)
-            (value_declaration_content
+            (expression_body
               (if_expression
                 (infix_expression
                   (long_identifier_or_op
@@ -2047,12 +2047,12 @@ main=
                       (identifier_pattern
                         (long_identifier
                           (identifier))))
-                    (value_declaration_content
+                    (expression_body
                       (record_update
                         (identifier)
                         (record_field_expr
                           (identifier)
-                          (value_declaration_content
+                          (expression_body
                             (tag_expression
                               (tag)))))))
                   (application_expression
@@ -2068,7 +2068,7 @@ main=
                           (identifier)
                           (record_field_expr
                             (identifier)
-                            (value_declaration_content
+                            (expression_body
                               (application_expression
                                 (dot_expression
                                   (application_expression
@@ -2095,19 +2095,19 @@ main=
                       (identifier_pattern
                         (long_identifier
                           (identifier))))
-                    (value_declaration_content
+                    (expression_body
                       (record_update
                         (identifier)
                         (record_field_expr
                           (identifier)
-                          (value_declaration_content
+                          (expression_body
                             (application_expression
                               (tag_expression
                                 (tag))
                               (record
                                 (record_field_expr
                                   (identifier)
-                                  (value_declaration_content
+                                  (expression_body
                                     (tag_expression
                                       (tag))))
                                 (record_field_expr
@@ -2127,7 +2127,7 @@ main=
                           (identifier)
                           (record_field_expr
                             (identifier)
-                            (value_declaration_content
+                            (expression_body
                               (application_expression
                                 (long_identifier_or_op
                                   (long_identifier
@@ -2158,23 +2158,23 @@ main=
                                 (record
                                   (record_field_expr
                                     (identifier)
-                                    (value_declaration_content
+                                    (expression_body
                                       (tag_expression
                                         (tag))))
                                   (record_field_expr
                                     (identifier)
-                                    (value_declaration_content
+                                    (expression_body
                                       (long_identifier_or_op
                                         (long_identifier
                                           (identifier)))))
                                   (record_field_expr
                                     (identifier)
-                                    (value_declaration_content
+                                    (expression_body
                                       (const
                                         (int))))
                                   (record_field_expr
                                     (identifier)
-                                    (value_declaration_content
+                                    (expression_body
                                       (tag_expression
                                         (tag)))))))))))))))))))))
 
@@ -2196,7 +2196,7 @@ m=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (seq_infix
         (long_identifier_or_op
           (long_identifier
@@ -2242,7 +2242,7 @@ navLinks = [
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (list_expression
         (const
           (string))
@@ -2253,7 +2253,7 @@ navLinks = [
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (application_expression
         (long_identifier_or_op
           (long_identifier
@@ -2270,54 +2270,54 @@ navLinks = [
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (list_expression
         (record
           (record_field_expr
             (identifier)
-            (value_declaration_content
+            (expression_body
               (const
                 (string))))
           (record_field_expr
             (identifier)
-            (value_declaration_content
+            (expression_body
               (const
                 (string))))
           (record_field_expr
             (identifier)
-            (value_declaration_content
+            (expression_body
               (const
                 (string)))))
         (record
           (record_field_expr
             (identifier)
-            (value_declaration_content
+            (expression_body
               (const
                 (string))))
           (record_field_expr
             (identifier)
-            (value_declaration_content
+            (expression_body
               (const
                 (string))))
           (record_field_expr
             (identifier)
-            (value_declaration_content
+            (expression_body
               (const
                 (string)))))
         (record
           (record_field_expr
             (identifier)
-            (value_declaration_content
+            (expression_body
               (const
                 (string))))
           (record_field_expr
             (identifier)
-            (value_declaration_content
+            (expression_body
               (const
                 (string))))
           (record_field_expr
             (identifier)
-            (value_declaration_content
+            (expression_body
               (const
                 (string)))))))))
 
@@ -2343,13 +2343,13 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (value_declaration
         (value_declaration_left
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (long_identifier_or_op
             (long_identifier
               (identifier)))))
@@ -2361,13 +2361,13 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (value_declaration
         (value_declaration_left
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (long_identifier_or_op
             (long_identifier
               (identifier)))))
@@ -2376,7 +2376,7 @@ main=
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (long_identifier_or_op
             (long_identifier
               (identifier)))))
@@ -2422,19 +2422,19 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (value_declaration
         (value_declaration_left
           (identifier_pattern
             (long_identifier
               (identifier))))
-        (value_declaration_content
+        (expression_body
           (value_declaration
             (value_declaration_left
               (identifier_pattern
                 (long_identifier
                   (identifier))))
-            (value_declaration_content
+            (expression_body
               (when_is_expression
                 (when)
                 (long_identifier_or_op
@@ -2446,7 +2446,7 @@ main=
                     (const_pattern
                       (int))
                     (arrow)
-                    (value_declaration_content
+                    (expression_body
                       (if_expression
                         (long_identifier_or_op
                           (long_identifier
@@ -2486,7 +2486,7 @@ main=
                     (const_pattern
                       (int))
                     (arrow)
-                    (value_declaration_content
+                    (expression_body
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))))))))
@@ -2495,7 +2495,7 @@ main=
               (identifier_pattern
                 (long_identifier
                   (identifier))))
-            (value_declaration_content
+            (expression_body
               (const
                 (int))))
           (long_identifier_or_op
@@ -2524,7 +2524,7 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (when_is_expression
         (when)
         (long_identifier_or_op
@@ -2536,7 +2536,7 @@ main=
             (tag_pattern
               (tag))
             (arrow)
-            (value_declaration_content
+            (expression_body
               (const
                 (int))))
           (rule
@@ -2549,13 +2549,13 @@ main=
               (tag_pattern
                 (tag)))
             (arrow)
-            (value_declaration_content
+            (expression_body
               (value_declaration
                 (value_declaration_left
                   (identifier_pattern
                     (long_identifier
                       (identifier))))
-                (value_declaration_content
+                (expression_body
                   (const
                     (int))))
               (long_identifier_or_op
@@ -2565,7 +2565,7 @@ main=
             (tag_pattern
               (tag))
             (arrow)
-            (value_declaration_content
+            (expression_body
               (const
                 (int)))))))))
 
@@ -2586,7 +2586,7 @@ transformFileContent =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -2595,7 +2595,7 @@ transformFileContent =
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -2611,7 +2611,7 @@ transformFileContent =
                   (record_pattern
                     (identifier)))
                 (arrow)
-                (value_declaration_content
+                (expression_body
                   (infix_expression
                     (long_identifier_or_op
                       (long_identifier
@@ -2625,7 +2625,7 @@ transformFileContent =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (application_expression
         (long_identifier_or_op
           (long_identifier
@@ -2642,7 +2642,7 @@ transformFileContent =
             (long_identifier
               (identifier)))
           (arrow)
-          (value_declaration_content
+          (expression_body
             (long_identifier_or_op
               (long_identifier
                 (identifier)))))))))
@@ -2689,7 +2689,7 @@ transformFileContent =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (application_expression
         (long_identifier_or_op
           (long_identifier
@@ -2723,7 +2723,7 @@ transformFileContent =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -2732,7 +2732,7 @@ transformFileContent =
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (const
             (int))))))
   (annotation_type_def
@@ -2752,7 +2752,7 @@ transformFileContent =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -2761,7 +2761,7 @@ transformFileContent =
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -2785,7 +2785,7 @@ transformFileContent =
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -2794,7 +2794,7 @@ transformFileContent =
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (seq_infix
             (application_expression
               (long_identifier_or_op
@@ -2811,7 +2811,7 @@ transformFileContent =
                     (record_pattern
                       (identifier)))
                   (arrow)
-                  (value_declaration_content
+                  (expression_body
                     (infix_expression
                       (long_identifier_or_op
                         (long_identifier
@@ -2834,7 +2834,7 @@ transformFileContent =
                     (long_identifier
                       (identifier)))
                   (arrow)
-                  (value_declaration_content
+                  (expression_body
                     (application_expression
                       (long_identifier_or_op
                         (long_identifier
@@ -2883,7 +2883,7 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (seq_infix
         (long_identifier_or_op
           (long_identifier
@@ -2901,7 +2901,7 @@ main=
               (long_identifier
                 (identifier)))
             (arrow)
-            (value_declaration_content
+            (expression_body
               (infix_expression
                 (long_identifier_or_op
                   (long_identifier
@@ -2956,7 +2956,7 @@ findOneArg = \long, short, { args, taken } -> long
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
@@ -2968,7 +2968,7 @@ findOneArg = \long, short, { args, taken } -> long
             (identifier)
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (long_identifier_or_op
             (long_identifier
               (identifier))))))))
@@ -2985,7 +2985,7 @@ a= a>=b
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (infix_expression
         (long_identifier_or_op
           (long_identifier
@@ -3024,7 +3024,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (xint))))
   (value_declaration_top
@@ -3032,7 +3032,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (xint))))
   (value_declaration_top
@@ -3040,7 +3040,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (xint))))
   (value_declaration_top
@@ -3048,7 +3048,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (xint))))
   (value_declaration_top
@@ -3056,7 +3056,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (uint))))
   (value_declaration_top
@@ -3064,7 +3064,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (uint))))
   (value_declaration_top
@@ -3072,7 +3072,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (iint))))
   (value_declaration_top
@@ -3080,7 +3080,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (iint))))
   (value_declaration_top
@@ -3088,7 +3088,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (float))))
   (value_declaration_top
@@ -3096,7 +3096,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (float))))
   (value_declaration_top
@@ -3104,7 +3104,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (decimal))))
   (value_declaration_top
@@ -3112,7 +3112,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (natural))))
   (value_declaration_top
@@ -3120,7 +3120,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (string))))
   (value_declaration_top
@@ -3128,7 +3128,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (string))))
   (value_declaration_top
@@ -3136,7 +3136,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (string
           (interpolation_char
@@ -3146,7 +3146,7 @@ b="p \n \( hi )"
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (string
           (escape_char)
@@ -3167,7 +3167,7 @@ main=
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (when_is_expression
         (when)
         (long_identifier_or_op
@@ -3181,7 +3181,7 @@ main=
               (record
                 (record_field_expr
                   (identifier)
-                  (value_declaration_content
+                  (expression_body
                     (tag_expression
                       (tag))))
                 (record_field_expr
@@ -3189,7 +3189,7 @@ main=
                 (record_field_expr
                   (identifier))))
             (arrow)
-            (value_declaration_content
+            (expression_body
               (long_identifier_or_op
                 (long_identifier
                   (identifier))))))))))
@@ -3246,7 +3246,7 @@ a=10
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (int)))))
 
@@ -3358,14 +3358,14 @@ a = \path ->
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (fun_expression
         (backslash)
         (argument_patterns
           (long_identifier
             (identifier)))
         (arrow)
-        (value_declaration_content
+        (expression_body
           (long_identifier_or_op
             (long_identifier
               (identifier))))))))
@@ -3419,6 +3419,6 @@ main = 1
       (identifier_pattern
         (long_identifier
           (identifier))))
-    (value_declaration_content
+    (expression_body
       (const
         (int)))))

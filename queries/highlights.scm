@@ -175,7 +175,7 @@ caller: (long_identifier_or_op
             (module)
             (identifier)@function)))
 
-(value_declaration(value_declaration_left (identifier_pattern)@function)(value_declaration_content(fun_expression)))
+(value_declaration(value_declaration_left (identifier_pattern)@function)(expression_body(fun_expression)))
 
     (fun_expression
       (argument_patterns

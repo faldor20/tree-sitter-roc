@@ -1,10 +1,33 @@
-===
+================================================================================
 multiline expressions inside a record
-===
+================================================================================
 main=
   {
     a:
       b=10
       b
   }
----
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (record
+        (record_field_expr
+          (identifier)
+          (expression_body
+            (value_declaration
+              (value_declaration_left
+                (identifier_pattern
+                  (long_identifier
+                    (identifier))))
+              (expression_body
+                (const
+                  (int))))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))))))

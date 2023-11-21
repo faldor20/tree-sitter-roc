@@ -50,15 +50,6 @@ module.exports = grammar({
 		$.block_comment_content,
 	],
 
-	// externals: ($) => [
-	// 	$._virtual_end_decl,
-	// 	$._virtual_open_section,
-	// 	$._virtual_end_section,
-	// 	$.minus_without_trailing_whitespace,
-	// 	$.glsl_content,
-	// 	$._block_comment_content,
-	// ],
-
 	extras: ($) => [
 		$.block_comment,
 		$.line_comment,
@@ -127,7 +118,7 @@ module.exports = grammar({
 			seq(
 				"expect",
 				$._virtual_open,
-				field("body", $.value_declaration_content),
+				field("body", $.expression_body),
 				$._virtual_close,
 			),
 
@@ -142,12 +133,12 @@ module.exports = grammar({
 						$.value_declaration_left,
 						"=",
 						$._virtual_open,
-						field("body", $.value_declaration_content),
+						field("body", $.expression_body),
 						$._virtual_close,
 					),
 				),
 			),
-		value_declaration_content: ($) =>
+		expression_body: ($) =>
 			seq(
 				repeat(
 					seq(
@@ -168,7 +159,7 @@ module.exports = grammar({
 						$.value_declaration_left,
 						"=",
 						$._virtual_open,
-						field("body", $.value_declaration_content),
+						field("body", $.expression_body),
 						optional($._virtual_close),
 					),
 				),
@@ -566,11 +557,11 @@ module.exports = grammar({
 		// 			field("guard", $._atom_context_expression),
 		// 			$._then,
 		// 			$._virtual_open,
-		// 			alias(field("then", $.value_declaration_content), $.then),
+		// 			alias(field("then", $.expression_body), $.then),
 		// 			$._virtual_close,
 		// 			$._else,
 		// 			$._virtual_open,
-		// 			alias(field("else_branch", $.value_declaration_content), $.else),
+		// 			alias(field("else_branch", $.expression_body), $.else),
 		// 			$._virtual_close,
 		// 		),
 		// 	),
@@ -581,7 +572,7 @@ module.exports = grammar({
 				seq(
 					$._else,
 					$._virtual_open,
-					alias(field("else_branch", $.value_declaration_content), $.else),
+					alias(field("else_branch", $.expression_body), $.else),
 					$._virtual_close,
 				),
 			),
@@ -590,7 +581,7 @@ module.exports = grammar({
 			seq(
 				$._then,
 				optional($._virtual_open),
-				alias(field("then", $.value_declaration_content), $.then),
+				alias(field("then", $.expression_body), $.then),
 				optional($._virtual_close),
 			),
 		elif_expression: ($) =>
@@ -601,7 +592,7 @@ module.exports = grammar({
 					field("guard", $._expression_inner),
 					"then",
 					$._virtual_open,
-					alias(field("then", $.value_declaration_content), $.then),
+					alias(field("then", $.expression_body), $.then),
 					$._virtual_close,
 				),
 			),
@@ -640,8 +631,8 @@ module.exports = grammar({
 					$.argument_patterns,
 					$.arrow,
 					choice(
-						seq($.value_declaration_content),
-						seq($._virtual_open, $.value_declaration_content, $._virtual_close),
+						seq($.expression_body),
+						seq($._virtual_open, $.expression_body, $._virtual_close),
 					),
 				),
 			),
@@ -677,7 +668,7 @@ module.exports = grammar({
 					$._pattern,
 					$.arrow,
 					$._virtual_open,
-					$.value_declaration_content,
+					$.expression_body,
 					$._virtual_close,
 				),
 			),
@@ -995,7 +986,14 @@ module.exports = grammar({
 			prec.left(
 				seq(
 					$.identifier,
-					optional(seq(":", repeat1($.value_declaration_content))),
+					optional(
+						seq(
+							":",
+							optional($._virtual_open),
+							$.expression_body,
+							optional($._virtual_close),
+						),
+					),
 				),
 			),
 		record: ($) => seq("{", sep_tail($.record_field_expr, ","), "}"),
