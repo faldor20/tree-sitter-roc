@@ -3243,6 +3243,32 @@
         ]
       }
     },
+    "record_field_builder": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "field_name"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "STRING",
+              "value": ":"
+            },
+            {
+              "type": "STRING",
+              "value": "<-"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "identifier"
+            }
+          ]
+        }
+      ]
+    },
     "record": {
       "type": "SEQ",
       "members": [
@@ -3257,8 +3283,17 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "SYMBOL",
-                  "name": "record_field_expr"
+                  "type": "CHOICE",
+                  "members": [
+                    {
+                      "type": "SYMBOL",
+                      "name": "record_field_expr"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "record_field_builder"
+                    }
+                  ]
                 },
                 {
                   "type": "REPEAT",
@@ -3270,8 +3305,17 @@
                         "value": ","
                       },
                       {
-                        "type": "SYMBOL",
-                        "name": "record_field_expr"
+                        "type": "CHOICE",
+                        "members": [
+                          {
+                            "type": "SYMBOL",
+                            "name": "record_field_expr"
+                          },
+                          {
+                            "type": "SYMBOL",
+                            "name": "record_field_builder"
+                          }
+                        ]
                       }
                     ]
                   }

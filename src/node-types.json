@@ -549,6 +549,11 @@
     }
   },
   {
+    "type": "back_arrow",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "backpassing_expression",
     "named": true,
     "fields": {
@@ -1807,6 +1812,10 @@
       "required": false,
       "types": [
         {
+          "type": "record_field_builder",
+          "named": true
+        },
+        {
           "type": "record_field_expr",
           "named": true
         }
@@ -1817,6 +1826,25 @@
     "type": "record_empty",
     "named": true,
     "fields": {}
+  },
+  {
+    "type": "record_field_builder",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "field_name",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "record_field_expr",
@@ -2727,6 +2755,10 @@
     "named": false
   },
   {
+    "type": "<-",
+    "named": false
+  },
+  {
     "type": "<=",
     "named": false
   },
@@ -2805,10 +2837,6 @@
   {
     "type": "as",
     "named": false
-  },
-  {
-    "type": "back_arrow",
-    "named": true
   },
   {
     "type": "backslash",

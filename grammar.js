@@ -1051,7 +1051,14 @@ module.exports = grammar({
 				0,
 				seq($.field_name, optional(seq(":", $._expression_body_maybe_block))),
 			),
-		record: ($) => seq("{", sep_tail($.record_field_expr, ","), "}"),
+		record_field_builder: ($) =>
+			seq($.field_name, seq(":", "<-", $.identifier)),
+		record: ($) =>
+			seq(
+				"{",
+				sep_tail(choice($.record_field_expr, $.record_field_builder), ","),
+				"}",
+			),
 
 		record_destructure: ($) => seq("{", sep_tail($.ident, ","), "}"),
 

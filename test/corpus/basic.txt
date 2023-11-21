@@ -1,4 +1,60 @@
 ================================================================================
+record builder
+================================================================================
+main=
+  { aliceID, bobID, trudyID } = 
+      initIDCount {
+          aliceID: <- incID,
+          bobID: <- incID,
+          trudyID: <- incID,
+      } |> extractState   
+  aliceID
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (record
+            (record_field_expr
+              (field_name))
+            (record_field_expr
+              (field_name))
+            (record_field_expr
+              (field_name))))
+        (expression_body
+          (infix_expression
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (application_args
+                (record
+                  (record_field_builder
+                    (field_name)
+                    (identifier))
+                  (record_field_builder
+                    (field_name)
+                    (identifier))
+                  (record_field_builder
+                    (field_name)
+                    (identifier)))))
+            (infix_op
+              (symbolic_op))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier))))))
+
+================================================================================
 paren issue
 ================================================================================
 main=
