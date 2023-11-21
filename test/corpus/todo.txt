@@ -193,7 +193,7 @@ parseExactChar = \bytes, char ->
                       (expression_body
                         (record
                           (record_field_expr
-                            (identifier)
+                            (field_name)
                             (expression_body
                               (application_expression
                                 (tag_expression
@@ -201,7 +201,7 @@ parseExactChar = \bytes, char ->
                                 (application_args
                                   (record)))))
                           (record_field_expr
-                            (identifier)
+                            (field_name)
                             (expression_body
                               (dot_expression
                                 (paren_expression
@@ -223,7 +223,7 @@ parseExactChar = \bytes, char ->
                     (expression_body
                       (record
                         (record_field_expr
-                          (identifier)
+                          (field_name)
                           (expression_body
                             (application_expression
                               (tag_expression
@@ -232,7 +232,7 @@ parseExactChar = \bytes, char ->
                                 (tag_expression
                                   (tag))))))
                         (record_field_expr
-                          (identifier)
+                          (field_name)
                           (expression_body
                             (long_identifier_or_op
                               (long_identifier
@@ -245,7 +245,7 @@ parseExactChar = \bytes, char ->
                 (expression_body
                   (record
                     (record_field_expr
-                      (identifier)
+                      (field_name)
                       (expression_body
                         (application_expression
                           (tag_expression
@@ -254,7 +254,7 @@ parseExactChar = \bytes, char ->
                             (tag_expression
                               (tag))))))
                     (record_field_expr
-                      (identifier)
+                      (field_name)
                       (expression_body
                         (long_identifier_or_op
                           (long_identifier
@@ -280,7 +280,7 @@ main=
     (expression_body
       (record
         (record_field_expr
-          (identifier)
+          (field_name)
           (expression_body
             (value_declaration
               (value_declaration_left
@@ -342,13 +342,13 @@ decodeBool = Decode.custom \bytes, @Json {} ->
                     (expression_body
                       (record
                         (record_field_expr
-                          (identifier)
+                          (field_name)
                           (expression_body
                             (long_identifier_or_op
                               (long_identifier
                                 (identifier)))))
                         (record_field_expr
-                          (identifier)
+                          (field_name)
                           (expression_body
                             (long_identifier_or_op
                               (long_identifier
@@ -361,7 +361,7 @@ decodeBool = Decode.custom \bytes, @Json {} ->
                     (expression_body
                       (record
                         (record_field_expr
-                          (identifier)
+                          (field_name)
                           (expression_body
                             (long_identifier_or_op
                               (long_identifier
@@ -389,7 +389,7 @@ main=
       (backpassing_expression
         (record
           (record_field_expr
-            (identifier)
+            (field_name)
             (expression_body
               (long_identifier_or_op
                 (long_identifier
@@ -413,13 +413,13 @@ main=
       (backpassing_expression
         (record
           (record_field_expr
-            (identifier)
+            (field_name)
             (expression_body
               (long_identifier_or_op
                 (long_identifier
                   (identifier)))))
           (record_field_expr
-            (identifier)
+            (field_name)
             (expression_body
               (long_identifier_or_op
                 (long_identifier

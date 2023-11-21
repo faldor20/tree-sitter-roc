@@ -240,12 +240,12 @@ encodeBool = \b ->
       (implements_implementation
         (record_type
           (record_field_type
-            (ident)
+            (field_name)
             (type_annotation
               (apply_type
                 (concrete_type))))
           (record_field_type
-            (ident)
+            (field_name)
             (type_annotation
               (apply_type
                 (concrete_type)))))
@@ -256,79 +256,79 @@ encodeBool = \b ->
             (apply_type_arg
               (record_type
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))))))
         (apply_type
@@ -337,75 +337,75 @@ encodeBool = \b ->
             (apply_type_arg
               (record_type
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable)))
                 (record_field_type
-                  (ident)
+                  (field_name)
                   (type_annotation
                     (bound_variable))))))))))
   (line_comment)
@@ -421,12 +421,12 @@ encodeBool = \b ->
         (application_args
           (record
             (record_field_expr
-              (identifier)
+              (field_name)
               (expression_body
                 (tag_expression
                   (tag))))
             (record_field_expr
-              (identifier)
+              (field_name)
               (expression_body
                 (long_identifier_or_op
                   (long_identifier
@@ -447,11 +447,11 @@ encodeBool = \b ->
         (argument_patterns
           (record_pattern
             (record_field_optional_pattern
-              (identifier)
+              (field_name)
               (tag_expression
                 (tag)))
             (record_field_optional_pattern
-              (identifier)
+              (field_name)
               (long_identifier_or_op
                 (long_identifier
                   (module)
@@ -464,9 +464,9 @@ encodeBool = \b ->
             (application_args
               (record
                 (record_field_expr
-                  (identifier))
+                  (field_name))
                 (record_field_expr
-                  (identifier)))))))))
+                  (field_name)))))))))
   (line_comment)
   (annotation_type_def
     (annotation_pre_colon

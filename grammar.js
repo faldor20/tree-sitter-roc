@@ -67,6 +67,8 @@ module.exports = grammar({
 		// [$.application_expression, $.infix_expression],
 		// [$.application_expression, $.infix_expression, $._pattern],
 		[$._expression_inner, $._pattern],
+		[$.identifier, $.bound_variable],
+		[$.inferred, $._pattern],
 		[$._type_annotation_paren_fun, $._type_annotation],
 		[$._pattern, $.record_field_expr],
 		[$.concrete_type, $.tag],
@@ -297,6 +299,7 @@ module.exports = grammar({
 				sep_tail(
 					choice(
 						$.record_field_type,
+						$.record_field_pattern,
 						$.record_field_optional_pattern,
 						$.identifier,
 					),
@@ -305,7 +308,8 @@ module.exports = grammar({
 				"}",
 			),
 		record_field_optional_pattern: ($) =>
-			seq($.identifier, "?", $._atom_context_expression),
+			seq($.field_name, "?", $._atom_context_expression),
+		record_field_pattern: ($) => seq($.field_name, ":", $._pattern),
 
 		// record_pattern: $ =>
 		//   prec.left(
@@ -1023,6 +1027,7 @@ module.exports = grammar({
 		// ),
 
 		identifier: ($) => $._lower_identifier,
+		field_name: ($) => $._lower_identifier,
 		_lower_identifier: ($) => /[a-z][0-9a-zA-Z_]*/,
 		_upper_identifier: ($) => /[A-Z][0-9a-zA-Z_]*/,
 		long_module_name: ($) =>
@@ -1044,7 +1049,7 @@ module.exports = grammar({
 		record_field_expr: ($) =>
 			prec.right(
 				0,
-				seq($.identifier, optional(seq(":", $._expression_body_maybe_block))),
+				seq($.field_name, optional(seq(":", $._expression_body_maybe_block))),
 			),
 		record: ($) => seq("{", sep_tail($.record_field_expr, ","), "}"),
 
@@ -1281,8 +1286,9 @@ module.exports = grammar({
 				"}",
 			),
 
-		record_field_type: ($) => seq($.ident, ":", $.type_annotation),
-		record_field_type_optional: ($) => seq($.ident, "?", $.type_annotation),
+		record_field_type: ($) => seq($.field_name, ":", $.type_annotation),
+		record_field_type_optional: ($) =>
+			seq($.field_name, "?", $.type_annotation),
 		typed_ident: ($) => seq($.identifier, ":", $.type_annotation),
 
 		annotation_pre_colon: ($) =>

@@ -86,13 +86,12 @@
 (line_comment) @comment
 
 ; strings
-(escape_char) @constant.character.escape
 
 [
-
+"?"
 (arrow)
 (backslash)
-] @keyword.other.roc
+] @punctuation.delimiter
 
 
 
@@ -126,18 +125,16 @@
 
 [
   "|" 
-  "="
-  "-"
-  "~"
   (infix_op)
   (symbolic_op)
 ] @operator
+
 
 [
   "if"
   "then"
   "else"
-  "elif"
+
 ] @keyword.control.conditional
 
 (interface_header(name)@type.interface)
@@ -152,6 +149,7 @@
     "expect"
  ] @keyword.control
 
+  (implements)@keyword.control.roc
  (when) @keyword.control.roc
  (is) @keyword.control.roc
 [
@@ -168,26 +166,38 @@
 ] @punctuation.delimiter
 
 
-      (application_expression
 
 caller: (long_identifier_or_op
           (long_identifier
-            (module)
             (identifier)@function)))
 
-(value_declaration(value_declaration_left (identifier_pattern)@function)(expression_body(fun_expression)))
+(value_declaration(value_declaration_left 
+  (identifier_pattern 
+   (long_identifier (identifier)@function)))(expression_body(fun_expression)))
 
-    (fun_expression
-      (argument_patterns
-        (long_identifier
-          (identifier)@variable.parameter))
-         )
+(value_declaration_top 
+ (value_declaration_left 
+  (identifier_pattern 
+   (long_identifier (identifier)@function))) 
+ (expression_body 
+  (fun_expression))) 
 
-  (annotation_type_def
-    (annotation_pre_colon )@function
-    (type_annotation
-      (function_type)))
+ ; (value_declaration_top
+ ;  (value_declaration_left (identifier_pattern)@function)
+ ;    (expression_body
+ ;      (fun_expression)))
 
+(fun_expression
+  (argument_patterns
+    (long_identifier
+      (identifier)@variable.parameter))
+     )
+
+
+(annotation_type_def 
+ (annotation_pre_colon 
+  (identifier)@function )
+ (type_annotation (function_type)))
 
 
 (module)@module
@@ -201,7 +211,7 @@ caller: (long_identifier_or_op
 (packages
   (record
     (record_field_expr
-      (identifier)@namespace)))
+      (field_name)@namespace)))
 
 (concrete_type)@type
 
@@ -209,13 +219,37 @@ caller: (long_identifier_or_op
 (opaque_tag)@constructor
 
 (string)@string
+(char) @constant.character
+
+; (boolean_literal) @constant.builtin.boolean
+(long_identifier
+  (module)@module
+  (identifier)@constant.builtin.boolean
+  (#eq? @constant.builtin.boolean "true" )
+  (#eq? @module "Bool." )
+  )
+(long_identifier
+  (module)@module
+  (identifier)@constant.builtin.boolean
+  (#eq? @constant.builtin.boolean "false" )
+  (#eq? @module "Bool." )
+  )
+
+(field_name)@variable.other.member
+(dot_expression (long_identifier_or_op)(long_identifier_or_op)@variable.other.member)
+
 
 [
   (int)
   (uint)
   (iint)
-  (float)
   (xint)
-  (decimal)
   (natural)
-] @constant.numeric
+] @constant.numeric.integer
+[
+  (decimal)
+  (float)
+] @constant.numeric.float
+
+(identifier)@variable
+
