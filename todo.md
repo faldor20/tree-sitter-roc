@@ -1,12 +1,12 @@
 - [ ] fix naming
 	- [ ] long_identifier_or_op
-- [ ] add impliments syntax
+- [x] add impliments syntax
 
-- [ ] remove old fsharp code
+- [x] remove old fsharp code
 - [ ] test for parsing invalid code
 - [ ] unify the patterns and expressions
 	- [ ] make a shared subcollection for things that are in both 
-- [ ] dotexpression seems weird and we should try to fix that 
+- [x] dotexpression seems weird and we should try to fix that 
 - [ ] tighten up cases from fsharp
 
 	- [ ] long_identifier
@@ -16,7 +16,21 @@
 	- [ ] i believe tags is getting matched incorrectly
 
 
-- [ ] Make a record pattern seperate from a record expression
+- [x] Make a record pattern seperate from a record expression
+##big
+make the whole system use nested expressions instead of a list of expressions
+there are a bunch of cases where we currently don't use expression list swhere we should becasue it causese issues
+eg this is valid syntax we don't currently support : 
+```elm
+{
+	a:
+		b=10
+		b
+}
+
+```
+
+
 
 
 Something about my whole setup is a bit messed up. i had to add else to the list of expressions because it wouldn't ever get passed when it was inside if... maybe i should try restarting this and basing it more off python, they seem to be very well set up
@@ -34,3 +48,7 @@ main=
 	a b 
 	c d
 this syntax is invalid because there is no "void" type
+
+
+
+I need to fundimentally rework things to support inline if statements 
