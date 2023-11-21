@@ -74,6 +74,7 @@ module.exports = grammar({
 		[$.application_expression, $.infix_expression],
 		[$.infix_expression],
 		[$.application_args],
+		[$._pattern, $.expression_body],
 		// [$.prefixed_expression, $.infix_expression],
 	],
 
@@ -213,7 +214,8 @@ module.exports = grammar({
 
 		// attribute_pattern: $ => prec.left(seq($.attributes, $._pattern)),
 
-		paren_pattern: ($) => seq("(", $._pattern, ")"),
+		paren_pattern: ($) =>
+			seq("(", $._virtual_open, $._pattern, $._virtual_close, ")"),
 		range_pattern: ($) => seq(".."),
 
 		repeat_pattern: ($) =>
@@ -230,10 +232,12 @@ module.exports = grammar({
 				PREC.TUPLE_EXPR,
 				seq(
 					"(",
+					$._virtual_open,
 					$._pattern,
 					",",
 					repeat(prec.right(seq($._pattern, ","))),
 					$._pattern,
+					$._virtual_close,
 					")",
 				),
 			),
@@ -265,7 +269,7 @@ module.exports = grammar({
 		_atomic_pattern: ($) =>
 			choice(
 				"null",
-				"_",
+				alias("_", $.wildcard_pattern),
 				$.const,
 				$.long_identifier,
 				$.list_pattern,
@@ -504,7 +508,16 @@ module.exports = grammar({
 		tuple_expression: ($) =>
 			prec.right(
 				PREC.TUPLE_EXPR,
-				seq("(", $._expression_inner, ",", sep1($._expression_inner, ","), ")"),
+				seq(
+					"(",
+
+					$._virtual_open,
+					$._expression_inner,
+					",",
+					sep1($._expression_inner, ","),
+					$._virtual_close,
+					")",
+				),
 			),
 
 		// prefixed_expression: ($) =>
@@ -531,7 +544,10 @@ module.exports = grammar({
 			),
 
 		paren_expression: ($) =>
-			prec(PREC.PAREN_EXPR, seq("(", $._expression_inner, ")")),
+			prec(
+				PREC.PAREN_EXPR,
+				seq("(", $._virtual_open, $.expression_body, $._virtual_close, ")"),
+			),
 
 		// for_expression: ($) =>
 		// 	prec.left(
@@ -587,31 +603,45 @@ module.exports = grammar({
 		// 	),
 
 		_else_expression: ($) =>
-			prec(
+			prec.left(
 				PREC.ELSE_EXPR,
 				seq(
+					optional($._virtual_end_decl),
 					$._else,
-					$._virtual_open,
-					alias(field("else_branch", $.expression_body), $.else),
-					$._virtual_close,
+					choice(
+						field("guard", $.expression_body),
+						seq(
+							"\n",
+							$._virtual_open,
+							field("guard", $.expression_body),
+							$._virtual_close,
+						),
+					),
 				),
 			),
 
-		_then_expression: ($) =>
+		then: ($) =>
 			seq(
 				$._then,
 				optional($._virtual_open),
-				alias(field("then", $.expression_body), $.then),
+				field("then", $.expression_body),
 				optional($._virtual_close),
 			),
 		elif_expression: ($) =>
 			prec(
-				PREC.ELSE_EXPR,
+				1000,
 				seq(
-					"elif",
-					field("guard", $._expression_inner),
-					"then",
-					alias(field("then", $._expression_body_maybe_block), $.then),
+					seq($._else, $._if),
+					choice(
+						field("guard", $._expression_inner),
+						seq(
+							"\n",
+							$._virtual_open,
+							field("guard", $._expression_inner),
+							$._virtual_close,
+						),
+					),
+					$.then,
 				),
 			),
 
@@ -620,8 +650,16 @@ module.exports = grammar({
 				PREC.IF_EXPR,
 				seq(
 					$._if,
-					field("guard", $._expression_inner),
-					$._then_expression,
+					choice(
+						field("guard", $._expression_inner),
+						seq(
+							"\n",
+							$._virtual_open,
+							field("guard", $._expression_inner),
+							$._virtual_close,
+						),
+					),
+					$.then,
 					repeat($.elif_expression),
 					$._else_expression,
 				),
@@ -681,6 +719,7 @@ module.exports = grammar({
 				1000,
 				seq(
 					$._pattern,
+					alias(optional(seq($._if, $._atom_context_expression)), $.if),
 					$.arrow,
 					optional($._virtual_open),
 					$.expression_body,
@@ -691,7 +730,12 @@ module.exports = grammar({
 		rules: ($) =>
 			prec.right(
 				PREC.MATCH_EXPR,
-				seq($._virtual_open, $.rule, repeat($.rule), $._virtual_close),
+				seq(
+					$._virtual_open,
+					$.rule,
+					repeat(seq(optional($._virtual_end_decl), $.rule)),
+					$._virtual_close,
+				),
 			),
 		backpassing_expression: ($) =>
 			prec.left(

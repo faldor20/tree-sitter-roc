@@ -880,37 +880,14 @@
             "named": true
           }
         ]
-      },
-      "then": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "then",
-            "named": true
-          }
-        ]
       }
-    }
-  },
-  {
-    "type": "else",
-    "named": true,
-    "fields": {},
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "_expression_inner",
-          "named": true
-        },
-        {
-          "type": "backpassing_expression",
-          "named": true
-        },
-        {
-          "type": "value_declaration",
+          "type": "then",
           "named": true
         }
       ]
@@ -1180,35 +1157,24 @@
     }
   },
   {
+    "type": "if",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "if_expression",
     "named": true,
     "fields": {
-      "else_branch": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "else",
-            "named": true
-          }
-        ]
-      },
       "guard": {
-        "multiple": false,
+        "multiple": true,
         "required": true,
         "types": [
           {
             "type": "_expression_inner",
             "named": true
-          }
-        ]
-      },
-      "then": {
-        "multiple": false,
-        "required": true,
-        "types": [
+          },
           {
-            "type": "then",
+            "type": "expression_body",
             "named": true
           }
         ]
@@ -1216,10 +1182,14 @@
     },
     "children": {
       "multiple": true,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "elif_expression",
+          "named": true
+        },
+        {
+          "type": "then",
           "named": true
         }
       ]
@@ -1720,7 +1690,7 @@
       "required": true,
       "types": [
         {
-          "type": "_expression_inner",
+          "type": "expression_body",
           "named": true
         }
       ]
@@ -2092,6 +2062,10 @@
         {
           "type": "expression_body",
           "named": true
+        },
+        {
+          "type": "if",
+          "named": true
         }
       ]
     }
@@ -2322,28 +2296,17 @@
   {
     "type": "then",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "_expression_inner",
-          "named": true
-        },
-        {
-          "type": "backpassing_expression",
-          "named": true
-        },
-        {
-          "type": "expression_body",
-          "named": true
-        },
-        {
-          "type": "value_declaration",
-          "named": true
-        }
-      ]
+    "fields": {
+      "then": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression_body",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -2845,10 +2808,6 @@
   },
   {
     "type": "effects",
-    "named": false
-  },
-  {
-    "type": "elif",
     "named": false
   },
   {

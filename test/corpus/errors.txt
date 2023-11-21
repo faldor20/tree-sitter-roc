@@ -572,14 +572,15 @@ encodeBool = \b ->
                         (long_identifier
                           (identifier)))
                       (paren_expression
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (application_args
+                        (expression_body
+                          (application_expression
                             (long_identifier_or_op
                               (long_identifier
-                                (identifier))))))))))))))))
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -619,14 +620,15 @@ encodeBool = \b ->
                         (long_identifier
                           (identifier)))
                       (paren_expression
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (application_args
+                        (expression_body
+                          (application_expression
                             (long_identifier_or_op
                               (long_identifier
-                                (identifier))))))))))))))))
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -666,14 +668,15 @@ encodeBool = \b ->
                         (long_identifier
                           (identifier)))
                       (paren_expression
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (application_args
+                        (expression_body
+                          (application_expression
                             (long_identifier_or_op
                               (long_identifier
-                                (identifier))))))))))))))))
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -713,14 +716,15 @@ encodeBool = \b ->
                         (long_identifier
                           (identifier)))
                       (paren_expression
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (application_args
+                        (expression_body
+                          (application_expression
                             (long_identifier_or_op
                               (long_identifier
-                                (identifier))))))))))))))))
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -760,14 +764,15 @@ encodeBool = \b ->
                         (long_identifier
                           (identifier)))
                       (paren_expression
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (application_args
+                        (expression_body
+                          (application_expression
                             (long_identifier_or_op
                               (long_identifier
-                                (identifier))))))))))))))))
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -807,14 +812,15 @@ encodeBool = \b ->
                         (long_identifier
                           (identifier)))
                       (paren_expression
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (application_args
+                        (expression_body
+                          (application_expression
                             (long_identifier_or_op
                               (long_identifier
-                                (identifier))))))))))))))))
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -854,14 +860,15 @@ encodeBool = \b ->
                         (long_identifier
                           (identifier)))
                       (paren_expression
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (application_args
+                        (expression_body
+                          (application_expression
                             (long_identifier_or_op
                               (long_identifier
-                                (identifier))))))))))))))))
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -901,14 +908,15 @@ encodeBool = \b ->
                         (long_identifier
                           (identifier)))
                       (paren_expression
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (application_args
+                        (expression_body
+                          (application_expression
                             (long_identifier_or_op
                               (long_identifier
-                                (identifier))))))))))))))))
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -948,14 +956,15 @@ encodeBool = \b ->
                         (long_identifier
                           (identifier)))
                       (paren_expression
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (application_args
+                        (expression_body
+                          (application_expression
                             (long_identifier_or_op
                               (long_identifier
-                                (identifier))))))))))))))))
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -995,14 +1004,15 @@ encodeBool = \b ->
                         (long_identifier
                           (identifier)))
                       (paren_expression
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (application_args
+                        (expression_body
+                          (application_expression
                             (long_identifier_or_op
                               (long_identifier
-                                (identifier))))))))))))))))
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1042,14 +1052,15 @@ encodeBool = \b ->
                         (long_identifier
                           (identifier)))
                       (paren_expression
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (application_args
+                        (expression_body
+                          (application_expression
                             (long_identifier_or_op
                               (long_identifier
-                                (identifier))))))))))))))))
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1089,14 +1100,15 @@ encodeBool = \b ->
                         (long_identifier
                           (identifier)))
                       (paren_expression
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (application_args
+                        (expression_body
+                          (application_expression
                             (long_identifier_or_op
                               (long_identifier
-                                (identifier))))))))))))))))
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1136,14 +1148,15 @@ encodeBool = \b ->
                         (long_identifier
                           (identifier)))
                       (paren_expression
-                        (application_expression
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (application_args
+                        (expression_body
+                          (application_expression
                             (long_identifier_or_op
                               (long_identifier
-                                (identifier))))))))))))))))
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1178,6 +1191,27 @@ encodeBool = \b ->
                       (long_identifier
                         (identifier)))
                     (then
+                      (expression_body
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (module)
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))
+                            (paren_expression
+                              (expression_body
+                                (application_expression
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (module)
+                                      (identifier)))
+                                  (application_args
+                                    (const
+                                      (string))))))))))
+                    (expression_body
                       (application_expression
                         (long_identifier_or_op
                           (long_identifier
@@ -1188,30 +1222,12 @@ encodeBool = \b ->
                             (long_identifier
                               (identifier)))
                           (paren_expression
-                            (application_expression
-                              (long_identifier_or_op
-                                (long_identifier
-                                  (module)
-                                  (identifier)))
-                              (application_args
-                                (const
-                                  (string))))))))
-                    (else
-                      (application_expression
-                        (long_identifier_or_op
-                          (long_identifier
-                            (module)
-                            (identifier)))
-                        (application_args
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))
-                          (paren_expression
-                            (application_expression
-                              (long_identifier_or_op
-                                (long_identifier
-                                  (module)
-                                  (identifier)))
-                              (application_args
-                                (const
-                                  (string))))))))))))))))))
+                            (expression_body
+                              (application_expression
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (module)
+                                    (identifier)))
+                                (application_args
+                                  (const
+                                    (string)))))))))))))))))))

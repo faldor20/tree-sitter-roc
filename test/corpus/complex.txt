@@ -70,15 +70,16 @@ tick = \ n ->
               (identifier)))
           (application_args
             (paren_expression
-              (application_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (module)
-                    (identifier)))
-                (application_args
-                  (const
-                    (string
-                      (escape_char)))))))))
+              (expression_body
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (module)
+                      (identifier)))
+                  (application_args
+                    (const
+                      (string
+                        (escape_char))))))))))
       (backpassing_expression
         (wildcard_pattern)
         (back_arrow)
@@ -123,6 +124,38 @@ tick = \ n ->
               (const
                 (int)))
             (then
+              (expression_body
+                (backpassing_expression
+                  (wildcard_pattern)
+                  (back_arrow)
+                  (application_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))
+                    (application_args
+                      (paren_expression
+                        (expression_body
+                          (application_expression
+                            (long_identifier_or_op
+                              (long_identifier
+                                (module)
+                                (identifier)))
+                            (application_args
+                              (const
+                                (string)))))))))
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (application_args
+                    (paren_expression
+                      (expression_body
+                        (application_expression
+                          (tag_expression
+                            (tag))
+                          (application_args
+                            (record)))))))))
+            (expression_body
               (backpassing_expression
                 (wildcard_pattern)
                 (back_arrow)
@@ -132,66 +165,38 @@ tick = \ n ->
                       (identifier)))
                   (application_args
                     (paren_expression
-                      (application_expression
-                        (long_identifier_or_op
-                          (long_identifier
-                            (module)
-                            (identifier)))
-                        (application_args
-                          (const
-                            (string))))))))
-              (application_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (application_args
-                  (paren_expression
-                    (application_expression
-                      (tag_expression
-                        (tag))
-                      (application_args
-                        (record)))))))
-            (else
-              (backpassing_expression
-                (wildcard_pattern)
-                (back_arrow)
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier)))
-                  (application_args
-                    (paren_expression
-                      (infix_expression
-                        (long_identifier_or_op
-                          (long_identifier
-                            (identifier)))
-                        (infix_op
-                          (symbolic_op))
+                      (expression_body
                         (infix_expression
                           (long_identifier_or_op
                             (long_identifier
-                              (module)
                               (identifier)))
                           (infix_op
                             (symbolic_op))
-                          (fun_expression
-                            (backslash)
-                            (argument_patterns
+                          (infix_expression
+                            (long_identifier_or_op
                               (long_identifier
+                                (module)
                                 (identifier)))
-                            (arrow)
-                            (expression_body
-                              (infix_expression
-                                (const
-                                  (string
-                                    (interpolation_char
-                                      (ident))))
-                                (infix_op
-                                  (symbolic_op))
-                                (long_identifier_or_op
-                                  (long_identifier
-                                    (module)
-                                    (identifier))))))))))))
+                            (infix_op
+                              (symbolic_op))
+                            (fun_expression
+                              (backslash)
+                              (argument_patterns
+                                (long_identifier
+                                  (identifier)))
+                              (arrow)
+                              (expression_body
+                                (infix_expression
+                                  (const
+                                    (string
+                                      (interpolation_char
+                                        (ident))))
+                                  (infix_op
+                                    (symbolic_op))
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (module)
+                                      (identifier)))))))))))))
               (backpassing_expression
                 (wildcard_pattern)
                 (back_arrow)
@@ -210,18 +215,20 @@ tick = \ n ->
                     (identifier)))
                 (application_args
                   (paren_expression
-                    (application_expression
-                      (tag_expression
-                        (tag))
-                      (application_args
-                        (paren_expression
-                          (infix_expression
-                            (long_identifier_or_op
-                              (long_identifier
-                                (identifier)))
-                            (infix_op)
-                            (const
-                              (int))))))))))))))))
+                    (expression_body
+                      (application_expression
+                        (tag_expression
+                          (tag))
+                        (application_args
+                          (paren_expression
+                            (expression_body
+                              (infix_expression
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))
+                                (infix_op)
+                                (const
+                                  (int))))))))))))))))))
 
 ================================================================================
 simple_env
@@ -264,20 +271,21 @@ main =
                   (identifier)))
               (application_args
                 (paren_expression
-                  (fun_expression
-                    (backslash)
-                    (argument_patterns
-                      (long_identifier
-                        (identifier)))
-                    (arrow)
-                    (expression_body
-                      (application_expression
-                        (long_identifier_or_op
-                          (long_identifier
-                            (identifier)))
-                        (application_args
-                          (const
-                            (string)))))))))
+                  (expression_body
+                    (fun_expression
+                      (backslash)
+                      (argument_patterns
+                        (long_identifier
+                          (identifier)))
+                      (arrow)
+                      (expression_body
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (const
+                              (string))))))))))
             (infix_op
               (symbolic_op))
             (application_expression
@@ -286,20 +294,21 @@ main =
                   (identifier)))
               (application_args
                 (paren_expression
-                  (fun_expression
-                    (backslash)
-                    (argument_patterns
-                      (record_pattern))
-                    (arrow)
-                    (expression_body
-                      (application_expression
-                        (long_identifier_or_op
-                          (long_identifier
-                            (module)
-                            (identifier)))
-                        (application_args
-                          (const
-                            (string))))))))))))
+                  (expression_body
+                    (fun_expression
+                      (backslash)
+                      (argument_patterns
+                        (record_pattern))
+                      (arrow)
+                      (expression_body
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (module)
+                              (identifier)))
+                          (application_args
+                            (const
+                              (string)))))))))))))
       (long_identifier_or_op
         (long_identifier
           (identifier))))))
@@ -416,23 +425,24 @@ main =
                   (identifier)))
               (application_args
                 (paren_expression
-                  (fun_expression
-                    (backslash)
-                    (argument_patterns
-                      (long_identifier
-                        (identifier)))
-                    (arrow)
-                    (expression_body
-                      (application_expression
-                        (long_identifier_or_op
-                          (long_identifier
-                            (module)
-                            (identifier)))
-                        (application_args
-                          (const
-                            (string
-                              (interpolation_char
-                                (ident)))))))))))
+                  (expression_body
+                    (fun_expression
+                      (backslash)
+                      (argument_patterns
+                        (long_identifier
+                          (identifier)))
+                      (arrow)
+                      (expression_body
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (module)
+                              (identifier)))
+                          (application_args
+                            (const
+                              (string
+                                (interpolation_char
+                                  (ident))))))))))))
             (infix_op
               (symbolic_op))
             (application_expression
@@ -442,20 +452,21 @@ main =
                   (identifier)))
               (application_args
                 (paren_expression
-                  (fun_expression
-                    (backslash)
-                    (argument_patterns
-                      (record_pattern))
-                    (arrow)
-                    (expression_body
-                      (application_expression
-                        (long_identifier_or_op
-                          (long_identifier
-                            (module)
-                            (identifier)))
-                        (application_args
-                          (const
-                            (string)))))))))
+                  (expression_body
+                    (fun_expression
+                      (backslash)
+                      (argument_patterns
+                        (record_pattern))
+                      (arrow)
+                      (expression_body
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (module)
+                              (identifier)))
+                          (application_args
+                            (const
+                              (string))))))))))
             (infix_op
               (symbolic_op))
             (application_expression
@@ -465,64 +476,65 @@ main =
                   (identifier)))
               (application_args
                 (paren_expression
-                  (fun_expression
-                    (backslash)
-                    (argument_patterns
-                      (long_identifier
-                        (identifier)))
-                    (arrow)
-                    (expression_body
-                      (when_is_expression
-                        (when)
-                        (long_identifier_or_op
-                          (long_identifier
-                            (identifier)))
-                        (is)
-                        (rules
-                          (rule
-                            (const_pattern
-                              (uint))
-                            (arrow)
-                            (expression_body
-                              (application_expression
-                                (long_identifier_or_op
-                                  (long_identifier
-                                    (module)
-                                    (identifier)))
-                                (application_args
-                                  (const
-                                    (string))))))
-                          (rule
-                            (identifier_pattern
-                              (long_identifier
-                                (identifier)))
-                            (arrow)
-                            (expression_body
-                              (value_declaration
-                                (value_declaration_left
-                                  (identifier_pattern
+                  (expression_body
+                    (fun_expression
+                      (backslash)
+                      (argument_patterns
+                        (long_identifier
+                          (identifier)))
+                      (arrow)
+                      (expression_body
+                        (when_is_expression
+                          (when)
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (is)
+                          (rules
+                            (rule
+                              (const_pattern
+                                (uint))
+                              (arrow)
+                              (expression_body
+                                (application_expression
+                                  (long_identifier_or_op
                                     (long_identifier
-                                      (identifier))))
-                                (expression_body
-                                  (application_expression
-                                    (long_identifier_or_op
+                                      (module)
+                                      (identifier)))
+                                  (application_args
+                                    (const
+                                      (string))))))
+                            (rule
+                              (identifier_pattern
+                                (long_identifier
+                                  (identifier)))
+                              (arrow)
+                              (expression_body
+                                (value_declaration
+                                  (value_declaration_left
+                                    (identifier_pattern
                                       (long_identifier
-                                        (module)
-                                        (identifier)))
-                                    (application_args
+                                        (identifier))))
+                                  (expression_body
+                                    (application_expression
                                       (long_identifier_or_op
                                         (long_identifier
-                                          (identifier)))))))
-                              (application_expression
-                                (long_identifier_or_op
-                                  (long_identifier
-                                    (module)
-                                    (identifier)))
-                                (application_args
-                                  (const
-                                    (string
-                                      (interpolation_char
-                                        (ident)))))))))))))))
+                                          (module)
+                                          (identifier)))
+                                      (application_args
+                                        (long_identifier_or_op
+                                          (long_identifier
+                                            (identifier)))))))
+                                (application_expression
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (module)
+                                      (identifier)))
+                                  (application_args
+                                    (const
+                                      (string
+                                        (interpolation_char
+                                          (ident))))))))))))))))
             (infix_op
               (symbolic_op))
             (application_expression
@@ -758,22 +770,24 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                     (identifier)))
                 (application_args
                   (paren_expression
-                    (application_expression
-                      (long_identifier_or_op
-                        (long_identifier
-                          (module)
-                          (identifier)))
-                      (application_args
-                        (paren_expression
-                          (application_expression
-                            (long_identifier_or_op
-                              (long_identifier
-                                (module)
-                                (identifier)))
-                            (application_args
-                              (long_identifier_or_op
-                                (long_identifier
-                                  (identifier)))))))))
+                    (expression_body
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (module)
+                            (identifier)))
+                        (application_args
+                          (paren_expression
+                            (expression_body
+                              (application_expression
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (module)
+                                    (identifier)))
+                                (application_args
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (identifier)))))))))))
                   (fun_expression
                     (backslash)
                     (argument_patterns
@@ -801,19 +815,20 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                                   (tag))
                                 (application_args
                                   (paren_expression
-                                    (application_expression
-                                      (long_identifier_or_op
-                                        (long_identifier
-                                          (module)
-                                          (identifier)))
-                                      (application_args
-                                        (long_identifier_or_op
-                                          (long_identifier
-                                            (identifier)))
+                                    (expression_body
+                                      (application_expression
                                         (long_identifier_or_op
                                           (long_identifier
                                             (module)
-                                            (identifier))))))))))
+                                            (identifier)))
+                                        (application_args
+                                          (long_identifier_or_op
+                                            (long_identifier
+                                              (identifier)))
+                                          (long_identifier_or_op
+                                            (long_identifier
+                                              (module)
+                                              (identifier)))))))))))
                           (rule
                             (tag_pattern
                               (tag)
@@ -827,16 +842,17 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                                   (tag))
                                 (application_args
                                   (paren_expression
-                                    (application_expression
-                                      (tag_expression
-                                        (tag))
-                                      (application_args
-                                        (long_identifier_or_op
-                                          (long_identifier
-                                            (identifier)))
-                                        (long_identifier_or_op
-                                          (long_identifier
-                                            (identifier))))))))))))))))))
+                                    (expression_body
+                                      (application_expression
+                                        (tag_expression
+                                          (tag))
+                                        (application_args
+                                          (long_identifier_or_op
+                                            (long_identifier
+                                              (identifier)))
+                                          (long_identifier_or_op
+                                            (long_identifier
+                                              (identifier)))))))))))))))))))
           (application_expression
             (long_identifier_or_op
               (long_identifier
@@ -1136,33 +1152,34 @@ viewNavLink = \isCurrent, navlink ->
               (long_identifier
                 (identifier)))
             (then
-              (application_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (application_args
-                  (list_expression
-                    (application_expression
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))
-                      (application_args
-                        (const
-                          (string)))))
-                  (list_expression
-                    (dot_expression
+              (expression_body
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (application_args
+                    (list_expression
                       (application_expression
                         (long_identifier_or_op
                           (long_identifier
                             (identifier)))
                         (application_args
+                          (const
+                            (string)))))
+                    (list_expression
+                      (dot_expression
+                        (application_expression
                           (long_identifier_or_op
                             (long_identifier
-                              (identifier)))))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))))))
-            (else
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))))))))
+            (expression_body
               (application_expression
                 (long_identifier_or_op
                   (long_identifier
@@ -1253,15 +1270,16 @@ viewNavLink = \isCurrent, navlink ->
               (long_identifier
                 (identifier)))
             (then
-              (application_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (application_args
+              (expression_body
+                (application_expression
                   (long_identifier_or_op
                     (long_identifier
-                      (identifier))))))
-            (else
+                      (identifier)))
+                  (application_args
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))))))
+            (expression_body
               (application_expression
                 (long_identifier_or_op
                   (long_identifier
