@@ -418,19 +418,20 @@ encodeBool = \b ->
       (application_expression
         (tag_expression
           (opaque_tag))
-        (record
-          (record_field_expr
-            (identifier)
-            (expression_body
-              (tag_expression
-                (tag))))
-          (record_field_expr
-            (identifier)
-            (expression_body
-              (long_identifier_or_op
-                (long_identifier
-                  (module)
-                  (identifier)))))))))
+        (application_args
+          (record
+            (record_field_expr
+              (identifier)
+              (expression_body
+                (tag_expression
+                  (tag))))
+            (record_field_expr
+              (identifier)
+              (expression_body
+                (long_identifier_or_op
+                  (long_identifier
+                    (module)
+                    (identifier))))))))))
   (line_comment)
   (line_comment)
   (line_comment)
@@ -460,11 +461,12 @@ encodeBool = \b ->
           (application_expression
             (tag_expression
               (opaque_tag))
-            (record
-              (record_field_expr
-                (identifier))
-              (record_field_expr
-                (identifier))))))))
+            (application_args
+              (record
+                (record_field_expr
+                  (identifier))
+                (record_field_expr
+                  (identifier)))))))))
   (line_comment)
   (annotation_type_def
     (annotation_pre_colon
@@ -549,33 +551,35 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier))))
-                  (paren_expression
-                    (application_expression
+                        (module)
+                        (identifier)))
+                    (application_args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))))))))
+                      (paren_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -594,33 +598,35 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier))))
-                  (paren_expression
-                    (application_expression
+                        (module)
+                        (identifier)))
+                    (application_args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))))))))
+                      (paren_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -639,33 +645,35 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier))))
-                  (paren_expression
-                    (application_expression
+                        (module)
+                        (identifier)))
+                    (application_args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))))))))
+                      (paren_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -684,33 +692,35 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier))))
-                  (paren_expression
-                    (application_expression
+                        (module)
+                        (identifier)))
+                    (application_args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))))))))
+                      (paren_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -729,33 +739,35 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier))))
-                  (paren_expression
-                    (application_expression
+                        (module)
+                        (identifier)))
+                    (application_args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))))))))
+                      (paren_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -774,33 +786,35 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier))))
-                  (paren_expression
-                    (application_expression
+                        (module)
+                        (identifier)))
+                    (application_args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))))))))
+                      (paren_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -819,33 +833,35 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier))))
-                  (paren_expression
-                    (application_expression
+                        (module)
+                        (identifier)))
+                    (application_args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))))))))
+                      (paren_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -864,33 +880,35 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier))))
-                  (paren_expression
-                    (application_expression
+                        (module)
+                        (identifier)))
+                    (application_args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))))))))
+                      (paren_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -909,33 +927,35 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier))))
-                  (paren_expression
-                    (application_expression
+                        (module)
+                        (identifier)))
+                    (application_args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))))))))
+                      (paren_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -954,33 +974,35 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier))))
-                  (paren_expression
-                    (application_expression
+                        (module)
+                        (identifier)))
+                    (application_args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))))))))
+                      (paren_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -999,33 +1021,35 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier))))
-                  (paren_expression
-                    (application_expression
+                        (module)
+                        (identifier)))
+                    (application_args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))))))))
+                      (paren_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1044,33 +1068,35 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier))))
-                  (paren_expression
-                    (application_expression
+                        (module)
+                        (identifier)))
+                    (application_args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))))))))
+                      (paren_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1089,33 +1115,35 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (args
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (application_expression
                     (long_identifier_or_op
                       (long_identifier
-                        (identifier))))
-                  (paren_expression
-                    (application_expression
+                        (module)
+                        (identifier)))
+                    (application_args
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))))))))
+                      (paren_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1134,55 +1162,56 @@ encodeBool = \b ->
               (long_identifier
                 (module)
                 (identifier)))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (tag_pattern
-                  (opaque_tag)
-                  (record)))
-              (arrow)
-              (expression_body
-                (if_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier)))
-                  (then
-                    (expression_body
+            (application_args
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (tag_pattern
+                    (opaque_tag)
+                    (record)))
+                (arrow)
+                (expression_body
+                  (if_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))
+                    (then
                       (application_expression
                         (long_identifier_or_op
                           (long_identifier
                             (module)
                             (identifier)))
-                        (args
+                        (application_args
                           (long_identifier_or_op
                             (long_identifier
-                              (identifier))))
-                        (paren_expression
-                          (application_expression
-                            (long_identifier_or_op
-                              (long_identifier
-                                (module)
-                                (identifier)))
-                            (const
-                              (string)))))))
-                  (else
-                    (expression_body
+                              (identifier)))
+                          (paren_expression
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (module)
+                                  (identifier)))
+                              (application_args
+                                (const
+                                  (string))))))))
+                    (else
                       (application_expression
                         (long_identifier_or_op
                           (long_identifier
                             (module)
                             (identifier)))
-                        (args
+                        (application_args
                           (long_identifier_or_op
                             (long_identifier
-                              (identifier))))
-                        (paren_expression
-                          (application_expression
-                            (long_identifier_or_op
-                              (long_identifier
-                                (module)
-                                (identifier)))
-                            (const
-                              (string))))))))))))))))
+                              (identifier)))
+                          (paren_expression
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (module)
+                                  (identifier)))
+                              (application_args
+                                (const
+                                  (string))))))))))))))))))

@@ -23,7 +23,7 @@ main =
 
 --------------------------------------------------------------------------------
 
-(ERROR
+(file
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -35,15 +35,13 @@ main =
           (long_identifier
             (identifier)))
         (then
-          (expression_body
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))
         (else
-          (expression_body
-            (long_identifier_or_op
-              (long_identifier
-                (identifier))))))))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -55,19 +53,18 @@ main =
           (long_identifier
             (identifier)))
         (then
-          (expression_body
-            (application_expression
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier)))
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
               (long_identifier_or_op
                 (long_identifier
                   (identifier))))))
         (else
-          (expression_body
-            (long_identifier_or_op
-              (long_identifier
-                (identifier))))))))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -79,44 +76,56 @@ main =
           (long_identifier
             (identifier)))
         (then
-          (expression_body
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))
+        (else
+          (application_expression
             (long_identifier_or_op
               (long_identifier
-                (identifier)))))
-        (else
-          (expression_body
-            (application_expression
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier)))
+                (identifier)))
+            (application_args
               (long_identifier_or_op
                 (long_identifier
                   (identifier)))))))))
-  (value_declaration_left
-    (identifier_pattern
-      (long_identifier
-        (identifier))))
-  (when)
-  (long_identifier_or_op
-    (long_identifier
-      (identifier)))
-  (is)
-  (const_pattern
-    (int))
-  (arrow)
-  (long_identifier_or_op
-    (long_identifier
-      (identifier)))
-  (long_identifier_or_op
-    (long_identifier
-      (identifier)))
-  (ERROR
-    (UNEXPECTED '\n'))
-  (infix_op
-    (symbolic_op))
-  (long_identifier_or_op
-    (long_identifier
-      (identifier))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (when_is_expression
+        (when)
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (is)
+        (rules
+          (rule
+            (const_pattern
+              (int))
+            (arrow)
+            (expression_body
+              (if_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (then
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier))))
+                (else
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))))))
+          (rule
+            (const_pattern
+              (int))
+            (arrow)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))))))
 
 ================================================================================
 tuple issue
@@ -307,13 +316,13 @@ expected = Str.toUtf8 "\"the quick brown fox jumps over the lazy doga\\r\\nbc\\\
           (long_identifier
             (module)
             (identifier)))
-        (args
+        (application_args
           (long_identifier_or_op
             (long_identifier
-              (identifier))))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier))))))
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -325,16 +334,17 @@ expected = Str.toUtf8 "\"the quick brown fox jumps over the lazy doga\\r\\nbc\\\
           (long_identifier
             (module)
             (identifier)))
-        (const
-          (string
-            (escape_char)
-            (escape_char)
-            (escape_char)
-            (escape_char)
-            (escape_char)
-            (escape_char)
-            (escape_char)
-            (escape_char)))))))
+        (application_args
+          (const
+            (string
+              (escape_char)
+              (escape_char)
+              (escape_char)
+              (escape_char)
+              (escape_char)
+              (escape_char)
+              (escape_char)
+              (escape_char))))))))
 
 ================================================================================
 apply type function
@@ -446,7 +456,7 @@ a=
             (long_identifier_or_op
               (long_identifier
                 (identifier)))
-            (args
+            (application_args
               (paren_expression
                 (fun_expression
                   (backslash)
@@ -460,17 +470,17 @@ a=
                         (long_identifier
                           (module)
                           (identifier)))
-                      (args
+                      (application_args
                         (long_identifier_or_op
                           (long_identifier
-                            (identifier))))
-                      (const
-                        (string))))))
+                            (identifier)))
+                        (const
+                          (string)))))))
               (const
-                (string)))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier))))))
+                (string))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))
       (value_declaration
         (value_declaration_left
           (identifier_pattern
@@ -480,8 +490,9 @@ a=
           (application_expression
             (tag_expression
               (tag))
-            (const
-              (string)))))
+            (application_args
+              (const
+                (string))))))
       (infix_expression
         (long_identifier_or_op
           (long_identifier
@@ -496,8 +507,8 @@ a=
         (long_identifier
           (identifier))))
     (expression_body
-      (prefixed_expression
-        (prefix_op
+      (infix_expression
+        (infix_op
           (symbolic_op))
         (paren_expression
           (infix_expression
@@ -518,8 +529,8 @@ a=!(true||false)
         (long_identifier
           (identifier))))
     (expression_body
-      (prefixed_expression
-        (prefix_op
+      (infix_expression
+        (infix_op
           (symbolic_op))
         (paren_expression
           (infix_expression
@@ -580,13 +591,13 @@ expect
               (long_identifier
                 (module)
                 (identifier)))
-            (args
+            (application_args
               (long_identifier_or_op
                 (long_identifier
-                  (identifier))))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier))))))
+                  (identifier)))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))
       (value_declaration
         (value_declaration_left
           (identifier_pattern
@@ -598,8 +609,9 @@ expect
               (long_identifier
                 (module)
                 (identifier)))
-            (const
-              (string)))))
+            (application_args
+              (const
+                (string))))))
       (infix_expression
         (long_identifier_or_op
           (long_identifier
@@ -724,16 +736,16 @@ update = \dict, (vertex, edges) ->
               (long_identifier
                 (module)
                 (identifier)))
-            (args
+            (application_args
               (long_identifier_or_op
                 (long_identifier
                   (identifier)))
               (long_identifier_or_op
                 (long_identifier
-                  (identifier))))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))))))))
+                  (identifier)))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))))))
 
 ================================================================================
 implements_interface
@@ -858,7 +870,7 @@ fromDict = @Graph
             (long_identifier_or_op
               (long_identifier
                 (identifier)))
-            (args
+            (application_args
               (long_identifier_or_op
                 (long_identifier
                   (identifier)))
@@ -872,12 +884,13 @@ fromDict = @Graph
                     (long_identifier
                       (module)
                       (identifier)))
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier))))))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier))))))))
+                  (application_args
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier))))))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))))
   (annotation_type_def
     (annotation_pre_colon
       (identifier))
@@ -942,7 +955,7 @@ bfs = \isTarget, root, Graph graph ->
             (long_identifier_or_op
               (long_identifier
                 (identifier)))
-            (args
+            (application_args
               (long_identifier_or_op
                 (long_identifier
                   (identifier)))
@@ -956,12 +969,13 @@ bfs = \isTarget, root, Graph graph ->
                     (long_identifier
                       (module)
                       (identifier)))
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier))))))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))))))))
+                  (application_args
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier))))))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))))))
 
 ================================================================================
 opaque type
@@ -1104,9 +1118,10 @@ add = \num1, num2 ->
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))
+                      (application_args
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))))
                   (value_declaration
                     (value_declaration_left
                       (identifier_pattern
@@ -1117,9 +1132,10 @@ add = \num1, num2 ->
                         (long_identifier_or_op
                           (long_identifier
                             (identifier)))
-                        (long_identifier_or_op
-                          (long_identifier
-                            (identifier))))))
+                        (application_args
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))))))
                   (backpassing_expression
                     (identifier_pattern
                       (long_identifier
@@ -1129,9 +1145,10 @@ add = \num1, num2 ->
                       (long_identifier_or_op
                         (long_identifier
                           (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))
+                      (application_args
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))))
                   (fun_expression
                     (backslash)
                     (argument_patterns
@@ -1190,9 +1207,10 @@ main=
         (long_identifier_or_op
           (long_identifier
             (identifier)))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier))))))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1204,9 +1222,10 @@ main=
           (long_identifier_or_op
             (long_identifier
               (identifier)))
-          (long_identifier_or_op
-            (long_identifier
-              (identifier))))
+          (application_args
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
         (infix_op
           (symbolic_op))
         (long_identifier_or_op
@@ -1218,35 +1237,36 @@ main=
         (long_identifier
           (identifier))))
     (expression_body
-      (application_expression
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))
-        (args
+      (infix_expression
+        (application_expression
           (long_identifier_or_op
             (long_identifier
-              (identifier))))
-        (prefixed_expression
-          (prefix_op
+              (identifier)))
+          (application_args
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
+        (infix_op
+          (symbolic_op))
+        (infix_expression
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))
+          (infix_op
             (symbolic_op))
           (application_expression
             (long_identifier_or_op
               (long_identifier
                 (identifier)))
-            (args
+            (application_args
               (long_identifier_or_op
                 (long_identifier
-                  (identifier))))
-            (prefixed_expression
-              (prefix_op
-                (symbolic_op))
-              (application_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier))))))))))
+                  (identifier)))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1264,27 +1284,30 @@ main=
               (long_identifier_or_op
                 (long_identifier
                   (identifier)))
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier))))
+              (application_args
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))))
             (infix_op
               (symbolic_op))
             (application_expression
               (long_identifier_or_op
                 (long_identifier
                   (identifier)))
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier))))
+              (application_args
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))))
             (infix_op
               (symbolic_op))
             (application_expression
               (long_identifier_or_op
                 (long_identifier
                   (identifier)))
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier)))))))
+              (application_args
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))))))
       (value_declaration
         (value_declaration_left
           (identifier_pattern
@@ -1429,9 +1452,10 @@ main = \filename ->
           (long_identifier
             (module)
             (identifier)))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier))))))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1448,24 +1472,24 @@ main = \filename ->
             (long_identifier_or_op
               (long_identifier
                 (identifier)))
-            (args
+            (application_args
               (long_identifier_or_op
                 (long_identifier
-                  (identifier))))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier))))))
+                  (identifier)))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))
       (application_expression
         (long_identifier_or_op
           (long_identifier
             (identifier)))
-        (args
+        (application_args
           (long_identifier_or_op
             (long_identifier
-              (identifier))))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier))))))
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1476,11 +1500,11 @@ main = \filename ->
         (long_identifier_or_op
           (long_identifier
             (identifier)))
-        (args
+        (application_args
           (const
-            (int)))
-        (const
-          (int)))))
+            (int))
+          (const
+            (int))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1509,7 +1533,7 @@ main = \filename ->
         (long_identifier_or_op
           (long_identifier
             (identifier)))
-        (args
+        (application_args
           (long_identifier_or_op
             (long_identifier
               (identifier)))
@@ -1521,10 +1545,10 @@ main = \filename ->
               (identifier)))
           (long_identifier_or_op
             (long_identifier
-              (identifier))))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier))))))
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1574,26 +1598,27 @@ main = \filename ->
             (long_identifier_or_op
               (long_identifier
                 (identifier)))
-            (args
+            (application_args
               (long_identifier_or_op
                 (long_identifier
-                  (identifier))))
-            (fun_expression
-              (backslash)
-              (argument_patterns
-                (long_identifier
-                  (identifier))
-                (long_identifier
                   (identifier)))
-              (arrow)
-              (expression_body
-                (application_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (module)
-                      (identifier)))
-                  (const
-                    (string)))))))))))
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (long_identifier
+                    (identifier)))
+                (arrow)
+                (expression_body
+                  (application_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (module)
+                        (identifier)))
+                    (application_args
+                      (const
+                        (string)))))))))))))
 
 ================================================================================
 if_simple
@@ -1621,37 +1646,35 @@ main=
           (long_identifier
             (identifier)))
         (then
-          (expression_body
-            (value_declaration
-              (value_declaration_left
-                (identifier_pattern
-                  (long_identifier
-                    (identifier))))
-              (expression_body
-                (const
-                  (int))))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))))
+          (value_declaration
+            (value_declaration_left
+              (identifier_pattern
+                (long_identifier
+                  (identifier))))
+            (expression_body
+              (const
+                (int))))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))
         (else
-          (expression_body
-            (value_declaration
-              (value_declaration_left
-                (identifier_pattern
+          (value_declaration
+            (value_declaration_left
+              (identifier_pattern
+                (long_identifier
+                  (identifier))))
+            (expression_body
+              (infix_expression
+                (long_identifier_or_op
                   (long_identifier
-                    (identifier))))
-              (expression_body
-                (infix_expression
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier)))
-                  (infix_op)
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier))))))
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))))))))
+                    (identifier)))
+                (infix_op)
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))))))
 
 ================================================================================
 expressions
@@ -1701,7 +1724,7 @@ maybe =
         (long_identifier_or_op
           (long_identifier
             (identifier)))
-        (args
+        (application_args
           (long_identifier_or_op
             (long_identifier
               (identifier)))
@@ -1716,10 +1739,10 @@ maybe =
               (identifier)))
           (long_identifier_or_op
             (long_identifier
-              (identifier))))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier))))))
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1752,13 +1775,11 @@ maybe =
       (if_expression
         (const)
         (then
-          (expression_body
-            (const
-              (int))))
+          (const
+            (int)))
         (else
-          (expression_body
-            (const
-              (int))))))))
+          (const
+            (int)))))))
 
 ================================================================================
 backpassing
@@ -1790,14 +1811,16 @@ main =
           (long_identifier_or_op
             (long_identifier
               (identifier)))
-          (paren_expression
-            (application_expression
-              (long_identifier_or_op
-                (long_identifier
-                  (module)
-                  (identifier)))
-              (const
-                (string))))))
+          (application_args
+            (paren_expression
+              (application_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (module)
+                    (identifier)))
+                (application_args
+                  (const
+                    (string))))))))
       (value_declaration
         (value_declaration_left
           (identifier_pattern
@@ -1821,9 +1844,10 @@ main =
                     (long_identifier
                       (module)
                       (identifier)))
-                  (long_identifier_or_op
-                    (long_identifier
-                      (identifier)))))
+                  (application_args
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier))))))
               (backpassing_expression
                 (identifier_pattern
                   (long_identifier
@@ -1834,32 +1858,37 @@ main =
                     (long_identifier
                       (module)
                       (identifier)))
-                  (paren_expression
-                    (application_expression
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))))))
+                  (application_args
+                    (paren_expression
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (application_args
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))))))))
               (application_expression
                 (long_identifier_or_op
                   (long_identifier
                     (module)
                     (identifier)))
-                (paren_expression
-                  (application_expression
-                    (tag_expression
-                      (tag))
-                    (const
-                      (string)))))))))
+                (application_args
+                  (paren_expression
+                    (application_expression
+                      (tag_expression
+                        (tag))
+                      (application_args
+                        (const
+                          (string)))))))))))
       (application_expression
         (long_identifier_or_op
           (long_identifier
             (identifier)))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier)))))))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))))))
 
 ================================================================================
 records basic
@@ -1955,9 +1984,10 @@ main=
             (application_expression
               (tag_expression
                 (tag))
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier)))))))))
+              (application_args
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -1969,35 +1999,38 @@ main=
           (long_identifier
             (module)
             (identifier)))
-        (paren_expression
-          (application_expression
-            (tag_expression
-              (tag))
-            (record_update
-              (identifier)
-              (record_field_expr
-                (identifier)
-                (expression_body
-                  (application_expression
-                    (dot_expression
+        (application_args
+          (paren_expression
+            (application_expression
+              (tag_expression
+                (tag))
+              (application_args
+                (record_update
+                  (identifier)
+                  (record_field_expr
+                    (identifier)
+                    (expression_body
                       (application_expression
-                        (long_identifier_or_op
-                          (long_identifier
-                            (module)
-                            (identifier)))
-                        (long_identifier_or_op
-                          (long_identifier
-                            (identifier))))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))
-                    (args
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))
-                    (long_identifier_or_op
-                      (long_identifier
-                        (identifier)))))))))))))
+                        (dot_expression
+                          (application_expression
+                            (long_identifier_or_op
+                              (long_identifier
+                                (module)
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier))))
+                        (application_args
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier))))))))))))))))
 
 ================================================================================
 pattern_complex
@@ -2026,15 +2059,13 @@ main=
           (const
             (int)))
         (then
-          (expression_body
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))
         (else
-          (expression_body
-            (long_identifier_or_op
-              (long_identifier
-                (identifier)))))))))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))))))
 
 ================================================================================
 records complex
@@ -2073,44 +2104,48 @@ main=
               (long_identifier
                 (module)
                 (identifier)))
-            (paren_expression
-              (application_expression
-                (tag_expression
-                  (tag))
-                (record_update
-                  (identifier)
-                  (record_field_expr
-                    (identifier)
-                    (expression_body
-                      (application_expression
-                        (dot_expression
+            (application_args
+              (paren_expression
+                (application_expression
+                  (tag_expression
+                    (tag))
+                  (application_args
+                    (record_update
+                      (identifier)
+                      (record_field_expr
+                        (identifier)
+                        (expression_body
                           (application_expression
-                            (long_identifier_or_op
-                              (long_identifier
-                                (module)
-                                (identifier)))
-                            (long_identifier_or_op
-                              (long_identifier
-                                (identifier))))
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier))))
-                        (args
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier))))
-                        (long_identifier_or_op
-                          (long_identifier
-                            (identifier))))))))))))
+                            (dot_expression
+                              (application_expression
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (module)
+                                    (identifier)))
+                                (application_args
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (identifier)))))
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier))))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))))))))))
       (when_is_expression
         (when)
         (application_expression
           (long_identifier_or_op
             (long_identifier
               (identifier)))
-          (long_identifier_or_op
-            (long_identifier
-              (identifier))))
+          (application_args
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
         (is)
         (rules
           (rule
@@ -2136,70 +2171,72 @@ main=
                   (const
                     (int)))
                 (then
-                  (expression_body
-                    (value_declaration
-                      (value_declaration_left
-                        (identifier_pattern
-                          (long_identifier
-                            (identifier))))
-                      (expression_body
-                        (record_update
-                          (identifier)
-                          (record_field_expr
-                            (identifier)
-                            (expression_body
-                              (tag_expression
-                                (tag)))))))
-                    (application_expression
-                      (long_identifier_or_op
+                  (value_declaration
+                    (value_declaration_left
+                      (identifier_pattern
                         (long_identifier
-                          (module)
-                          (identifier)))
+                          (identifier))))
+                    (expression_body
+                      (record_update
+                        (identifier)
+                        (record_field_expr
+                          (identifier)
+                          (expression_body
+                            (tag_expression
+                              (tag)))))))
+                  (application_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (module)
+                        (identifier)))
+                    (application_args
                       (paren_expression
                         (application_expression
                           (tag_expression
                             (tag))
-                          (record_update
-                            (identifier)
-                            (record_field_expr
+                          (application_args
+                            (record_update
                               (identifier)
-                              (expression_body
-                                (application_expression
-                                  (dot_expression
-                                    (application_expression
-                                      (long_identifier_or_op
-                                        (long_identifier
-                                          (module)
-                                          (identifier)))
+                              (record_field_expr
+                                (identifier)
+                                (expression_body
+                                  (application_expression
+                                    (dot_expression
+                                      (application_expression
+                                        (long_identifier_or_op
+                                          (long_identifier
+                                            (module)
+                                            (identifier)))
+                                        (application_args
+                                          (long_identifier_or_op
+                                            (long_identifier
+                                              (identifier)))))
                                       (long_identifier_or_op
                                         (long_identifier
                                           (identifier))))
-                                    (long_identifier_or_op
-                                      (long_identifier
-                                        (identifier))))
-                                  (args
-                                    (long_identifier_or_op
-                                      (long_identifier
-                                        (identifier))))
-                                  (long_identifier_or_op
-                                    (long_identifier
-                                      (identifier))))))))))))
+                                    (application_args
+                                      (long_identifier_or_op
+                                        (long_identifier
+                                          (identifier)))
+                                      (long_identifier_or_op
+                                        (long_identifier
+                                          (identifier))))))))))))))
                 (else
-                  (expression_body
-                    (value_declaration
-                      (value_declaration_left
-                        (identifier_pattern
-                          (long_identifier
-                            (identifier))))
-                      (expression_body
-                        (record_update
+                  (value_declaration
+                    (value_declaration_left
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier))))
+                    (expression_body
+                      (record_update
+                        (identifier)
+                        (record_field_expr
                           (identifier)
-                          (record_field_expr
-                            (identifier)
-                            (expression_body
-                              (application_expression
-                                (tag_expression
-                                  (tag))
+                          (expression_body
+                            (application_expression
+                              (tag_expression
+                                (tag))
+                              (application_args
                                 (record
                                   (record_field_expr
                                     (identifier)
@@ -2209,70 +2246,73 @@ main=
                                   (record_field_expr
                                     (identifier))
                                   (record_field_expr
-                                    (identifier)))))))))
-                    (application_expression
-                      (long_identifier_or_op
-                        (long_identifier
-                          (module)
-                          (identifier)))
+                                    (identifier))))))))))
+                  (application_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (module)
+                        (identifier)))
+                    (application_args
                       (paren_expression
                         (application_expression
                           (tag_expression
                             (tag))
-                          (record_update
-                            (identifier)
-                            (record_field_expr
+                          (application_args
+                            (record_update
                               (identifier)
-                              (expression_body
-                                (application_expression
-                                  (long_identifier_or_op
-                                    (long_identifier
-                                      (module)
-                                      (identifier)))
-                                  (args
-                                    (paren_expression
-                                      (application_expression
-                                        (dot_expression
-                                          (application_expression
-                                            (long_identifier_or_op
-                                              (long_identifier
-                                                (module)
-                                                (identifier)))
+                              (record_field_expr
+                                (identifier)
+                                (expression_body
+                                  (application_expression
+                                    (long_identifier_or_op
+                                      (long_identifier
+                                        (module)
+                                        (identifier)))
+                                    (application_args
+                                      (paren_expression
+                                        (application_expression
+                                          (dot_expression
+                                            (application_expression
+                                              (long_identifier_or_op
+                                                (long_identifier
+                                                  (module)
+                                                  (identifier)))
+                                              (application_args
+                                                (long_identifier_or_op
+                                                  (long_identifier
+                                                    (identifier)))))
                                             (long_identifier_or_op
                                               (long_identifier
                                                 (identifier))))
-                                          (long_identifier_or_op
-                                            (long_identifier
-                                              (identifier))))
-                                        (args
-                                          (long_identifier_or_op
-                                            (long_identifier
-                                              (identifier))))
-                                        (long_identifier_or_op
-                                          (long_identifier
-                                            (identifier))))))
-                                  (record
-                                    (record_field_expr
-                                      (identifier)
-                                      (expression_body
-                                        (tag_expression
-                                          (tag))))
-                                    (record_field_expr
-                                      (identifier)
-                                      (expression_body
-                                        (long_identifier_or_op
-                                          (long_identifier
-                                            (identifier)))))
-                                    (record_field_expr
-                                      (identifier)
-                                      (expression_body
-                                        (const
-                                          (int))))
-                                    (record_field_expr
-                                      (identifier)
-                                      (expression_body
-                                        (tag_expression
-                                          (tag))))))))))))))))))))))
+                                          (application_args
+                                            (long_identifier_or_op
+                                              (long_identifier
+                                                (identifier)))
+                                            (long_identifier_or_op
+                                              (long_identifier
+                                                (identifier))))))
+                                      (record
+                                        (record_field_expr
+                                          (identifier)
+                                          (expression_body
+                                            (tag_expression
+                                              (tag))))
+                                        (record_field_expr
+                                          (identifier)
+                                          (expression_body
+                                            (long_identifier_or_op
+                                              (long_identifier
+                                                (identifier)))))
+                                        (record_field_expr
+                                          (identifier)
+                                          (expression_body
+                                            (const
+                                              (int))))
+                                        (record_field_expr
+                                          (identifier)
+                                          (expression_body
+                                            (tag_expression
+                                              (tag))))))))))))))))))))))))
 
 ================================================================================
 val_infix
@@ -2354,13 +2394,13 @@ navLinks = [
         (long_identifier_or_op
           (long_identifier
             (identifier)))
-        (args
-          (list_expression))
-        (list_expression
-          (const
-            (string))
-          (const
-            (string))))))
+        (application_args
+          (list_expression)
+          (list_expression
+            (const
+              (string))
+            (const
+              (string)))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -2548,38 +2588,39 @@ main=
                           (long_identifier
                             (identifier)))
                         (then
-                          (expression_body
-                            (seq_infix
-                              (application_expression
+                          (seq_infix
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (application_args
                                 (long_identifier_or_op
                                   (long_identifier
-                                    (identifier)))
+                                    (identifier)))))
+                            (infix_op
+                              (symbolic_op))
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (application_args
                                 (long_identifier_or_op
                                   (long_identifier
-                                    (identifier))))
-                              (infix_op
-                                (symbolic_op))
-                              (application_expression
-                                (long_identifier_or_op
-                                  (long_identifier
-                                    (identifier)))
-                                (long_identifier_or_op
-                                  (long_identifier
-                                    (identifier))))
-                              (infix_op
-                                (symbolic_op))
-                              (application_expression
-                                (long_identifier_or_op
-                                  (long_identifier
-                                    (identifier)))
+                                    (identifier)))))
+                            (infix_op
+                              (symbolic_op))
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (application_args
                                 (long_identifier_or_op
                                   (long_identifier
                                     (identifier)))))))
                         (else
-                          (expression_body
-                            (long_identifier_or_op
-                              (long_identifier
-                                (identifier))))))))
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))))))
                   (rule
                     (const_pattern
                       (int))
@@ -2698,26 +2739,26 @@ transformFileContent =
             (long_identifier_or_op
               (long_identifier
                 (identifier)))
-            (args
+            (application_args
               (long_identifier_or_op
                 (long_identifier
-                  (identifier))))
-            (paren_expression
-              (fun_expression
-                (backslash)
-                (argument_patterns
-                  (record_pattern
-                    (identifier)))
-                (arrow)
-                (expression_body
-                  (infix_expression
-                    (long_identifier_or_op
-                      (long_identifier
-                        (identifier)))
-                    (infix_op)
-                    (long_identifier_or_op
-                      (long_identifier
-                        (identifier))))))))))))
+                  (identifier)))
+              (paren_expression
+                (fun_expression
+                  (backslash)
+                  (argument_patterns
+                    (record_pattern
+                      (identifier)))
+                  (arrow)
+                  (expression_body
+                    (infix_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (infix_op)
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))))))))))))
   (value_declaration_top
     (value_declaration_left
       (identifier_pattern
@@ -2728,22 +2769,22 @@ transformFileContent =
         (long_identifier_or_op
           (long_identifier
             (identifier)))
-        (args
+        (application_args
           (long_identifier_or_op
             (long_identifier
-              (identifier))))
-        (fun_expression
-          (backslash)
-          (argument_patterns
-            (long_identifier
-              (identifier))
-            (long_identifier
               (identifier)))
-          (arrow)
-          (expression_body
-            (long_identifier_or_op
+          (fun_expression
+            (backslash)
+            (argument_patterns
               (long_identifier
-                (identifier)))))))))
+                (identifier))
+              (long_identifier
+                (identifier)))
+            (arrow)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))))))
 
 ================================================================================
 types simple
@@ -2792,9 +2833,10 @@ transformFileContent =
         (long_identifier_or_op
           (long_identifier
             (identifier)))
-        (long_identifier_or_op
-          (long_identifier
-            (identifier))))))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
   (alias_type_def
     (apply_type
       (concrete_type))
@@ -2864,8 +2906,9 @@ transformFileContent =
             (long_identifier_or_op
               (long_identifier
                 (identifier)))
-            (const
-              (int)))))))
+            (application_args
+              (const
+                (int))))))))
   (annotation_type_def
     (annotation_pre_colon
       (identifier))
@@ -2898,52 +2941,26 @@ transformFileContent =
               (long_identifier_or_op
                 (long_identifier
                   (identifier)))
-              (args
+              (application_args
                 (long_identifier_or_op
                   (long_identifier
-                    (identifier))))
-              (paren_expression
-                (fun_expression
-                  (backslash)
-                  (argument_patterns
-                    (record_pattern
-                      (identifier)))
-                  (arrow)
-                  (expression_body
-                    (infix_expression
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))
-                      (infix_op)
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))))))
-            (infix_op
-              (symbolic_op))
-            (application_expression
-              (long_identifier_or_op
-                (long_identifier
-                  (module)
-                  (identifier)))
-              (paren_expression
-                (fun_expression
-                  (backslash)
-                  (argument_patterns
-                    (long_identifier
-                      (identifier)))
-                  (arrow)
-                  (expression_body
-                    (application_expression
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier)))
-                      (args
+                    (identifier)))
+                (paren_expression
+                  (fun_expression
+                    (backslash)
+                    (argument_patterns
+                      (record_pattern
+                        (identifier)))
+                    (arrow)
+                    (expression_body
+                      (infix_expression
                         (long_identifier_or_op
                           (long_identifier
-                            (identifier))))
-                      (long_identifier_or_op
-                        (long_identifier
-                          (identifier))))))))
+                            (identifier)))
+                        (infix_op)
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))))))))
             (infix_op
               (symbolic_op))
             (application_expression
@@ -2951,10 +2968,26 @@ transformFileContent =
                 (long_identifier
                   (module)
                   (identifier)))
-              (long_identifier_or_op
-                (long_identifier
-                  (module)
-                  (identifier))))
+              (application_args
+                (paren_expression
+                  (fun_expression
+                    (backslash)
+                    (argument_patterns
+                      (long_identifier
+                        (identifier)))
+                    (arrow)
+                    (expression_body
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (application_args
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier))))))))))
             (infix_op
               (symbolic_op))
             (application_expression
@@ -2962,8 +2995,21 @@ transformFileContent =
                 (long_identifier
                   (module)
                   (identifier)))
-              (const
-                (string)))))))))
+              (application_args
+                (long_identifier_or_op
+                  (long_identifier
+                    (module)
+                    (identifier)))))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (module)
+                  (identifier)))
+              (application_args
+                (const
+                  (string))))))))))
 
 ================================================================================
 pipe
@@ -2993,20 +3039,21 @@ main=
             (long_identifier
               (module)
               (identifier)))
-          (fun_expression
-            (backslash)
-            (argument_patterns
-              (long_identifier
-                (identifier)))
-            (arrow)
-            (expression_body
-              (infix_expression
-                (long_identifier_or_op
-                  (long_identifier
-                    (identifier)))
-                (infix_op)
-                (const
-                  (int))))))))))
+          (application_args
+            (fun_expression
+              (backslash)
+              (argument_patterns
+                (long_identifier
+                  (identifier)))
+              (arrow)
+              (expression_body
+                (infix_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (infix_op)
+                  (const
+                    (int)))))))))))
 
 ================================================================================
 type annotation complex

@@ -54,52 +54,143 @@ decodeBool = Decode.custom \bytes, @Json {} ->
           (long_identifier
             (module)
             (identifier)))
-        (fun_expression
-          (backslash)
-          (argument_patterns
+        (application_args
+          (fun_expression
+            (backslash)
+            (argument_patterns
+              (long_identifier
+                (identifier))
+              (tag_pattern
+                (opaque_tag)
+                (record)))
+            (arrow)
+            (expression_body
+              (when_is_expression
+                (when)
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (is)
+                (rules
+                  (rule
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (arrow)
+                    (expression_body
+                      (record
+                        (record_field_expr
+                          (identifier)
+                          (expression_body
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))
+                        (record_field_expr
+                          (identifier)
+                          (expression_body
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))
+                  (rule
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (arrow)
+                    (expression_body
+                      (record
+                        (record_field_expr
+                          (identifier)
+                          (expression_body
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))))))))))))))
+
+================================================================================
+backpassing todo
+================================================================================
+main=
+
+  { rest: afterBracketBytes } <- initialBytes |> openBracket |> tryDecode 
+
+  { val: endStateResult, rest: beforeClosingBracketBytes } <- decodeElems stepElem initialState 0 (eatWhitespace afterBracketBytes) |> tryDecode
+  a
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (backpassing_expression
+        (record
+          (record_field_expr
+            (identifier)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))
+        (back_arrow)
+        (infix_expression
+          (long_identifier_or_op
             (long_identifier
-              (identifier))
-            (tag_pattern
-              (opaque_tag)
-              (record)))
-          (arrow)
-          (expression_body
-            (when_is_expression
-              (when)
+              (identifier)))
+          (infix_op
+            (symbolic_op))
+          (infix_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (infix_op
+              (symbolic_op))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))))
+      (backpassing_expression
+        (record
+          (record_field_expr
+            (identifier)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))
+          (record_field_expr
+            (identifier)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))
+        (back_arrow)
+        (infix_expression
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
               (long_identifier_or_op
                 (long_identifier
                   (identifier)))
-              (is)
-              (rules
-                (rule
-                  (identifier_pattern
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (const
+                (int))
+              (paren_expression
+                (application_expression
+                  (long_identifier_or_op
                     (long_identifier
                       (identifier)))
-                  (arrow)
-                  (expression_body
-                    (record
-                      (record_field_expr
-                        (identifier)
-                        (expression_body
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier)))))
-                      (record_field_expr
-                        (identifier)
-                        (expression_body
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier))))))))
-                (rule
-                  (identifier_pattern
-                    (long_identifier
-                      (identifier)))
-                  (arrow)
-                  (expression_body
-                    (record
-                      (record_field_expr
-                        (identifier)
-                        (expression_body
-                          (long_identifier_or_op
-                            (long_identifier
-                              (identifier))))))))))))))))
+                  (application_args
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier))))))))
+          (infix_op
+            (symbolic_op))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier))))))

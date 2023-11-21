@@ -20,11 +20,14 @@ const PREC = {
 	INTERFACE: 12,
 	COMMA: 13,
 	DOTDOT: 14,
-	PREFIX_EXPR: 0,
-	SPECIAL_INFIX: 90,
+	//these are all tuned together
+	SEQ_INFIX: 80,
+	SEQ_INFIX_INNER: 81,
+	SPECIAL_INFIX: 81,
+	// SPECIAL_PREFIX: 85,
+
 	LARROW: 19,
 	TUPLE_EXPR: 300,
-	SPECIAL_PREFIX: 106,
 	DO_EXPR: 20,
 	IF_EXPR: 200,
 	// DOT: 19,
@@ -59,6 +62,7 @@ module.exports = grammar({
 	conflicts: ($) => [
 		[$.identifier_pattern, $.long_identifier_or_op],
 		[$.symbolic_op, $.infix_op],
+		// [$.prefix_op, $.infix_op],
 		[$.long_module_name],
 		// [$.application_expression, $.infix_expression],
 		// [$.application_expression, $.infix_expression, $._pattern],
@@ -67,6 +71,10 @@ module.exports = grammar({
 		[$._pattern, $.record_field_expr],
 		[$.concrete_type, $.tag],
 		[$._expression_no_infix_seq, $._expression_inner],
+		[$.application_expression, $.infix_expression],
+		[$.infix_expression],
+		[$.application_args],
+		// [$.prefixed_expression, $.infix_expression],
 	],
 
 	words: ($) => $.ident,
@@ -337,13 +345,13 @@ module.exports = grammar({
 		//TODO: we should try to bring this back at some point
 		seq_infix: ($) =>
 			prec.right(
-				80,
+				PREC.SEQ_INFIX,
 				seq(
 					$._atom_context_expression,
 					$._virtual_end_decl,
 					repeat(
 						prec(
-							81,
+							PREC.SEQ_INFIX_INNER,
 							seq(
 								$.infix_op,
 								$._atom_context_fun_expression,
@@ -408,7 +416,7 @@ module.exports = grammar({
 				$.record,
 				// $.infix_newline,
 				$.list_expression,
-				$.prefixed_expression,
+				// $.prefixed_expression,
 				$.index_expression,
 				$.long_identifier_or_op,
 				$.tag_expression,
@@ -479,15 +487,18 @@ module.exports = grammar({
 				seq(choice($.opaque_tag, $.tag), optional($._atom_expression)),
 			),
 		// discard_expression: $ => '_',
-
+		application_args: ($) =>
+			prec(
+				PREC.APP_EXPR_INNER,
+				seq(
+					repeat(prec(PREC.APP_EXPR_INNER, $._atom_expression)),
+					choice($._atom_expression, $.fun_expression),
+				),
+			),
 		application_expression: ($) =>
 			prec(
 				PREC.APP_EXPR,
-				seq(
-					field("caller", $._atom_expression),
-					alias(repeat(prec(PREC.APP_EXPR_INNER, $._atom_expression)), $.args),
-					choice($._atom_expression, $.fun_expression),
-				),
+				seq(field("caller", $._atom_expression), $.application_args),
 			),
 
 		tuple_expression: ($) =>
@@ -496,8 +507,11 @@ module.exports = grammar({
 				seq("(", $._expression_inner, ",", sep1($._expression_inner, ","), ")"),
 			),
 
-		prefixed_expression: ($) =>
-			prec.left(-1, seq($.prefix_op, $._atom_context_expression)),
+		// prefixed_expression: ($) =>
+		// 	prec.left(
+		// 		PREC.SPECIAL_PREFIX,
+		// 		seq($.infix_op, $._atom_context_expression),
+		// 	),
 
 		// yield_expression: $ =>
 		//   prec.left(PREC.SPECIAL_PREFIX,
@@ -510,7 +524,7 @@ module.exports = grammar({
 			prec.right(
 				PREC.SPECIAL_INFIX,
 				seq(
-					$._atom_context_fun_expression,
+					optional($._atom_context_fun_expression),
 					$.infix_op,
 					$._atom_context_fun_expression,
 				),
@@ -577,14 +591,18 @@ module.exports = grammar({
 				PREC.ELSE_EXPR,
 				seq(
 					$._else,
-					alias(field("else_branch", $._expression_body_maybe_block), $.else),
+					$._virtual_open,
+					alias(field("else_branch", $.expression_body), $.else),
+					$._virtual_close,
 				),
 			),
 
 		_then_expression: ($) =>
 			seq(
 				$._then,
-				alias(field("then", $._expression_body_maybe_block), $.then),
+				optional($._virtual_open),
+				alias(field("then", $.expression_body), $.then),
+				optional($._virtual_close),
 			),
 		elif_expression: ($) =>
 			prec(
@@ -887,8 +905,7 @@ module.exports = grammar({
 
 		_infix_or_prefix_op: ($) => choice("+", "-", "+.", "-.", "%", "&", "&&"),
 
-		prefix_op: ($) =>
-			prec.left(choice($._infix_or_prefix_op, repeat1("~"), $.symbolic_op)),
+		// prefix_op: ($) => prec(0, choice($._infix_or_prefix_op, $.symbolic_op)),
 
 		infix_op: ($) =>
 			prec(
