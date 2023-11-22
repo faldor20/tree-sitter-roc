@@ -128,7 +128,11 @@
     (record_field_expr
       (field_name)@namespace)))
 
-(concrete_type)@type
+(annotation_type_def 
+ (annotation_pre_colon 
+  (tag)@type))
+
+(tags_type(apply_tye(concrete_type)@constructor))
 
 (tag)@constructor
 (opaque_tag)@constructor
@@ -181,3 +185,4 @@
 (module)@module
 
 (long_identifier_or_op)@variable
+(concrete_type)@type
