@@ -324,7 +324,7 @@ decodeBool = Decode.custom \bytes, @Json {} ->
                 (identifier))
               (tag_pattern
                 (opaque_tag)
-                (record)))
+                (record_pattern)))
             (arrow)
             (expression_body
               (when_is_expression
@@ -387,13 +387,11 @@ main=
           (identifier))))
     (expression_body
       (backpassing_expression
-        (record
-          (record_field_expr
+        (record_pattern
+          (record_field_type
             (field_name)
-            (expression_body
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier))))))
+            (type_annotation
+              (bound_variable))))
         (back_arrow)
         (infix_expression
           (long_identifier_or_op
@@ -411,19 +409,15 @@ main=
               (long_identifier
                 (identifier))))))
       (backpassing_expression
-        (record
-          (record_field_expr
+        (record_pattern
+          (record_field_type
             (field_name)
-            (expression_body
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier)))))
-          (record_field_expr
+            (type_annotation
+              (bound_variable)))
+          (record_field_type
             (field_name)
-            (expression_body
-              (long_identifier_or_op
-                (long_identifier
-                  (identifier))))))
+            (type_annotation
+              (bound_variable))))
         (back_arrow)
         (infix_expression
           (application_expression

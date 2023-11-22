@@ -21,13 +21,16 @@ main=
     (expression_body
       (value_declaration
         (value_declaration_left
-          (record
-            (record_field_expr
-              (field_name))
-            (record_field_expr
-              (field_name))
-            (record_field_expr
-              (field_name))))
+          (record_pattern
+            (identifier_pattern
+              (long_identifier
+                (identifier)))
+            (identifier_pattern
+              (long_identifier
+                (identifier)))
+            (identifier_pattern
+              (long_identifier
+                (identifier)))))
         (expression_body
           (infix_expression
             (application_expression
@@ -2965,7 +2968,9 @@ transformFileContent =
                     (backslash)
                     (argument_patterns
                       (record_pattern
-                        (identifier)))
+                        (identifier_pattern
+                          (long_identifier
+                            (identifier)))))
                     (arrow)
                     (expression_body
                       (infix_expression
@@ -3168,7 +3173,9 @@ transformFileContent =
                       (backslash)
                       (argument_patterns
                         (record_pattern
-                          (identifier)))
+                          (identifier_pattern
+                            (long_identifier
+                              (identifier)))))
                       (arrow)
                       (expression_body
                         (infix_expression
@@ -3329,8 +3336,12 @@ findOneArg = \long, short, { args, taken } -> long
           (long_identifier
             (identifier))
           (record_pattern
-            (identifier)
-            (identifier)))
+            (identifier_pattern
+              (long_identifier
+                (identifier)))
+            (identifier_pattern
+              (long_identifier
+                (identifier)))))
         (arrow)
         (expression_body
           (long_identifier_or_op
@@ -3542,16 +3553,17 @@ main=
           (rule
             (tag_pattern
               (tag)
-              (record
-                (record_field_expr
+              (record_pattern
+                (record_field_pattern
                   (field_name)
-                  (expression_body
-                    (tag_expression
-                      (tag))))
-                (record_field_expr
-                  (field_name))
-                (record_field_expr
-                  (field_name))))
+                  (tag_pattern
+                    (tag)))
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))))
             (arrow)
             (expression_body
               (long_identifier_or_op

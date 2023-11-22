@@ -2,6 +2,7 @@
 [
 "?"
 (arrow)
+(back_arrow)
 (backslash)
 ] @punctuation.delimiter
 
@@ -95,13 +96,18 @@
   caller: (long_identifier_or_op
     (long_identifier
       (identifier)@function)))
-
-
-(fun_expression
-  (argument_patterns
+(application_expression
+  caller: (dot_expression
+    (long_identifier_or_op
     (long_identifier
-      (identifier)@variable.parameter))
-     )
+      (identifier)@function)) . ))
+
+
+; (fun_expression
+;   (argument_patterns
+;     (long_identifier
+;       (identifier)@variable.parameter))
+;      )
 
 (annotation_type_def 
  (annotation_pre_colon 
@@ -110,7 +116,6 @@
 
 
 
-(module)@module
 
 (imports
   (imports_entry
@@ -145,8 +150,19 @@
   (#eq? @module "Bool." )
   )
 
+; (fun_expression
+;   (argument_patterns)@variable.parameter)
+(argument_patterns(long_identifier)@variable.parameter)
+(argument_patterns(_(identifier_pattern)@variable.parameter))
+(argument_patterns(_(_(identifier_pattern)@variable.parameter)))
+(argument_patterns(_(_(_(identifier_pattern)@variable.parameter))))
+(argument_patterns(_(_(_(_(identifier_pattern)@variable.parameter)))))
+(argument_patterns(_(_(_(_(_(identifier_pattern)@variable.parameter))))))
+
 (field_name)@variable.other.member
-(dot_expression (long_identifier_or_op)(long_identifier_or_op)@variable.other.member)
+
+;matches the second identifier and all subsequent ones
+(dot_expression (_)(long_identifier_or_op)* @variable.other.member)
 
 
 [
@@ -161,5 +177,7 @@
   (float)
 ] @constant.numeric.float
 
-(identifier)@variable
+(module)@namespace
+(module)@module
 
+(long_identifier_or_op)@variable

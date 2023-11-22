@@ -559,7 +559,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (application_expression
@@ -607,7 +607,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (application_expression
@@ -655,7 +655,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (application_expression
@@ -703,7 +703,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (application_expression
@@ -751,7 +751,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (application_expression
@@ -799,7 +799,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (application_expression
@@ -847,7 +847,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (application_expression
@@ -895,7 +895,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (application_expression
@@ -943,7 +943,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (application_expression
@@ -991,7 +991,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (application_expression
@@ -1039,7 +1039,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (application_expression
@@ -1087,7 +1087,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (application_expression
@@ -1135,7 +1135,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (application_expression
@@ -1183,7 +1183,7 @@ encodeBool = \b ->
                     (identifier))
                   (tag_pattern
                     (opaque_tag)
-                    (record)))
+                    (record_pattern)))
                 (arrow)
                 (expression_body
                   (if_expression

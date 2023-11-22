@@ -334,7 +334,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "record"
+          "name": "record_pattern"
         },
         {
           "type": "SYMBOL",
@@ -785,7 +785,7 @@
                     },
                     {
                       "type": "SYMBOL",
-                      "name": "identifier"
+                      "name": "identifier_pattern"
                     }
                   ]
                 },
@@ -815,7 +815,7 @@
                           },
                           {
                             "type": "SYMBOL",
-                            "name": "identifier"
+                            "name": "identifier_pattern"
                           }
                         ]
                       }
@@ -5261,6 +5261,18 @@
     [
       "_pattern",
       "expression_body"
+    ],
+    [
+      "record_pattern",
+      "record"
+    ],
+    [
+      "record_pattern",
+      "record_type"
+    ],
+    [
+      "identifier",
+      "field_name"
     ]
   ],
   "precedences": [],

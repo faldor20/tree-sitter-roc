@@ -140,7 +140,7 @@
         "named": true
       },
       {
-        "type": "record",
+        "type": "record_pattern",
         "named": true
       },
       {
@@ -515,10 +515,6 @@
         },
         {
           "type": "long_identifier",
-          "named": true
-        },
-        {
-          "type": "record_pattern",
           "named": true
         }
       ]
@@ -1994,7 +1990,7 @@
       "required": false,
       "types": [
         {
-          "type": "identifier",
+          "type": "identifier_pattern",
           "named": true
         },
         {
