@@ -1,0 +1,160 @@
+================================================================================
+backpassing_basic
+================================================================================
+main=
+  a<- a b
+  c
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (backpassing_expr
+        (identifier_pattern
+          (identifier))
+        (back_arrow)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier))))
+      (variable_expr
+        (identifier)))))
+
+================================================================================
+backpassing_discard
+================================================================================
+main=
+  _<- a b
+  a
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (backpassing_expr
+        (wildcard_pattern)
+        (back_arrow)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier))))
+      (variable_expr
+        (identifier)))))
+
+================================================================================
+backpassing_nested
+================================================================================
+main=
+  a<- a b
+  b<- a b
+  b<- a b
+  c
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (backpassing_expr
+        (identifier_pattern
+          (identifier))
+        (back_arrow)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier))))
+      (backpassing_expr
+        (identifier_pattern
+          (identifier))
+        (back_arrow)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier))))
+      (backpassing_expr
+        (identifier_pattern
+          (identifier))
+        (back_arrow)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier))))
+      (variable_expr
+        (identifier)))))
+
+================================================================================
+backpassing_nested
+================================================================================
+main=
+  main =
+    10
+  b<- a b
+  main2 =
+    inner<- a b
+    20
+  b<- a b
+  c
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (const
+            (int))))
+      (backpassing_expr
+        (identifier_pattern
+          (identifier))
+        (back_arrow)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier))))
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (backpassing_expr
+            (identifier_pattern
+              (identifier))
+            (back_arrow)
+            (function_call_expr
+              (variable_expr
+                (identifier))
+              (variable_expr
+                (identifier))))
+          (const
+            (int))))
+      (backpassing_expr
+        (identifier_pattern
+          (identifier))
+        (back_arrow)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier))))
+      (variable_expr
+        (identifier)))))

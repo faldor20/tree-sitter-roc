@@ -16,7 +16,6 @@
 [
   (line_comment)
   (block_comment)
-  (block_comment_content)
 ] @comment
 
 
@@ -38,8 +37,7 @@
 
 [
   "|" 
-  (infix_op)
-  (symbolic_op)
+  (operator)
 ] @operator
 
 
@@ -81,29 +79,29 @@
 
 ;----things that could be functions----
 
-(value_declaration(value_declaration_left 
+(value_declaration(decl_left 
   (identifier_pattern 
-   (long_identifier (identifier)@function)))(expression_body(fun_expression)))
+   (identifier)@function))(expr_body(anon_fun_expr)))
 
 (value_declaration_top 
- (value_declaration_left 
+ (decl_left 
   (identifier_pattern 
-   (long_identifier (identifier)@function))) 
- (expression_body 
-  (fun_expression))) 
+   (identifier)@function)) 
+ (expr_body 
+  (anon_fun_expr))) 
 
-(application_expression
+(function_call_expr
   caller: (long_identifier_or_op
     (long_identifier
       (identifier)@function)))
-(application_expression
+(function_call_expr
   caller: (dot_expression
     (long_identifier_or_op
     (long_identifier
       (identifier)@function)) . ))
 
 
-; (fun_expression
+; (anon_fun_expr
 ;   (argument_patterns
 ;     (long_identifier
 ;       (identifier)@variable.parameter))
@@ -154,7 +152,7 @@
   (#eq? @module "Bool." )
   )
 
-; (fun_expression
+; (anon_fun_expr
 ;   (argument_patterns)@variable.parameter)
 (argument_patterns(long_identifier)@variable.parameter)
 (argument_patterns(_(identifier_pattern)@variable.parameter))

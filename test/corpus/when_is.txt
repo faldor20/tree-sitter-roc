@@ -1,0 +1,158 @@
+================================================================================
+when_is
+================================================================================
+main=
+    when color is
+        Blue -> 1
+        Green | Red | Yellow -> 
+          p=10
+          p
+        Purple -> 3
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (when_is_expr
+        (when)
+        (variable_expr
+          (identifier))
+        (is)
+        (when_is_branch
+          (tag_pattern
+            (tag))
+          (arrow)
+          (expr_body
+            (const
+              (int))))
+        (when_is_branch
+          (disjunct_pattern
+            (disjunct_pattern
+              (tag_pattern
+                (tag))
+              (tag_pattern
+                (tag)))
+            (tag_pattern
+              (tag)))
+          (arrow)
+          (expr_body
+            (value_declaration
+              (decl_left
+                (identifier_pattern
+                  (identifier)))
+              (expr_body
+                (const
+                  (int))))
+            (variable_expr
+              (identifier))))
+        (when_is_branch
+          (tag_pattern
+            (tag))
+          (arrow)
+          (expr_body
+            (const
+              (int))))))))
+
+================================================================================
+when_is_if
+================================================================================
+main=
+  when a is 
+    b if b>10 -> c
+    b if b>20 -> c
+    _->d
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (when_is_expr
+        (when)
+        (variable_expr
+          (identifier))
+        (is)
+        (when_is_branch
+          (identifier_pattern
+            (identifier))
+          (if)
+          (if
+            (bin_op_expr
+              (variable_expr
+                (identifier))
+              (operator)
+              (const
+                (int))))
+          (arrow)
+          (expr_body
+            (variable_expr
+              (identifier))))
+        (when_is_branch
+          (identifier_pattern
+            (identifier))
+          (if)
+          (if
+            (bin_op_expr
+              (variable_expr
+                (identifier))
+              (operator)
+              (const
+                (int))))
+          (arrow)
+          (expr_body
+            (variable_expr
+              (identifier))))
+        (when_is_branch
+          (wildcard_pattern)
+          (arrow)
+          (expr_body
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+list patterns
+================================================================================
+a=
+  when a is
+    [..,1]->a
+    ['a','b',..]-> b
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (when_is_expr
+        (when)
+        (variable_expr
+          (identifier))
+        (is)
+        (when_is_branch
+          (list_pattern
+            (range_pattern)
+            (const
+              (int)))
+          (arrow)
+          (expr_body
+            (variable_expr
+              (identifier))))
+        (when_is_branch
+          (list_pattern
+            (const
+              (char))
+            (const
+              (char))
+            (range_pattern))
+          (arrow)
+          (expr_body
+            (variable_expr
+              (identifier))))))))

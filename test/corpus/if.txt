@@ -1,0 +1,203 @@
+================================================================================
+if_basic
+================================================================================
+a= if a then b else c
+a= if a then b else if a_2 then c else d
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (if_expr
+        (if)
+        (variable_expr
+          (identifier))
+        (then
+          (expr_body
+            (variable_expr
+              (identifier))))
+        (else
+          (expr_body
+            (variable_expr
+              (identifier)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (if_expr
+        (if)
+        (variable_expr
+          (identifier))
+        (then
+          (expr_body
+            (variable_expr
+              (identifier))))
+        (else_if
+          (variable_expr
+            (identifier))
+          (then
+            (expr_body
+              (variable_expr
+                (identifier)))))
+        (else
+          (expr_body
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+if_indent
+================================================================================
+a= if a then b else c
+a= if a then b
+  else if
+    a_2 
+then c else d
+a= if a then b else
+ if a_2 then c else d
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (if_expr
+        (if)
+        (variable_expr
+          (identifier))
+        (then
+          (expr_body
+            (variable_expr
+              (identifier))))
+        (else
+          (expr_body
+            (variable_expr
+              (identifier)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (if_expr
+        (if)
+        (variable_expr
+          (identifier))
+        (then
+          (expr_body
+            (variable_expr
+              (identifier))))
+        (else_if
+          (variable_expr
+            (identifier))
+          (then
+            (expr_body
+              (variable_expr
+                (identifier)))))
+        (else
+          (expr_body
+            (variable_expr
+              (identifier)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (if_expr
+        (if)
+        (variable_expr
+          (identifier))
+        (then
+          (expr_body
+            (variable_expr
+              (identifier))))
+        (else_if
+          (variable_expr
+            (identifier))
+          (then
+            (expr_body
+              (variable_expr
+                (identifier)))))
+        (else
+          (expr_body
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+if_nested
+================================================================================
+a= 
+  if a then
+    if a then b else c
+  else c
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (if_expr
+        (if)
+        (variable_expr
+          (identifier))
+        (then
+          (expr_body
+            (if_expr
+              (if)
+              (variable_expr
+                (identifier))
+              (then
+                (expr_body
+                  (variable_expr
+                    (identifier))))
+              (else
+                (expr_body
+                  (variable_expr
+                    (identifier)))))))
+        (else
+          (expr_body
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+if_variable_nested
+================================================================================
+a= 
+  if a then
+    c= 
+      10
+    c
+  else c
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (if_expr
+        (if)
+        (variable_expr
+          (identifier))
+        (then
+          (expr_body
+            (value_declaration
+              (decl_left
+                (identifier_pattern
+                  (identifier)))
+              (expr_body
+                (const
+                  (int))))
+            (variable_expr
+              (identifier))))
+        (else
+          (expr_body
+            (variable_expr
+              (identifier))))))))

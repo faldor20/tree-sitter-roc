@@ -1,0 +1,123 @@
+================================================================================
+value_decl
+================================================================================
+var= a
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (variable_expr
+        (identifier)))))
+
+================================================================================
+value_decl_nested
+================================================================================
+var= a
+var= 
+	b=10
+	b
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (variable_expr
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (const
+            (int))))
+      (variable_expr
+        (identifier)))))
+
+================================================================================
+value_decl_typed
+================================================================================
+var:Int
+var= a
+var =
+  p:Int
+  p=10
+  p
+var =
+  p:Int
+  p=
+    10
+  p
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (annotation_type_def
+      (annotation_pre_colon
+        (identifier))
+      (type_annotation
+        (apply_type
+          (concrete_type))))
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (variable_expr
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (value_declaration
+        (annotation_type_def
+          (annotation_pre_colon
+            (identifier))
+          (type_annotation
+            (apply_type
+              (concrete_type))))
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (const
+            (int))))
+      (variable_expr
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (value_declaration
+        (annotation_type_def
+          (annotation_pre_colon
+            (identifier))
+          (type_annotation
+            (apply_type
+              (concrete_type))))
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (const
+            (int))))
+      (variable_expr
+        (identifier)))))
+===
+value_record
+===
+
+{ result: commaResult, rest: nextBytes } = comma beforeCommaOrBreak
+---

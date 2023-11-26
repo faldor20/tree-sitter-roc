@@ -1,0 +1,373 @@
+================================================================================
+expr_tag
+================================================================================
+a =
+  Tag a
+b= Tag(if a then b else c)
+b= Tag a 1
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (tag_expr
+        (tag)
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (tag_expr
+        (tag)
+        (parenthesized_expr
+          (expr_body
+            (if_expr
+              (if)
+              (variable_expr
+                (identifier))
+              (then
+                (expr_body
+                  (variable_expr
+                    (identifier))))
+              (else
+                (expr_body
+                  (variable_expr
+                    (identifier))))))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (tag_expr
+        (tag)
+        (variable_expr
+          (identifier))
+        (const
+          (int))))))
+
+================================================================================
+expr_fun
+================================================================================
+normal= \ a,b,c-> p
+tuple= \ a,b,(b,d)-> p
+record= \ a,b,{b,d}-> p
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (backslash)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (arrow)
+        (expr_body
+          (variable_expr
+            (identifier))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (backslash)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier))
+          (tuple_pattern
+            (identifier_pattern
+              (identifier))
+            (identifier_pattern
+              (identifier))))
+        (arrow)
+        (expr_body
+          (variable_expr
+            (identifier))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (backslash)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier))
+          (record_pattern
+            (record_field_pattern
+              (field_name))
+            (record_field_pattern
+              (field_name))))
+        (arrow)
+        (expr_body
+          (variable_expr
+            (identifier)))))))
+
+================================================================================
+expr_fun_multiline
+================================================================================
+a=
+  \a,b-> a \a->a+10
+a= 
+  \a,b->
+    var=
+      10
+    b+var
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (backslash)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (arrow)
+        (expr_body
+          (function_call_expr
+            (variable_expr
+              (identifier))
+            (anon_fun_expr
+              (backslash)
+              (argument_patterns
+                (identifier_pattern
+                  (identifier)))
+              (arrow)
+              (expr_body
+                (bin_op_expr
+                  (variable_expr
+                    (identifier))
+                  (operator)
+                  (const
+                    (int))))))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (backslash)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (arrow)
+        (expr_body
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (const
+                (int))))
+          (bin_op_expr
+            (variable_expr
+              (identifier))
+            (operator)
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+tuple
+================================================================================
+a = (a,b)
+a = (1,1)
+a = ((1,1),1,b,c,d)
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (tuple_expr
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (tuple_expr
+        (const
+          (int))
+        (const
+          (int)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (tuple_expr
+        (tuple_expr
+          (const
+            (int))
+          (const
+            (int)))
+        (const
+          (int))
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier))))))
+
+================================================================================
+list
+================================================================================
+a = [a,b]
+a = [if a then b else c,1]
+a = [[1,1],1,b,c,d]
+a = 
+  [
+    [1,1],1,b,c,d
+  ]
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (list_expr
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (list_expr
+        (if_expr
+          (if)
+          (variable_expr
+            (identifier))
+          (then
+            (expr_body
+              (variable_expr
+                (identifier))))
+          (else
+            (expr_body
+              (variable_expr
+                (identifier)))))
+        (const
+          (int)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (list_expr
+        (list_expr
+          (const
+            (int))
+          (const
+            (int)))
+        (const
+          (int))
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (list_expr
+        (list_expr
+          (const
+            (int))
+          (const
+            (int)))
+        (const
+          (int))
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier))))))
+
+================================================================================
+expr_variable
+================================================================================
+main = Mod.var
+main = 
+  Mod.var a b 
+main = 
+  main1=
+    Mod.var  
+  a
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (variable_expr
+        (module)
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (function_call_expr
+        (variable_expr
+          (module)
+          (identifier))
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (variable_expr
+            (module)
+            (identifier))))
+      (variable_expr
+        (identifier)))))

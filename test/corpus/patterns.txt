@@ -1,0 +1,65 @@
+================================================================================
+pattern_opaque_tag
+================================================================================
+bfs = \a, b, @OTag c -> a b c
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (backslash)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier))
+          (tag_pattern
+            (opaque_tag)
+            (identifier_pattern
+              (identifier))))
+        (arrow)
+        (expr_body
+          (function_call_expr
+            (variable_expr
+              (identifier))
+            (variable_expr
+              (identifier))
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+pattern_tag
+================================================================================
+bfs = \a, b, Tag c -> a b c
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (backslash)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier))
+          (tag_pattern
+            (tag)
+            (identifier_pattern
+              (identifier))))
+        (arrow)
+        (expr_body
+          (function_call_expr
+            (variable_expr
+              (identifier))
+            (variable_expr
+              (identifier))
+            (variable_expr
+              (identifier))))))))

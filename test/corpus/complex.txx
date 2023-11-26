@@ -1,5 +1,5 @@
 ================================================================================
-complex_file
+complex file
 ================================================================================
 
 app "countdown"
@@ -263,7 +263,7 @@ main =
         (identifier)))))
 
 ================================================================================
-complex_env_decode
+complex env decode
 ================================================================================
 
 app "env"
@@ -274,19 +274,29 @@ app "env"
 main : Task {} []
 main =
     task =
-      x 
-      |> Task.await (\editor -> Stdout.line "Your favorite editor is \(editor)!")
-      |> Task.await (\{} -> Env.decode "SHLVL")
-      |> Task.await
-          (\lvl ->
-              when lvl is
-                  1 -> Stdout.line "You're running this in a root shell!"
-                  n ->
-                      lvlStr = Num.toStr n
+        Env.decode "EDITOR"
+        |> Task.await (\editor -> Stdout.line "Your favorite editor is \(editor)!")
+        |> Task.await (\{} -> Env.decode "SHLVL")
+        |> Task.await
+            (\lvl ->
+                when lvl is
+                    1u8 -> Stdout.line "You're running this in a root shell!"
+                    n ->
+                        lvlStr = Num.toStr n
 
-                      Stdout.line "Your current shell level is \(lvlStr)!")
-      |> Task.await "LETTERS"
-  a
+                        Stdout.line "Your current shell level is \(lvlStr)!")
+        |> Task.await \{} -> Env.decode "LETTERS"
+
+    Task.attempt task \result ->
+        when result is
+            Ok letters ->
+                joinedLetters = Str.joinWith letters " "
+
+                Stdout.line "Your favorite letters are: \(joinedLetters)"
+
+            Err _ ->
+                Stderr.line "I couldn't find your favorite letters in the environment variables!"
+
 --------------------------------------------------------------------------------
 
 (file
@@ -322,18 +332,18 @@ main =
         (ident)
         (to)
         (ident))))
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (record_type))
+          (apply_type_arg
+            (tags_type))))))
   (value_declaration
-    (annotation_type_def
-      (annotation_pre_colon
-        (identifier))
-      (type_annotation
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (record_type))
-            (apply_type_arg
-              (tags_type))))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -344,8 +354,12 @@ main =
             (identifier)))
         (expr_body
           (bin_op_expr
-            (variable_expr
-              (identifier))
+            (function_call_expr
+              (variable_expr
+                (module)
+                (identifier))
+              (const
+                (string)))
             (operator)
             (function_call_expr
               (variable_expr
@@ -409,7 +423,7 @@ main =
                         (is)
                         (when_is_branch
                           (const_pattern
-                            (int))
+                            (uint))
                           (arrow)
                           (expr_body
                             (function_call_expr
@@ -448,13 +462,79 @@ main =
               (variable_expr
                 (module)
                 (identifier))
-              (const
-                (string))))))
-      (variable_expr
-        (identifier)))))
+              (anon_fun_expr
+                (backslash)
+                (argument_patterns
+                  (record_pattern))
+                (arrow)
+                (expr_body
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (const
+                      (string)))))))))
+      (function_call_expr
+        (variable_expr
+          (module)
+          (identifier))
+        (variable_expr
+          (identifier))
+        (anon_fun_expr
+          (backslash)
+          (argument_patterns
+            (identifier_pattern
+              (identifier)))
+          (arrow)
+          (expr_body
+            (when_is_expr
+              (when)
+              (variable_expr
+                (identifier))
+              (is)
+              (when_is_branch
+                (tag_pattern
+                  (tag)
+                  (identifier_pattern
+                    (identifier)))
+                (arrow)
+                (expr_body
+                  (value_declaration
+                    (decl_left
+                      (identifier_pattern
+                        (identifier)))
+                    (expr_body
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (variable_expr
+                          (identifier))
+                        (const
+                          (string)))))
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (const
+                      (string
+                        (interpolation_char
+                          (variable_expr
+                            (identifier))))))))
+              (ERROR)
+              (when_is_branch
+                (wildcard_pattern)
+                (arrow)
+                (expr_body
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (const
+                      (string))))))))))))
 
 ================================================================================
-complex_interface
+interface full
 ================================================================================
 
 interface Dir
@@ -467,6 +547,7 @@ DeleteErr : InternalDir.DeleteErr
 
 DirEntry : InternalDir.DirEntry
 
+## Lists the files and directories inside the directory.
 list : Path -> Task (List Path) [DirReadErr Path ReadErr]
 list = \path ->
     effect = Effect.map (Effect.dirList (InternalPath.toBytes path)) \result ->
@@ -476,8 +557,11 @@ list = \path ->
 
     InternalTask.fromEffect effect
 
-deleteEmptyDir : Path -> Task 
-deleteRecursive : Path -> Task 
+## Deletes a directory if it's empty.
+deleteEmptyDir : Path -> Task {} [DirDeleteErr Path DeleteErr]
+
+## Recursively deletes the directory as well as all files and directories inside it.
+deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
 --------------------------------------------------------------------------------
 
 (file
@@ -532,6 +616,7 @@ deleteRecursive : Path -> Task
     (type_annotation
       (apply_type
         (concrete_type))))
+  (line_comment)
   (value_declaration
     (annotation_type_def
       (annotation_pre_colon
@@ -653,6 +738,7 @@ deleteRecursive : Path -> Task
               (identifier))
             (variable_expr
               (identifier)))))))
+  (line_comment)
   (annotation_type_def
     (annotation_pre_colon
       (identifier))
@@ -662,7 +748,23 @@ deleteRecursive : Path -> Task
           (concrete_type))
         (arrow)
         (apply_type
-          (concrete_type)))))
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (record_type))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type)))))))))))))))
+  (line_comment)
   (annotation_type_def
     (annotation_pre_colon
       (identifier))
@@ -672,10 +774,25 @@ deleteRecursive : Path -> Task
           (concrete_type))
         (arrow)
         (apply_type
-          (concrete_type))))))
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (record_type))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type))))))))))))))))
 
 ================================================================================
-complex_list
+lists_complex
 ================================================================================
 view : NavLink, Str -> Html.Node
 view = \currentNavLink, htmlContent ->
@@ -829,7 +946,7 @@ view = \currentNavLink, htmlContent ->
                               (identifier))))))))))))))))
 
 ================================================================================
-complex_if_else
+if else
 ================================================================================
 viewNavLink = \isCurrent, navlink ->
     if isCurrent then
@@ -965,79 +1082,3 @@ viewNavLink = \isCurrent, navlink ->
                     (identifier))
                   (variable_expr
                     (identifier)))))))))))
-
-================================================================================
-annotation_run_on
-================================================================================
-expect
-  iput : List F64
-  iput = [-1, 0.00001, 1e12, 2.0e-2, 0.0003, 43]
-  actual = Encode.toBytes input json
-  expected = Str.toUtf8 "[-1,0.00001,1000000000000,0.02,0.0003,43]"
-
-  actual == expected
---------------------------------------------------------------------------------
-
-(file
-  (expect
-    (expr_body
-      (value_declaration
-        (annotation_type_def
-          (annotation_pre_colon
-            (identifier))
-          (type_annotation
-            (apply_type
-              (concrete_type)
-              (apply_type_args
-                (apply_type_arg
-                  (apply_type
-                    (concrete_type)))))))
-        (decl_left
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (list_expr
-            (prefixed_expression
-              (operator)
-              (const
-                (int)))
-            (const
-              (float))
-            (const
-              (float))
-            (const
-              (float))
-            (const
-              (float))
-            (const
-              (int)))))
-      (value_declaration
-        (decl_left
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (function_call_expr
-            (variable_expr
-              (module)
-              (identifier))
-            (variable_expr
-              (identifier))
-            (variable_expr
-              (identifier)))))
-      (value_declaration
-        (decl_left
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (function_call_expr
-            (variable_expr
-              (module)
-              (identifier))
-            (const
-              (string)))))
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (operator)
-        (variable_expr
-          (identifier))))))
