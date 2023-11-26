@@ -16,16 +16,32 @@ module.exports = grammar({
 	// These tokens are used to track the indentation-based scoping used in F#
 
 	externals: ($) => [
-		$._virtual_end_decl,
-		$._virtual_open_section,
-		$._virtual_end_section,
-		$.minus_without_trailing_whitespace,
-		$.glsl_content,
-		$._block_comment_content,
+		$._newline,
+		$._end_newline,
+		$._indent,
+		$._dedent,
+		$.string_start,
+		$._string_content,
+		$.escape_interpolation,
+		$.string_end,
+
+		// Mark comments as external tokens so that the external scanner is always
+		// invoked, even if no external token is expected. This allows for better
+		// error recovery, because the external scanner can maintain the overall
+		// structure by returning dedent tokens whenever a dedent occurs, even
+		// if no dedent is expected.
+		$.comment,
+
+		// Allow the external scanner to check for the validity of closing brackets
+		// so that it can avoid returning dedent tokens between brackets.
+		"]",
+		")",
+		"}",
+		"except",
 	],
 
 	extras: ($) => [
-		$.block_comment,
+		// $.block_comment,
 		$.line_comment,
 		/[ \s\f\uFEFF\u2060\u200B]|\\\r?n/,
 	],
@@ -70,6 +86,7 @@ module.exports = grammar({
 		[$._field_access_start, $._function_call_target, $._atom_expr],
 		[$.long_module_name],
 		[$._module_elem, $.value_declaration],
+		[$.expr_body],
 		// [$.identifier_pattern, $.long_identifier_or_op],
 		// [$.symbolic_op, $.infix_op],
 		// // [$.prefix_op, $.infix_op],
@@ -111,9 +128,9 @@ module.exports = grammar({
 		file: ($) =>
 			seq(
 				//TODO
-				optional(seq($._module_header, $._virtual_end_decl)),
+				optional(seq($._module_header, $._end_newline)),
 
-				repeat1(seq($._module_elem, $._virtual_end_decl)),
+				repeat1(seq($._module_elem, $._end_newline)),
 			),
 		//TODO i could make a different version of this for when the module is an interface
 		_module_elem: ($) =>
@@ -126,33 +143,47 @@ module.exports = grammar({
 				$.value_declaration,
 			),
 
-		expect: ($) =>
-			seq(
-				"expect",
-				$._virtual_open,
-				field("body", $.expr_body),
-				$._virtual_close,
-			),
+		expect: ($) => prec(1, seq("expect", field("body", $.expr_body))),
 		value_declaration: ($) =>
 			prec(
 				0,
 				seq(
 					//TODO i should be able to find a better solution that this silly /n
-					optional(seq($.annotation_type_def, $._virtual_end_decl)),
+					optional(seq($.annotation_type_def, $._end_newline)),
 
-					// $._virtual_end_decl,
+					// $._newline,
 					alias($._assigment_pattern, $.decl_left),
 					"=",
-					$._virtual_open,
-					field("body", seq($.expr_body)),
-					$._virtual_close,
+					field("body", seq(alias($.expr_body_terminal, $.expr_body))),
 				),
 			),
 
 		expr_body: ($) =>
-			seq(
-				repeat(seq(choice($.value_declaration, $.backpassing_expr))),
-				$._expr_inner,
+			choice(
+				seq(
+					$._indent,
+					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
+					$._expr_inner,
+					$._dedent,
+				),
+				seq(
+					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
+					$._expr_inner,
+				),
+			),
+		expr_body_terminal: ($) =>
+			choice(
+				seq(
+					$._indent,
+					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
+					$._expr_inner,
+					$._dedent,
+				),
+				seq(
+					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
+					$._expr_inner,
+					$._end_newline,
+				),
 			),
 		_atom_expr: ($) =>
 			choice(
@@ -193,14 +224,7 @@ module.exports = grammar({
 
 		variable_expr: ($) => alias($.long_identifier, $.variable_expr),
 		long_identifier: ($) => seq(repeat(seq($.module, ".")), $.identifier),
-		parenthesized_expr: ($) =>
-			seq(
-				"(",
-				// $._virtual_open,
-				field("expression", $.expr_body),
-				// $._virtual_close,
-				")",
-			),
+		parenthesized_expr: ($) => seq("(", field("expression", $.expr_body), ")"),
 		if_expr: ($) =>
 			seq(
 				alias("if", $.if),
@@ -214,7 +238,7 @@ module.exports = grammar({
 				field("assignee", $._assigment_pattern),
 				$.back_arrow,
 				field("value", $._expr_inner),
-				"\n",
+				$._end_newline,
 			),
 		_field_access_start: ($) =>
 			prec(
@@ -274,16 +298,16 @@ module.exports = grammar({
 				alias("when", $.when),
 				$._expr_inner,
 				alias("is", $.is),
-				$._virtual_open_section,
+				$._indent,
 				$.when_is_branch,
 				optional($._more_when_is_branches),
-				$._virtual_end_section,
+				$._dedent,
 			),
 
 		_more_when_is_branches: ($) =>
 			prec.dynamic(
 				PREC.CASE_OF_BRANCH,
-				repeat1(seq($._virtual_end_decl, field("branch", $.when_is_branch))),
+				repeat1(seq($._newline, field("branch", $.when_is_branch))),
 			),
 
 		when_is_branch: ($) =>
@@ -300,14 +324,7 @@ module.exports = grammar({
 				seq(choice($.opaque_tag, $.tag), repeat($._atom_expr)),
 			),
 		anon_fun_expr: ($) =>
-			seq(
-				$.backslash,
-				$.argument_patterns,
-				$.arrow,
-				$._virtual_open,
-				$.expr_body,
-				$._virtual_close,
-			),
+			seq($.backslash, $.argument_patterns, $.arrow, $.expr_body),
 
 		//RECORDS
 
@@ -332,8 +349,13 @@ module.exports = grammar({
 		tuple_expr: ($) =>
 			seq(
 				"(",
-				field("expr", $._atom_expr),
-				repeat1(seq(",", field("expr", $._expr_inner))),
+				optional_indent(
+					seq(
+						field("expr", $._expr_inner),
+						repeat1(seq(",", field("expr", $._expr_inner))),
+					),
+					$,
+				),
 				")",
 			),
 
@@ -452,9 +474,9 @@ module.exports = grammar({
 			seq(
 				"app",
 				alias($.string, $.app_name),
-				$._virtual_open,
+				$._indent,
 				$.app_header_body,
-				$._virtual_close,
+				$._dedent,
 			),
 		app_header_body: ($) =>
 			sep1(choice($.packages, $.imports, $.provides), "\n"),
@@ -463,9 +485,9 @@ module.exports = grammar({
 			seq(
 				"platform",
 				alias($.string, $.name),
-				$._virtual_open,
+				$._indent,
 				$.platform_header_body,
-				$._virtual_close,
+				$._dedent,
 			),
 		platform_header_body: ($) =>
 			sep1(
@@ -484,9 +506,9 @@ module.exports = grammar({
 			seq(
 				"interface",
 				alias(sep1($._upper_identifier, "."), $.name),
-				$._virtual_open,
+				$._indent,
 				$.interface_header_body,
-				$._virtual_close,
+				$._dedent,
 			),
 
 		interface_header_body: ($) => sep1_tail(choice($.exposes, $.imports), "\n"),
@@ -547,7 +569,15 @@ module.exports = grammar({
 		opaque_type_def: ($) =>
 			seq($.apply_type, alias(":=", $.colon_equals), $.type_annotation),
 
-		type_annotation: ($) => choice($._type_annotation_no_fun, $.function_type),
+		type_annotation: ($) =>
+			choice(
+				seq(
+					$._indent,
+					choice($._type_annotation_no_fun, $.function_type),
+					$._dedent,
+				),
+				choice($._type_annotation_no_fun, $.function_type),
+			),
 
 		//TODO i can probably get rid of this, because type_annotation_no_fun can eventually laev to (functio_type)
 		_type_annotation_paren_fun: ($) =>
@@ -601,9 +631,9 @@ module.exports = grammar({
 
 				$.record_type,
 				// "{",
-				//   $._virtual_open,
-				//   sep1($.alias, $._virtual_end_decl),
-				//   $._virtual_close,
+				//   $._indent,
+				//   sep1($.alias, $._newline),
+				//   $._dedent,
 				// "}"
 			),
 		//    init : {} -> f where f implements InspectFormatter
@@ -721,7 +751,7 @@ module.exports = grammar({
 		_hex_int: ($) => token(seq(/0[x][0-9abcdef]*/)),
 		_binary_int: ($) => token(seq(/0[b]/, /[01][01_]*/)),
 		xint: ($) => choice($._binary_int, $._hex_int),
-		block_comment: ($) => seq("(*", $._block_comment_content, "*)"),
+		// block_comment: ($) => seq("(*", $._block_comment_content, "*)"),
 
 		//PRIMATIVES
 		back_arrow: ($) => "<-",
@@ -739,9 +769,6 @@ module.exports = grammar({
 		backslash: ($) => "\\",
 
 		line_comment: ($) => token(seq(/#/, repeat(/[^\n]/))),
-
-		_virtual_open: ($) => $._virtual_open_section,
-		_virtual_close: ($) => $._virtual_end_section,
 
 		operator: ($) => alias($.operator_identifier, $.operator),
 		operator_identifier: ($) =>
@@ -785,7 +812,7 @@ function sep_tail(rule, separator) {
 	return optional(sep1_tail(rule, separator));
 }
 function optional_indent(rule, $) {
-	return choice(seq($._virtual_open, rule, $._virtual_close), rule);
+	return choice(seq($._indent, rule, $._dedent), rule);
 }
 function imm(x) {
 	return token.immediate(x);

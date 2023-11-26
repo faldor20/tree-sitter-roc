@@ -1,0 +1,1290 @@
+================================================================================
+complex file
+================================================================================
+
+app "countdown"
+    packages { pf: "cli-platform/main.roc" }
+    imports [pf.Stdin, pf.Stdout, pf.Task.{ await, loop, succeed }]
+    provides [main] to pf
+
+main =
+    _ <- await (Stdout.line "\nLet's count down from 10 together - all you have to do is press <ENTER>.")
+    _ <- await Stdin.line
+    loop 10 tick
+
+tick = \ n ->
+    if n == 0 then
+        _ <- await (Stdout.line "SURPRISE! Happy Birthday! ")
+        succeed (Done {})
+    else
+        _ <- await (n |> Num.toStr |> \s -> "\(s)..." |> Stdout.line)
+        _ <- await Stdin.line
+        succeed (Step (n - 1))
+
+--------------------------------------------------------------------------------
+
+(file
+  (app_header
+    (app_name)
+    (app_header_body
+      (packages
+        (record
+          (record_field_expr
+            (field_name)
+            (expression_body
+              (const
+                (string))))))
+      (imports
+        (imports_entry
+          (identifier)
+          (long_module_name
+            (module)))
+        (imports_entry
+          (identifier)
+          (long_module_name
+            (module)))
+        (imports_entry
+          (identifier)
+          (long_module_name
+            (module))
+          (exposes_list
+            (ident)
+            (ident)
+            (ident))))
+      (provides
+        (ident)
+        (to)
+        (ident))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (backpassing_expression
+        (wildcard_pattern)
+        (back_arrow)
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (application_args
+            (paren_expression
+              (expression_body
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (module)
+                      (identifier)))
+                  (application_args
+                    (const
+                      (string
+                        (escape_char))))))))))
+      (backpassing_expression
+        (wildcard_pattern)
+        (back_arrow)
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (application_args
+            (long_identifier_or_op
+              (long_identifier
+                (module)
+                (identifier))))))
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (application_args
+          (const
+            (int))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (if_expression
+            (infix_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (infix_op)
+              (const
+                (int)))
+            (then
+              (expression_body
+                (backpassing_expression
+                  (wildcard_pattern)
+                  (back_arrow)
+                  (application_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))
+                    (application_args
+                      (paren_expression
+                        (expression_body
+                          (application_expression
+                            (long_identifier_or_op
+                              (long_identifier
+                                (module)
+                                (identifier)))
+                            (application_args
+                              (const
+                                (string)))))))))
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (application_args
+                    (paren_expression
+                      (expression_body
+                        (application_expression
+                          (tag_expression
+                            (tag))
+                          (application_args
+                            (record)))))))))
+            (expression_body
+              (backpassing_expression
+                (wildcard_pattern)
+                (back_arrow)
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (application_args
+                    (paren_expression
+                      (expression_body
+                        (infix_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (infix_op
+                            (symbolic_op))
+                          (infix_expression
+                            (long_identifier_or_op
+                              (long_identifier
+                                (module)
+                                (identifier)))
+                            (infix_op
+                              (symbolic_op))
+                            (fun_expression
+                              (backslash)
+                              (argument_patterns
+                                (long_identifier
+                                  (identifier)))
+                              (arrow)
+                              (expression_body
+                                (infix_expression
+                                  (const
+                                    (string
+                                      (interpolation_char
+                                        (ident))))
+                                  (infix_op
+                                    (symbolic_op))
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (module)
+                                      (identifier)))))))))))))
+              (backpassing_expression
+                (wildcard_pattern)
+                (back_arrow)
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (application_args
+                    (long_identifier_or_op
+                      (long_identifier
+                        (module)
+                        (identifier))))))
+              (application_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (application_args
+                  (paren_expression
+                    (expression_body
+                      (application_expression
+                        (tag_expression
+                          (tag))
+                        (application_args
+                          (paren_expression
+                            (expression_body
+                              (infix_expression
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))
+                                (infix_op)
+                                (const
+                                  (int))))))))))))))))))
+
+================================================================================
+simple_env
+================================================================================
+
+main =
+  task =
+    a "E" 
+    |> t (\a -> e "") 
+    |> t (\{} -> Env.decode "SHLVL")
+  task    
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (seq_infix
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (application_args
+                (const
+                  (string))))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (application_args
+                (paren_expression
+                  (expression_body
+                    (fun_expression
+                      (backslash)
+                      (argument_patterns
+                        (long_identifier
+                          (identifier)))
+                      (arrow)
+                      (expression_body
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (const
+                              (string))))))))))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (application_args
+                (paren_expression
+                  (expression_body
+                    (fun_expression
+                      (backslash)
+                      (argument_patterns
+                        (record_pattern))
+                      (arrow)
+                      (expression_body
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (module)
+                              (identifier)))
+                          (application_args
+                            (const
+                              (string)))))))))))))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier))))))
+
+================================================================================
+complex env decode
+================================================================================
+
+app "env"
+    packages { pf: "cli-platform/main.roc" }
+    imports [pf.Stdout, pf.Stderr, pf.Env, pf.Task.{ Task }]
+    provides [main] to pf
+
+main : Task {} []
+main =
+    task =
+        Env.decode "EDITOR"
+        |> Task.await (\editor -> Stdout.line "Your favorite editor is \(editor)!")
+        |> Task.await (\{} -> Env.decode "SHLVL")
+        |> Task.await
+            (\lvl ->
+                when lvl is
+                    1u8 -> Stdout.line "You're running this in a root shell!"
+                    n ->
+                        lvlStr = Num.toStr n
+
+                        Stdout.line "Your current shell level is \(lvlStr)!")
+        |> Task.await \{} -> Env.decode "LETTERS"
+
+    Task.attempt task \result ->
+        when result is
+            Ok letters ->
+                joinedLetters = Str.joinWith letters " "
+
+                Stdout.line "Your favorite letters are: \(joinedLetters)"
+
+            Err _ ->
+                Stderr.line "I couldn't find your favorite letters in the environment variables!"
+
+--------------------------------------------------------------------------------
+
+(file
+  (app_header
+    (app_name)
+    (app_header_body
+      (packages
+        (record
+          (record_field_expr
+            (field_name)
+            (expression_body
+              (const
+                (string))))))
+      (imports
+        (imports_entry
+          (identifier)
+          (long_module_name
+            (module)))
+        (imports_entry
+          (identifier)
+          (long_module_name
+            (module)))
+        (imports_entry
+          (identifier)
+          (long_module_name
+            (module)))
+        (imports_entry
+          (identifier)
+          (long_module_name
+            (module))
+          (exposes_list
+            (ident))))
+      (provides
+        (ident)
+        (to)
+        (ident))))
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (record_empty))
+          (apply_type_arg
+            (tags_type))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (seq_infix
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (module)
+                  (identifier)))
+              (application_args
+                (const
+                  (string))))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (module)
+                  (identifier)))
+              (application_args
+                (paren_expression
+                  (expression_body
+                    (fun_expression
+                      (backslash)
+                      (argument_patterns
+                        (long_identifier
+                          (identifier)))
+                      (arrow)
+                      (expression_body
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (module)
+                              (identifier)))
+                          (application_args
+                            (const
+                              (string
+                                (interpolation_char
+                                  (ident))))))))))))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (module)
+                  (identifier)))
+              (application_args
+                (paren_expression
+                  (expression_body
+                    (fun_expression
+                      (backslash)
+                      (argument_patterns
+                        (record_pattern))
+                      (arrow)
+                      (expression_body
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (module)
+                              (identifier)))
+                          (application_args
+                            (const
+                              (string))))))))))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (module)
+                  (identifier)))
+              (application_args
+                (paren_expression
+                  (expression_body
+                    (fun_expression
+                      (backslash)
+                      (argument_patterns
+                        (long_identifier
+                          (identifier)))
+                      (arrow)
+                      (expression_body
+                        (when_is_expression
+                          (when)
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (is)
+                          (rules
+                            (rule
+                              (const_pattern
+                                (uint))
+                              (arrow)
+                              (expression_body
+                                (application_expression
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (module)
+                                      (identifier)))
+                                  (application_args
+                                    (const
+                                      (string))))))
+                            (rule
+                              (identifier_pattern
+                                (long_identifier
+                                  (identifier)))
+                              (arrow)
+                              (expression_body
+                                (value_declaration
+                                  (value_declaration_left
+                                    (identifier_pattern
+                                      (long_identifier
+                                        (identifier))))
+                                  (expression_body
+                                    (application_expression
+                                      (long_identifier_or_op
+                                        (long_identifier
+                                          (module)
+                                          (identifier)))
+                                      (application_args
+                                        (long_identifier_or_op
+                                          (long_identifier
+                                            (identifier)))))))
+                                (application_expression
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (module)
+                                      (identifier)))
+                                  (application_args
+                                    (const
+                                      (string
+                                        (interpolation_char
+                                          (ident))))))))))))))))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (module)
+                  (identifier)))
+              (application_args
+                (fun_expression
+                  (backslash)
+                  (argument_patterns
+                    (record_pattern))
+                  (arrow)
+                  (expression_body
+                    (application_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (module)
+                          (identifier)))
+                      (application_args
+                        (const
+                          (string)))))))))))
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (module)
+            (identifier)))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (fun_expression
+            (backslash)
+            (argument_patterns
+              (long_identifier
+                (identifier)))
+            (arrow)
+            (expression_body
+              (when_is_expression
+                (when)
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (is)
+                (rules
+                  (rule
+                    (tag_pattern
+                      (tag)
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier))))
+                    (arrow)
+                    (expression_body
+                      (value_declaration
+                        (value_declaration_left
+                          (identifier_pattern
+                            (long_identifier
+                              (identifier))))
+                        (expression_body
+                          (application_expression
+                            (long_identifier_or_op
+                              (long_identifier
+                                (module)
+                                (identifier)))
+                            (application_args
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (const
+                                (string))))))
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (module)
+                            (identifier)))
+                        (application_args
+                          (const
+                            (string
+                              (interpolation_char
+                                (ident))))))))
+                  (rule
+                    (tag_pattern
+                      (tag)
+                      (wildcard_pattern))
+                    (arrow)
+                    (expression_body
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (module)
+                            (identifier)))
+                        (application_args
+                          (const
+                            (string)))))))))))))))
+
+================================================================================
+interface full
+================================================================================
+
+interface Dir
+    exposes [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
+    imports [Effect, Task.{ Task }, InternalTask, Path.{ Path }, InternalPath, InternalDir]
+
+ReadErr : InternalDir.ReadErr
+
+DeleteErr : InternalDir.DeleteErr
+
+DirEntry : InternalDir.DirEntry
+
+## Lists the files and directories inside the directory.
+list : Path -> Task (List Path) [DirReadErr Path ReadErr]
+list = \path ->
+    effect = Effect.map (Effect.dirList (InternalPath.toBytes path)) \result ->
+        when result is
+            Ok entries -> Ok (List.map entries InternalPath.fromOsBytes)
+            Err err -> Err (DirReadErr path err)
+
+    InternalTask.fromEffect effect
+
+## Deletes a directory if it's empty.
+deleteEmptyDir : Path -> Task {} [DirDeleteErr Path DeleteErr]
+
+## Recursively deletes the directory as well as all files and directories inside it.
+deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
+--------------------------------------------------------------------------------
+
+(file
+  (interface_header
+    (name)
+    (interface_header_body
+      (exposes
+        (ident)
+        (ident)
+        (ident)
+        (ident)
+        (ident)
+        (ident))
+      (imports
+        (imports_entry
+          (long_module_name
+            (module)))
+        (imports_entry
+          (long_module_name
+            (module))
+          (exposes_list
+            (ident)))
+        (imports_entry
+          (long_module_name
+            (module)))
+        (imports_entry
+          (long_module_name
+            (module))
+          (exposes_list
+            (ident)))
+        (imports_entry
+          (long_module_name
+            (module)))
+        (imports_entry
+          (long_module_name
+            (module))))))
+  (alias_type_def
+    (apply_type
+      (concrete_type))
+    (type_annotation
+      (apply_type
+        (concrete_type))))
+  (alias_type_def
+    (apply_type
+      (concrete_type))
+    (type_annotation
+      (apply_type
+        (concrete_type))))
+  (annotation_type_def
+    (annotation_pre_colon
+      (tag))
+    (type_annotation
+      (apply_type
+        (concrete_type))))
+  (line_comment)
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (apply_type
+                (concrete_type)
+                (apply_type_args
+                  (apply_type_arg
+                    (apply_type
+                      (concrete_type))))))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type)))))))))))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (value_declaration
+            (value_declaration_left
+              (identifier_pattern
+                (long_identifier
+                  (identifier))))
+            (expression_body
+              (application_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (module)
+                    (identifier)))
+                (application_args
+                  (paren_expression
+                    (expression_body
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (module)
+                            (identifier)))
+                        (application_args
+                          (paren_expression
+                            (expression_body
+                              (application_expression
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (module)
+                                    (identifier)))
+                                (application_args
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (identifier)))))))))))
+                  (fun_expression
+                    (backslash)
+                    (argument_patterns
+                      (long_identifier
+                        (identifier)))
+                    (arrow)
+                    (expression_body
+                      (when_is_expression
+                        (when)
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (is)
+                        (rules
+                          (rule
+                            (tag_pattern
+                              (tag)
+                              (identifier_pattern
+                                (long_identifier
+                                  (identifier))))
+                            (arrow)
+                            (expression_body
+                              (application_expression
+                                (tag_expression
+                                  (tag))
+                                (application_args
+                                  (paren_expression
+                                    (expression_body
+                                      (application_expression
+                                        (long_identifier_or_op
+                                          (long_identifier
+                                            (module)
+                                            (identifier)))
+                                        (application_args
+                                          (long_identifier_or_op
+                                            (long_identifier
+                                              (identifier)))
+                                          (long_identifier_or_op
+                                            (long_identifier
+                                              (module)
+                                              (identifier)))))))))))
+                          (rule
+                            (tag_pattern
+                              (tag)
+                              (identifier_pattern
+                                (long_identifier
+                                  (identifier))))
+                            (arrow)
+                            (expression_body
+                              (application_expression
+                                (tag_expression
+                                  (tag))
+                                (application_args
+                                  (paren_expression
+                                    (expression_body
+                                      (application_expression
+                                        (tag_expression
+                                          (tag))
+                                        (application_args
+                                          (long_identifier_or_op
+                                            (long_identifier
+                                              (identifier)))
+                                          (long_identifier_or_op
+                                            (long_identifier
+                                              (identifier)))))))))))))))))))
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (module)
+                (identifier)))
+            (application_args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))))
+  (line_comment)
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (record_empty))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type)))))))))))))))
+  (line_comment)
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (record_empty))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type))))))))))))))))
+
+================================================================================
+lists_complex
+================================================================================
+view : NavLink, Str -> Html.Node
+view = \currentNavLink, htmlContent ->
+    html [lang "en"] [
+        head [] [
+            meta [httpEquiv "content-type", content "text/html; charset=utf-8"],
+            Html.title [] [text currentNavLink.title],
+            link [rel "stylesheet", href "style.css"],
+        ],
+        body [] [
+            div [class "main"] [
+                div [class "navbar"] [
+                    viewNavbar currentNavLink,
+                ],
+                div [class "article"] [
+                    text htmlContent,
+                ],
+            ],
+        ],
+    ]
+
+--------------------------------------------------------------------------------
+
+(file
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type))
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
+              (list_expression
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (application_args
+                    (const
+                      (string)))))
+              (list_expression
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (application_args
+                    (list_expression)
+                    (list_expression
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (application_args
+                          (list_expression
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (application_args
+                                (const
+                                  (string))))
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (application_args
+                                (const
+                                  (string)))))))
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (module)
+                            (identifier)))
+                        (application_args
+                          (list_expression)
+                          (list_expression
+                            (dot_expression
+                              (application_expression
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))
+                                (application_args
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (identifier)))))
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))))))
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (application_args
+                          (list_expression
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (application_args
+                                (const
+                                  (string))))
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (application_args
+                                (const
+                                  (string))))))))))
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (application_args
+                    (list_expression)
+                    (list_expression
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (application_args
+                          (list_expression
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (application_args
+                                (const
+                                  (string)))))
+                          (list_expression
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (application_args
+                                (list_expression
+                                  (application_expression
+                                    (long_identifier_or_op
+                                      (long_identifier
+                                        (identifier)))
+                                    (application_args
+                                      (const
+                                        (string)))))
+                                (list_expression
+                                  (application_expression
+                                    (long_identifier_or_op
+                                      (long_identifier
+                                        (identifier)))
+                                    (application_args
+                                      (long_identifier_or_op
+                                        (long_identifier
+                                          (identifier))))))))
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (application_args
+                                (list_expression
+                                  (application_expression
+                                    (long_identifier_or_op
+                                      (long_identifier
+                                        (identifier)))
+                                    (application_args
+                                      (const
+                                        (string)))))
+                                (list_expression
+                                  (application_expression
+                                    (long_identifier_or_op
+                                      (long_identifier
+                                        (identifier)))
+                                    (application_args
+                                      (long_identifier_or_op
+                                        (long_identifier
+                                          (identifier))))))))))))))))))))))
+
+================================================================================
+if else
+================================================================================
+viewNavLink = \isCurrent, navlink ->
+    if isCurrent then
+        li [class "nav-link nav-link--current"] [
+            text navlink.text,
+        ]
+    else
+        li [class "nav-link"] [
+            a
+                [href navlink.url, title navlink.title]
+                [text navlink.text],
+        ]
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (if_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (then
+              (expression_body
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (application_args
+                    (list_expression
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (application_args
+                          (const
+                            (string)))))
+                    (list_expression
+                      (dot_expression
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))))))))
+            (expression_body
+              (application_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (application_args
+                  (list_expression
+                    (application_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (application_args
+                        (const
+                          (string)))))
+                  (list_expression
+                    (application_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (application_args
+                        (list_expression
+                          (dot_expression
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (application_args
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))))
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))
+                          (dot_expression
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (application_args
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))))
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))
+                        (list_expression
+                          (dot_expression
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (identifier)))
+                              (application_args
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))))
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))))))))))))))
+
+================================================================================
+if func
+================================================================================
+viewNavLink = \isCurrent, navlink ->
+    if isCurrent then
+      a b
+    else
+      a p
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (if_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (then
+              (expression_body
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (application_args
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))))))
+            (expression_body
+              (application_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (application_args
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier))))))))))))

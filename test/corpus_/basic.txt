@@ -1,0 +1,3800 @@
+================================================================================
+record builder
+================================================================================
+main=
+  { aliceID, bobID, trudyID } = 
+      initIDCount {
+          aliceID: <- incID,
+          bobID: <- incID,
+          trudyID: <- incID,
+      } |> extractState   
+  aliceID
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (record_pattern
+            (identifier_pattern
+              (long_identifier
+                (identifier)))
+            (identifier_pattern
+              (long_identifier
+                (identifier)))
+            (identifier_pattern
+              (long_identifier
+                (identifier)))))
+        (expression_body
+          (infix_expression
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (application_args
+                (record
+                  (record_field_builder
+                    (field_name)
+                    (identifier))
+                  (record_field_builder
+                    (field_name)
+                    (identifier))
+                  (record_field_builder
+                    (field_name)
+                    (identifier)))))
+            (infix_op
+              (symbolic_op))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier))))))
+
+================================================================================
+paren issue
+================================================================================
+main=
+  c=
+    (
+      b=10
+      b
+    )
+  c
+    
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (paren_expression
+            (expression_body
+              (value_declaration
+                (value_declaration_left
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier))))
+                (expression_body
+                  (const
+                    (int))))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier))))))
+
+================================================================================
+when is if
+================================================================================
+main=
+  when (a,b) is 
+    (a,5) if a -> c
+    (a,5) if a -> c
+    _->d
+
+    
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (when_is_expression
+        (when)
+        (tuple_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))
+        (is)
+        (rules
+          (rule
+            (tuple_pattern
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))
+              (const_pattern
+                (int)))
+            (if)
+            (if
+              (long_identifier
+                (identifier)))
+            (arrow)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))
+          (rule
+            (tuple_pattern
+              (identifier_pattern
+                (long_identifier
+                  (identifier)))
+              (const_pattern
+                (int)))
+            (if)
+            (if
+              (long_identifier
+                (identifier)))
+            (arrow)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))
+          (rule
+            (wildcard_pattern)
+            (arrow)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))))))
+
+================================================================================
+if issue
+================================================================================
+
+main= 
+  if a then a else b
+main= 
+  if a then
+    a a 
+  else 
+    b
+main= 
+  if a then a else 
+    b a
+main=
+  if b then c
+  else d
+main =
+  when a is
+    1->
+      if b then c
+      else d
+    2-> c
+    
+    
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (if_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (then
+          (expression_body
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
+        (expression_body
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (if_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (then
+          (expression_body
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (application_args
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))))))
+        (expression_body
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (if_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (then
+          (expression_body
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
+        (expression_body
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (if_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (then
+          (expression_body
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
+        (expression_body
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (when_is_expression
+        (when)
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (is)
+        (rules
+          (rule
+            (const_pattern
+              (int))
+            (arrow)
+            (expression_body
+              (if_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (then
+                  (expression_body
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))))
+                (expression_body
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))))))
+          (rule
+            (const_pattern
+              (int))
+            (arrow)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))))))
+
+================================================================================
+tuple issue
+================================================================================
+input = 
+  (
+    1,
+    42
+  )
+input =(1,2) 
+expec = ""
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (tuple_expression
+        (const
+          (int))
+        (const
+          (int)))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (tuple_expression
+        (const
+          (int))
+        (const
+          (int)))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (string)))))
+
+================================================================================
+type annotaions within scopes
+================================================================================
+main=
+  a:Int
+  a=1
+  a
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (annotation_type_def
+          (annotation_pre_colon
+            (identifier))
+          (type_annotation
+            (apply_type
+              (concrete_type))))
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (const
+            (int))))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier))))))
+
+================================================================================
+escaping
+================================================================================
+
+a='\n'
+a=
+ ['\\', 'n']
+
+a='\\' == ['\\', '\\']
+a='"' == ['\\', '"']
+a="\n\t\r\\a"
+
+input = "the quick brown fox jumps over the lazy doga\r\nbc\\\"xz"
+actual = Encode.toBytes input json
+expected = Str.toUtf8 "\"the quick brown fox jumps over the lazy doga\\r\\nbc\\\\\\\"xz\""
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (char
+          (escape_char)))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (list_expression
+        (const
+          (char
+            (escape_char)))
+        (const
+          (char)))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (infix_expression
+        (const
+          (char
+            (escape_char)))
+        (infix_op)
+        (list_expression
+          (const
+            (char
+              (escape_char)))
+          (const
+            (char
+              (escape_char)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (infix_expression
+        (const
+          (char))
+        (infix_op)
+        (list_expression
+          (const
+            (char
+              (escape_char)))
+          (const
+            (char))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (string
+          (escape_char)
+          (escape_char)
+          (escape_char)
+          (escape_char)))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (string
+          (escape_char)
+          (escape_char)
+          (escape_char)
+          (escape_char)))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (module)
+            (identifier)))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (module)
+            (identifier)))
+        (application_args
+          (const
+            (string
+              (escape_char)
+              (escape_char)
+              (escape_char)
+              (escape_char)
+              (escape_char)
+              (escape_char)
+              (escape_char)
+              (escape_char))))))))
+
+================================================================================
+apply type function
+================================================================================
+FieldNameMapping : [
+    CamelCase, # camelCase
+   Custom (Str -> Str), # provide a custom formatting
+]
+
+--------------------------------------------------------------------------------
+
+(file
+  (annotation_type_def
+    (annotation_pre_colon
+      (tag))
+    (type_annotation
+      (tags_type
+        (apply_type
+          (concrete_type))
+        (line_comment)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (function_type
+                (apply_type
+                  (concrete_type))
+                (arrow)
+                (apply_type
+                  (concrete_type))))))
+        (line_comment)))))
+
+================================================================================
+record optional field
+================================================================================
+a:{field? B, field: C}
+func=\{field? B, field: C,def? "hi"}-> field
+
+--------------------------------------------------------------------------------
+
+(file
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (record_type
+        (record_field_type_optional
+          (field_name)
+          (type_annotation
+            (apply_type
+              (concrete_type))))
+        (record_field_type
+          (field_name)
+          (type_annotation
+            (apply_type
+              (concrete_type)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (record_pattern
+            (record_field_optional_pattern
+              (field_name)
+              (tag_expression
+                (tag)))
+            (record_field_pattern
+              (field_name)
+              (tag_pattern
+                (tag)))
+            (record_field_optional_pattern
+              (field_name)
+              (const
+                (string)))))
+        (arrow)
+        (expression_body
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))))))
+
+================================================================================
+expect
+================================================================================
+
+expect
+    actual = dfs (\v -> Str.startsWith v "C") "A" testGraphMultipath
+    expected = Ok "Ccorrect"
+
+    actual == expected
+a=
+    !(true||false)
+--------------------------------------------------------------------------------
+
+(file
+  (expect
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
+              (paren_expression
+                (expression_body
+                  (fun_expression
+                    (backslash)
+                    (argument_patterns
+                      (long_identifier
+                        (identifier)))
+                    (arrow)
+                    (expression_body
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (module)
+                            (identifier)))
+                        (application_args
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (const
+                            (string))))))))
+              (const
+                (string))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (application_expression
+            (tag_expression
+              (tag))
+            (application_args
+              (const
+                (string))))))
+      (infix_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_op)
+        (long_identifier_or_op
+          (long_identifier
+            (identifier))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (infix_expression
+        (infix_op
+          (symbolic_op))
+        (paren_expression
+          (expression_body
+            (infix_expression
+              (const)
+              (infix_op)
+              (const))))))))
+
+================================================================================
+prefix
+================================================================================
+a=!(true||false)
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (infix_expression
+        (infix_op
+          (symbolic_op))
+        (paren_expression
+          (expression_body
+            (infix_expression
+              (const)
+              (infix_op)
+              (const))))))))
+
+================================================================================
+list_decl
+================================================================================
+
+a=[Bool.true]
+expect
+  input = [Bool.true, Bool.false]
+  actual = Encode.toBytes input json
+  expected = Str.toUtf8 "[true,false]"
+
+  actual == expected
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (list_expression
+        (long_identifier_or_op
+          (long_identifier
+            (module)
+            (identifier))))))
+  (expect
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (list_expression
+            (long_identifier_or_op
+              (long_identifier
+                (module)
+                (identifier)))
+            (long_identifier_or_op
+              (long_identifier
+                (module)
+                (identifier))))))
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (module)
+                (identifier)))
+            (application_args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (module)
+                (identifier)))
+            (application_args
+              (const
+                (string))))))
+      (infix_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_op)
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))))))
+
+================================================================================
+list patterns
+================================================================================
+a=
+  when a is
+    [..,1]->a
+    ['a','b',..]-> b
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (when_is_expression
+        (when)
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (is)
+        (rules
+          (rule
+            (list_pattern
+              (range_pattern)
+              (const_pattern
+                (int)))
+            (arrow)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))
+          (rule
+            (list_pattern
+              (const_pattern
+                (char))
+              (const_pattern
+                (char))
+              (range_pattern))
+            (arrow)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))))))
+
+================================================================================
+variables
+================================================================================
+string="hi"
+string = "hi"
+num=1
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (string))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (string))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (int)))))
+
+================================================================================
+tuple pattern
+================================================================================
+update = \dict, (vertex, edges) ->
+    Dict.insert dict vertex edges
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (tuple_pattern
+            (identifier_pattern
+              (long_identifier
+                (identifier)))
+            (identifier_pattern
+              (long_identifier
+                (identifier)))))
+        (arrow)
+        (expression_body
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (module)
+                (identifier)))
+            (application_args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))))))
+
+================================================================================
+implements_interface
+================================================================================
+
+InspectFormatter implements{
+    init : {} -> f where f implements InspectFormatter
+    }
+
+--------------------------------------------------------------------------------
+
+(file
+  (implements_definition
+    (implements)
+    (record_type
+      (record_field_type
+        (field_name)
+        (type_annotation
+          (function_type
+            (record_empty)
+            (arrow)
+            (where_implements
+              (bound_variable)
+              (where)
+              (identifier)
+              (implements)
+              (ability_chain))))))))
+
+================================================================================
+basic_implements
+================================================================================
+
+Json := { fieldNameMapping : FieldNameMapping, skipMissingProperties : Bool }
+    implements [
+        EncoderFormatting {
+            u8: encodeU8,
+            u16: encodeU16,
+        },
+        DecoderFormatting {
+            u8: decodeU8,
+        },
+    ]
+
+--------------------------------------------------------------------------------
+
+(file
+  (opaque_type_def
+    (apply_type
+      (concrete_type))
+    (colon_equals)
+    (type_annotation
+      (implements_implementation
+        (record_type
+          (record_field_type
+            (field_name)
+            (type_annotation
+              (apply_type
+                (concrete_type))))
+          (record_field_type
+            (field_name)
+            (type_annotation
+              (apply_type
+                (concrete_type)))))
+        (implements)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (record_type
+                (record_field_type
+                  (field_name)
+                  (type_annotation
+                    (bound_variable)))
+                (record_field_type
+                  (field_name)
+                  (type_annotation
+                    (bound_variable)))))))
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (record_type
+                (record_field_type
+                  (field_name)
+                  (type_annotation
+                    (bound_variable)))))))))))
+
+================================================================================
+opaque tag pattern
+================================================================================
+bfs = \isTarget, root, @Graph graph ->
+    bfsHelper isTarget [root] (Set.single root) graph
+
+fromDict : Dict a (List a) -> Graph a
+fromDict = @Graph
+
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier))
+          (tag_pattern
+            (opaque_tag)
+            (identifier_pattern
+              (long_identifier
+                (identifier)))))
+        (arrow)
+        (expression_body
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (list_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))
+              (paren_expression
+                (expression_body
+                  (application_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (module)
+                        (identifier)))
+                    (application_args
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))))))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))))
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (bound_variable))
+            (apply_type_arg
+              (apply_type
+                (concrete_type)
+                (apply_type_args
+                  (apply_type_arg
+                    (bound_variable)))))))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (bound_variable)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (tag_expression
+        (opaque_tag)))))
+
+================================================================================
+tag pattern
+================================================================================
+bfs = \isTarget, root, Graph graph ->
+    bfsHelper isTarget [root] (Set.single root) graph
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier))
+          (tag_pattern
+            (tag)
+            (identifier_pattern
+              (long_identifier
+                (identifier)))))
+        (arrow)
+        (expression_body
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (list_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))
+              (paren_expression
+                (expression_body
+                  (application_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (module)
+                        (identifier)))
+                    (application_args
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))))))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))))))
+
+================================================================================
+opaque type
+================================================================================
+Graph a := Dict a (List a) where a implements Eq
+--------------------------------------------------------------------------------
+
+(file
+  (opaque_type_def
+    (apply_type
+      (concrete_type)
+      (apply_type_args
+        (apply_type_arg
+          (bound_variable))))
+    (colon_equals)
+    (type_annotation
+      (where_implements
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (bound_variable))
+            (apply_type_arg
+              (apply_type
+                (concrete_type)
+                (apply_type_args
+                  (apply_type_arg
+                    (bound_variable)))))))
+        (where)
+        (identifier)
+        (implements)
+        (ability_chain)))))
+
+================================================================================
+arithmatic
+================================================================================
+num=1+1
+num2 = 1 + num
+
+num3 = 1 + num2
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (infix_expression
+        (const
+          (int))
+        (infix_op)
+        (const
+          (int)))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (infix_expression
+        (const
+          (int))
+        (infix_op)
+        (long_identifier_or_op
+          (long_identifier
+            (identifier))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (infix_expression
+        (const
+          (int))
+        (infix_op)
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))))))
+
+================================================================================
+functions with patterns
+================================================================================
+add = \num1, num2 ->
+    when num1 is
+      1-> 1
+      2-> 
+        a<- p a
+        b= a a
+        c<- p a
+        \num->a
+      _-> \num3->4
+
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (when_is_expression
+            (when)
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (is)
+            (rules
+              (rule
+                (const_pattern
+                  (int))
+                (arrow)
+                (expression_body
+                  (const
+                    (int))))
+              (rule
+                (const_pattern
+                  (int))
+                (arrow)
+                (expression_body
+                  (backpassing_expression
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (back_arrow)
+                    (application_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (application_args
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))))
+                  (value_declaration
+                    (value_declaration_left
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier))))
+                    (expression_body
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (application_args
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))))))
+                  (backpassing_expression
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (back_arrow)
+                    (application_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (application_args
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))))
+                  (fun_expression
+                    (backslash)
+                    (argument_patterns
+                      (long_identifier
+                        (identifier)))
+                    (arrow)
+                    (expression_body
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))))))
+              (rule
+                (wildcard_pattern)
+                (arrow)
+                (expression_body
+                  (fun_expression
+                    (backslash)
+                    (argument_patterns
+                      (long_identifier
+                        (identifier)))
+                    (arrow)
+                    (expression_body
+                      (const
+                        (int)))))))))))))
+
+================================================================================
+pipe_new
+================================================================================
+non=
+  a b
+main=
+  a b
+  |> c
+
+main=
+  a b
+    |> c a
+    |> d b
+
+main=
+  b=
+    a b
+    |> c a
+    |> d b
+  g=10
+  b
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (seq_infix
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (application_args
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
+        (infix_op
+          (symbolic_op))
+        (long_identifier_or_op
+          (long_identifier
+            (identifier))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (infix_expression
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (application_args
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
+        (infix_op
+          (symbolic_op))
+        (infix_expression
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))
+          (infix_op
+            (symbolic_op))
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (seq_infix
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (application_args
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (application_args
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (application_args
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))))))
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (const
+            (int))))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier))))))
+
+================================================================================
+function_definition
+================================================================================
+
+add = \ a, b ->
+  a+b
+add = \ a, b ->
+  val=
+    va
+  a+b
+add = \ a, b -> a+b
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (infix_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (infix_op)
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (value_declaration
+            (value_declaration_left
+              (identifier_pattern
+                (long_identifier
+                  (identifier))))
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))
+          (infix_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (infix_op)
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (infix_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (infix_op)
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))))))
+
+================================================================================
+functions basic
+================================================================================
+
+a = Task.await b
+
+main=
+  a= a b a
+  a b a
+
+a = add 1 1
+adda=
+  add2 = \num1,num2-> num1
+
+  add2 a b a b c
+
+
+add = \num1, num2 ->
+    sum = num1+num2
+    sum
+
+main = \filename ->
+    onFail b \ e, e -> Stdout.line "Ran into problem:"
+
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (module)
+            (identifier)))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (application_args
+          (const
+            (int))
+          (const
+            (int))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (fun_expression
+            (backslash)
+            (argument_patterns
+              (long_identifier
+                (identifier))
+              (long_identifier
+                (identifier)))
+            (arrow)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))))
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (value_declaration
+            (value_declaration_left
+              (identifier_pattern
+                (long_identifier
+                  (identifier))))
+            (expression_body
+              (infix_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (infix_op)
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (fun_expression
+                (backslash)
+                (argument_patterns
+                  (long_identifier
+                    (identifier))
+                  (long_identifier
+                    (identifier)))
+                (arrow)
+                (expression_body
+                  (application_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (module)
+                        (identifier)))
+                    (application_args
+                      (const
+                        (string)))))))))))))
+
+================================================================================
+if_simple
+================================================================================
+main=
+  if a then
+    a=
+      10
+    a
+  else
+    p= a+b
+    p
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (if_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (then
+          (expression_body
+            (value_declaration
+              (value_declaration_left
+                (identifier_pattern
+                  (long_identifier
+                    (identifier))))
+              (expression_body
+                (const
+                  (int))))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
+        (expression_body
+          (value_declaration
+            (value_declaration_left
+              (identifier_pattern
+                (long_identifier
+                  (identifier))))
+            (expression_body
+              (infix_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (infix_op)
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))))))
+
+================================================================================
+expressions
+================================================================================
+a=
+  ("")
+b=10
+a=
+  func a b c d e f
+sum =
+    a= num1 +num2
+    a
+
+maybe =
+    if true then
+        1
+    else 
+        0
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (paren_expression
+        (expression_body
+          (const
+            (string))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (int))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (infix_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (infix_op)
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier)))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (if_expression
+        (const)
+        (then
+          (expression_body
+            (const
+              (int))))
+        (expression_body
+          (const
+            (int)))))))
+
+================================================================================
+backpassing
+================================================================================
+
+main =
+    _ <- await (Stdout.line ".")
+
+    interpretFile = \filename ->
+      ctx <- Context.with filename
+
+      result <- Task.attempt (interpretCtx ctx)
+
+      Task.fail (StringErr "Hit end of data while still parsing something")
+    interpretFile a
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (backpassing_expression
+        (wildcard_pattern)
+        (back_arrow)
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (application_args
+            (paren_expression
+              (expression_body
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (module)
+                      (identifier)))
+                  (application_args
+                    (const
+                      (string)))))))))
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (fun_expression
+            (backslash)
+            (argument_patterns
+              (long_identifier
+                (identifier)))
+            (arrow)
+            (expression_body
+              (backpassing_expression
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))
+                (back_arrow)
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (module)
+                      (identifier)))
+                  (application_args
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier))))))
+              (backpassing_expression
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))
+                (back_arrow)
+                (application_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (module)
+                      (identifier)))
+                  (application_args
+                    (paren_expression
+                      (expression_body
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))
+              (application_expression
+                (long_identifier_or_op
+                  (long_identifier
+                    (module)
+                    (identifier)))
+                (application_args
+                  (paren_expression
+                    (expression_body
+                      (application_expression
+                        (tag_expression
+                          (tag))
+                        (application_args
+                          (const
+                            (string))))))))))))
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))))))
+
+================================================================================
+records basic
+================================================================================
+user= {
+    email: "hi",
+    firstName: "hey",
+    lastName: 1,
+    lastName: 1+1,
+    lastName:( 1*1)+1,
+}
+newScope = { scope & whileInfo }
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (record
+        (record_field_expr
+          (field_name)
+          (expression_body
+            (const
+              (string))))
+        (record_field_expr
+          (field_name)
+          (expression_body
+            (const
+              (string))))
+        (record_field_expr
+          (field_name)
+          (expression_body
+            (const
+              (int))))
+        (record_field_expr
+          (field_name)
+          (expression_body
+            (infix_expression
+              (const
+                (int))
+              (infix_op)
+              (const
+                (int)))))
+        (record_field_expr
+          (field_name)
+          (expression_body
+            (infix_expression
+              (paren_expression
+                (expression_body
+                  (infix_expression
+                    (const
+                      (int))
+                    (infix_op
+                      (symbolic_op))
+                    (const
+                      (int)))))
+              (infix_op)
+              (const
+                (int))))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (record_update
+        (identifier)
+        (record_field_expr
+          (field_name))))))
+
+================================================================================
+record_update
+================================================================================
+main={a & a: B a}
+main=
+  Task.succeed (Step { popCtx & scopes: List.set ctx.scopes last newScope })
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (record_update
+        (identifier)
+        (record_field_expr
+          (field_name)
+          (expression_body
+            (application_expression
+              (tag_expression
+                (tag))
+              (application_args
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier))))))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (module)
+            (identifier)))
+        (application_args
+          (paren_expression
+            (expression_body
+              (application_expression
+                (tag_expression
+                  (tag))
+                (application_args
+                  (record_update
+                    (identifier)
+                    (record_field_expr
+                      (field_name)
+                      (expression_body
+                        (application_expression
+                          (dot_expression
+                            (application_expression
+                              (long_identifier_or_op
+                                (long_identifier
+                                  (module)
+                                  (identifier)))
+                              (application_args
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))))
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))))))))))))))
+
+================================================================================
+pattern_complex
+================================================================================
+main=
+        if n == 0 then
+          a
+        else 
+          b
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (if_expression
+        (infix_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (infix_op)
+          (const
+            (int)))
+        (then
+          (expression_body
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
+        (expression_body
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))))))
+
+================================================================================
+records complex
+================================================================================
+
+main=
+  res=Task.succeed (Step { popCtx & scopes: List.set ctx.scopes last newScope })
+
+  when popNumber ctx is
+      Ok (T popCtx n) ->
+        if n == 0 then
+            newScope = { scope & whileInfo: None }
+
+            Task.succeed (Step { popCtx & scopes: List.set ctx.scopes last newScope })
+        else
+            newScope = { scope & whileInfo: Some { state: InBody, body, cond } }
+
+            Task.succeed (Step { popCtx & scopes: List.append (List.set ctx.scopes last newScope) { data: None, buf: body, index: 0, whileInfo: None } })
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (module)
+                (identifier)))
+            (application_args
+              (paren_expression
+                (expression_body
+                  (application_expression
+                    (tag_expression
+                      (tag))
+                    (application_args
+                      (record_update
+                        (identifier)
+                        (record_field_expr
+                          (field_name)
+                          (expression_body
+                            (application_expression
+                              (dot_expression
+                                (application_expression
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (module)
+                                      (identifier)))
+                                  (application_args
+                                    (long_identifier_or_op
+                                      (long_identifier
+                                        (identifier)))))
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier))))
+                              (application_args
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier))))))))))))))))
+      (when_is_expression
+        (when)
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (application_args
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))
+        (is)
+        (rules
+          (rule
+            (tag_pattern
+              (tag)
+              (paren_pattern
+                (tag_pattern
+                  (tag)
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier)))
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier))))))
+            (arrow)
+            (expression_body
+              (if_expression
+                (infix_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (infix_op)
+                  (const
+                    (int)))
+                (then
+                  (expression_body
+                    (value_declaration
+                      (value_declaration_left
+                        (identifier_pattern
+                          (long_identifier
+                            (identifier))))
+                      (expression_body
+                        (record_update
+                          (identifier)
+                          (record_field_expr
+                            (field_name)
+                            (expression_body
+                              (tag_expression
+                                (tag)))))))
+                    (application_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (module)
+                          (identifier)))
+                      (application_args
+                        (paren_expression
+                          (expression_body
+                            (application_expression
+                              (tag_expression
+                                (tag))
+                              (application_args
+                                (record_update
+                                  (identifier)
+                                  (record_field_expr
+                                    (field_name)
+                                    (expression_body
+                                      (application_expression
+                                        (dot_expression
+                                          (application_expression
+                                            (long_identifier_or_op
+                                              (long_identifier
+                                                (module)
+                                                (identifier)))
+                                            (application_args
+                                              (long_identifier_or_op
+                                                (long_identifier
+                                                  (identifier)))))
+                                          (long_identifier_or_op
+                                            (long_identifier
+                                              (identifier))))
+                                        (application_args
+                                          (long_identifier_or_op
+                                            (long_identifier
+                                              (identifier)))
+                                          (long_identifier_or_op
+                                            (long_identifier
+                                              (identifier))))))))))))))))
+                (expression_body
+                  (value_declaration
+                    (value_declaration_left
+                      (identifier_pattern
+                        (long_identifier
+                          (identifier))))
+                    (expression_body
+                      (record_update
+                        (identifier)
+                        (record_field_expr
+                          (field_name)
+                          (expression_body
+                            (application_expression
+                              (tag_expression
+                                (tag))
+                              (application_args
+                                (record
+                                  (record_field_expr
+                                    (field_name)
+                                    (expression_body
+                                      (tag_expression
+                                        (tag))))
+                                  (record_field_expr
+                                    (field_name))
+                                  (record_field_expr
+                                    (field_name))))))))))
+                  (application_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (module)
+                        (identifier)))
+                    (application_args
+                      (paren_expression
+                        (expression_body
+                          (application_expression
+                            (tag_expression
+                              (tag))
+                            (application_args
+                              (record_update
+                                (identifier)
+                                (record_field_expr
+                                  (field_name)
+                                  (expression_body
+                                    (application_expression
+                                      (long_identifier_or_op
+                                        (long_identifier
+                                          (module)
+                                          (identifier)))
+                                      (application_args
+                                        (paren_expression
+                                          (expression_body
+                                            (application_expression
+                                              (dot_expression
+                                                (application_expression
+                                                  (long_identifier_or_op
+                                                    (long_identifier
+                                                      (module)
+                                                      (identifier)))
+                                                  (application_args
+                                                    (long_identifier_or_op
+                                                      (long_identifier
+                                                        (identifier)))))
+                                                (long_identifier_or_op
+                                                  (long_identifier
+                                                    (identifier))))
+                                              (application_args
+                                                (long_identifier_or_op
+                                                  (long_identifier
+                                                    (identifier)))
+                                                (long_identifier_or_op
+                                                  (long_identifier
+                                                    (identifier)))))))
+                                        (record
+                                          (record_field_expr
+                                            (field_name)
+                                            (expression_body
+                                              (tag_expression
+                                                (tag))))
+                                          (record_field_expr
+                                            (field_name)
+                                            (expression_body
+                                              (long_identifier_or_op
+                                                (long_identifier
+                                                  (identifier)))))
+                                          (record_field_expr
+                                            (field_name)
+                                            (expression_body
+                                              (const
+                                                (int))))
+                                          (record_field_expr
+                                            (field_name)
+                                            (expression_body
+                                              (tag_expression
+                                                (tag)))))))))))))))))))))))))
+
+================================================================================
+val_infix
+================================================================================
+
+m=
+  a
+  |>b
+  |>p
+  |>b
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (seq_infix
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_op
+          (symbolic_op))
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_op
+          (symbolic_op))
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_op
+          (symbolic_op))
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))))))
+
+================================================================================
+list_lit
+================================================================================
+navLinks = ["",""]
+
+main=
+  a [] [
+    "",
+    ""
+    ]
+navLinks = [
+    { url: "subFolder/apple.html", title: "Exempli Gratia Pagina Pomi", text: "Apple" },
+    { url: "banana.html", title: "Exempli Gratia Pagina Musa", text: "Banana" },
+    { url: "cherry.html", title: "Exempli Pagina Cerasus", text: "Cherry" },
+]
+
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (list_expression
+        (const
+          (string))
+        (const
+          (string)))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (application_args
+          (list_expression)
+          (list_expression
+            (const
+              (string))
+            (const
+              (string)))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (list_expression
+        (record
+          (record_field_expr
+            (field_name)
+            (expression_body
+              (const
+                (string))))
+          (record_field_expr
+            (field_name)
+            (expression_body
+              (const
+                (string))))
+          (record_field_expr
+            (field_name)
+            (expression_body
+              (const
+                (string)))))
+        (record
+          (record_field_expr
+            (field_name)
+            (expression_body
+              (const
+                (string))))
+          (record_field_expr
+            (field_name)
+            (expression_body
+              (const
+                (string))))
+          (record_field_expr
+            (field_name)
+            (expression_body
+              (const
+                (string)))))
+        (record
+          (record_field_expr
+            (field_name)
+            (expression_body
+              (const
+                (string))))
+          (record_field_expr
+            (field_name)
+            (expression_body
+              (const
+                (string))))
+          (record_field_expr
+            (field_name)
+            (expression_body
+              (const
+                (string)))))))))
+
+================================================================================
+variables_basic
+================================================================================
+
+main=
+  a = 
+    p
+  a
+main=
+  a = p
+  b = c
+  a<- b
+  a
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier)))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))
+      (backpassing_expression
+        (identifier_pattern
+          (long_identifier
+            (identifier)))
+        (back_arrow)
+        (long_identifier_or_op
+          (long_identifier
+            (identifier))))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier))))))
+
+================================================================================
+odd functions
+================================================================================
+main=
+  main = 
+    k=
+     when a is
+        1-> 
+          if a then
+            b b
+            |> b a
+            |> b p
+          else 
+            c
+        2-> hi
+    p=10
+    p
+  main
+
+ 
+
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (value_declaration
+        (value_declaration_left
+          (identifier_pattern
+            (long_identifier
+              (identifier))))
+        (expression_body
+          (value_declaration
+            (value_declaration_left
+              (identifier_pattern
+                (long_identifier
+                  (identifier))))
+            (expression_body
+              (when_is_expression
+                (when)
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (is)
+                (rules
+                  (rule
+                    (const_pattern
+                      (int))
+                    (arrow)
+                    (expression_body
+                      (if_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (then
+                          (expression_body
+                            (seq_infix
+                              (application_expression
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))
+                                (application_args
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (identifier)))))
+                              (infix_op
+                                (symbolic_op))
+                              (application_expression
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))
+                                (application_args
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (identifier)))))
+                              (infix_op
+                                (symbolic_op))
+                              (application_expression
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))
+                                (application_args
+                                  (long_identifier_or_op
+                                    (long_identifier
+                                      (identifier))))))))
+                        (expression_body
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))))))
+                  (rule
+                    (const_pattern
+                      (int))
+                    (arrow)
+                    (expression_body
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))))))))
+          (value_declaration
+            (value_declaration_left
+              (identifier_pattern
+                (long_identifier
+                  (identifier))))
+            (expression_body
+              (const
+                (int))))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier))))))
+
+================================================================================
+when is
+================================================================================
+main=
+    when color is
+        Blue -> 1
+        Green | Red | Yellow -> 
+          p=10
+          p
+        Purple -> 3
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (when_is_expression
+        (when)
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (is)
+        (rules
+          (rule
+            (tag_pattern
+              (tag))
+            (arrow)
+            (expression_body
+              (const
+                (int))))
+          (rule
+            (disjunct_pattern
+              (disjunct_pattern
+                (tag_pattern
+                  (tag))
+                (tag_pattern
+                  (tag)))
+              (tag_pattern
+                (tag)))
+            (arrow)
+            (expression_body
+              (value_declaration
+                (value_declaration_left
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier))))
+                (expression_body
+                  (const
+                    (int))))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))))
+          (rule
+            (tag_pattern
+              (tag))
+            (arrow)
+            (expression_body
+              (const
+                (int)))))))))
+
+================================================================================
+fun parens
+================================================================================
+transformFileContent = 
+  \currentUrl, htmlContent ->
+      findFirst navLinks (\{ url } -> url == currentUrl)
+transformFileContent = 
+  a b \currentUrl, htmlContent -> c
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (paren_expression
+                (expression_body
+                  (fun_expression
+                    (backslash)
+                    (argument_patterns
+                      (record_pattern
+                        (identifier_pattern
+                          (long_identifier
+                            (identifier)))))
+                    (arrow)
+                    (expression_body
+                      (infix_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (infix_op)
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier))))))))))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (fun_expression
+            (backslash)
+            (argument_patterns
+              (long_identifier
+                (identifier))
+              (long_identifier
+                (identifier)))
+            (arrow)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))))))
+
+================================================================================
+types simple
+================================================================================
+main : Task {} [ ]
+main = task a
+
+ReadErr : InternalDir.ReadErr
+DeleteErr : InternalDir.DeleteErr
+
+func : string,int-> int
+func = \ a, b-> 1
+
+func2 : string,(int->int)-> int
+func2 = \ a, b-> b 1
+
+
+transformFileContent : Str, Str -> Str
+transformFileContent = 
+  \currentUrl, htmlContent ->
+      findFirst navLinks (\{ url } -> url == currentUrl)
+      |> Result.map (\currentNavLink -> view currentNavLink htmlContent)
+      |> Result.map Html.render
+      |> Result.withDefault ""
+--------------------------------------------------------------------------------
+
+(file
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (record_empty))
+          (apply_type_arg
+            (tags_type))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (application_args
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))))
+  (alias_type_def
+    (apply_type
+      (concrete_type))
+    (type_annotation
+      (apply_type
+        (concrete_type))))
+  (alias_type_def
+    (apply_type
+      (concrete_type))
+    (type_annotation
+      (apply_type
+        (concrete_type))))
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (function_type
+        (bound_variable)
+        (bound_variable)
+        (arrow)
+        (bound_variable))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (const
+            (int))))))
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (function_type
+        (bound_variable)
+        (function_type
+          (bound_variable)
+          (arrow)
+          (bound_variable))
+        (arrow)
+        (bound_variable))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
+              (const
+                (int))))))))
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type))
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (seq_infix
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (application_args
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (paren_expression
+                  (expression_body
+                    (fun_expression
+                      (backslash)
+                      (argument_patterns
+                        (record_pattern
+                          (identifier_pattern
+                            (long_identifier
+                              (identifier)))))
+                      (arrow)
+                      (expression_body
+                        (infix_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (infix_op)
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier))))))))))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (module)
+                  (identifier)))
+              (application_args
+                (paren_expression
+                  (expression_body
+                    (fun_expression
+                      (backslash)
+                      (argument_patterns
+                        (long_identifier
+                          (identifier)))
+                      (arrow)
+                      (expression_body
+                        (application_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (application_args
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))))))))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (module)
+                  (identifier)))
+              (application_args
+                (long_identifier_or_op
+                  (long_identifier
+                    (module)
+                    (identifier)))))
+            (infix_op
+              (symbolic_op))
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (module)
+                  (identifier)))
+              (application_args
+                (const
+                  (string))))))))))
+
+================================================================================
+pipe
+================================================================================
+
+main=
+  a
+  |> List.map \ b->b+1
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (seq_infix
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_op
+          (symbolic_op))
+        (application_expression
+          (long_identifier_or_op
+            (long_identifier
+              (module)
+              (identifier)))
+          (application_args
+            (fun_expression
+              (backslash)
+              (argument_patterns
+                (long_identifier
+                  (identifier)))
+              (arrow)
+              (expression_body
+                (infix_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (infix_op)
+                  (const
+                    (int)))))))))))
+
+================================================================================
+type annotation complex
+================================================================================
+
+findOneArg : Str, Str, MarkedArgs -> Result { val : Str, newlyTaken : Taken } [NotFound]
+findOneArg = \long, short, { args, taken } -> long
+
+--------------------------------------------------------------------------------
+
+(file
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type))
+        (apply_type
+          (concrete_type))
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (record_type
+                (record_field_type
+                  (field_name)
+                  (type_annotation
+                    (apply_type
+                      (concrete_type))))
+                (record_field_type
+                  (field_name)
+                  (type_annotation
+                    (apply_type
+                      (concrete_type))))))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type)))))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier))
+          (record_pattern
+            (identifier_pattern
+              (long_identifier
+                (identifier)))
+            (identifier_pattern
+              (long_identifier
+                (identifier)))))
+        (arrow)
+        (expression_body
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))))))
+
+================================================================================
+infix
+================================================================================
+a= a>=b
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (infix_expression
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (infix_op)
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))))))
+
+================================================================================
+literal
+================================================================================
+t=0xff
+t=0xff
+t=0b001
+t=0b00_10
+
+t=1u8
+
+t=1u128
+t=1i128
+t=1i8
+t=1.1
+t=1.1f32
+t=1.1dec
+t=1nat
+b="a"
+b=""
+b="p \( hi )"
+b="p \n \( hi )"
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (xint))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (xint))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (xint))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (xint))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (uint))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (uint))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (iint))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (iint))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (float))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (float))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (decimal))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (natural))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (string))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (string))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (string
+          (interpolation_char
+            (ident))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (string
+          (escape_char)
+          (interpolation_char
+            (ident)))))))
+
+================================================================================
+record pattern
+================================================================================
+main=
+  when a is 
+    Some { state: InCond, body, cond } -> b
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (when_is_expression
+        (when)
+        (long_identifier_or_op
+          (long_identifier
+            (identifier)))
+        (is)
+        (rules
+          (rule
+            (tag_pattern
+              (tag)
+              (record_pattern
+                (record_field_pattern
+                  (field_name)
+                  (tag_pattern
+                    (tag)))
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))
+                (identifier_pattern
+                  (long_identifier
+                    (identifier)))))
+            (arrow)
+            (expression_body
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier))))))))))
+
+================================================================================
+interface module
+================================================================================
+
+interface Dir
+    exposes [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
+    imports [Effect, pf.Task.Task.{ Task }, InternalTask, Path.{ Path }, InternalPath, InternalDir]
+
+a=10
+
+--------------------------------------------------------------------------------
+
+(file
+  (interface_header
+    (name)
+    (interface_header_body
+      (exposes
+        (ident)
+        (ident)
+        (ident)
+        (ident)
+        (ident)
+        (ident))
+      (imports
+        (imports_entry
+          (long_module_name
+            (module)))
+        (imports_entry
+          (identifier)
+          (long_module_name
+            (module))
+          (exposes_list
+            (ident)))
+        (imports_entry
+          (long_module_name
+            (module)))
+        (imports_entry
+          (long_module_name
+            (module))
+          (exposes_list
+            (ident)))
+        (imports_entry
+          (long_module_name
+            (module)))
+        (imports_entry
+          (long_module_name
+            (module))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (int)))))
+
+================================================================================
+interf_prob
+================================================================================
+
+interface Dir
+    exposes [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
+    imports[Effect, Task.{ Task }, InternalTask, Path.{ Path }, InternalPath, InternalDir]
+
+AA: AA.BB
+BB : AA.BB
+CC : AA.BB
+
+
+## com
+a : A -> TASK (List Path) [DirReadErr Path ReadErr]
+a = \path ->
+  a
+
+--------------------------------------------------------------------------------
+
+(file
+  (interface_header
+    (name)
+    (interface_header_body
+      (exposes
+        (ident)
+        (ident)
+        (ident)
+        (ident)
+        (ident)
+        (ident))
+      (imports
+        (imports_entry
+          (long_module_name
+            (module)))
+        (imports_entry
+          (long_module_name
+            (module))
+          (exposes_list
+            (ident)))
+        (imports_entry
+          (long_module_name
+            (module)))
+        (imports_entry
+          (long_module_name
+            (module))
+          (exposes_list
+            (ident)))
+        (imports_entry
+          (long_module_name
+            (module)))
+        (imports_entry
+          (long_module_name
+            (module))))))
+  (alias_type_def
+    (apply_type
+      (concrete_type))
+    (type_annotation
+      (apply_type
+        (concrete_type))))
+  (alias_type_def
+    (apply_type
+      (concrete_type))
+    (type_annotation
+      (apply_type
+        (concrete_type))))
+  (annotation_type_def
+    (annotation_pre_colon
+      (tag))
+    (type_annotation
+      (apply_type
+        (concrete_type))))
+  (line_comment)
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (apply_type
+                (concrete_type)
+                (apply_type_args
+                  (apply_type_arg
+                    (apply_type
+                      (concrete_type))))))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type)))))))))))))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (long_identifier_or_op
+            (long_identifier
+              (identifier))))))))
+
+================================================================================
+app header
+================================================================================
+
+platform "ruby-interop"
+    requires {} { main : arg -> ret where arg implements Decoding, ret implements Encoding }
+    exposes []
+    packages {}
+    imports [TotallyNotJson]
+    provides [mainForHost]
+
+main = 1
+--------------------------------------------------------------------------------
+
+(file
+  (platform_header
+    (name)
+    (platform_header_body
+      (requires
+        (requires_rigids)
+        (typed_ident
+          (identifier)
+          (type_annotation
+            (function_type
+              (bound_variable)
+              (arrow)
+              (where_implements
+                (bound_variable)
+                (where)
+                (identifier)
+                (implements)
+                (ability_chain)
+                (identifier)
+                (implements)
+                (ability_chain))))))
+      (exposes)
+      (packages
+        (record))
+      (imports
+        (imports_entry
+          (long_module_name
+            (module))))
+      (provides
+        (ident))))
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (const
+        (int)))))

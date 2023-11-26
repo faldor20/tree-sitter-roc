@@ -115,17 +115,20 @@ a= if a then b else
           (expr_body
             (variable_expr
               (identifier))))
-        (else_if
-          (variable_expr
-            (identifier))
-          (then
-            (expr_body
-              (variable_expr
-                (identifier)))))
         (else
           (expr_body
-            (variable_expr
-              (identifier))))))))
+            (if_expr
+              (if)
+              (variable_expr
+                (identifier))
+              (then
+                (expr_body
+                  (variable_expr
+                    (identifier))))
+              (else
+                (expr_body
+                  (variable_expr
+                    (identifier)))))))))))
 
 ================================================================================
 if_nested

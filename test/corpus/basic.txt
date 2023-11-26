@@ -871,7 +871,7 @@ InspectFormatter implements{
               (ability_chain))))))))
 
 ================================================================================
-implements
+basic_implements
 ================================================================================
 
 Json := { fieldNameMapping : FieldNameMapping, skipMissingProperties : Bool }
@@ -3220,38 +3220,38 @@ a = \path ->
       (apply_type
         (concrete_type))))
   (line_comment)
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (type_annotation
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)))))))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type)))))))))))))))
   (value_declaration
-    (annotation_type_def
-      (annotation_pre_colon
-        (identifier))
-      (type_annotation
-        (function_type
-          (apply_type
-            (concrete_type))
-          (arrow)
-          (apply_type
-            (concrete_type)
-            (apply_type_args
-              (apply_type_arg
-                (type_annotation
-                  (apply_type
-                    (concrete_type)
-                    (apply_type_args
-                      (apply_type_arg
-                        (apply_type
-                          (concrete_type)))))))
-              (apply_type_arg
-                (tags_type
-                  (apply_type
-                    (concrete_type)
-                    (apply_type_args
-                      (apply_type_arg
-                        (apply_type
-                          (concrete_type)
-                          (apply_type_args
-                            (apply_type_arg
-                              (apply_type
-                                (concrete_type)))))))))))))))
     (decl_left
       (identifier_pattern
         (identifier)))

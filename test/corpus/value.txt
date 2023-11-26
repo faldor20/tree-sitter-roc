@@ -115,9 +115,29 @@ var =
             (int))))
       (variable_expr
         (identifier)))))
-===
+
+================================================================================
 value_record
-===
+================================================================================
 
 { result: commaResult, rest: nextBytes } = comma beforeCommaOrBreak
----
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (record_pattern
+        (record_field_type
+          (field_name)
+          (type_annotation
+            (bound_variable)))
+        (record_field_type
+          (field_name)
+          (type_annotation
+            (bound_variable)))))
+    (expr_body
+      (function_call_expr
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier))))))

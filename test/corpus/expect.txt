@@ -1,0 +1,81 @@
+================================================================================
+expect
+================================================================================
+
+expect escapedByteToJson '\n' == ['\\', 'n']
+expect
+    input = "G'day"
+    actual = Encode.toBytes input json
+    expected = Str.toUtf8 "\"G'day\""
+
+    actual == expected
+--------------------------------------------------------------------------------
+
+(file
+  (expect
+    (expr_body
+      (bin_op_expr
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (const
+            (char
+              (escape_char))))
+        (operator)
+        (list_expr
+          (const
+            (char
+              (escape_char)))
+          (const
+            (char))))))
+  (expect
+    (expr_body
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (const
+            (string))))
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (function_call_expr
+            (variable_expr
+              (module)
+              (identifier))
+            (variable_expr
+              (identifier))
+            (variable_expr
+              (identifier)))))
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (function_call_expr
+            (variable_expr
+              (module)
+              (identifier))
+            (const
+              (string
+                (escape_char)
+                (escape_char))))))
+      (bin_op_expr
+        (variable_expr
+          (identifier))
+        (operator)
+        (variable_expr
+          (identifier))))))
+===
+expect_wierd
+===
+expect
+  Ok ("The Answer is", 42)
+
+expect
+
+  actual.result == expected
+---

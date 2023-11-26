@@ -158,3 +158,44 @@ main=
             (identifier))))
       (variable_expr
         (identifier)))))
+
+================================================================================
+backpassing_indent
+================================================================================
+main =
+  a<- a b
+    (
+      m =10
+      m
+    )
+  a
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (backpassing_expr
+        (identifier_pattern
+          (identifier))
+        (back_arrow)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier))
+          (parenthesized_expr
+            (expr_body
+              (value_declaration
+                (decl_left
+                  (identifier_pattern
+                    (identifier)))
+                (expr_body
+                  (const
+                    (int))))
+              (variable_expr
+                (identifier))))))
+      (variable_expr
+        (identifier)))))

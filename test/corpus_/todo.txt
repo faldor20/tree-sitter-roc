@@ -1,0 +1,453 @@
+================================================================================
+if elif
+================================================================================
+
+jsonHexToDecimal = \b ->
+    if b >= '0' && b <= '9' then
+        b - '0'
+    else if b >= 'a' && b <= 'f' then
+        b - 'a' + 10
+    else if b >= 'A' && b <= 'F' then
+        b - 'A' + 10
+    else
+        crash "got an invalid hex char"
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (if_expression
+            (infix_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (infix_op)
+              (infix_expression
+                (const
+                  (char))
+                (infix_op)
+                (infix_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (infix_op)
+                  (const
+                    (char)))))
+            (then
+              (expression_body
+                (infix_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (infix_op)
+                  (const
+                    (char)))))
+            (expression_body
+              (if_expression
+                (infix_expression
+                  (long_identifier_or_op
+                    (long_identifier
+                      (identifier)))
+                  (infix_op)
+                  (infix_expression
+                    (const
+                      (char))
+                    (infix_op)
+                    (infix_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (infix_op)
+                      (const
+                        (char)))))
+                (then
+                  (expression_body
+                    (infix_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (infix_op)
+                      (infix_expression
+                        (const
+                          (char))
+                        (infix_op)
+                        (const
+                          (int))))))
+                (expression_body
+                  (if_expression
+                    (infix_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (infix_op)
+                      (infix_expression
+                        (const
+                          (char))
+                        (infix_op)
+                        (infix_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (infix_op)
+                          (const
+                            (char)))))
+                    (then
+                      (expression_body
+                        (infix_expression
+                          (long_identifier_or_op
+                            (long_identifier
+                              (identifier)))
+                          (infix_op)
+                          (infix_expression
+                            (const
+                              (char))
+                            (infix_op)
+                            (const
+                              (int))))))
+                    (expression_body
+                      (application_expression
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))
+                        (application_args
+                          (const
+                            (string)))))))))))))))
+
+================================================================================
+multiline if
+================================================================================
+parseExactChar = \bytes, char ->
+    when List.get bytes 0 is
+        Ok c ->
+            if
+                c == char
+            then
+                { result: Ok {}, rest: (List.split bytes 1).others }
+            else
+                { result: Err TooShort, rest: bytes }
+
+        Err _ -> { result: Err TooShort, rest: bytes }
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (fun_expression
+        (backslash)
+        (argument_patterns
+          (long_identifier
+            (identifier))
+          (long_identifier
+            (identifier)))
+        (arrow)
+        (expression_body
+          (when_is_expression
+            (when)
+            (application_expression
+              (long_identifier_or_op
+                (long_identifier
+                  (module)
+                  (identifier)))
+              (application_args
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (const
+                  (int))))
+            (is)
+            (rules
+              (rule
+                (tag_pattern
+                  (tag)
+                  (identifier_pattern
+                    (long_identifier
+                      (identifier))))
+                (arrow)
+                (expression_body
+                  (if_expression
+                    (infix_expression
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))
+                      (infix_op)
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier))))
+                    (then
+                      (expression_body
+                        (record
+                          (record_field_expr
+                            (field_name)
+                            (expression_body
+                              (application_expression
+                                (tag_expression
+                                  (tag))
+                                (application_args
+                                  (record)))))
+                          (record_field_expr
+                            (field_name)
+                            (expression_body
+                              (dot_expression
+                                (paren_expression
+                                  (expression_body
+                                    (application_expression
+                                      (long_identifier_or_op
+                                        (long_identifier
+                                          (module)
+                                          (identifier)))
+                                      (application_args
+                                        (long_identifier_or_op
+                                          (long_identifier
+                                            (identifier)))
+                                        (const
+                                          (int))))))
+                                (long_identifier_or_op
+                                  (long_identifier
+                                    (identifier)))))))))
+                    (expression_body
+                      (record
+                        (record_field_expr
+                          (field_name)
+                          (expression_body
+                            (application_expression
+                              (tag_expression
+                                (tag))
+                              (application_args
+                                (tag_expression
+                                  (tag))))))
+                        (record_field_expr
+                          (field_name)
+                          (expression_body
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))))
+              (rule
+                (tag_pattern
+                  (tag)
+                  (wildcard_pattern))
+                (arrow)
+                (expression_body
+                  (record
+                    (record_field_expr
+                      (field_name)
+                      (expression_body
+                        (application_expression
+                          (tag_expression
+                            (tag))
+                          (application_args
+                            (tag_expression
+                              (tag))))))
+                    (record_field_expr
+                      (field_name)
+                      (expression_body
+                        (long_identifier_or_op
+                          (long_identifier
+                            (identifier)))))))))))))))
+
+================================================================================
+multiline expressions inside a record
+================================================================================
+main=
+  {
+    a:
+      b=10
+      b
+  }
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (record
+        (record_field_expr
+          (field_name)
+          (expression_body
+            (value_declaration
+              (value_declaration_left
+                (identifier_pattern
+                  (long_identifier
+                    (identifier))))
+              (expression_body
+                (const
+                  (int))))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))))))))
+
+================================================================================
+list pattern issue
+================================================================================
+
+decodeBool = Decode.custom \bytes, @Json {} ->
+    when bytes is
+        a -> { result: a,res:b }
+        a -> { result:a }
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (application_expression
+        (long_identifier_or_op
+          (long_identifier
+            (module)
+            (identifier)))
+        (application_args
+          (fun_expression
+            (backslash)
+            (argument_patterns
+              (long_identifier
+                (identifier))
+              (tag_pattern
+                (opaque_tag)
+                (record_pattern)))
+            (arrow)
+            (expression_body
+              (when_is_expression
+                (when)
+                (long_identifier_or_op
+                  (long_identifier
+                    (identifier)))
+                (is)
+                (rules
+                  (rule
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (arrow)
+                    (expression_body
+                      (record
+                        (record_field_expr
+                          (field_name)
+                          (expression_body
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))
+                        (record_field_expr
+                          (field_name)
+                          (expression_body
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier))))))))
+                  (rule
+                    (identifier_pattern
+                      (long_identifier
+                        (identifier)))
+                    (arrow)
+                    (expression_body
+                      (record
+                        (record_field_expr
+                          (field_name)
+                          (expression_body
+                            (long_identifier_or_op
+                              (long_identifier
+                                (identifier)))))))))))))))))
+
+================================================================================
+backpassing todo
+================================================================================
+main=
+
+  { rest: afterBracketBytes } <- initialBytes |> openBracket |> tryDecode 
+
+  { val: endStateResult, rest: beforeClosingBracketBytes } <- decodeElems stepElem initialState 0 (eatWhitespace afterBracketBytes) |> tryDecode
+  a
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration_top
+    (value_declaration_left
+      (identifier_pattern
+        (long_identifier
+          (identifier))))
+    (expression_body
+      (backpassing_expression
+        (record_pattern
+          (record_field_type
+            (field_name)
+            (type_annotation
+              (bound_variable))))
+        (back_arrow)
+        (infix_expression
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))
+          (infix_op
+            (symbolic_op))
+          (infix_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (infix_op
+              (symbolic_op))
+            (long_identifier_or_op
+              (long_identifier
+                (identifier))))))
+      (backpassing_expression
+        (record_pattern
+          (record_field_type
+            (field_name)
+            (type_annotation
+              (bound_variable)))
+          (record_field_type
+            (field_name)
+            (type_annotation
+              (bound_variable))))
+        (back_arrow)
+        (infix_expression
+          (application_expression
+            (long_identifier_or_op
+              (long_identifier
+                (identifier)))
+            (application_args
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (long_identifier_or_op
+                (long_identifier
+                  (identifier)))
+              (const
+                (int))
+              (paren_expression
+                (expression_body
+                  (application_expression
+                    (long_identifier_or_op
+                      (long_identifier
+                        (identifier)))
+                    (application_args
+                      (long_identifier_or_op
+                        (long_identifier
+                          (identifier)))))))))
+          (infix_op
+            (symbolic_op))
+          (long_identifier_or_op
+            (long_identifier
+              (identifier)))))
+      (long_identifier_or_op
+        (long_identifier
+          (identifier))))))
