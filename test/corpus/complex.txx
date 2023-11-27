@@ -36,16 +36,13 @@ tick = \ n ->
       (imports
         (imports_entry
           (identifier)
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
           (identifier)
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
           (identifier)
-          (long_module_name
-            (module))
+          (module)
           (exposes_list
             (ident)
             (ident)
@@ -312,20 +309,16 @@ main =
       (imports
         (imports_entry
           (identifier)
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
           (identifier)
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
           (identifier)
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
           (identifier)
-          (long_module_name
-            (module))
+          (module)
           (exposes_list
             (ident))))
       (provides
@@ -578,27 +571,21 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
         (ident))
       (imports
         (imports_entry
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
-          (long_module_name
-            (module))
+          (module)
           (exposes_list
             (ident)))
         (imports_entry
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
-          (long_module_name
-            (module))
+          (module)
           (exposes_list
             (ident)))
         (imports_entry
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
-          (long_module_name
-            (module))))))
+          (module)))))
   (alias_type_def
     (apply_type
       (concrete_type))

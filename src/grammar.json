@@ -2375,8 +2375,29 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "long_module_name"
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "module"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": "."
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "module"
+                  }
+                ]
+              }
+            }
+          ]
         },
         {
           "type": "CHOICE",
@@ -2667,48 +2688,52 @@
       ]
     },
     "type_annotation": {
-      "type": "CHOICE",
-      "members": [
-        {
-          "type": "SEQ",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_indent"
-            },
-            {
-              "type": "CHOICE",
-              "members": [
-                {
-                  "type": "SYMBOL",
-                  "name": "_type_annotation_no_fun"
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "function_type"
-                }
-              ]
-            },
-            {
-              "type": "SYMBOL",
-              "name": "_dedent"
-            }
-          ]
-        },
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "_type_annotation_no_fun"
-            },
-            {
-              "type": "SYMBOL",
-              "name": "function_type"
-            }
-          ]
-        }
-      ]
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_indent"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_type_annotation_no_fun"
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "function_type"
+                  }
+                ]
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_dedent"
+              }
+            ]
+          },
+          {
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "_type_annotation_no_fun"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "function_type"
+              }
+            ]
+          }
+        ]
+      }
     },
     "_type_annotation_paren_fun": {
       "type": "CHOICE",
@@ -3701,31 +3726,6 @@
       "type": "PATTERN",
       "value": "[A-Z][0-9a-zA-Z_]*"
     },
-    "long_module_name": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "SYMBOL",
-          "name": "module"
-        },
-        {
-          "type": "REPEAT",
-          "content": {
-            "type": "SEQ",
-            "members": [
-              {
-                "type": "STRING",
-                "value": "."
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_upper_identifier"
-              }
-            ]
-          }
-        }
-      ]
-    },
     "tag": {
       "type": "ALIAS",
       "content": {
@@ -3898,10 +3898,6 @@
   ],
   "conflicts": [
     [
-      "type_annotation",
-      "_type_annotation_paren_fun"
-    ],
-    [
       "_function_call_target",
       "_atom_expr"
     ],
@@ -3935,9 +3931,6 @@
     [
       "list_pattern",
       "list_expr"
-    ],
-    [
-      "long_module_name"
     ],
     [
       "_module_elem",
@@ -4000,6 +3993,7 @@
     }
   ],
   "inline": [
+    "_type_annotation_paren_fun",
     "module",
     "tag",
     "field_name",

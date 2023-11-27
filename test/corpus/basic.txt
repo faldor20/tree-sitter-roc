@@ -2683,10 +2683,11 @@ transformFileContent =
       (type_annotation
         (function_type
           (bound_variable)
-          (function_type
-            (bound_variable)
-            (arrow)
-            (bound_variable))
+          (type_annotation
+            (function_type
+              (bound_variable)
+              (arrow)
+              (bound_variable)))
           (arrow)
           (bound_variable))))
     (decl_left
@@ -3117,28 +3118,23 @@ a=10
         (ident))
       (imports
         (imports_entry
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
           (identifier)
-          (long_module_name
-            (module))
+          (module)
+          (module)
           (exposes_list
             (ident)))
         (imports_entry
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
-          (long_module_name
-            (module))
+          (module)
           (exposes_list
             (ident)))
         (imports_entry
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
-          (long_module_name
-            (module))))))
+          (module)))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -3180,27 +3176,21 @@ a = \path ->
         (ident))
       (imports
         (imports_entry
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
-          (long_module_name
-            (module))
+          (module)
           (exposes_list
             (ident)))
         (imports_entry
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
-          (long_module_name
-            (module))
+          (module)
           (exposes_list
             (ident)))
         (imports_entry
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
-          (long_module_name
-            (module))))))
+          (module)))))
   (alias_type_def
     (apply_type
       (concrete_type))
@@ -3306,8 +3296,7 @@ main = 1
         (record_pattern))
       (imports
         (imports_entry
-          (long_module_name
-            (module))))
+          (module)))
       (provides
         (ident))))
   (value_declaration

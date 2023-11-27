@@ -41,20 +41,11 @@ module.exports = grammar({
 		"except",
 	],
 
-	extras: ($) => [
-		// $.block_comment,
-		$.line_comment,
-		/[ \s\f\uFEFF\u2060\u200B]|\\\r?n/,
-	],
+	extras: ($) => [$.line_comment, /[ \s\f\uFEFF\u2060\u200B]|\\\r?n/],
 
 	conflicts: ($) => [
-		// [$.implements_implementation, $.apply_type_arg],
-		// [$.where_implements, $.apply_type_arg],
-		[$.type_annotation, $._type_annotation_paren_fun],
-
 		[$._function_call_target, $._atom_expr],
 		[$.function_call_expr],
-
 		[$._pattern, $._atom_expr],
 		[$._atomic_pattern, $._atom_expr],
 		[$.tag_pattern, $.tag_expr],
@@ -62,62 +53,13 @@ module.exports = grammar({
 		[$.record_field_pattern, $.record_field_expr],
 		[$.identifier_pattern, $.long_identifier],
 		[$.list_pattern, $.list_expr],
-
-		[$.long_module_name],
 		[$._module_elem, $.value_declaration],
-
-		// [$.variable_expr],
-		// [$.tag_pattern, $.concrete_type],
-		// [$.identifier_pattern, $.identifier],
-		// [$._atomic_pattern, $._type_annotation_no_fun],
-		// [$.identifier, $.identifier_pattern, $._type_annotation_no_fun],
-		// [$.tag_expr, $.tag_pattern, $.concrete_type],
-		// [$._pattern, $._type_annotation_no_fun],
-		// [$.record_pattern, $.record_type],
-		// [$.tags_type, $.list_pattern],
-		// [$.operator_identifier, $.wildcard],
-		// [$.record_expr, $.record_pattern, $.record_type],
-		// [$.concrete_type, $.long_identifier],
-		// [$.identifier_pattern, $._type_annotation_no_fun],
-		// [$.identifier, $.long_identifier],
-		// [$.annotation_pre_colon, $.long_identifier],
-		// [$._function_call_target, $.concrete_type],
-		// [$._atom_expr, $.concrete_type],
-		// [$.record_type, $.record_expr],
-		// [$._type_annotation_no_fun, $.long_identifier],
-		// [$.long_identifier, $.identifier_pattern, $._type_annotation_no_fun],
-		// [$.list_pattern, $.list_expr, $.tags_type],
-		// [$.list_expr, $.tags_type],
-		// [$._field_access_start, $._function_call_target],
-		// [$._field_access_start, $._atom_expr],
-		// [$._field_access_start, $._function_call_target, $._atom_expr],
-		// [$.expr_body],
-		// [$.identifier_pattern, $.long_identifier_or_op],
-		// [$.symbolic_op, $.infix_op],
-		// // [$.prefix_op, $.infix_op],
-		// [$.long_module_name],
-		// // [$.application_expr, $.infix_expr],
-		// // [$.application_expr, $.infix_expr, $._pattern],
-		// [$._expr_inner, $._pattern],
-		// [$.identifier, $.bound_variable],
-		// [$.inferred, $._pattern],
-		// [$._type_annotation_paren_fun, $._type_annotation],
-		// [$._pattern, $.record_field_expr],
-		// [$.concrete_type, $.tag],
-		// [$._expr_no_infix_seq, $._expr_inner],
-		// [$.application_expr, $.infix_expr],
-		// [$.infix_expr],
-		// [$.application_args],
-		// [$._pattern, $.expr_body],
-		// [$.record_pattern, $.record],
-		// [$.record_pattern, $.record_type],
-		// [$.identifier, $.field_name],
-		// [$.prefixed_expr, $.infix_expr],
 	],
 
 	words: ($) => /\s+/,
 
 	inline: ($) => [
+		$._type_annotation_paren_fun,
 		$.module,
 		$.tag,
 		$.field_name,
@@ -528,7 +470,7 @@ module.exports = grammar({
 		imports_entry: ($) =>
 			seq(
 				optional(seq($.identifier, ".")),
-				$.long_module_name,
+				seq($.module, repeat(seq(".", $.module))),
 				optional(seq(".", $.exposes_list)),
 			),
 		//TODO make a function for all these comma separated trailing comma things
@@ -575,13 +517,15 @@ module.exports = grammar({
 			seq($.apply_type, alias(":=", $.colon_equals), $.type_annotation),
 
 		type_annotation: ($) =>
-			choice(
-				seq(
-					$._indent,
+			prec.left(
+				choice(
+					seq(
+						$._indent,
+						choice($._type_annotation_no_fun, $.function_type),
+						$._dedent,
+					),
 					choice($._type_annotation_no_fun, $.function_type),
-					$._dedent,
 				),
-				choice($._type_annotation_no_fun, $.function_type),
 			),
 
 		//TODO i can probably get rid of this, because type_annotation_no_fun can eventually laev to (functio_type)
@@ -766,8 +710,6 @@ module.exports = grammar({
 		ident: ($) => choice($._lower_identifier, $._upper_identifier),
 		_lower_identifier: ($) => /[a-z][0-9a-zA-Z_]*/,
 		_upper_identifier: ($) => /[A-Z][0-9a-zA-Z_]*/,
-		long_module_name: ($) =>
-			seq($.module, repeat(seq(".", $._upper_identifier))),
 		tag: ($) => alias($._upper_identifier, $.tag),
 		opaque_tag: ($) => /@[A-Z][0-9a-zA-Z_]*/,
 		module: ($) => alias($._upper_identifier, $.module),

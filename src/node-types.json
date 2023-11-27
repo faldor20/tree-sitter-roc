@@ -1738,7 +1738,7 @@
           "named": true
         },
         {
-          "type": "long_module_name",
+          "type": "module",
           "named": true
         }
       ]
@@ -1935,21 +1935,6 @@
         },
         {
           "type": "wildcard_pattern",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "long_module_name",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "module",
           "named": true
         }
       ]

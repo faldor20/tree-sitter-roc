@@ -36,16 +36,13 @@ tick = \ n ->
       (imports
         (imports_entry
           (identifier)
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
           (identifier)
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
           (identifier)
-          (long_module_name
-            (module))
+          (module)
           (exposes_list
             (ident)
             (ident)
@@ -302,20 +299,16 @@ main =
       (imports
         (imports_entry
           (identifier)
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
           (identifier)
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
           (identifier)
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
           (identifier)
-          (long_module_name
-            (module))
+          (module)
           (exposes_list
             (ident))))
       (provides
@@ -493,27 +486,21 @@ deleteRecursive : Path -> Task
         (ident))
       (imports
         (imports_entry
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
-          (long_module_name
-            (module))
+          (module)
           (exposes_list
             (ident)))
         (imports_entry
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
-          (long_module_name
-            (module))
+          (module)
           (exposes_list
             (ident)))
         (imports_entry
-          (long_module_name
-            (module)))
+          (module))
         (imports_entry
-          (long_module_name
-            (module))))))
+          (module)))))
   (alias_type_def
     (apply_type
       (concrete_type))
@@ -1041,3 +1028,450 @@ expect
         (operator)
         (variable_expr
           (identifier))))))
+
+================================================================================
+tags_mistake_field
+================================================================================
+encodeStrBytes = \str ->
+    bytes = Str.toUtf8 str
+    p=bytes a
+
+    initialState = { bytePos: 0, status: NoEscapesFound }
+
+    firstPassState =
+        List.walkUntil bytes initialState \{ bytePos, status }, b ->
+            when b is
+                0x22 -> Break { bytePos, status: FoundEscape } # U+0022 Quotation mark
+                0x5c -> Break { bytePos, status: FoundEscape } # U+005c Reverse solidus
+                0x2f -> Break { bytePos, status: FoundEscape } # U+002f Solidus
+                0x08 -> Break { bytePos, status: FoundEscape } # U+0008 Backspace
+                0x0c -> Break { bytePos, status: FoundEscape } # U+000c Form feed
+                0x0a -> Break { bytePos, status: FoundEscape } # U+000a Line feed
+                0x0d -> Break { bytePos, status: FoundEscape } # U+000d Carriage return
+                0x09 -> Break { bytePos, status: FoundEscape } # U+0009 Tab
+                _ -> Continue { bytePos: bytePos + 1, status }
+
+    when firstPassState.status is
+        NoEscapesFound ->
+            (List.len bytes)
+            + 2
+            |> List.withCapacity
+            |> List.concat ['"']
+            |> List.concat bytes
+            |> List.concat ['"']
+
+        FoundEscape ->
+            { before: bytesBeforeEscape, others: bytesWithEscapes } =
+                List.split bytes firstPassState.bytePos
+
+            # Reserve List with 120% capacity for escaped bytes to reduce
+            # allocations, include starting quote, and bytes up to first escape
+            initial =
+                List.len bytes
+                |> Num.mul 120
+                |> Num.divCeil 100
+                |> List.withCapacity
+                |> List.concat ['"']
+                |> List.concat bytesBeforeEscape
+
+            # Walk the remaining bytes and include escape '\' as required
+            # add closing quote
+            List.walk bytesWithEscapes initial \encodedBytes, byte ->
+                List.concat encodedBytes (escapedByteToJson byte)
+            |> List.concat ['"']
+
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (backslash)
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (arrow)
+        (expr_body
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (function_call_expr
+                (variable_expr
+                  (module)
+                  (identifier))
+                (variable_expr
+                  (identifier)))))
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (function_call_expr
+                (variable_expr
+                  (identifier))
+                (variable_expr
+                  (identifier)))))
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (record_expr
+                (record_field_expr
+                  (field_name)
+                  (expr_body
+                    (const
+                      (int))))
+                (record_field_expr
+                  (field_name)
+                  (expr_body
+                    (tag_expr
+                      (tag)))))))
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (function_call_expr
+                (variable_expr
+                  (module)
+                  (identifier))
+                (variable_expr
+                  (identifier))
+                (variable_expr
+                  (identifier))
+                (anon_fun_expr
+                  (backslash)
+                  (argument_patterns
+                    (record_pattern
+                      (record_field_pattern
+                        (field_name))
+                      (record_field_pattern
+                        (field_name)))
+                    (identifier_pattern
+                      (identifier)))
+                  (arrow)
+                  (expr_body
+                    (when_is_expr
+                      (when)
+                      (variable_expr
+                        (identifier))
+                      (is)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (wildcard_pattern)
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (bin_op_expr
+                                    (variable_expr
+                                      (identifier))
+                                    (operator)
+                                    (const
+                                      (int)))))
+                              (record_field_expr
+                                (field_name))))))))))))
+          (when_is_expr
+            (when)
+            (field_access_expr
+              (variable_expr
+                (identifier))
+              (identifier))
+            (is)
+            (when_is_branch
+              (tag_pattern
+                (tag))
+              (arrow)
+              (expr_body
+                (bin_op_expr
+                  (parenthesized_expr
+                    (expr_body
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (variable_expr
+                          (identifier)))))
+                  (operator)
+                  (const
+                    (int))
+                  (operator)
+                  (variable_expr
+                    (module)
+                    (identifier))
+                  (operator)
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (list_expr
+                      (const
+                        (char))))
+                  (operator)
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (variable_expr
+                      (identifier)))
+                  (operator)
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (list_expr
+                      (const
+                        (char)))))))
+            (when_is_branch
+              (tag_pattern
+                (tag))
+              (arrow)
+              (expr_body
+                (value_declaration
+                  (decl_left
+                    (record_pattern
+                      (record_field_pattern
+                        (field_name)
+                        (identifier_pattern
+                          (identifier)))
+                      (record_field_pattern
+                        (field_name)
+                        (identifier_pattern
+                          (identifier)))))
+                  (expr_body
+                    (function_call_expr
+                      (variable_expr
+                        (module)
+                        (identifier))
+                      (variable_expr
+                        (identifier))
+                      (field_access_expr
+                        (variable_expr
+                          (identifier))
+                        (identifier)))))
+                (line_comment)
+                (line_comment)
+                (value_declaration
+                  (decl_left
+                    (identifier_pattern
+                      (identifier)))
+                  (expr_body
+                    (bin_op_expr
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (variable_expr
+                          (identifier)))
+                      (operator)
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (const
+                          (int)))
+                      (operator)
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (const
+                          (int)))
+                      (operator)
+                      (variable_expr
+                        (module)
+                        (identifier))
+                      (operator)
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (list_expr
+                          (const
+                            (char))))
+                      (operator)
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (variable_expr
+                          (identifier))))))
+                (line_comment)
+                (line_comment)
+                (bin_op_expr
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (variable_expr
+                      (identifier))
+                    (variable_expr
+                      (identifier))
+                    (anon_fun_expr
+                      (backslash)
+                      (argument_patterns
+                        (identifier_pattern
+                          (identifier))
+                        (identifier_pattern
+                          (identifier)))
+                      (arrow)
+                      (expr_body
+                        (function_call_expr
+                          (variable_expr
+                            (module)
+                            (identifier))
+                          (variable_expr
+                            (identifier))
+                          (parenthesized_expr
+                            (expr_body
+                              (function_call_expr
+                                (variable_expr
+                                  (identifier))
+                                (variable_expr
+                                  (identifier)))))))))
+                  (operator)
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (list_expr
+                      (const
+                        (char)))))))))))))
