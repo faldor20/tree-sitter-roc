@@ -8,7 +8,6 @@ const PREC = {
 	CASE_OF_BRANCH: 6,
 	FUNC: 10,
 };
-const module_rules = require("./grammar/module.js");
 
 module.exports = grammar({
 	name: "roc",
