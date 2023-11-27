@@ -7,6 +7,8 @@
 (exposes_list(ident)@local.definition)
 
 (opaque_type_def(apply_type(concrete_type)@local.definition))
+(alias_type_def(apply_type(concrete_type)@local.definition))
 
 (exposes(ident)@local.reference)
 (identifier)@local.reference
+(tag_expr(tag))@local.reference
