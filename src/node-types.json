@@ -2464,19 +2464,11 @@
       "required": false,
       "types": [
         {
-          "type": "identifier_pattern",
-          "named": true
-        },
-        {
           "type": "record_field_optional_pattern",
           "named": true
         },
         {
           "type": "record_field_pattern",
-          "named": true
-        },
-        {
-          "type": "record_field_type",
           "named": true
         }
       ]

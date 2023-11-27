@@ -238,3 +238,33 @@ var=a
     (expr_body
       (variable_expr
         (identifier)))))
+
+================================================================================
+types_functions
+================================================================================
+A: R->B a
+  ->Int
+  ->String
+
+--------------------------------------------------------------------------------
+
+(file
+  (alias_type_def
+    (apply_type
+      (concrete_type))
+    (type_annotation
+      (function_type
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (bound_variable))))
+        (arrow)
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type))))))

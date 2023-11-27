@@ -127,14 +127,14 @@ value_record
   (value_declaration
     (decl_left
       (record_pattern
-        (record_field_type
+        (record_field_pattern
           (field_name)
-          (type_annotation
-            (bound_variable)))
-        (record_field_type
+          (identifier_pattern
+            (identifier)))
+        (record_field_pattern
           (field_name)
-          (type_annotation
-            (bound_variable)))))
+          (identifier_pattern
+            (identifier)))))
     (expr_body
       (function_call_expr
         (variable_expr

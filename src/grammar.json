@@ -1358,12 +1358,8 @@
       ]
     },
     "identifier_pattern": {
-      "type": "PREC",
-      "value": -1,
-      "content": {
-        "type": "SYMBOL",
-        "name": "identifier"
-      }
+      "type": "SYMBOL",
+      "name": "identifier"
     },
     "as_pattern": {
       "type": "PREC_LEFT",
@@ -1740,19 +1736,11 @@
                   "members": [
                     {
                       "type": "SYMBOL",
-                      "name": "record_field_type"
-                    },
-                    {
-                      "type": "SYMBOL",
                       "name": "record_field_pattern"
                     },
                     {
                       "type": "SYMBOL",
                       "name": "record_field_optional_pattern"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "identifier_pattern"
                     }
                   ]
                 },
@@ -1770,19 +1758,11 @@
                         "members": [
                           {
                             "type": "SYMBOL",
-                            "name": "record_field_type"
-                          },
-                          {
-                            "type": "SYMBOL",
                             "name": "record_field_pattern"
                           },
                           {
                             "type": "SYMBOL",
                             "name": "record_field_optional_pattern"
-                          },
-                          {
-                            "type": "SYMBOL",
-                            "name": "identifier_pattern"
                           }
                         ]
                       }
@@ -3233,8 +3213,12 @@
       }
     },
     "apply_type_arg": {
-      "type": "SYMBOL",
-      "name": "_type_annotation_no_fun"
+      "type": "PREC_LEFT",
+      "value": 0,
+      "content": {
+        "type": "SYMBOL",
+        "name": "_type_annotation_no_fun"
+      }
     },
     "typed_ident": {
       "type": "SEQ",
@@ -3914,18 +3898,6 @@
   ],
   "conflicts": [
     [
-      "implements_implementation",
-      "apply_type_arg"
-    ],
-    [
-      "where_implements",
-      "apply_type_arg"
-    ],
-    [
-      "where_implements",
-      "apply_type_arg"
-    ],
-    [
       "type_annotation",
       "_type_annotation_paren_fun"
     ],
@@ -3937,130 +3909,32 @@
       "function_call_expr"
     ],
     [
-      "variable_expr"
+      "_pattern",
+      "_atom_expr"
     ],
     [
-      "tag_pattern",
-      "concrete_type"
+      "_atomic_pattern",
+      "_atom_expr"
     ],
     [
       "tag_pattern",
       "tag_expr"
     ],
     [
-      "identifier_pattern",
-      "identifier"
-    ],
-    [
-      "_pattern",
-      "_atom_expr"
-    ],
-    [
       "record_pattern",
       "record_expr"
     ],
     [
-      "_atomic_pattern",
-      "_atom_expr"
-    ],
-    [
-      "record_field_expr",
       "record_field_pattern",
-      "identifier_pattern"
+      "record_field_expr"
     ],
     [
-      "_atomic_pattern",
-      "_type_annotation_no_fun"
-    ],
-    [
-      "identifier",
       "identifier_pattern",
-      "_type_annotation_no_fun"
-    ],
-    [
-      "tag_expr",
-      "tag_pattern",
-      "concrete_type"
-    ],
-    [
-      "_pattern",
-      "_type_annotation_no_fun"
-    ],
-    [
-      "record_pattern",
-      "record_type"
-    ],
-    [
-      "tags_type",
-      "list_pattern"
-    ],
-    [
-      "operator_identifier",
-      "wildcard"
-    ],
-    [
-      "record_expr",
-      "record_pattern",
-      "record_type"
-    ],
-    [
-      "concrete_type",
       "long_identifier"
-    ],
-    [
-      "identifier",
-      "long_identifier"
-    ],
-    [
-      "annotation_pre_colon",
-      "long_identifier"
-    ],
-    [
-      "_function_call_target",
-      "concrete_type"
-    ],
-    [
-      "_atom_expr",
-      "concrete_type"
-    ],
-    [
-      "record_type",
-      "record_expr"
-    ],
-    [
-      "_type_annotation_no_fun",
-      "long_identifier"
-    ],
-    [
-      "long_identifier",
-      "identifier_pattern",
-      "_type_annotation_no_fun"
     ],
     [
       "list_pattern",
       "list_expr"
-    ],
-    [
-      "list_pattern",
-      "list_expr",
-      "tags_type"
-    ],
-    [
-      "list_expr",
-      "tags_type"
-    ],
-    [
-      "_field_access_start",
-      "_function_call_target"
-    ],
-    [
-      "_field_access_start",
-      "_atom_expr"
-    ],
-    [
-      "_field_access_start",
-      "_function_call_target",
-      "_atom_expr"
     ],
     [
       "long_module_name"
@@ -4068,9 +3942,6 @@
     [
       "_module_elem",
       "value_declaration"
-    ],
-    [
-      "expr_body"
     ]
   ],
   "precedences": [],
