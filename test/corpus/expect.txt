@@ -69,13 +69,35 @@ expect
         (operator)
         (variable_expr
           (identifier))))))
-===
+
+================================================================================
 expect_wierd
-===
+================================================================================
 expect
   Ok ("The Answer is", 42)
 
 expect
 
   actual.result == expected
----
+--------------------------------------------------------------------------------
+
+(file
+  (expect
+    (expr_body
+      (tag_expr
+        (tag)
+        (tuple_expr
+          (const
+            (string))
+          (const
+            (int))))))
+  (expect
+    (expr_body
+      (bin_op_expr
+        (field_access_expr
+          (variable_expr
+            (identifier))
+          (identifier))
+        (operator)
+        (variable_expr
+          (identifier))))))

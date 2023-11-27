@@ -200,3 +200,41 @@ list = \path ->
               (identifier))
             (variable_expr
               (identifier))))))))
+
+================================================================================
+types_implements
+================================================================================
+
+A :={a:a} implements[ B{a:a}]
+var=a
+--------------------------------------------------------------------------------
+
+(file
+  (opaque_type_def
+    (apply_type
+      (concrete_type))
+    (colon_equals)
+    (type_annotation
+      (implements_implementation
+        (record_type
+          (record_field_type
+            (field_name)
+            (type_annotation
+              (bound_variable))))
+        (implements)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (record_type
+                (record_field_type
+                  (field_name)
+                  (type_annotation
+                    (bound_variable))))))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (variable_expr
+        (identifier)))))
