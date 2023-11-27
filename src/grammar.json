@@ -654,7 +654,7 @@
         "members": [
           {
             "type": "FIELD",
-            "name": "target",
+            "name": "caller",
             "content": {
               "type": "SYMBOL",
               "name": "_function_call_target"
@@ -3720,7 +3720,7 @@
     },
     "_lower_identifier": {
       "type": "PATTERN",
-      "value": "[a-z][0-9a-zA-Z_]*"
+      "value": "_?[a-z][0-9a-zA-Z_]*"
     },
     "_upper_identifier": {
       "type": "PATTERN",

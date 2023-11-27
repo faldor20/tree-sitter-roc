@@ -209,7 +209,7 @@ module.exports = grammar({
 			prec.dynamic(
 				PREC.FUNC,
 				seq(
-					field("target", $._function_call_target),
+					field("caller", $._function_call_target),
 					field("arg", repeat1($._atom_expr)),
 				),
 			),
@@ -708,7 +708,7 @@ module.exports = grammar({
 		identifier: ($) => $._lower_identifier,
 		field_name: ($) => alias($.identifier, $.field_name),
 		ident: ($) => choice($._lower_identifier, $._upper_identifier),
-		_lower_identifier: ($) => /[a-z][0-9a-zA-Z_]*/,
+		_lower_identifier: ($) => /_?[a-z][0-9a-zA-Z_]*/,
 		_upper_identifier: ($) => /[A-Z][0-9a-zA-Z_]*/,
 		tag: ($) => alias($._upper_identifier, $.tag),
 		opaque_tag: ($) => /@[A-Z][0-9a-zA-Z_]*/,

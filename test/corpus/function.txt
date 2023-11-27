@@ -362,3 +362,26 @@ a=\ _ ->a
         (expr_body
           (variable_expr
             (identifier)))))))
+
+================================================================================
+function_field
+================================================================================
+a= a.bb a a
+              
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (function_call_expr
+        (field_access_expr
+          (variable_expr
+            (identifier))
+          (identifier))
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier))))))

@@ -141,3 +141,78 @@ value_record
           (identifier))
         (variable_expr
           (identifier))))))
+
+================================================================================
+value_field
+================================================================================
+a= Bool.field
+a= {a}.field
+a= ({a}).field
+a= a.field.b.c.d
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (variable_expr
+        (module)
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (field_access_expr
+        (record_expr
+          (record_field_expr
+            (field_name)))
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (field_access_expr
+        (parenthesized_expr
+          (expr_body
+            (record_expr
+              (record_field_expr
+                (field_name)))))
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (field_access_expr
+        (variable_expr
+          (identifier))
+        (identifier)
+        (identifier)
+        (identifier)
+        (identifier)))))
+
+================================================================================
+value_ignore
+================================================================================
+_= a
+_a= a
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (wildcard_pattern))
+    (expr_body
+      (variable_expr
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (variable_expr
+        (identifier)))))

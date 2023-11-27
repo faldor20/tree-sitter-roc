@@ -15,7 +15,6 @@
 
 [
   (line_comment)
-  (block_comment)
 ] @comment
 
 
@@ -83,23 +82,12 @@
   (identifier_pattern 
    (identifier)@function))(expr_body(anon_fun_expr)))
 
-(value_declaration_top 
- (decl_left 
-  (identifier_pattern 
-   (identifier)@function)) 
- (expr_body 
-  (anon_fun_expr))) 
 
 (function_call_expr
-  caller: (long_identifier_or_op
-    (long_identifier
-      (identifier)@function)))
+  caller:  (variable_expr
+      (identifier)@function))
 (function_call_expr
-  caller: (dot_expression
-    (long_identifier_or_op
-    (long_identifier
-      (identifier)@function)) . ))
-
+  caller: (field_access_expr (identifier)@function .))
 
 ; (anon_fun_expr
 ;   (argument_patterns
@@ -117,20 +105,16 @@
 
 (imports
   (imports_entry
-          (long_module_name
-            (module)
-              @namespace)))
+            (module)@namespace))
 
 (packages
-  (record
-    (record_field_expr
+  (record_pattern
+    (record_field_pattern
       (field_name)@namespace)))
 
-(annotation_type_def 
- (annotation_pre_colon 
-  (tag)@type))
 
-(tags_type(apply_tye(concrete_type)@constructor))
+
+(tags_type(apply_type(concrete_type)@constructor))
 
 (tag)@constructor
 (opaque_tag)@constructor
@@ -139,34 +123,37 @@
 (char) @constant.character
 
 ; (boolean_literal) @constant.builtin.boolean
-(long_identifier
+(variable_expr
   (module)@module
   (identifier)@constant.builtin.boolean
   (#eq? @constant.builtin.boolean "true" )
-  (#eq? @module "Bool." )
+  (#eq? @module "Bool" )
   )
-(long_identifier
+(variable_expr
   (module)@module
   (identifier)@constant.builtin.boolean
   (#eq? @constant.builtin.boolean "false" )
-  (#eq? @module "Bool." )
+  (#eq? @module "Bool" )
   )
+
+(bin_op_expr (operator "|>")@operator(variable_expr(identifier)@function))
 
 ; (anon_fun_expr
 ;   (argument_patterns)@variable.parameter)
-(argument_patterns(long_identifier)@variable.parameter)
-(argument_patterns(_(identifier_pattern)@variable.parameter))
-(argument_patterns(_(_(identifier_pattern)@variable.parameter)))
-(argument_patterns(_(_(_(identifier_pattern)@variable.parameter))))
-(argument_patterns(_(_(_(_(identifier_pattern)@variable.parameter)))))
-(argument_patterns(_(_(_(_(_(identifier_pattern)@variable.parameter))))))
+(argument_patterns(identifier_pattern
+                (identifier)@variable.parameter))
+(argument_patterns(_(identifier_pattern(identifier)@variable.parameter)))
+(argument_patterns(_(_(identifier_pattern(identifier)@variable.parameter))))
+(argument_patterns(_(_(_(identifier_pattern(identifier)@variable.parameter)))))
+(argument_patterns(_(_(_(_(identifier_pattern(identifier)@variable.parameter))))))
+(argument_patterns(_(_(_(_(_(identifier_pattern(identifier)@variable.parameter)))))))
 
 (field_name)@variable.other.member
 
 ;matches the second identifier and all subsequent ones
-(dot_expression (_)(long_identifier_or_op)* @variable.other.member)
+(field_access_expr (identifier) @variable.other.member)
 
-
+(wildcard_pattern)@operator
 [
   (int)
   (uint)
@@ -182,5 +169,5 @@
 (module)@namespace
 (module)@module
 
-(long_identifier_or_op)@variable
+(identifier)@variable
 (concrete_type)@type
