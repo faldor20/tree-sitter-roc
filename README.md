@@ -2,6 +2,39 @@
 ## installing
 Reference it from your editor somehow.
 //TODO
+### Helix
+My full config for roc is below: 
+```toml
+[language-server.roc-ls]
+command = "roc_ls"
+
+[[language]]
+name = "roc"
+scope = "source.roc"
+injection-regex = "roc"
+file-types = ["roc"]
+shebangs = ["roc"]
+roots = []
+comment-token = "#"
+language-servers = ["roc-ls"]
+indent = { tab-width = 2, unit = "  " }
+
+[language.auto-pairs]
+'(' = ')'
+'{' = '}'
+'[' = ']'
+'"' = '"'
+[[grammar]]
+
+name = "roc"
+source = { git = "https://github.com/faldor20/tree-sitter-roc.git", rev = "2c985e01fd1eae1e8ce0d52b084a6b555c26048e" }
+```
+### Neovim
+Add the code in `neovim/roc.lua` to your config somewhere.
+Copy the folder `neovim/queries` to your neovim config at `after/` or in a custom neovim plugin at its root directory `./`
+eg: `after/queries/roc/highlights.lua`or `my_roc_plugin/queries/roc/highlights.lua`
+ ### Emacs
+  //Please someone submit something :)
 ## contributing
 ### Setup
 #### Nix
