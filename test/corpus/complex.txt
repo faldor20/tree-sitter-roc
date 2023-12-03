@@ -4,7 +4,7 @@ complex_file
 
 app "countdown"
     packages { pf: "cli-platform/main.roc" }
-    imports [pf.Stdin, pf.Stdout, pf.Task.{ await, loop, succeed }]
+    imports [pf.Stdin, pf.Stdout, pf.Task.{ await, loop, succeed }, "./file.txt" as file: Str]
     provides [main] to pf
 
 main =
@@ -46,7 +46,13 @@ tick = \ n ->
           (exposes_list
             (ident)
             (ident)
-            (ident))))
+            (ident)))
+        (imports_entry
+          (string)
+          (identifier)
+          (type_annotation
+            (apply_type
+              (concrete_type)))))
       (provides
         (ident)
         (to)

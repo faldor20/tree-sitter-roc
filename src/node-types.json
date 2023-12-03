@@ -1740,6 +1740,14 @@
         {
           "type": "module",
           "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        },
+        {
+          "type": "type_annotation",
+          "named": true
         }
       ]
     }
@@ -3269,6 +3277,10 @@
   },
   {
     "type": "!",
+    "named": false
+  },
+  {
+    "type": "!=",
     "named": false
   },
   {
