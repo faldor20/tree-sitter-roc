@@ -468,15 +468,15 @@ module.exports = grammar({
 		imports: ($) => seq("imports", "[", sep_tail($.imports_entry, ","), "]"),
 		imports_entry: ($) =>
 			seq(
-                choice(
-                    seq(
-                        optional(seq($.identifier, ".")),
-                        seq($.module, repeat(seq(".", $.module))),
-                        optional(seq(".", $.exposes_list)),
-                    ),
-                    $.string,
-                ),
-                optional(seq("as", $.identifier, ":", $.type_annotation)),
+				choice(
+					seq(
+						optional(seq($.identifier, ".")),
+						seq($.module, repeat(seq(".", $.module))),
+						optional(seq(".", $.exposes_list)),
+					),
+					$.string,
+				),
+				optional(seq("as", $.identifier, ":", $.type_annotation)),
 			),
 		//TODO make a function for all these comma separated trailing comma things
 		to: ($) => "to",
@@ -729,7 +729,7 @@ module.exports = grammar({
 				"-",
 				"*",
 				"/",
-                "%",
+				"%",
 				"!",
 				"//",
 				"^",
