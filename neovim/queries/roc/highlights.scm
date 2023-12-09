@@ -1,10 +1,4 @@
 
-(module)@namespace
-(module)@module
-
-(identifier)@variable
-(concrete_type)@type
-
 [
 "?"
 (arrow)
@@ -42,6 +36,7 @@
 
 [
   "|" 
+  "&"
   (operator)
 ] @operator
 
@@ -52,6 +47,7 @@
   "else"
 
 ] @keyword.control.conditional
+(if) @keyword.control.conditional
 
 (interface_header(name)@type.interface)
 
@@ -65,9 +61,13 @@
     "expect"
  ] @keyword.control
 
+(app_name) @string
+
+
   (implements)@keyword.control.roc
  (when) @keyword.control.roc
  (is) @keyword.control.roc
+ (to) @keyword.control.roc
 [
   "("
   ")"
@@ -79,16 +79,33 @@
 
 [
   ","
+  ":"
 ] @punctuation.delimiter
 
+(identifier)@variable
+(concrete_type)@type
 
-;----things that could be functions----
 
+
+;----all declerations----
+(value_declaration(decl_left 
+  (identifier_pattern 
+   (identifier) @parameter.definition)))
+
+(annotation_type_def 
+ (annotation_pre_colon 
+  (identifier)@parameter.definition ))
+
+(backpassing_expr assignee: (identifier_pattern (identifier) @parameter.definition))
+
+
+;----declerations that could be functions----
 (value_declaration(decl_left 
   (identifier_pattern 
    (identifier)@function))(expr_body(anon_fun_expr)))
 
 
+;----things that could be functions----
 (function_call_expr
   caller:  (variable_expr
       (identifier)@function))
@@ -155,6 +172,7 @@
 (argument_patterns(_(_(_(_(_(identifier_pattern(identifier)@variable.parameter)))))))
 
 (field_name)@variable.other.member
+(record_field_pattern (_(identifier) @variable))
 
 ;matches the second identifier and all subsequent ones
 (field_access_expr (identifier) @variable.other.member)
@@ -172,3 +190,5 @@
   (float)
 ] @constant.numeric.float
 
+(module)@namespace
+(module)@module
