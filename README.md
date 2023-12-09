@@ -33,8 +33,8 @@ source = { git = "https://github.com/faldor20/tree-sitter-roc.git", rev = "2c985
 Add the code in `neovim/roc.lua` to your config somewhere.
 Copy the folder `neovim/queries` to your neovim config at `after/` or in a custom neovim plugin at its root directory `./`
 eg: `after/queries/roc/highlights.lua`or `my_roc_plugin/queries/roc/highlights.lua`
- ### Emacs
-  //Please someone submit something :)
+### Emacs
+A [package providing a major mode for Roc](https://gitlab.com/tad-lispy/roc-mode "Emacs Roc mode") is under development.
 ## contributing
 ### Setup
 #### Nix
