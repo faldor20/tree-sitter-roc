@@ -562,6 +562,15 @@ module.exports = grammar({
 				$.bound_variable,
 				$.inferred,
 				$.wildcard,
+				$.tuple_type,
+			),
+		tuple_type: ($) =>
+			seq(
+				"(",
+				$._type_annotation,
+				",",
+				sep1_tail($._type_annotation, ","),
+				")",
 			),
 
 		implements: ($) => "implements",
