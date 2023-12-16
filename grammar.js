@@ -108,27 +108,33 @@ module.exports = grammar({
 			choice(
 				seq(
 					$._indent,
-					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
-					$._expr_inner,
+					field(
+						"declarations",
+						repeat(seq(choice($.value_declaration, $.backpassing_expr))),
+					),
+					field("result", $._expr_inner),
 					$._dedent,
 				),
 				seq(
 					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
-					$._expr_inner,
+					field("result", $._expr_inner),
 				),
 			),
 		expr_body_terminal: ($) =>
 			choice(
 				seq(
 					$._indent,
-					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
-					$._expr_inner,
+					field(
+						"declarations",
+						repeat(seq(choice($.value_declaration, $.backpassing_expr))),
+					),
+					field("result", $._expr_inner),
 					$._dedent,
 				),
 				seq(
 					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
-					$._expr_inner,
-					$._end_newline,
+					field("result", $._expr_inner),
+					$._newline,
 				),
 			),
 		_atom_expr: ($) =>
@@ -149,21 +155,10 @@ module.exports = grammar({
 			),
 		_call_or_atom: ($) => choice($.function_call_expr, $._atom_expr),
 		_expr_inner: ($) =>
-			choice(
-				// $.seq_infix,
-				// $.if_expr,
-				// $.long_identifier_or_op,
-				// $._keyword_expr,
-				// $._assignement_expr,
-				// $._atom_context_expr,
-				$.prefixed_expression,
-				$.bin_op_expr,
-				$._call_or_atom,
-			),
+			choice($.prefixed_expression, $.bin_op_expr, $._call_or_atom),
 
 		prefixed_expression: ($) => prec.left(seq($.operator, $._call_or_atom)),
 		else: ($) => seq("else", $.expr_body),
-
 		then: ($) => seq("then", field("then", $.expr_body)),
 		else_if: ($) =>
 			prec.left(seq("else", "if", field("guard", $._expr_inner), $.then)),
@@ -173,7 +168,7 @@ module.exports = grammar({
 		parenthesized_expr: ($) => seq("(", field("expression", $.expr_body), ")"),
 		if_expr: ($) =>
 			seq(
-				alias("if", $.if),
+				"if",
 				field("guard", $._expr_inner),
 				$.then,
 				repeat($.else_if),
@@ -209,7 +204,7 @@ module.exports = grammar({
 				PREC.FUNC,
 				seq(
 					field("caller", $._function_call_target),
-					field("arg", repeat1($._atom_expr)),
+					field("args", repeat1($._atom_expr)),
 				),
 			),
 		operator_as_function_expr: ($) => $._operator_as_function_inner,
