@@ -27,7 +27,6 @@ b= Tag a 1
         (parenthesized_expr
           (expr_body
             (if_expr
-              (if)
               (variable_expr
                 (identifier))
               (then
@@ -270,7 +269,6 @@ a =
     (expr_body
       (list_expr
         (if_expr
-          (if)
           (variable_expr
             (identifier))
           (then

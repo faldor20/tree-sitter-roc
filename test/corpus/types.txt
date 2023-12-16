@@ -12,14 +12,13 @@ main =
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (record_type))
-            (apply_type_arg
-              (tags_type))))))
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (record_type))
+          (apply_type_arg
+            (tags_type)))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -53,9 +52,8 @@ main=
         (annotation_type_def
           (annotation_pre_colon
             (identifier))
-          (type_annotation
-            (apply_type
-              (concrete_type))))
+          (apply_type
+            (concrete_type)))
         (decl_left
           (identifier_pattern
             (identifier)))
@@ -84,34 +82,33 @@ list = \path ->
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (function_type
-          (apply_type
-            (concrete_type))
-          (arrow)
-          (apply_type
-            (concrete_type)
-            (apply_type_args
-              (apply_type_arg
-                (type_annotation
-                  (apply_type
-                    (concrete_type)
-                    (apply_type_args
-                      (apply_type_arg
-                        (apply_type
-                          (concrete_type)))))))
-              (apply_type_arg
-                (tags_type
-                  (apply_type
-                    (concrete_type)
-                    (apply_type_args
-                      (apply_type_arg
-                        (apply_type
-                          (concrete_type)
-                          (apply_type_args
-                            (apply_type_arg
-                              (apply_type
-                                (concrete_type)))))))))))))))
+      (function_type
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (parenthesized_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)))))))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type))))))))))))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -214,23 +211,20 @@ var=a
     (apply_type
       (concrete_type))
     (colon_equals)
-    (type_annotation
-      (implements_implementation
-        (record_type
-          (record_field_type
-            (field_name)
-            (type_annotation
-              (bound_variable))))
-        (implements)
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (record_type
-                (record_field_type
-                  (field_name)
-                  (type_annotation
-                    (bound_variable))))))))))
+    (implements_implementation
+      (record_type
+        (record_field_type
+          (field_name)
+          (bound_variable)))
+      (implements)
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (record_type
+              (record_field_type
+                (field_name)
+                (bound_variable))))))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -252,22 +246,21 @@ A: R->B a
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (function_type
-        (apply_type
-          (concrete_type))
-        (arrow)
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (bound_variable))))
-        (arrow)
-        (apply_type
-          (concrete_type))
-        (arrow)
-        (apply_type
-          (concrete_type))))))
+    (function_type
+      (apply_type
+        (concrete_type))
+      (arrow)
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (bound_variable))))
+      (arrow)
+      (apply_type
+        (concrete_type))
+      (arrow)
+      (apply_type
+        (concrete_type)))))
 
 ================================================================================
 types_alias
@@ -281,23 +274,21 @@ a=\a->b
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (apply_type
-        (concrete_type)
-        (apply_type_args
-          (apply_type_arg
-            (bound_variable))))))
+    (apply_type
+      (concrete_type)
+      (apply_type_args
+        (apply_type_arg
+          (bound_variable)))))
   (value_declaration
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (function_type
-          (apply_type
-            (concrete_type))
-          (arrow)
-          (apply_type
-            (concrete_type)))))
+      (function_type
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -311,3 +302,49 @@ a=\a->b
         (expr_body
           (variable_expr
             (identifier)))))))
+
+================================================================================
+types_nested_func
+================================================================================
+a:
+  a->
+  (
+    a->
+    b->
+    S a
+  )->
+  SS b->
+  b
+--------------------------------------------------------------------------------
+
+(file
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (function_type
+      (bound_variable)
+      (arrow)
+      (parenthesized_type
+        (function_type
+          (bound_variable)
+          (arrow)
+          (bound_variable)
+          (arrow)
+          (apply_type
+            (concrete_type)
+            (apply_type_args
+              (apply_type_arg
+                (bound_variable))))))
+      (arrow)
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (bound_variable))))
+      (arrow)
+      (bound_variable))))
+===
+types_tuples
+===
+a:(Num a,Num b)
+---

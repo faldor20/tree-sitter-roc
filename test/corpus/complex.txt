@@ -48,11 +48,11 @@ tick = \ n ->
             (ident)
             (ident)))
         (imports_entry
-          (string)
+          (import_path)
+          (import_as)
           (identifier)
-          (type_annotation
-            (apply_type
-              (concrete_type)))))
+          (apply_type
+            (concrete_type))))
       (provides
         (ident)
         (to)
@@ -106,7 +106,6 @@ tick = \ n ->
         (arrow)
         (expr_body
           (if_expr
-            (if)
             (bin_op_expr
               (variable_expr
                 (identifier))
@@ -325,14 +324,13 @@ main =
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (record_type))
-            (apply_type_arg
-              (tags_type))))))
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (record_type))
+          (apply_type_arg
+            (tags_type)))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -510,53 +508,49 @@ deleteRecursive : Path -> Task
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (apply_type
-        (concrete_type))))
+    (apply_type
+      (concrete_type)))
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (apply_type
-        (concrete_type))))
+    (apply_type
+      (concrete_type)))
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (apply_type
-        (concrete_type))))
+    (apply_type
+      (concrete_type)))
   (value_declaration
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (function_type
-          (apply_type
-            (concrete_type))
-          (arrow)
-          (apply_type
-            (concrete_type)
-            (apply_type_args
-              (apply_type_arg
-                (type_annotation
-                  (apply_type
-                    (concrete_type)
-                    (apply_type_args
-                      (apply_type_arg
-                        (apply_type
-                          (concrete_type)))))))
-              (apply_type_arg
-                (tags_type
-                  (apply_type
-                    (concrete_type)
-                    (apply_type_args
-                      (apply_type_arg
-                        (apply_type
-                          (concrete_type)
-                          (apply_type_args
-                            (apply_type_arg
-                              (apply_type
-                                (concrete_type)))))))))))))))
+      (function_type
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (parenthesized_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)))))))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type))))))))))))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -649,23 +643,21 @@ deleteRecursive : Path -> Task
   (annotation_type_def
     (annotation_pre_colon
       (identifier))
-    (type_annotation
-      (function_type
-        (apply_type
-          (concrete_type))
-        (arrow)
-        (apply_type
-          (concrete_type)))))
+    (function_type
+      (apply_type
+        (concrete_type))
+      (arrow)
+      (apply_type
+        (concrete_type))))
   (annotation_type_def
     (annotation_pre_colon
       (identifier))
-    (type_annotation
-      (function_type
-        (apply_type
-          (concrete_type))
-        (arrow)
-        (apply_type
-          (concrete_type))))))
+    (function_type
+      (apply_type
+        (concrete_type))
+      (arrow)
+      (apply_type
+        (concrete_type)))))
 
 ================================================================================
 complex_list
@@ -697,15 +689,14 @@ view = \currentNavLink, htmlContent ->
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (function_type
-          (apply_type
-            (concrete_type))
-          (apply_type
-            (concrete_type))
-          (arrow)
-          (apply_type
-            (concrete_type)))))
+      (function_type
+        (apply_type
+          (concrete_type))
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -853,7 +844,6 @@ viewNavLink = \isCurrent, navlink ->
         (arrow)
         (expr_body
           (if_expr
-            (if)
             (variable_expr
               (identifier))
             (then
@@ -941,7 +931,6 @@ viewNavLink = \isCurrent, navlink ->
         (arrow)
         (expr_body
           (if_expr
-            (if)
             (variable_expr
               (identifier))
             (then
@@ -978,13 +967,12 @@ expect
         (annotation_type_def
           (annotation_pre_colon
             (identifier))
-          (type_annotation
-            (apply_type
-              (concrete_type)
-              (apply_type_args
-                (apply_type_arg
-                  (apply_type
-                    (concrete_type)))))))
+          (apply_type
+            (concrete_type)
+            (apply_type_args
+              (apply_type_arg
+                (apply_type
+                  (concrete_type))))))
         (decl_left
           (identifier_pattern
             (identifier)))

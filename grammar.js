@@ -474,9 +474,11 @@ module.exports = grammar({
 						seq($.module, repeat(seq(".", $.module))),
 						optional(seq(".", $.exposes_list)),
 					),
-					$.string,
+					alias($.string, $.import_path),
 				),
-				optional(seq("as", $.identifier, ":", $.type_annotation)),
+				optional(
+					seq(alias("as", $.import_as), $.identifier, ":", $._type_annotation),
+				),
 			),
 		//TODO make a function for all these comma separated trailing comma things
 		to: ($) => "to",
@@ -516,12 +518,13 @@ module.exports = grammar({
 		//####-------###
 
 		annotation_type_def: ($) =>
-			seq($.annotation_pre_colon, ":", $.type_annotation),
-		alias_type_def: ($) => seq($.apply_type, ":", $.type_annotation),
+			seq($.annotation_pre_colon, ":", $._type_annotation),
+		alias_type_def: ($) =>
+			seq($.apply_type, ":", field("body", $._type_annotation)),
 		opaque_type_def: ($) =>
-			seq($.apply_type, alias(":=", $.colon_equals), $.type_annotation),
+			seq($.apply_type, alias(":=", $.colon_equals), $._type_annotation),
 
-		type_annotation: ($) =>
+		_type_annotation: ($) =>
 			prec.left(
 				choice(
 					seq(
@@ -535,7 +538,10 @@ module.exports = grammar({
 
 		//TODO i can probably get rid of this, because type_annotation_no_fun can eventually laev to (functio_type)
 		_type_annotation_paren_fun: ($) =>
-			choice($._type_annotation_no_fun, seq("(", $.function_type, ")")),
+			choice(
+				$._type_annotation_no_fun,
+				alias(seq("(", $.function_type, ")"), $.type_annotation_paren),
+			),
 
 		function_type: ($) =>
 			seq(
@@ -544,9 +550,10 @@ module.exports = grammar({
 				sep1($._type_annotation_paren_fun, $.arrow),
 			),
 
+		parenthesized_type: ($) => seq("(", $._type_annotation, ")"),
 		_type_annotation_no_fun: ($) =>
 			choice(
-				seq("(", $.type_annotation, ")"),
+				$.parenthesized_type,
 				$.record_type,
 				$.apply_type,
 				$.where_implements,
@@ -625,7 +632,7 @@ module.exports = grammar({
 
 		apply_type_arg: ($) => prec.left($._type_annotation_no_fun),
 
-		typed_ident: ($) => seq($.identifier, ":", $.type_annotation),
+		typed_ident: ($) => seq($.identifier, ":", $._type_annotation),
 
 		record_type: ($) =>
 			seq(
@@ -637,9 +644,9 @@ module.exports = grammar({
 				"}",
 			),
 
-		record_field_type: ($) => seq($.field_name, ":", $.type_annotation),
+		record_field_type: ($) => seq($.field_name, ":", $._type_annotation),
 		record_field_type_optional: ($) =>
-			seq($.field_name, "?", $.type_annotation),
+			seq($.field_name, "?", $._type_annotation),
 
 		annotation_pre_colon: ($) =>
 			choice(

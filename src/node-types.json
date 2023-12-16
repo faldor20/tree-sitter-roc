@@ -7,17 +7,64 @@
   {
     "type": "alias_type_def",
     "named": true,
-    "fields": {},
+    "fields": {
+      "body": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "apply_type",
+            "named": true
+          },
+          {
+            "type": "bound_variable",
+            "named": true
+          },
+          {
+            "type": "function_type",
+            "named": true
+          },
+          {
+            "type": "implements_implementation",
+            "named": true
+          },
+          {
+            "type": "inferred",
+            "named": true
+          },
+          {
+            "type": "parenthesized_type",
+            "named": true
+          },
+          {
+            "type": "record_type",
+            "named": true
+          },
+          {
+            "type": "tags_type",
+            "named": true
+          },
+          {
+            "type": "tuple_type",
+            "named": true
+          },
+          {
+            "type": "where_implements",
+            "named": true
+          },
+          {
+            "type": "wildcard",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
           "type": "apply_type",
-          "named": true
-        },
-        {
-          "type": "type_annotation",
           "named": true
         }
       ]
@@ -51,7 +98,47 @@
           "named": true
         },
         {
-          "type": "type_annotation",
+          "type": "apply_type",
+          "named": true
+        },
+        {
+          "type": "bound_variable",
+          "named": true
+        },
+        {
+          "type": "function_type",
+          "named": true
+        },
+        {
+          "type": "implements_implementation",
+          "named": true
+        },
+        {
+          "type": "inferred",
+          "named": true
+        },
+        {
+          "type": "parenthesized_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tags_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "where_implements",
+          "named": true
+        },
+        {
+          "type": "wildcard",
           "named": true
         }
       ]
@@ -189,6 +276,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_type",
+          "named": true
+        },
+        {
           "type": "record_type",
           "named": true
         },
@@ -197,7 +288,7 @@
           "named": true
         },
         {
-          "type": "type_annotation",
+          "type": "tuple_type",
           "named": true
         },
         {
@@ -1072,81 +1163,102 @@
   {
     "type": "expr_body",
     "named": true,
-    "fields": {},
+    "fields": {
+      "declarations": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "backpassing_expr",
+            "named": true
+          },
+          {
+            "type": "value_declaration",
+            "named": true
+          }
+        ]
+      },
+      "result": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "anon_fun_expr",
+            "named": true
+          },
+          {
+            "type": "bin_op_expr",
+            "named": true
+          },
+          {
+            "type": "const",
+            "named": true
+          },
+          {
+            "type": "field_access_expr",
+            "named": true
+          },
+          {
+            "type": "function_call_expr",
+            "named": true
+          },
+          {
+            "type": "if_expr",
+            "named": true
+          },
+          {
+            "type": "list_expr",
+            "named": true
+          },
+          {
+            "type": "operator_as_function_expr",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expr",
+            "named": true
+          },
+          {
+            "type": "prefixed_expression",
+            "named": true
+          },
+          {
+            "type": "record_expr",
+            "named": true
+          },
+          {
+            "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "tag_expr",
+            "named": true
+          },
+          {
+            "type": "tuple_expr",
+            "named": true
+          },
+          {
+            "type": "variable_expr",
+            "named": true
+          },
+          {
+            "type": "when_is_expr",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
-        {
-          "type": "anon_fun_expr",
-          "named": true
-        },
         {
           "type": "backpassing_expr",
           "named": true
         },
         {
-          "type": "bin_op_expr",
-          "named": true
-        },
-        {
-          "type": "const",
-          "named": true
-        },
-        {
-          "type": "field_access_expr",
-          "named": true
-        },
-        {
-          "type": "function_call_expr",
-          "named": true
-        },
-        {
-          "type": "if_expr",
-          "named": true
-        },
-        {
-          "type": "list_expr",
-          "named": true
-        },
-        {
-          "type": "operator_as_function_expr",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expr",
-          "named": true
-        },
-        {
-          "type": "prefixed_expression",
-          "named": true
-        },
-        {
-          "type": "record_expr",
-          "named": true
-        },
-        {
-          "type": "record_update_expr",
-          "named": true
-        },
-        {
-          "type": "tag_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_expr",
-          "named": true
-        },
-        {
           "type": "value_declaration",
-          "named": true
-        },
-        {
-          "type": "variable_expr",
-          "named": true
-        },
-        {
-          "type": "when_is_expr",
           "named": true
         }
       ]
@@ -1246,7 +1358,7 @@
     "type": "function_call_expr",
     "named": true,
     "fields": {
-      "arg": {
+      "args": {
         "multiple": true,
         "required": true,
         "types": [
@@ -1337,23 +1449,11 @@
         "required": true,
         "types": [
           {
-            "type": "(",
-            "named": false
-          },
-          {
-            "type": ")",
-            "named": false
-          },
-          {
             "type": "apply_type",
             "named": true
           },
           {
             "type": "bound_variable",
-            "named": true
-          },
-          {
-            "type": "function_type",
             "named": true
           },
           {
@@ -1365,6 +1465,10 @@
             "named": true
           },
           {
+            "type": "parenthesized_type",
+            "named": true
+          },
+          {
             "type": "record_type",
             "named": true
           },
@@ -1373,7 +1477,11 @@
             "named": true
           },
           {
-            "type": "type_annotation",
+            "type": "tuple_type",
+            "named": true
+          },
+          {
+            "type": "type_annotation_paren",
             "named": true
           },
           {
@@ -1404,15 +1512,15 @@
           "named": true
         },
         {
-          "type": "function_type",
-          "named": true
-        },
-        {
           "type": "implements_implementation",
           "named": true
         },
         {
           "type": "inferred",
+          "named": true
+        },
+        {
+          "type": "parenthesized_type",
           "named": true
         },
         {
@@ -1424,7 +1532,11 @@
           "named": true
         },
         {
-          "type": "type_annotation",
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "type_annotation_paren",
           "named": true
         },
         {
@@ -1626,10 +1738,6 @@
           "named": true
         },
         {
-          "type": "if",
-          "named": true
-        },
-        {
           "type": "then",
           "named": true
         }
@@ -1684,6 +1792,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_type",
+          "named": true
+        },
+        {
           "type": "record_type",
           "named": true
         },
@@ -1692,7 +1804,7 @@
           "named": true
         },
         {
-          "type": "type_annotation",
+          "type": "tuple_type",
           "named": true
         },
         {
@@ -1701,6 +1813,25 @@
         },
         {
           "type": "wildcard",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_path",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_char",
+          "named": true
+        },
+        {
+          "type": "interpolation_char",
           "named": true
         }
       ]
@@ -1730,7 +1861,19 @@
       "required": true,
       "types": [
         {
+          "type": "apply_type",
+          "named": true
+        },
+        {
+          "type": "bound_variable",
+          "named": true
+        },
+        {
           "type": "exposes_list",
+          "named": true
+        },
+        {
+          "type": "function_type",
           "named": true
         },
         {
@@ -1738,15 +1881,47 @@
           "named": true
         },
         {
+          "type": "implements_implementation",
+          "named": true
+        },
+        {
+          "type": "import_as",
+          "named": true
+        },
+        {
+          "type": "import_path",
+          "named": true
+        },
+        {
+          "type": "inferred",
+          "named": true
+        },
+        {
           "type": "module",
           "named": true
         },
         {
-          "type": "string",
+          "type": "parenthesized_type",
           "named": true
         },
         {
-          "type": "type_annotation",
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tags_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "where_implements",
+          "named": true
+        },
+        {
+          "type": "wildcard",
           "named": true
         }
       ]
@@ -1980,11 +2155,47 @@
           "named": true
         },
         {
+          "type": "bound_variable",
+          "named": true
+        },
+        {
           "type": "colon_equals",
           "named": true
         },
         {
-          "type": "type_annotation",
+          "type": "function_type",
+          "named": true
+        },
+        {
+          "type": "implements_implementation",
+          "named": true
+        },
+        {
+          "type": "inferred",
+          "named": true
+        },
+        {
+          "type": "parenthesized_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tags_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "where_implements",
+          "named": true
+        },
+        {
+          "type": "wildcard",
           "named": true
         }
       ]
@@ -2108,6 +2319,61 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "parenthesized_type",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "apply_type",
+          "named": true
+        },
+        {
+          "type": "bound_variable",
+          "named": true
+        },
+        {
+          "type": "function_type",
+          "named": true
+        },
+        {
+          "type": "implements_implementation",
+          "named": true
+        },
+        {
+          "type": "inferred",
+          "named": true
+        },
+        {
+          "type": "parenthesized_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tags_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "where_implements",
+          "named": true
+        },
+        {
+          "type": "wildcard",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -2419,11 +2685,51 @@
       "required": true,
       "types": [
         {
+          "type": "apply_type",
+          "named": true
+        },
+        {
+          "type": "bound_variable",
+          "named": true
+        },
+        {
           "type": "field_name",
           "named": true
         },
         {
-          "type": "type_annotation",
+          "type": "function_type",
+          "named": true
+        },
+        {
+          "type": "implements_implementation",
+          "named": true
+        },
+        {
+          "type": "inferred",
+          "named": true
+        },
+        {
+          "type": "parenthesized_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tags_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "where_implements",
+          "named": true
+        },
+        {
+          "type": "wildcard",
           "named": true
         }
       ]
@@ -2438,11 +2744,51 @@
       "required": true,
       "types": [
         {
+          "type": "apply_type",
+          "named": true
+        },
+        {
+          "type": "bound_variable",
+          "named": true
+        },
+        {
           "type": "field_name",
           "named": true
         },
         {
-          "type": "type_annotation",
+          "type": "function_type",
+          "named": true
+        },
+        {
+          "type": "implements_implementation",
+          "named": true
+        },
+        {
+          "type": "inferred",
+          "named": true
+        },
+        {
+          "type": "parenthesized_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tags_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "where_implements",
+          "named": true
+        },
+        {
+          "type": "wildcard",
           "named": true
         }
       ]
@@ -2894,11 +3240,11 @@
     }
   },
   {
-    "type": "type_annotation",
+    "type": "tuple_type",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
@@ -2922,6 +3268,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_type",
+          "named": true
+        },
+        {
           "type": "record_type",
           "named": true
         },
@@ -2930,7 +3280,117 @@
           "named": true
         },
         {
-          "type": "type_annotation",
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "where_implements",
+          "named": true
+        },
+        {
+          "type": "wildcard",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "type_annotation_paren",
+    "named": true,
+    "fields": {
+      "param": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "apply_type",
+            "named": true
+          },
+          {
+            "type": "bound_variable",
+            "named": true
+          },
+          {
+            "type": "implements_implementation",
+            "named": true
+          },
+          {
+            "type": "inferred",
+            "named": true
+          },
+          {
+            "type": "parenthesized_type",
+            "named": true
+          },
+          {
+            "type": "record_type",
+            "named": true
+          },
+          {
+            "type": "tags_type",
+            "named": true
+          },
+          {
+            "type": "tuple_type",
+            "named": true
+          },
+          {
+            "type": "type_annotation_paren",
+            "named": true
+          },
+          {
+            "type": "where_implements",
+            "named": true
+          },
+          {
+            "type": "wildcard",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "apply_type",
+          "named": true
+        },
+        {
+          "type": "arrow",
+          "named": true
+        },
+        {
+          "type": "bound_variable",
+          "named": true
+        },
+        {
+          "type": "implements_implementation",
+          "named": true
+        },
+        {
+          "type": "inferred",
+          "named": true
+        },
+        {
+          "type": "parenthesized_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tags_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "type_annotation_paren",
           "named": true
         },
         {
@@ -2953,11 +3413,51 @@
       "required": true,
       "types": [
         {
+          "type": "apply_type",
+          "named": true
+        },
+        {
+          "type": "bound_variable",
+          "named": true
+        },
+        {
+          "type": "function_type",
+          "named": true
+        },
+        {
           "type": "identifier",
           "named": true
         },
         {
-          "type": "type_annotation",
+          "type": "implements_implementation",
+          "named": true
+        },
+        {
+          "type": "inferred",
+          "named": true
+        },
+        {
+          "type": "parenthesized_type",
+          "named": true
+        },
+        {
+          "type": "record_type",
+          "named": true
+        },
+        {
+          "type": "tags_type",
+          "named": true
+        },
+        {
+          "type": "tuple_type",
+          "named": true
+        },
+        {
+          "type": "where_implements",
+          "named": true
+        },
+        {
+          "type": "wildcard",
           "named": true
         }
       ]
@@ -3235,6 +3735,10 @@
           "named": true
         },
         {
+          "type": "parenthesized_type",
+          "named": true
+        },
+        {
           "type": "record_type",
           "named": true
         },
@@ -3243,7 +3747,7 @@
           "named": true
         },
         {
-          "type": "type_annotation",
+          "type": "tuple_type",
           "named": true
         },
         {
@@ -3493,6 +3997,10 @@
   },
   {
     "type": "implements",
+    "named": true
+  },
+  {
+    "type": "import_as",
     "named": true
   },
   {

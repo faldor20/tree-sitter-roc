@@ -54,7 +54,6 @@ a =
           (field_name)
           (expr_body
             (if_expr
-              (if)
               (variable_expr
                 (identifier))
               (then
