@@ -66,9 +66,8 @@ var =
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (apply_type
-          (concrete_type))))
+      (apply_type
+        (concrete_type)))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -84,9 +83,8 @@ var =
         (annotation_type_def
           (annotation_pre_colon
             (identifier))
-          (type_annotation
-            (apply_type
-              (concrete_type))))
+          (apply_type
+            (concrete_type)))
         (decl_left
           (identifier_pattern
             (identifier)))
@@ -104,9 +102,8 @@ var =
         (annotation_type_def
           (annotation_pre_colon
             (identifier))
-          (type_annotation
-            (apply_type
-              (concrete_type))))
+          (apply_type
+            (concrete_type)))
         (decl_left
           (identifier_pattern
             (identifier)))

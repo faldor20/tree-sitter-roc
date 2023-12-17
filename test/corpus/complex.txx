@@ -100,7 +100,6 @@ tick = \ n ->
         (arrow)
         (expr_body
           (if_expr
-            (if)
             (bin_op_expr
               (variable_expr
                 (identifier))
@@ -329,14 +328,13 @@ main =
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (record_type))
-            (apply_type_arg
-              (tags_type))))))
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (record_type))
+          (apply_type_arg
+            (tags_type)))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -589,53 +587,49 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (apply_type
-        (concrete_type))))
+    (apply_type
+      (concrete_type)))
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (apply_type
-        (concrete_type))))
+    (apply_type
+      (concrete_type)))
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (apply_type
-        (concrete_type))))
-  (line_comment)
+    (apply_type
+      (concrete_type)))
+  (doc_comment)
   (annotation_type_def
     (annotation_pre_colon
       (identifier))
-    (type_annotation
-      (function_type
-        (apply_type
-          (concrete_type))
-        (arrow)
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (type_annotation
-                (apply_type
-                  (concrete_type)
-                  (apply_type_args
-                    (apply_type_arg
-                      (apply_type
-                        (concrete_type)))))))
-            (apply_type_arg
-              (tags_type
-                (apply_type
-                  (concrete_type)
-                  (apply_type_args
-                    (apply_type_arg
-                      (apply_type
-                        (concrete_type)
-                        (apply_type_args
-                          (apply_type_arg
-                            (apply_type
-                              (concrete_type)))))))))))))))
+    (function_type
+      (apply_type
+        (concrete_type))
+      (arrow)
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (parenthesized_type
+              (apply_type
+                (concrete_type)
+                (apply_type_args
+                  (apply_type_arg
+                    (apply_type
+                      (concrete_type)))))))
+          (apply_type_arg
+            (tags_type
+              (apply_type
+                (concrete_type)
+                (apply_type_args
+                  (apply_type_arg
+                    (apply_type
+                      (concrete_type)
+                      (apply_type_args
+                        (apply_type_arg
+                          (apply_type
+                            (concrete_type))))))))))))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -726,58 +720,56 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
               (identifier))
             (variable_expr
               (identifier)))))))
-  (line_comment)
+  (doc_comment)
   (annotation_type_def
     (annotation_pre_colon
       (identifier))
-    (type_annotation
-      (function_type
-        (apply_type
-          (concrete_type))
-        (arrow)
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (record_type))
-            (apply_type_arg
-              (tags_type
-                (apply_type
-                  (concrete_type)
-                  (apply_type_args
-                    (apply_type_arg
-                      (apply_type
-                        (concrete_type)
-                        (apply_type_args
-                          (apply_type_arg
-                            (apply_type
-                              (concrete_type)))))))))))))))
-  (line_comment)
+    (function_type
+      (apply_type
+        (concrete_type))
+      (arrow)
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (record_type))
+          (apply_type_arg
+            (tags_type
+              (apply_type
+                (concrete_type)
+                (apply_type_args
+                  (apply_type_arg
+                    (apply_type
+                      (concrete_type)
+                      (apply_type_args
+                        (apply_type_arg
+                          (apply_type
+                            (concrete_type))))))))))))))
+  (doc_comment)
   (annotation_type_def
     (annotation_pre_colon
       (identifier))
-    (type_annotation
-      (function_type
-        (apply_type
-          (concrete_type))
-        (arrow)
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (record_type))
-            (apply_type_arg
-              (tags_type
-                (apply_type
-                  (concrete_type)
-                  (apply_type_args
-                    (apply_type_arg
-                      (apply_type
-                        (concrete_type)
-                        (apply_type_args
-                          (apply_type_arg
-                            (apply_type
-                              (concrete_type))))))))))))))))
+    (function_type
+      (apply_type
+        (concrete_type))
+      (arrow)
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (record_type))
+          (apply_type_arg
+            (tags_type
+              (apply_type
+                (concrete_type)
+                (apply_type_args
+                  (apply_type_arg
+                    (apply_type
+                      (concrete_type)
+                      (apply_type_args
+                        (apply_type_arg
+                          (apply_type
+                            (concrete_type)))))))))))))))
 
 ================================================================================
 lists_complex
@@ -809,15 +801,14 @@ view = \currentNavLink, htmlContent ->
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (function_type
-          (apply_type
-            (concrete_type))
-          (apply_type
-            (concrete_type))
-          (arrow)
-          (apply_type
-            (concrete_type)))))
+      (function_type
+        (apply_type
+          (concrete_type))
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -965,7 +956,6 @@ viewNavLink = \isCurrent, navlink ->
         (arrow)
         (expr_body
           (if_expr
-            (if)
             (variable_expr
               (identifier))
             (then
@@ -1053,7 +1043,6 @@ viewNavLink = \isCurrent, navlink ->
         (arrow)
         (expr_body
           (if_expr
-            (if)
             (variable_expr
               (identifier))
             (then

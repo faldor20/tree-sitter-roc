@@ -1,0 +1,46 @@
+================================================================================
+error_test_newline
+================================================================================
+a=
+  b=10
+--------------------------------------------------------------------------------
+
+(ERROR
+  (identifier_pattern
+    (identifier))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (int)))))
+
+================================================================================
+error_if_then
+================================================================================
+bbba=
+    b=10
+    if a then
+a=10
+
+--------------------------------------------------------------------------------
+
+(ERROR
+  (identifier_pattern
+    (identifier))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (int))))
+  (variable_expr
+    (identifier))
+  (then
+    (ERROR
+      (UNEXPECTED '='))
+    (expr_body
+      (const
+        (int)))))

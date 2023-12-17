@@ -12,7 +12,6 @@ a= if a then b else if a_2 then c else d
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (variable_expr
           (identifier))
         (then
@@ -29,7 +28,6 @@ a= if a then b else if a_2 then c else d
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (variable_expr
           (identifier))
         (then
@@ -67,7 +65,6 @@ a= if a then b else
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (variable_expr
           (identifier))
         (then
@@ -84,7 +81,6 @@ a= if a then b else
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (variable_expr
           (identifier))
         (then
@@ -108,7 +104,6 @@ a= if a then b else
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (variable_expr
           (identifier))
         (then
@@ -118,7 +113,6 @@ a= if a then b else
         (else
           (expr_body
             (if_expr
-              (if)
               (variable_expr
                 (identifier))
               (then
@@ -146,13 +140,11 @@ a=
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (variable_expr
           (identifier))
         (then
           (expr_body
             (if_expr
-              (if)
               (variable_expr
                 (identifier))
               (then
@@ -186,7 +178,6 @@ a=
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (variable_expr
           (identifier))
         (then

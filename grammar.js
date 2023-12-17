@@ -40,7 +40,11 @@ module.exports = grammar({
 		"except",
 	],
 
-	extras: ($) => [$.line_comment, /[ \s\f\uFEFF\u2060\u200B]|\\\r?n/],
+	extras: ($) => [
+		$.line_comment,
+		$.doc_comment,
+		/[ \s\f\uFEFF\u2060\u200B]|\\\r?n/,
+	],
 
 	conflicts: ($) => [
 		[$._function_call_target, $._atom_expr],
@@ -108,27 +112,33 @@ module.exports = grammar({
 			choice(
 				seq(
 					$._indent,
-					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
-					$._expr_inner,
+					field(
+						"declarations",
+						repeat(seq(choice($.value_declaration, $.backpassing_expr))),
+					),
+					field("result", $._expr_inner),
 					$._dedent,
 				),
 				seq(
 					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
-					$._expr_inner,
+					field("result", $._expr_inner),
 				),
 			),
 		expr_body_terminal: ($) =>
 			choice(
 				seq(
 					$._indent,
-					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
-					$._expr_inner,
+					field(
+						"declarations",
+						repeat(seq(choice($.value_declaration, $.backpassing_expr))),
+					),
+					field("result", $._expr_inner),
 					$._dedent,
 				),
 				seq(
 					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
-					$._expr_inner,
-					$._end_newline,
+					field("result", $._expr_inner),
+					$._newline,
 				),
 			),
 		_atom_expr: ($) =>
@@ -149,21 +159,10 @@ module.exports = grammar({
 			),
 		_call_or_atom: ($) => choice($.function_call_expr, $._atom_expr),
 		_expr_inner: ($) =>
-			choice(
-				// $.seq_infix,
-				// $.if_expr,
-				// $.long_identifier_or_op,
-				// $._keyword_expr,
-				// $._assignement_expr,
-				// $._atom_context_expr,
-				$.prefixed_expression,
-				$.bin_op_expr,
-				$._call_or_atom,
-			),
+			choice($.prefixed_expression, $.bin_op_expr, $._call_or_atom),
 
 		prefixed_expression: ($) => prec.left(seq($.operator, $._call_or_atom)),
 		else: ($) => seq("else", $.expr_body),
-
 		then: ($) => seq("then", field("then", $.expr_body)),
 		else_if: ($) =>
 			prec.left(seq("else", "if", field("guard", $._expr_inner), $.then)),
@@ -173,7 +172,7 @@ module.exports = grammar({
 		parenthesized_expr: ($) => seq("(", field("expression", $.expr_body), ")"),
 		if_expr: ($) =>
 			seq(
-				alias("if", $.if),
+				"if",
 				field("guard", $._expr_inner),
 				$.then,
 				repeat($.else_if),
@@ -209,7 +208,7 @@ module.exports = grammar({
 				PREC.FUNC,
 				seq(
 					field("caller", $._function_call_target),
-					field("arg", repeat1($._atom_expr)),
+					field("args", repeat1($._atom_expr)),
 				),
 			),
 		operator_as_function_expr: ($) => $._operator_as_function_inner,
@@ -468,9 +467,17 @@ module.exports = grammar({
 		imports: ($) => seq("imports", "[", sep_tail($.imports_entry, ","), "]"),
 		imports_entry: ($) =>
 			seq(
-				optional(seq($.identifier, ".")),
-				seq($.module, repeat(seq(".", $.module))),
-				optional(seq(".", $.exposes_list)),
+				choice(
+					seq(
+						optional(seq($.identifier, ".")),
+						seq($.module, repeat(seq(".", $.module))),
+						optional(seq(".", $.exposes_list)),
+					),
+					alias($.string, $.import_path),
+				),
+				optional(
+					seq(alias("as", $.import_as), $.identifier, ":", $._type_annotation),
+				),
 			),
 		//TODO make a function for all these comma separated trailing comma things
 		to: ($) => "to",
@@ -510,12 +517,13 @@ module.exports = grammar({
 		//####-------###
 
 		annotation_type_def: ($) =>
-			seq($.annotation_pre_colon, ":", $.type_annotation),
-		alias_type_def: ($) => seq($.apply_type, ":", $.type_annotation),
+			seq($.annotation_pre_colon, ":", $._type_annotation),
+		alias_type_def: ($) =>
+			seq($.apply_type, ":", field("body", $._type_annotation)),
 		opaque_type_def: ($) =>
-			seq($.apply_type, alias(":=", $.colon_equals), $.type_annotation),
+			seq($.apply_type, alias(":=", $.colon_equals), $._type_annotation),
 
-		type_annotation: ($) =>
+		_type_annotation: ($) =>
 			prec.left(
 				choice(
 					seq(
@@ -529,7 +537,10 @@ module.exports = grammar({
 
 		//TODO i can probably get rid of this, because type_annotation_no_fun can eventually laev to (functio_type)
 		_type_annotation_paren_fun: ($) =>
-			choice($._type_annotation_no_fun, seq("(", $.function_type, ")")),
+			choice(
+				$._type_annotation_no_fun,
+				alias(seq("(", $.function_type, ")"), $.type_annotation_paren),
+			),
 
 		function_type: ($) =>
 			seq(
@@ -538,9 +549,10 @@ module.exports = grammar({
 				sep1($._type_annotation_paren_fun, $.arrow),
 			),
 
+		parenthesized_type: ($) => seq("(", $._type_annotation, ")"),
 		_type_annotation_no_fun: ($) =>
 			choice(
-				seq("(", $.type_annotation, ")"),
+				$.parenthesized_type,
 				$.record_type,
 				$.apply_type,
 				$.where_implements,
@@ -549,6 +561,15 @@ module.exports = grammar({
 				$.bound_variable,
 				$.inferred,
 				$.wildcard,
+				$.tuple_type,
+			),
+		tuple_type: ($) =>
+			seq(
+				"(",
+				$._type_annotation,
+				",",
+				sep1_tail($._type_annotation, ","),
+				")",
 			),
 
 		implements: ($) => "implements",
@@ -619,7 +640,7 @@ module.exports = grammar({
 
 		apply_type_arg: ($) => prec.left($._type_annotation_no_fun),
 
-		typed_ident: ($) => seq($.identifier, ":", $.type_annotation),
+		typed_ident: ($) => seq($.identifier, ":", $._type_annotation),
 
 		record_type: ($) =>
 			seq(
@@ -631,9 +652,9 @@ module.exports = grammar({
 				"}",
 			),
 
-		record_field_type: ($) => seq($.field_name, ":", $.type_annotation),
+		record_field_type: ($) => seq($.field_name, ":", $._type_annotation),
 		record_field_type_optional: ($) =>
-			seq($.field_name, "?", $.type_annotation),
+			seq($.field_name, "?", $._type_annotation),
 
 		annotation_pre_colon: ($) =>
 			choice(
@@ -699,7 +720,6 @@ module.exports = grammar({
 		_hex_int: ($) => token(seq(/0[x][0-9abcdef]*/)),
 		_binary_int: ($) => token(seq(/0[b]/, /[01][01_]*/)),
 		xint: ($) => choice($._binary_int, $._hex_int),
-		// block_comment: ($) => seq("(*", $._block_comment_content, "*)"),
 
 		//PRIMATIVES
 		back_arrow: ($) => "<-",
@@ -714,7 +734,8 @@ module.exports = grammar({
 		module: ($) => alias($._upper_identifier, $.module),
 		backslash: ($) => "\\",
 
-		line_comment: ($) => token(seq(/#/, repeat(/[^\n]/))),
+		doc_comment: ($) => /##[^\n]*/,
+		line_comment: ($) => /#[^\n]*/,
 
 		operator: ($) => alias($.operator_identifier, $.operator),
 		operator_identifier: ($) =>
@@ -723,10 +744,12 @@ module.exports = grammar({
 				"-",
 				"*",
 				"/",
+				"%",
 				"!",
 				"//",
 				"^",
 				"==",
+				"!=",
 				"/=",
 				"<",
 				">",

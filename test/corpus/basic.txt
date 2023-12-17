@@ -184,7 +184,6 @@ main =
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (variable_expr
           (identifier))
         (then
@@ -201,7 +200,6 @@ main =
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (variable_expr
           (identifier))
         (then
@@ -221,7 +219,6 @@ main =
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (variable_expr
           (identifier))
         (then
@@ -241,7 +238,6 @@ main =
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (variable_expr
           (identifier))
         (then
@@ -268,7 +264,6 @@ main =
           (arrow)
           (expr_body
             (if_expr
-              (if)
               (variable_expr
                 (identifier))
               (then
@@ -349,9 +344,8 @@ main=
         (annotation_type_def
           (annotation_pre_colon
             (identifier))
-          (type_annotation
-            (apply_type
-              (concrete_type))))
+          (apply_type
+            (concrete_type)))
         (decl_left
           (identifier_pattern
             (identifier)))
@@ -500,23 +494,22 @@ FieldNameMapping : [
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (tags_type
-        (apply_type
-          (concrete_type))
-        (line_comment)
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (type_annotation
-                (function_type
-                  (apply_type
-                    (concrete_type))
-                  (arrow)
-                  (apply_type
-                    (concrete_type)))))))
-        (line_comment)))))
+    (tags_type
+      (apply_type
+        (concrete_type))
+      (line_comment)
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (parenthesized_type
+              (function_type
+                (apply_type
+                  (concrete_type))
+                (arrow)
+                (apply_type
+                  (concrete_type)))))))
+      (line_comment))))
 
 ================================================================================
 record optional field
@@ -531,18 +524,15 @@ func=\{field? B, field: C,def? "hi"}-> field
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (record_type
-          (record_field_type_optional
-            (field_name)
-            (type_annotation
-              (apply_type
-                (concrete_type))))
-          (record_field_type
-            (field_name)
-            (type_annotation
-              (apply_type
-                (concrete_type)))))))
+      (record_type
+        (record_field_type_optional
+          (field_name)
+          (apply_type
+            (concrete_type)))
+        (record_field_type
+          (field_name)
+          (apply_type
+            (concrete_type)))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -859,16 +849,15 @@ InspectFormatter implements{
     (record_type
       (record_field_type
         (field_name)
-        (type_annotation
-          (function_type
-            (record_type)
-            (arrow)
-            (where_implements
-              (bound_variable)
-              (where)
-              (identifier)
-              (implements)
-              (ability_chain))))))))
+        (function_type
+          (record_type)
+          (arrow)
+          (where_implements
+            (bound_variable)
+            (where)
+            (identifier)
+            (implements)
+            (ability_chain)))))))
 
 ================================================================================
 basic_implements
@@ -892,42 +881,36 @@ Json := { fieldNameMapping : FieldNameMapping, skipMissingProperties : Bool }
     (apply_type
       (concrete_type))
     (colon_equals)
-    (type_annotation
-      (implements_implementation
-        (record_type
-          (record_field_type
-            (field_name)
-            (type_annotation
-              (apply_type
-                (concrete_type))))
-          (record_field_type
-            (field_name)
-            (type_annotation
-              (apply_type
-                (concrete_type)))))
-        (implements)
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (record_type
-                (record_field_type
-                  (field_name)
-                  (type_annotation
-                    (bound_variable)))
-                (record_field_type
-                  (field_name)
-                  (type_annotation
-                    (bound_variable)))))))
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (record_type
-                (record_field_type
-                  (field_name)
-                  (type_annotation
-                    (bound_variable)))))))))))
+    (implements_implementation
+      (record_type
+        (record_field_type
+          (field_name)
+          (apply_type
+            (concrete_type)))
+        (record_field_type
+          (field_name)
+          (apply_type
+            (concrete_type))))
+      (implements)
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (record_type
+              (record_field_type
+                (field_name)
+                (bound_variable))
+              (record_field_type
+                (field_name)
+                (bound_variable))))))
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (record_type
+              (record_field_type
+                (field_name)
+                (bound_variable)))))))))
 
 ================================================================================
 opaque tag pattern
@@ -982,26 +965,25 @@ fromDict = @Graph
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (function_type
-          (apply_type
-            (concrete_type)
-            (apply_type_args
-              (apply_type_arg
-                (bound_variable))
-              (apply_type_arg
-                (type_annotation
-                  (apply_type
-                    (concrete_type)
-                    (apply_type_args
-                      (apply_type_arg
-                        (bound_variable))))))))
-          (arrow)
-          (apply_type
-            (concrete_type)
-            (apply_type_args
-              (apply_type_arg
-                (bound_variable)))))))
+      (function_type
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (bound_variable))
+            (apply_type_arg
+              (parenthesized_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (bound_variable))))))))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (bound_variable))))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -1069,24 +1051,23 @@ Graph a := Dict a (List a) where a implements Eq
         (apply_type_arg
           (bound_variable))))
     (colon_equals)
-    (type_annotation
-      (where_implements
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (bound_variable))
-            (apply_type_arg
-              (type_annotation
-                (apply_type
-                  (concrete_type)
-                  (apply_type_args
-                    (apply_type_arg
-                      (bound_variable))))))))
-        (where)
-        (identifier)
-        (implements)
-        (ability_chain)))))
+    (where_implements
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (bound_variable))
+          (apply_type_arg
+            (parenthesized_type
+              (apply_type
+                (concrete_type)
+                (apply_type_args
+                  (apply_type_arg
+                    (bound_variable))))))))
+      (where)
+      (identifier)
+      (implements)
+      (ability_chain))))
 
 ================================================================================
 arithmatic
@@ -1612,7 +1593,6 @@ main=
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (variable_expr
           (identifier))
         (then
@@ -1723,7 +1703,6 @@ maybe =
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (const)
         (then
           (expr_body
@@ -1964,7 +1943,6 @@ main=
         (identifier)))
     (expr_body
       (if_expr
-        (if)
         (bin_op_expr
           (variable_expr
             (identifier))
@@ -2055,7 +2033,6 @@ main=
           (arrow)
           (expr_body
             (if_expr
-              (if)
               (bin_op_expr
                 (variable_expr
                   (identifier))
@@ -2418,7 +2395,6 @@ main=
                   (arrow)
                   (expr_body
                     (if_expr
-                      (if)
                       (variable_expr
                         (identifier))
                       (then
@@ -2622,14 +2598,13 @@ transformFileContent =
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (record_type))
-            (apply_type_arg
-              (tags_type))))))
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (record_type))
+          (apply_type_arg
+            (tags_type)))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -2642,25 +2617,22 @@ transformFileContent =
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (apply_type
-        (concrete_type))))
+    (apply_type
+      (concrete_type)))
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (apply_type
-        (concrete_type))))
+    (apply_type
+      (concrete_type)))
   (value_declaration
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (function_type
-          (bound_variable)
-          (bound_variable)
-          (arrow)
-          (bound_variable))))
+      (function_type
+        (bound_variable)
+        (bound_variable)
+        (arrow)
+        (bound_variable)))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -2680,16 +2652,15 @@ transformFileContent =
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (function_type
-          (bound_variable)
-          (type_annotation
-            (function_type
-              (bound_variable)
-              (arrow)
-              (bound_variable)))
-          (arrow)
-          (bound_variable))))
+      (function_type
+        (bound_variable)
+        (parenthesized_type
+          (function_type
+            (bound_variable)
+            (arrow)
+            (bound_variable)))
+        (arrow)
+        (bound_variable)))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -2712,15 +2683,14 @@ transformFileContent =
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (function_type
-          (apply_type
-            (concrete_type))
-          (apply_type
-            (concrete_type))
-          (arrow)
-          (apply_type
-            (concrete_type)))))
+      (function_type
+        (apply_type
+          (concrete_type))
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -2845,34 +2815,31 @@ findOneArg = \long, short, { args, taken } -> long
     (annotation_type_def
       (annotation_pre_colon
         (identifier))
-      (type_annotation
-        (function_type
-          (apply_type
-            (concrete_type))
-          (apply_type
-            (concrete_type))
-          (apply_type
-            (concrete_type))
-          (arrow)
-          (apply_type
-            (concrete_type)
-            (apply_type_args
-              (apply_type_arg
-                (record_type
-                  (record_field_type
-                    (field_name)
-                    (type_annotation
-                      (apply_type
-                        (concrete_type))))
-                  (record_field_type
-                    (field_name)
-                    (type_annotation
-                      (apply_type
-                        (concrete_type))))))
-              (apply_type_arg
-                (tags_type
+      (function_type
+        (apply_type
+          (concrete_type))
+        (apply_type
+          (concrete_type))
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (record_type
+                (record_field_type
+                  (field_name)
                   (apply_type
-                    (concrete_type)))))))))
+                    (concrete_type)))
+                (record_field_type
+                  (field_name)
+                  (apply_type
+                    (concrete_type)))))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type))))))))
     (decl_left
       (identifier_pattern
         (identifier)))
@@ -3194,53 +3161,49 @@ a = \path ->
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (apply_type
-        (concrete_type))))
+    (apply_type
+      (concrete_type)))
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (apply_type
-        (concrete_type))))
+    (apply_type
+      (concrete_type)))
   (alias_type_def
     (apply_type
       (concrete_type))
-    (type_annotation
-      (apply_type
-        (concrete_type))))
-  (line_comment)
+    (apply_type
+      (concrete_type)))
+  (doc_comment)
   (annotation_type_def
     (annotation_pre_colon
       (identifier))
-    (type_annotation
-      (function_type
-        (apply_type
-          (concrete_type))
-        (arrow)
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (type_annotation
-                (apply_type
-                  (concrete_type)
-                  (apply_type_args
-                    (apply_type_arg
-                      (apply_type
-                        (concrete_type)))))))
-            (apply_type_arg
-              (tags_type
-                (apply_type
-                  (concrete_type)
-                  (apply_type_args
-                    (apply_type_arg
-                      (apply_type
-                        (concrete_type)
-                        (apply_type_args
-                          (apply_type_arg
-                            (apply_type
-                              (concrete_type)))))))))))))))
+    (function_type
+      (apply_type
+        (concrete_type))
+      (arrow)
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (parenthesized_type
+              (apply_type
+                (concrete_type)
+                (apply_type_args
+                  (apply_type_arg
+                    (apply_type
+                      (concrete_type)))))))
+          (apply_type_arg
+            (tags_type
+              (apply_type
+                (concrete_type)
+                (apply_type_args
+                  (apply_type_arg
+                    (apply_type
+                      (concrete_type)
+                      (apply_type_args
+                        (apply_type_arg
+                          (apply_type
+                            (concrete_type))))))))))))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -3278,19 +3241,18 @@ main = 1
         (requires_rigids)
         (typed_ident
           (identifier)
-          (type_annotation
-            (function_type
+          (function_type
+            (bound_variable)
+            (arrow)
+            (where_implements
               (bound_variable)
-              (arrow)
-              (where_implements
-                (bound_variable)
-                (where)
-                (identifier)
-                (implements)
-                (ability_chain)
-                (identifier)
-                (implements)
-                (ability_chain))))))
+              (where)
+              (identifier)
+              (implements)
+              (ability_chain)
+              (identifier)
+              (implements)
+              (ability_chain)))))
       (exposes)
       (packages
         (record_pattern))
