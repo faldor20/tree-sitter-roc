@@ -94,7 +94,9 @@
 ;----decleration types----
 (value_declaration(decl_left 
   (identifier_pattern 
-   (identifier) @parameter.definition)))
+   (identifier) @parameter.definition))
+    (#set! "priority" 99)
+)
 
 (backpassing_expr assignee: (identifier_pattern (identifier) @parameter.definition))
 
@@ -183,7 +185,7 @@
   )@module
 
 (identifier
-(#set! "priority" 99)
+(#set! "priority" 98)
   )@variable
 (concrete_type
 (#set! "priority" 99)
