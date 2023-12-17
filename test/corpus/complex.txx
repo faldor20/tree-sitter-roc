@@ -599,7 +599,7 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
       (concrete_type))
     (apply_type
       (concrete_type)))
-  (line_comment)
+  (doc_comment)
   (annotation_type_def
     (annotation_pre_colon
       (identifier))
@@ -720,7 +720,7 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
               (identifier))
             (variable_expr
               (identifier)))))))
-  (line_comment)
+  (doc_comment)
   (annotation_type_def
     (annotation_pre_colon
       (identifier))
@@ -745,7 +745,7 @@ deleteRecursive : Path -> Task {} [DirDeleteErr Path DeleteErr]
                         (apply_type_arg
                           (apply_type
                             (concrete_type))))))))))))))
-  (line_comment)
+  (doc_comment)
   (annotation_type_def
     (annotation_pre_colon
       (identifier))

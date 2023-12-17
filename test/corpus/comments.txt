@@ -1,0 +1,33 @@
+================================================================================
+comments_and_docs
+================================================================================
+#This is a comments
+
+##This is a doc
+a=\a,b->a+b
+
+--------------------------------------------------------------------------------
+
+(file
+  (line_comment)
+  (doc_comment)
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (backslash)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (arrow)
+        (expr_body
+          (bin_op_expr
+            (variable_expr
+              (identifier))
+            (operator)
+            (variable_expr
+              (identifier))))))))

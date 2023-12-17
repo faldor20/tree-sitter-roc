@@ -3899,24 +3899,13 @@
       "type": "STRING",
       "value": "\\"
     },
+    "doc_comment": {
+      "type": "PATTERN",
+      "value": "##[^\\n]*"
+    },
     "line_comment": {
-      "type": "TOKEN",
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "#"
-          },
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "PATTERN",
-              "value": "[^\\n]"
-            }
-          }
-        ]
-      }
+      "type": "PATTERN",
+      "value": "#[^\\n]*"
     },
     "operator": {
       "type": "ALIAS",
@@ -4045,6 +4034,10 @@
     {
       "type": "SYMBOL",
       "name": "line_comment"
+    },
+    {
+      "type": "SYMBOL",
+      "name": "doc_comment"
     },
     {
       "type": "PATTERN",

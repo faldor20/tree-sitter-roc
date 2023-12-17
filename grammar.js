@@ -40,7 +40,11 @@ module.exports = grammar({
 		"except",
 	],
 
-	extras: ($) => [$.line_comment, /[ \s\f\uFEFF\u2060\u200B]|\\\r?n/],
+	extras: ($) => [
+		$.line_comment,
+		$.doc_comment,
+		/[ \s\f\uFEFF\u2060\u200B]|\\\r?n/,
+	],
 
 	conflicts: ($) => [
 		[$._function_call_target, $._atom_expr],
@@ -716,7 +720,6 @@ module.exports = grammar({
 		_hex_int: ($) => token(seq(/0[x][0-9abcdef]*/)),
 		_binary_int: ($) => token(seq(/0[b]/, /[01][01_]*/)),
 		xint: ($) => choice($._binary_int, $._hex_int),
-		// block_comment: ($) => seq("(*", $._block_comment_content, "*)"),
 
 		//PRIMATIVES
 		back_arrow: ($) => "<-",
@@ -731,7 +734,8 @@ module.exports = grammar({
 		module: ($) => alias($._upper_identifier, $.module),
 		backslash: ($) => "\\",
 
-		line_comment: ($) => token(seq(/#/, repeat(/[^\n]/))),
+		doc_comment: ($) => /##[^\n]*/,
+		line_comment: ($) => /#[^\n]*/,
 
 		operator: ($) => alias($.operator_identifier, $.operator),
 		operator_identifier: ($) =>

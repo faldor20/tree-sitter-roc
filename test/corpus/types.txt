@@ -343,8 +343,25 @@ a:
             (bound_variable))))
       (arrow)
       (bound_variable))))
-===
+
+================================================================================
 types_tuples
-===
+================================================================================
 a:(Num a,Num b)
----
+--------------------------------------------------------------------------------
+
+(file
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (tuple_type
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (bound_variable))))
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (bound_variable)))))))

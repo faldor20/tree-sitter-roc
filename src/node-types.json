@@ -3960,6 +3960,10 @@
     "named": true
   },
   {
+    "type": "doc_comment",
+    "named": true
+  },
+  {
     "type": "effects",
     "named": false
   },

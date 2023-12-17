@@ -3173,7 +3173,7 @@ a = \path ->
       (concrete_type))
     (apply_type
       (concrete_type)))
-  (line_comment)
+  (doc_comment)
   (annotation_type_def
     (annotation_pre_colon
       (identifier))
