@@ -63,6 +63,8 @@
       (field_name)@namespace)))
 
 (app_name) @string
+(import_as) @string
+
 
 [
     "app"
@@ -72,6 +74,7 @@
     "interface"
     "exposes"
     "expect"
+    (import_as)
  ] @keyword.control
 
 ;---annotations----
