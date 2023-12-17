@@ -74,30 +74,52 @@
  (ERROR "(")@indent @extend 
 
 
+;;It's annoying when pipelines automatically dedent this pervents that
+(expr_body
+	result: (bin_op_expr)
+)@extend 
 
-(value_declaration
+;this automatically dedents, this may be more annying than helpful when writing pipelines
 (expr_body
 	result: (_)
 ) @extend.prevent-once
-)
-(then
-(expr_body
-	result: (_)
-) @extend.prevent-once
-)
-(else
-(expr_body
-	result: (_)
-) @extend.prevent-once
-)
- (when_is_branch
-(expr_body
-	result: (_)
-)@extend.prevent-once
-)
- (expect
-(expr_body
-	result: (_)
-)@extend.prevent-once
-)
+
+
+;;If we maybe don't want all expressions causing dedents
+
+; (value_declaration
+; (expr_body
+; 	result: (_)
+; ) @extend.prevent-once
+; )
+; (then
+; (expr_body
+; 	result: (_)
+; ) @extend.prevent-once
+; )
+; (else
+; (expr_body
+; 	result: (_)
+; ) @extend.prevent-once
+; )
+;  (when_is_branch
+; (expr_body
+; 	result: (_)
+; )@extend.prevent-once
+; )
+;  (expect
+; (expr_body
+; 	result: (_)
+; )@extend.prevent-once
+; )
+; (record_field_expr
+; (expr_body
+; 	result: (_)
+; ) @extend.prevent-once
+; )
+; (record_field_expr
+; (expr_body
+; 	result: (_)
+; ) @extend.prevent-once
+; )
 
