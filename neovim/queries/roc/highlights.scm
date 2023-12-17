@@ -62,6 +62,7 @@
       (field_name)@namespace)))
 
 (app_name) @string
+(import_path) @string
 
 [
     "app"
@@ -71,6 +72,7 @@
     "interface"
     "exposes"
     "expect"
+    (import_as)
  ] @keyword.control
 
 ;---annotations----
@@ -79,7 +81,7 @@
 (annotation_type_def 
  (annotation_pre_colon 
   (identifier)@type)
-#set! "priority" 99
+(#set! "priority" 99)
   )
 
 (annotation_type_def 
@@ -92,9 +94,7 @@
 ;----decleration types----
 (value_declaration(decl_left 
   (identifier_pattern 
-   (identifier) @parameter.definition))
-#set! "priority" 99
-                  )
+   (identifier) @parameter.definition)))
 
 (backpassing_expr assignee: (identifier_pattern (identifier) @parameter.definition))
 
@@ -147,13 +147,13 @@
 ;;---records----
 
 (field_name
-#set! "priority" 99
+(#set! "priority" 99)
   )@field
 (record_field_pattern (_(identifier) @variable))
 
 ;matches the second identifier and all subsequent ones
 (field_access_expr (identifier)@field
-#set! "priority" 99
+(#set! "priority" 99)
                     )
 
 
@@ -176,16 +176,16 @@
 
 ;---Most generic types---
 (module
-#set! "priority" 99
+(#set! "priority" 99)
   )@namespace
 (module
-#set! "priority" 99
+(#set! "priority" 99)
   )@module
 
 (identifier
-#set! "priority" 99
+(#set! "priority" 99)
   )@variable
 (concrete_type
-#set! "priority" 99
+(#set! "priority" 99)
   )@type
 
