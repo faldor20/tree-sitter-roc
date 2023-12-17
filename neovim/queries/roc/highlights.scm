@@ -1,4 +1,11 @@
+;;----comments----
 
+[
+  (line_comment)
+  (doc_comment)
+] @comment
+
+;;-----Punctuation----
 [
 "?"
 (arrow)
@@ -6,20 +13,11 @@
 (backslash)
 ] @punctuation.delimiter
 
-
-
-;;from fsharp
-
-;; ----------------------------------------------------------------------------
-;; Literals and comments
-
 [
-  (line_comment)
-] @comment
+  ","
+  ":"
+] @punctuation.delimiter
 
-
-;; ----------------------------------------------------------------------------
-;; Punctuation
 
 [
   "("
@@ -31,25 +29,39 @@
 ] @punctuation.bracket
 
 [
-  "," 
-] @punctuation.delimiter
-
-[
   "|" 
   "&"
   (operator)
+  (wildcard_pattern)
 ] @operator
-
 
 [
   "if"
   "then"
   "else"
+] @conditional
 
-] @keyword.control.conditional
-(if) @keyword.control.conditional
+[
+(implements)
+(when)
+(is)
+(to)
+] @keyword.control.roc
+
+;----headers-----
 
 (interface_header(name)@type.interface)
+
+(imports
+  (imports_entry
+            (module)@namespace))
+
+(packages
+  (record_pattern
+    (record_field_pattern
+      (field_name)@namespace)))
+
+(app_name) @string
 
 [
     "app"
@@ -61,91 +73,44 @@
     "expect"
  ] @keyword.control
 
-(app_name) @string
+;---annotations----
 
-
-  (implements)@keyword.control.roc
- (when) @keyword.control.roc
- (is) @keyword.control.roc
- (to) @keyword.control.roc
-[
-  "("
-  ")"
-  "["
-  "]"
-  "{"
-  "}"
-] @punctuation.bracket
-
-[
-  ","
-  ":"
-] @punctuation.delimiter
-
-(identifier)@variable
-(concrete_type)@type
-
-
-
-;----all declerations----
-(value_declaration(decl_left 
-  (identifier_pattern 
-   (identifier) @parameter.definition)))
 
 (annotation_type_def 
  (annotation_pre_colon 
-  (identifier)@parameter.definition ))
-
-(backpassing_expr assignee: (identifier_pattern (identifier) @parameter.definition))
-
-
-;----declerations that could be functions----
-(value_declaration(decl_left 
-  (identifier_pattern 
-   (identifier)@function))(expr_body(anon_fun_expr)))
-
-
-;----things that could be functions----
-(function_call_expr
-  caller:  (variable_expr
-      (identifier)@function))
-(function_call_expr
-  caller: (field_access_expr (identifier)@function .))
-
-; (anon_fun_expr
-;   (argument_patterns
-;     (long_identifier
-;       (identifier)@variable.parameter))
-;      )
+  (identifier)@type)
+#set! "priority" 99
+  )
 
 (annotation_type_def 
  (annotation_pre_colon 
   (identifier)@function )
- (type_annotation (function_type)))
+ (function_type)
+  )
 
 
+;----decleration types----
+(value_declaration(decl_left 
+  (identifier_pattern 
+   (identifier) @parameter.definition))
+#set! "priority" 99
+                  )
 
+(backpassing_expr assignee: (identifier_pattern (identifier) @parameter.definition))
 
-(imports
-  (imports_entry
-            (module)@namespace))
+(value_declaration(decl_left 
+  (identifier_pattern 
+   (identifier)@function))(expr_body(anon_fun_expr)))
 
-(packages
-  (record_pattern
-    (record_field_pattern
-      (field_name)@namespace)))
-
-
+;----tags----
 
 (tags_type(apply_type(concrete_type)@constructor))
 
 (tag)@constructor
 (opaque_tag)@constructor
 
-(string)@string
-(char) @constant.character
+;-----builtins----
 
-; (boolean_literal) @constant.builtin.boolean
 (variable_expr
   (module)@module
   (identifier)@constant.builtin.boolean
@@ -159,25 +124,40 @@
   (#eq? @module "Bool" )
   )
 
+;----function invocations ----
+(function_call_expr
+  caller:  (variable_expr
+      (identifier)@function.call))
+
+(function_call_expr
+  caller: (field_access_expr (identifier)@function.call .))
+
 (bin_op_expr (operator "|>")@operator(variable_expr(identifier)@function))
 
-; (anon_fun_expr
-;   (argument_patterns)@variable.parameter)
-(argument_patterns(identifier_pattern
-                (identifier)@variable.parameter))
-(argument_patterns(_(identifier_pattern(identifier)@variable.parameter)))
-(argument_patterns(_(_(identifier_pattern(identifier)@variable.parameter))))
-(argument_patterns(_(_(_(identifier_pattern(identifier)@variable.parameter)))))
-(argument_patterns(_(_(_(_(identifier_pattern(identifier)@variable.parameter))))))
-(argument_patterns(_(_(_(_(_(identifier_pattern(identifier)@variable.parameter)))))))
 
-(field_name)@variable.other.member
+;----function arguments----
+
+(argument_patterns(identifier_pattern
+                (identifier)@parameter))
+(argument_patterns(_(identifier_pattern(identifier)@parameter)))
+(argument_patterns(_(_(identifier_pattern(identifier)@parameter))))
+(argument_patterns(_(_(_(identifier_pattern(identifier)@parameter)))))
+(argument_patterns(_(_(_(_(identifier_pattern(identifier)@parameter))))))
+(argument_patterns(_(_(_(_(_(identifier_pattern(identifier)@parameter)))))))
+;;---records----
+
+(field_name
+#set! "priority" 99
+  )@field
 (record_field_pattern (_(identifier) @variable))
 
 ;matches the second identifier and all subsequent ones
-(field_access_expr (identifier) @variable.other.member)
+(field_access_expr (identifier)@field
+#set! "priority" 99
+                    )
 
-(wildcard_pattern)@operator
+
+;-----consts-----
 [
   (int)
   (uint)
@@ -190,5 +170,22 @@
   (float)
 ] @constant.numeric.float
 
-(module)@namespace
-(module)@module
+(string)@string
+(char) @constant.character
+
+
+;---Most generic types---
+(module
+#set! "priority" 99
+  )@namespace
+(module
+#set! "priority" 99
+  )@module
+
+(identifier
+#set! "priority" 99
+  )@variable
+(concrete_type
+#set! "priority" 99
+  )@type
+
