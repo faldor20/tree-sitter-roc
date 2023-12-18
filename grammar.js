@@ -297,7 +297,8 @@ module.exports = grammar({
 				optional_indent(
 					seq(
 						field("expr", $._expr_inner),
-						repeat1(seq(",", field("expr", $._expr_inner))),
+						",",
+						sep1_tail(field("expr", $._expr_inner), ","),
 					),
 					$,
 				),

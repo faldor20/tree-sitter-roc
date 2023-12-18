@@ -10,7 +10,7 @@
 	(when_is_expr)
 	(when_is_branch)
 	(record_field_expr)
-	(function_call_expr)
+	;(function_call_expr)
 	; (function_type)
 	(annotation_type_def)
 	; (parenthesized_type)
@@ -25,7 +25,7 @@
 	(when_is_expr)
 	(when_is_branch)
 	(record_field_expr)
-	(function_call_expr)
+	;(function_call_expr)
 	; (function_type)
 	(annotation_type_def)
 	(interface_header)
@@ -71,7 +71,9 @@
 ;;starting a record_field
 (ERROR ":"@indent @extend) 
 ;starting a type annotation
- (ERROR "(")@indent @extend 
+(ERROR "(")@indent @extend 
+;starting a variable declaration
+(ERROR "=")@indent @extend 
 
 
 ;;It's annoying when pipelines automatically dedent this pervents that
