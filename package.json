@@ -19,6 +19,7 @@
 			"scope": "source.roc",
 			"file-types": ["roc"],
 			"locals": ["queries/locals.scm"],
+			"tags": ["queries/tags.scm"],
 			"highlights": ["queries/highlights.scm"],
 			"injection-regex": "^(roc)$"
 		}
