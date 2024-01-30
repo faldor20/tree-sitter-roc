@@ -13,5 +13,14 @@
 	},
 	"devDependencies": {
 		"tree-sitter-cli": "^0.20.8"
-	}
+	},
+	"tree-sitter": [
+		{
+			"scope": "source.roc",
+			"file-types": ["roc"],
+			"locals": ["queries/locals.scm"],
+			"highlights": ["queries/highlights.scm"],
+			"injection-regex": "^(roc)$"
+		}
+	]
 }
