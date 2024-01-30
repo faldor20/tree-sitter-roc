@@ -46,6 +46,7 @@
 (implements)
 (when)
 (is)
+"as"
 (to)
 ] @keyword.control.roc
 

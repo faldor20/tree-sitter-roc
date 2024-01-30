@@ -154,3 +154,40 @@ a=
           (expr_body
             (variable_expr
               (identifier))))))))
+
+================================================================================
+when_is_as
+================================================================================
+m=
+  when val is
+    ({one:a,two:b} as aa) ->aa
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (when_is_expr
+        (when)
+        (variable_expr
+          (identifier))
+        (is)
+        (when_is_branch
+          (paren_pattern
+            (as_pattern
+              (record_pattern
+                (record_field_pattern
+                  (field_name)
+                  (identifier_pattern
+                    (identifier)))
+                (record_field_pattern
+                  (field_name)
+                  (identifier_pattern
+                    (identifier))))
+              (identifier)))
+          (arrow)
+          (expr_body
+            (variable_expr
+              (identifier))))))))
