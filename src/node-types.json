@@ -886,6 +886,21 @@
     }
   },
   {
+    "type": "dbg_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expr_body",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "decl_left",
     "named": true,
     "fields": {},
@@ -1173,6 +1188,10 @@
             "named": true
           },
           {
+            "type": "dbg_expr",
+            "named": true
+          },
+          {
             "type": "value_declaration",
             "named": true
           }
@@ -1255,6 +1274,10 @@
       "types": [
         {
           "type": "backpassing_expr",
+          "named": true
+        },
+        {
+          "type": "dbg_expr",
           "named": true
         },
         {
@@ -3954,6 +3977,10 @@
   {
     "type": "colon_equals",
     "named": true
+  },
+  {
+    "type": "dbg",
+    "named": false
   },
   {
     "type": "decimal",

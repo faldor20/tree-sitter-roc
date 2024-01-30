@@ -1,0 +1,80 @@
+================================================================================
+dbg_basic
+================================================================================
+a=
+  dbg "hi"
+  b= 1 
+  b
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (dbg_expr
+        (expr_body
+          (const
+            (string))))
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (const
+            (int))))
+      (variable_expr
+        (identifier)))))
+
+================================================================================
+dbg_complex
+================================================================================
+a=
+  dbg 
+	dbg c
+	t=c+10
+	dbg c
+	t
+  b= 1 
+  b
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (dbg_expr
+        (expr_body
+          (dbg_expr
+            (expr_body
+              (variable_expr
+                (identifier))))
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (bin_op_expr
+                (variable_expr
+                  (identifier))
+                (operator)
+                (const
+                  (int)))))
+          (dbg_expr
+            (expr_body
+              (variable_expr
+                (identifier))))
+          (variable_expr
+            (identifier))))
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (const
+            (int))))
+      (variable_expr
+        (identifier)))))

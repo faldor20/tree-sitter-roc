@@ -121,6 +121,9 @@
   (#eq? @constant.builtin.boolean "false" )
   (#eq? @module "Bool" )
   )
+[
+"dbg"
+] @constant.builtin
 ;----function invocations ----
 (function_call_expr
   caller:  (variable_expr

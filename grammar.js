@@ -104,7 +104,7 @@ module.exports = grammar({
 					// $._newline,
 					alias($._assigment_pattern, $.decl_left),
 					"=",
-					field("body", seq(alias($.expr_body_terminal, $.expr_body))),
+					field("body", alias($.expr_body_terminal, $.expr_body)),
 				),
 			),
 
@@ -114,29 +114,32 @@ module.exports = grammar({
 					$._indent,
 					field(
 						"declarations",
-						repeat(seq(choice($.value_declaration, $.backpassing_expr))),
+						repeat(choice($.value_declaration, $.backpassing_expr, $.dbg_expr)),
 					),
 					field("result", $._expr_inner),
 					$._dedent,
 				),
 				seq(
-					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
+					repeat(choice($.value_declaration, $.backpassing_expr, $.dbg_expr)),
 					field("result", $._expr_inner),
 				),
 			),
+		/** 
+		An expression body that should contain a newline after, like within a value declaration
+		*/
 		expr_body_terminal: ($) =>
 			choice(
 				seq(
 					$._indent,
 					field(
 						"declarations",
-						repeat(seq(choice($.value_declaration, $.backpassing_expr))),
+						repeat(choice($.value_declaration, $.backpassing_expr, $.dbg_expr)),
 					),
 					field("result", $._expr_inner),
 					$._dedent,
 				),
 				seq(
-					repeat(seq(choice($.value_declaration, $.backpassing_expr))),
+					repeat(choice($.value_declaration, $.backpassing_expr, $.dbg_expr)),
 					field("result", $._expr_inner),
 					$._newline,
 				),
@@ -157,11 +160,13 @@ module.exports = grammar({
 				$.list_expr,
 				$.field_access_expr,
 			),
+
 		_call_or_atom: ($) => choice($.function_call_expr, $._atom_expr),
 		_expr_inner: ($) =>
 			choice($.prefixed_expression, $.bin_op_expr, $._call_or_atom),
 
 		prefixed_expression: ($) => prec.left(seq($.operator, $._call_or_atom)),
+		dbg_expr: ($) => seq("dbg", alias($.expr_body_terminal, $.expr_body)),
 		else: ($) => seq("else", $.expr_body),
 		then: ($) => seq("then", field("then", $.expr_body)),
 		else_if: ($) =>
