@@ -81,7 +81,6 @@ main=
         (when_is_branch
           (identifier_pattern
             (identifier))
-          (if)
           (if
             (bin_op_expr
               (variable_expr
@@ -96,7 +95,6 @@ main=
         (when_is_branch
           (identifier_pattern
             (identifier))
-          (if)
           (if
             (bin_op_expr
               (variable_expr

@@ -866,22 +866,22 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "ALIAS",
-              "content": {
-                "type": "SEQ",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "if"
-                  },
-                  {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "if"
+                },
+                {
+                  "type": "ALIAS",
+                  "content": {
                     "type": "SYMBOL",
                     "name": "_expr_inner"
-                  }
-                ]
-              },
-              "named": true,
-              "value": "if"
+                  },
+                  "named": true,
+                  "value": "if"
+                }
+              ]
             },
             {
               "type": "BLANK"

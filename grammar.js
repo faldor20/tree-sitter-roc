@@ -258,7 +258,7 @@ module.exports = grammar({
 		when_is_branch: ($) =>
 			seq(
 				field("pattern", $._pattern),
-				optional(alias(seq("if", $._expr_inner), $.if)),
+				optional(seq("if", alias($._expr_inner, $.if))),
 				$.arrow,
 				//TODO: evaluate what options can got here
 				field("expr", $.expr_body),
