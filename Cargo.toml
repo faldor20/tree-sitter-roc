@@ -1,10 +1,10 @@
 [package]
-name = "tree-sitter-ROC"
+name = "tree-sitter-roc"
 description = "ROC grammar for the tree-sitter parsing library"
 version = "0.0.1"
 keywords = ["incremental", "parsing", "ROC"]
 categories = ["parsing", "text-editors"]
-repository = "https://github.com/tree-sitter/tree-sitter-ROC"
+repository = "https://github.com/faldor20/tree-sitter-roc"
 edition = "2018"
 license = "MIT"
 
