@@ -34,7 +34,7 @@ name = "roc"
 source = { git = "https://github.com/faldor20/tree-sitter-roc.git", rev = "381743cd40ee19a9508c6445aacb9085d4bc0cf8" }
 ```
 1. After adding the above to your `languages.toml`, run `hx --grammar fetch` and then `hx --grammar build`
-2. Add `~/.config/helix/runtime/queries` and put the files from this repository's `queries` directory in there.
+2. Add `~/.config/helix/runtime/queries/roc/` and put the files from this repository's `queries` directory in there.
 3. Run `hx --health roc` in a new shell and verify that your changes have been picked up correctly. If things are green, you're good to go. 
 
 ### Neovim
