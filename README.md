@@ -3,10 +3,11 @@
 Reference it from your editor somehow.
 //TODO
 ### Helix
+
 My full config for roc is below: 
 ```toml
 [language-server.roc-ls]
-command = "roc_ls"
+command = "roc_lang_server"
 
 [[language]]
 name = "roc"
@@ -18,6 +19,9 @@ roots = []
 comment-token = "#"
 language-servers = ["roc-ls"]
 indent = { tab-width = 2, unit = "  " }
+auto-format = true
+formatter = { command = "roc", args =[ "format", "--stdin", "--stdout"]}
+
 
 [language.auto-pairs]
 '(' = ')'
@@ -27,8 +31,12 @@ indent = { tab-width = 2, unit = "  " }
 [[grammar]]
 
 name = "roc"
-source = { git = "https://github.com/faldor20/tree-sitter-roc.git", rev = "2c985e01fd1eae1e8ce0d52b084a6b555c26048e" }
+source = { git = "https://github.com/faldor20/tree-sitter-roc.git", rev = "381743cd40ee19a9508c6445aacb9085d4bc0cf8" }
 ```
+1. After adding the above to your `languages.toml`, run `hx --grammar fetch` and then `hx --grammar build`
+2. Add `~/.config/helix/runtime/queries/roc/` and put the files from this repository's `queries` directory in there.
+3. Run `hx --health roc` in a new shell and verify that your changes have been picked up correctly. If things are green, you're good to go. 
+
 ### Neovim
 Add the code in `neovim/roc.lua` to your config somewhere.
 Copy the folder `neovim/queries` to your neovim config at `after/` or in a custom neovim plugin at its root directory `./`
