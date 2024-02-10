@@ -172,11 +172,6 @@ bool tree_sitter_roc_external_scanner_scan(void *payload, TSLexer *lexer,
 
   bool error_recovery_mode =
       valid_symbols[STRING_CONTENT] && valid_symbols[INDENT];
-  
-  // FIXME unused
-  // bool within_brackets = valid_symbols[CLOSE_BRACE] ||
-  //                       valid_symbols[CLOSE_PAREN] ||
-  //                       valid_symbols[CLOSE_BRACKET];
 
   bool advanced_once = false;
   if (valid_symbols[ESCAPE_INTERPOLATION] && scanner->delimiters.len > 0 &&
