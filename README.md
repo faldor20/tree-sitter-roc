@@ -7,7 +7,7 @@ Reference it from your editor somehow.
 My full config for roc is below: 
 ```toml
 [language-server.roc-ls]
-command = "roc_lang_server"
+command = "roc_language_server"
 
 [[language]]
 name = "roc"
