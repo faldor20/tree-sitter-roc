@@ -702,10 +702,9 @@ module.exports = grammar({
 
 		//STRINGS
 		string: ($) =>
-			seq(
-				'"',
-				repeat(choice(/[^\\"]/, $.interpolation_char, $.escape_char)),
-				imm('"'),
+			choice(
+				string_delimited_by('"', $),
+				string_delimited_by('"""', $),
 			),
 		escape_char: ($) => imm(/\\[\\"\'ntbrafv]/),
 		interpolation_char: ($) => seq(imm(/\\\(/), $.variable_expr, ")"),
@@ -791,4 +790,11 @@ function optional_indent(rule, $) {
 }
 function imm(x) {
 	return token.immediate(x);
+}
+function string_delimited_by(delimiter, $) {
+	return seq(
+		delimiter,
+		repeat(choice(/[^\\"]/, $.interpolation_char, $.escape_char)),
+		imm(delimiter)
+	);
 }
