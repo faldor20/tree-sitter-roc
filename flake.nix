@@ -17,9 +17,22 @@
     #in
     (flake-utils.lib.eachDefaultSystem
       (system:
-        let pkgs = import nixpkgs { inherit system;overlays=[(final: prev:{
-            tree-sitter = prev.tree-sitter.override {  webUISupport=true;     };   
-        })]; }; in
+        let
+          pkgs = import nixpkgs {
+            inherit system; overlays = [
+            (final: prev: {
+              tree-sitter = prev.tree-sitter.override { webUISupport = true; };
+            })
+          ];
+          };
+
+          treeSitterGrammar = pkgs.tree-sitter.buildGrammar {
+            language = "roc";
+            version = "0.0.0";
+            src = ./.;
+            meta.homepage = "https://github.com/faldor20/tree-sitter-roc/tree/master";
+          };
+        in
         {
           # defaultPackage = defaultPackage pkgs;
           devShell = pkgs.mkShell {
@@ -31,8 +44,16 @@
               tree-sitter
             ];
           };
-        })); 
 
-        # // (let pkgs = import nixpkgs { }; in { defaultPackage = defaultPackage pkgs; });
-        
+          treeSitterGrammar = treeSitterGrammar;
+
+          neovimPlugin = pkgs.runCommand "tree-sitter-roc" { } ''
+            mkdir -p $out/parser
+            cp -r ${./neovim}/* $out
+            cp ${treeSitterGrammar}/parser $out/parser/roc.so
+          '';
+        }));
+
+  # // (let pkgs = import nixpkgs { }; in { defaultPackage = defaultPackage pkgs; });
+
 }
