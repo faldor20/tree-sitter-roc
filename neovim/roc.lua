@@ -1,7 +1,14 @@
 -- make .roc files have the correct filetype
-vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
-  pattern = { "*.roc" },
-  command = "set filetype=roc",
+vim.filetype.add({
+    extension = {
+        roc = function(path, bufnr)
+            return 'roc', function(bufnr)
+                vim.api.nvim_buf_set_option(bufnr, "commentstring", "# %s")
+                vim.api.nvim_buf_set_option(bufnr, "shiftwidth", 4)
+                vim.api.nvim_buf_set_option(bufnr, "tabstop", 4)
+            end
+        end
+    }
 })
 
 -- add roc tree-sitter
