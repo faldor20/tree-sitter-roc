@@ -143,6 +143,7 @@ value_record
 value_field
 ================================================================================
 a= Bool.field
+a= My.Module.field
 a= {a}.field
 a= ({a}).field
 a= a.field.b.c.d
@@ -155,6 +156,15 @@ a= a.field.b.c.d
         (identifier)))
     (expr_body
       (variable_expr
+        (module)
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (variable_expr
+        (module)
         (module)
         (identifier))))
   (value_declaration

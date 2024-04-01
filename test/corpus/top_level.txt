@@ -1,0 +1,74 @@
+================================================================================
+consts
+================================================================================
+"hi"
+1
+10
+"""
+big comment
+"""
+
+--------------------------------------------------------------------------------
+
+(file
+  (expr_body
+    (const
+      (string)))
+  (expr_body
+    (const
+      (int)))
+  (expr_body
+    (const
+      (int)))
+  (expr_body
+    (const
+      (multiline_string))))
+
+================================================================================
+expr
+================================================================================
+if a then
+  "hi"
+else
+   1
+myFunc a b c
+myFunc 
+  a
+  b
+  c
+
+--------------------------------------------------------------------------------
+
+(file
+  (expr_body
+    (if_expr
+      (variable_expr
+        (identifier))
+      (then
+        (expr_body
+          (const
+            (string))))
+      (else
+        (expr_body
+          (const
+            (int))))))
+  (expr_body
+    (function_call_expr
+      (variable_expr
+        (identifier))
+      (variable_expr
+        (identifier))
+      (variable_expr
+        (identifier))
+      (variable_expr
+        (identifier))))
+  (expr_body
+    (function_call_expr
+      (variable_expr
+        (identifier))
+      (variable_expr
+        (identifier))
+      (variable_expr
+        (identifier))
+      (variable_expr
+        (identifier)))))

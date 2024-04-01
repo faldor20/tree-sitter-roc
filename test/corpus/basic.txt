@@ -855,7 +855,8 @@ InspectFormatter implements{
             (where)
             (identifier)
             (implements)
-            (ability_chain)))))))
+            (ability_chain
+              (ability))))))))
 
 ================================================================================
 basic_implements
@@ -1065,7 +1066,8 @@ Graph a := Dict a (List a) where a implements Eq
       (where)
       (identifier)
       (implements)
-      (ability_chain))))
+      (ability_chain
+        (ability)))))
 
 ================================================================================
 arithmatic
@@ -3222,7 +3224,7 @@ app header
 ================================================================================
 
 platform "ruby-interop"
-    requires {} { main : arg -> ret where arg implements Decoding, ret implements Encoding }
+    requires {} { main : arg -> ret where arg implements Decode.Decoding, ret implements Encoding }
     exposes []
     packages {}
     imports [TotallyNotJson]
@@ -3247,10 +3249,13 @@ main = 1
               (where)
               (identifier)
               (implements)
-              (ability_chain)
+              (ability_chain
+                (module)
+                (ability))
               (identifier)
               (implements)
-              (ability_chain)))))
+              (ability_chain
+                (ability))))))
       (exposes)
       (packages
         (record_pattern))

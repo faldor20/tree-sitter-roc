@@ -2,7 +2,21 @@
   {
     "type": "ability_chain",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "ability",
+          "named": true
+        },
+        {
+          "type": "module",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "alias_type_def",
@@ -639,11 +653,6 @@
         ]
       }
     }
-  },
-  {
-    "type": "bound_variable",
-    "named": true,
-    "fields": {}
   },
   {
     "type": "char",
@@ -1360,6 +1369,10 @@
         },
         {
           "type": "expect",
+          "named": true
+        },
+        {
+          "type": "expr_body",
           "named": true
         },
         {
@@ -2187,6 +2200,10 @@
         },
         {
           "type": "interpolation_char",
+          "named": true
+        },
+        {
+          "type": "module",
           "named": true
         }
       ]
@@ -3990,6 +4007,10 @@
     "named": false
   },
   {
+    "type": "ability",
+    "named": true
+  },
+  {
     "type": "app",
     "named": false
   },
@@ -4003,6 +4024,10 @@
   },
   {
     "type": "backslash",
+    "named": true
+  },
+  {
+    "type": "bound_variable",
     "named": true
   },
   {

@@ -365,3 +365,39 @@ a:(Num a,Num b)
         (apply_type_args
           (apply_type_arg
             (bound_variable)))))))
+
+================================================================================
+types_args
+================================================================================
+A b : B b
+
+A2 b2 c2 : B2 b2 c2
+--------------------------------------------------------------------------------
+
+(file
+  (alias_type_def
+    (apply_type
+      (concrete_type)
+      (apply_type_args
+        (apply_type_arg
+          (bound_variable))))
+    (apply_type
+      (concrete_type)
+      (apply_type_args
+        (apply_type_arg
+          (bound_variable)))))
+  (alias_type_def
+    (apply_type
+      (concrete_type)
+      (apply_type_args
+        (apply_type_arg
+          (bound_variable))
+        (apply_type_arg
+          (bound_variable))))
+    (apply_type
+      (concrete_type)
+      (apply_type_args
+        (apply_type_arg
+          (bound_variable))
+        (apply_type_arg
+          (bound_variable))))))

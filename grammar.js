@@ -5,6 +5,7 @@ const PREC = {
 	TAG: 1,
 	FUNCTION_START: 1,
 	PART: 1,
+	TYPEALIAS: 2,
 	CASE_OF_BRANCH: 6,
 	FUNC: 10,
 };
@@ -87,6 +88,7 @@ module.exports = grammar({
 				$.expect,
 				$.implements_definition,
 				$.value_declaration,
+				$.expr_body,
 			),
 
 		expect: ($) => prec(1, seq("expect", field("body", $.expr_body))),
@@ -452,7 +454,7 @@ module.exports = grammar({
 		interface_header: ($) =>
 			seq(
 				"interface",
-				alias(sep1($._upper_identifier, "."), $.name),
+				alias(sep1($.module, "."), $.name),
 				$._indent,
 				$.interface_header_body,
 				$._dedent,
@@ -608,7 +610,8 @@ module.exports = grammar({
 				// "}"
 			),
 		//    init : {} -> f where f implements InspectFormatter
-		_ability: ($) => sep1($._upper_identifier, "."),
+		_ability: ($) =>
+			sep1end($.module, ".", alias($._upper_identifier, $.ability)),
 		ability_chain: ($) => prec.right(sep1($._ability, "&")),
 
 		tags_type: ($) => seq("[", optional($._tags_only), "]"),
@@ -625,7 +628,7 @@ module.exports = grammar({
 
 		type_variable: ($) => choice("_", $.bound_variable),
 
-		bound_variable: ($) => alias($.identifier, $.bound_variable),
+		bound_variable: ($) => alias($._lower_identifier, $.bound_variable),
 
 		wildcard: ($) => "*",
 
@@ -635,7 +638,13 @@ module.exports = grammar({
 			prec.right(seq($.concrete_type, optional($.apply_type_args))),
 
 		concrete_type: ($) =>
-			seq($._upper_identifier, repeat(seq(".", $._upper_identifier))),
+			prec(
+				PREC.TYPEALIAS,
+				seq(
+					$._upper_identifier,
+					repeat(prec(PREC.TYPEALIAS, seq(".", $._upper_identifier))),
+				),
+			),
 
 		//we need a n optional \n to stop this eating the value that follows it
 		apply_type_args: ($) => prec.right(repeat1($.apply_type_arg)),
@@ -792,6 +801,9 @@ module.exports = grammar({
 
 function sep1(rule, separator) {
 	return seq(rule, repeat(seq(separator, rule)));
+}
+function sep1end(rule, separator, end) {
+	return seq(repeat(seq(rule, separator)), end);
 }
 function sep1_tail(rule, separator) {
 	return seq(rule, repeat(seq(separator, rule)), optional(separator));
