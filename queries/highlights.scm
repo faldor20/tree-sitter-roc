@@ -147,6 +147,11 @@
 (argument_patterns(_(_(_(_(identifier_pattern(identifier)@variable.parameter))))))
 (argument_patterns(_(_(_(_(_(identifier_pattern(identifier)@variable.parameter)))))))
 
+; pattern captures
+(when_is_branch pattern: (_ (identifier_pattern (identifier) @variable.parameter)))
+(range_pattern (identifier) @variable.parameter)
+
+
 ;;----records----
 
 (field_name)@variable.other.member
@@ -154,6 +159,10 @@
 
 ;matches the second identifier and all subsequent ones
 (field_access_expr (identifier) @variable.other.member)
+
+;highlight module members as records instead of free variables
+; avoids highlighting them as out-of-scope vars
+(variable_expr (module) (identifier) @variable.other.member)
 
 ;-----consts-----
 [
