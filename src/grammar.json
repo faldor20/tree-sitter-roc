@@ -3810,7 +3810,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "variable_expr"
+          "name": "_expr_inner"
         },
         {
           "type": "STRING",

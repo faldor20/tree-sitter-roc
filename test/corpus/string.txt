@@ -116,10 +116,13 @@ string_multiline_interpolation
 
 main =
     """
-    $
-    $(hi)
-    \$(hi)
+    \t hi
+    \n
     \\
+    $("hi")
+    $(Num.toStr 10)
+    \$("hi")
+    
     """
 --------------------------------------------------------------------------------
 
@@ -131,8 +134,17 @@ main =
     (expr_body
       (const
         (multiline_string
-          (interpolation_char
-            (variable_expr
-              (identifier)))
           (escape_char)
+          (escape_char)
+          (escape_char)
+          (interpolation_char
+            (const
+              (string)))
+          (interpolation_char
+            (function_call_expr
+              (variable_expr
+                (module)
+                (identifier))
+              (const
+                (int))))
           (escape_char))))))

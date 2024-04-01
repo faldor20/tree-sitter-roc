@@ -732,7 +732,7 @@ module.exports = grammar({
 					imm(/\\\(/), //This is the old inderpolation syntax
 					imm(/\$\(/), //This is the new interpolation syntax
 				),
-				$.variable_expr,
+				$._expr_inner,
 				")",
 			),
 		_simple_string_char: ($) => /[^\t\r\u0008\a\f\v\\"]/,

@@ -26,6 +26,7 @@
   "}"
   "["
   "]"
+  (interpolation_char)
 ] @punctuation.bracket
 
 [
