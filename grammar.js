@@ -701,7 +701,7 @@ module.exports = grammar({
 		string: ($) =>
 			seq(
 				'"',
-				repeat(choice(/[^\\"]/, $.interpolation_char, $.escape_char)),
+				repeat(choice(imm(/[^\n\\"]/), $.interpolation_char, $.escape_char)),
 				'"',
 			),
 

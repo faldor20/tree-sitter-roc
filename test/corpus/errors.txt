@@ -44,3 +44,30 @@ a=10
     (expr_body
       (const
         (int)))))
+
+================================================================================
+error_string
+================================================================================
+bbba= " hi there
+a=10
+b= "other string"
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (ERROR
+      (UNEXPECTED '='))
+    (expr_body
+      (const
+        (int))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (string)))))

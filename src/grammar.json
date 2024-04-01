@@ -3695,8 +3695,11 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "PATTERN",
-                "value": "[^\\\\\"]"
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "PATTERN",
+                  "value": "[^\\n\\\\\"]"
+                }
               },
               {
                 "type": "SYMBOL",
