@@ -9,7 +9,13 @@
 ; (argument_patterns(identifier_pattern
 ;             (identifier)@local.definition))
 
-; (argument_patterns(long_identifier)@local.definition)
+(argument_patterns(identifier_pattern
+                (identifier)@local.definition))
+(argument_patterns(_(identifier_pattern(identifier)@local.definition)))
+(argument_patterns(_(_(identifier_pattern(identifier)@local.definition))))
+(argument_patterns(_(_(_(identifier_pattern(identifier)@local.definition)))))
+(argument_patterns(_(_(_(_(identifier_pattern(identifier)@local.definition))))))
+(argument_patterns(_(_(_(_(_(identifier_pattern(identifier)@local.definition)))))))
 
 (exposes_list(ident)@local.reference)
 
