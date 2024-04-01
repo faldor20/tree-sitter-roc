@@ -31,6 +31,8 @@ rangeTest = \ ->
 Graph a := Dict a (List a) where a implements Eq & Something
 
 foo : (U8, U30) #U30 is deliberately invalid
+bar : { test : Str, here : Dec }
+baz : (a -> Bool), a, Graph a -> Result a [NotFound]
 
 ## Create a Graph from an adjacency list.
 # fromList : List (a, List a) -> Graph a

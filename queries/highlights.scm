@@ -10,6 +10,22 @@
 ;; opinion: typedefs cross into documentation and should be
 ;; highlighted differently from normal code
 
+(opaque_type_def (_ (concrete_type) @type.definition))
+(function_type (arrow) @punctuation.delimiter.structural.typedef)
+
+(parenthesized_type ["(" ")"] @punctuation.bracket.typedef)
+(tuple_type ["(" ")"] @punctuation.bracket.typedef)
+(record_type ["{" "}"] @punctuation.bracket.typedef)
+(tags_type ["[" "]"] @punctuation.bracket.typedef)
+
+(function_type "," @punctuation.delimiter.typedef)
+(tuple_type "," @punctuation.delimiter.typedef)
+(record_type "," @punctuation.delimiter.typedef)
+(record_field_type ":" @punctuation.delimiter.typedef)
+
+(record_field_type (field_name) @variable.other.enum.typedef)
+(ability_chain "&" @operator.typedef)
+
 (where_implements _
   (where) @type.keyword
   (identifier) @type.parameter
@@ -23,7 +39,6 @@
   (#match? @type.builtin "^[IU](8|16|32|64|128)"))
 ((concrete_type) @type.builtin
   (#match? @type.builtin "^F(32|64)"))
-
 
 (bound_variable) @type.parameter
 (tags_type (apply_type(concrete_type) @type.enum.variant))
@@ -128,8 +143,6 @@
 (backpassing_expr assignee: (identifier_pattern (identifier) @parameter.definition))
 
 ;----tags----
-
-(tags_type(apply_type(concrete_type)@constructor))
 
 (tag)@constructor
 (opaque_tag)@constructor
