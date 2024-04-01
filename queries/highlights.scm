@@ -174,6 +174,14 @@
 (escape_char)@constant.character.escape
 
 ;---keep most generic types at bottom for helix---
+;; #any-of? not working in the tree-sitter for helix 23.10
+((module) @namespace.builtin (#eq? @namespace.builtin "Bool"))
+((module) @namespace.builtin (#eq? @namespace.builtin "Str"))
+((module) @namespace.builtin (#eq? @namespace.builtin "Num"))
+((module) @namespace.builtin (#eq? @namespace.builtin "List"))
+((module) @namespace.builtin (#eq? @namespace.builtin "Result"))
+((module) @namespace.builtin (#eq? @namespace.builtin "Dict"))
+((module) @namespace.builtin (#eq? @namespace.builtin "Set"))
 (module)@namespace
 (module)@module
 
