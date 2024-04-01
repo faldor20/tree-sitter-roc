@@ -20,10 +20,6 @@ module.exports = grammar({
 		$._end_newline,
 		$._indent,
 		$._dedent,
-		$.string_start,
-		$._string_content,
-		$.escape_interpolation,
-		$.string_end,
 
 		// Mark comments as external tokens so that the external scanner is always
 		// invoked, even if no external token is expected. This allows for better
@@ -694,6 +690,7 @@ module.exports = grammar({
 
 				$.char,
 				$.string,
+				$.multiline_string,
 				$.int,
 				"false",
 				"true",
@@ -702,12 +699,29 @@ module.exports = grammar({
 
 		//STRINGS
 		string: ($) =>
-			choice(
-				string_delimited_by('"', $),
-				string_delimited_by('"""', $),
+			seq(
+				'"',
+				repeat(choice(/[^\\"]/, $.interpolation_char, $.escape_char)),
+				'"',
 			),
+
+		multiline_string: ($) =>
+			seq(
+				'"""',
+				repeat(choice(/[^\\]/, $.interpolation_char, $.escape_char)),
+				'"""',
+			),
+
 		escape_char: ($) => imm(/\\[\\"\'ntbrafv]/),
-		interpolation_char: ($) => seq(imm(/\\\(/), $.variable_expr, ")"),
+		interpolation_char: ($) =>
+			seq(
+				choice(
+					imm(/\\\(/), //This is the old inderpolation syntax
+					imm(/\$\(/), //This is the new interpolation syntax
+				),
+				$.variable_expr,
+				")",
+			),
 		_simple_string_char: ($) => /[^\t\r\u0008\a\f\v\\"]/,
 		_simple_char_char: ($) => imm(/[^\n\t\r\u0008\a\f\v'\\]/),
 		char: ($) => seq("'", choice($.escape_char, $._simple_char_char), imm("'")),
@@ -739,8 +753,8 @@ module.exports = grammar({
 		module: ($) => alias($._upper_identifier, $.module),
 		backslash: ($) => "\\",
 
-		doc_comment: ($) => /##[^\n]*/,
-		line_comment: ($) => /#[^\n]*/,
+		doc_comment: ($) => token(prec(-1, /##[^\n]*/)),
+		line_comment: ($) => token(prec(-1, /#[^\n]*/)),
 
 		operator: ($) => alias($.operator_identifier, $.operator),
 		operator_identifier: ($) =>
@@ -790,11 +804,4 @@ function optional_indent(rule, $) {
 }
 function imm(x) {
 	return token.immediate(x);
-}
-function string_delimited_by(delimiter, $) {
-	return seq(
-		delimiter,
-		repeat(choice(/[^\\"]/, $.interpolation_char, $.escape_char)),
-		imm(delimiter)
-	);
 }

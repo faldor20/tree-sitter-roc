@@ -31,3 +31,26 @@ a=\a,b->a+b
             (operator)
             (variable_expr
               (identifier))))))))
+
+================================================================================
+comments_with_strings
+================================================================================
+# "string"
+# """
+# multiline
+# """
+a=5
+--------------------------------------------------------------------------------
+
+(file
+  (line_comment)
+  (line_comment)
+  (line_comment)
+  (line_comment)
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (int)))))

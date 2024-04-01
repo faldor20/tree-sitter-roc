@@ -820,6 +820,10 @@
           "named": true
         },
         {
+          "type": "multiline_string",
+          "named": true
+        },
+        {
           "type": "natural",
           "named": true
         },
@@ -864,6 +868,10 @@
         },
         {
           "type": "int",
+          "named": true
+        },
+        {
+          "type": "multiline_string",
           "named": true
         },
         {
@@ -2141,6 +2149,25 @@
         },
         {
           "type": "wildcard_pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "multiline_string",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_char",
+          "named": true
+        },
+        {
+          "type": "interpolation_char",
           "named": true
         }
       ]

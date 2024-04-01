@@ -44,10 +44,6 @@ enum TokenType {
   END_NEWLINE,
   INDENT,
   DEDENT,
-  STRING_START,
-  STRING_CONTENT,
-  ESCAPE_INTERPOLATION,
-  STRING_END,
   COMMENT,
   CLOSE_PAREN,
   CLOSE_BRACKET,
@@ -171,125 +167,9 @@ bool tree_sitter_roc_external_scanner_scan(void *payload, TSLexer *lexer,
   Scanner *scanner = (Scanner *)payload;
 
   bool error_recovery_mode =
-      valid_symbols[STRING_CONTENT] && valid_symbols[INDENT];
+       valid_symbols[INDENT];
 
   bool advanced_once = false;
-  if (valid_symbols[ESCAPE_INTERPOLATION] && scanner->delimiters.len > 0 &&
-      (lexer->lookahead == '{' || lexer->lookahead == '}') &&
-      !error_recovery_mode) {
-    Delimiter delimiter = VEC_BACK(scanner->delimiters);
-    if (is_format(&delimiter)) {
-      lexer->mark_end(lexer);
-      bool is_left_brace = lexer->lookahead == '{';
-      advance(lexer);
-      advanced_once = true;
-      if ((lexer->lookahead == '{' && is_left_brace) ||
-          (lexer->lookahead == '}' && !is_left_brace)) {
-        advance(lexer);
-        lexer->mark_end(lexer);
-        lexer->result_symbol = ESCAPE_INTERPOLATION;
-        return true;
-      }
-      return false;
-    }
-  }
-
-  if (valid_symbols[STRING_CONTENT] && scanner->delimiters.len > 0 &&
-      !error_recovery_mode) {
-    Delimiter delimiter = VEC_BACK(scanner->delimiters);
-    int32_t end_char = end_character(&delimiter);
-    bool has_content = advanced_once;
-    while (lexer->lookahead) {
-      if ((advanced_once || lexer->lookahead == '{' ||
-           lexer->lookahead == '}') &&
-          is_format(&delimiter)) {
-        lexer->mark_end(lexer);
-        lexer->result_symbol = STRING_CONTENT;
-        return has_content;
-      }
-      if (lexer->lookahead == '\\') {
-        if (is_raw(&delimiter)) {
-          // Step over the backslash.
-          advance(lexer);
-          // Step over any escaped quotes.
-          if (lexer->lookahead == end_character(&delimiter) ||
-              lexer->lookahead == '\\') {
-            advance(lexer);
-          }
-          // Step over newlines
-          if (lexer->lookahead == '\r') {
-            advance(lexer);
-            if (lexer->lookahead == '\n') {
-              advance(lexer);
-            }
-          } else if (lexer->lookahead == '\n') {
-            advance(lexer);
-          }
-          continue;
-        }
-        if (is_bytes(&delimiter)) {
-          lexer->mark_end(lexer);
-          advance(lexer);
-          if (lexer->lookahead == 'N' || lexer->lookahead == 'u' ||
-              lexer->lookahead == 'U') {
-            // In bytes string, \N{...}, \uXXXX and \UXXXXXXXX are
-            // not escape sequences
-            // https://docs.roc.org/3/reference/lexical_analysis.html#string-and-bytes-literals
-            advance(lexer);
-          } else {
-            lexer->result_symbol = STRING_CONTENT;
-            return has_content;
-          }
-        } else {
-          lexer->mark_end(lexer);
-          lexer->result_symbol = STRING_CONTENT;
-          return has_content;
-        }
-      } else if (lexer->lookahead == end_char) {
-        if (is_triple(&delimiter)) {
-          lexer->mark_end(lexer);
-          advance(lexer);
-          if (lexer->lookahead == end_char) {
-            advance(lexer);
-            if (lexer->lookahead == end_char) {
-              if (has_content) {
-                lexer->result_symbol = STRING_CONTENT;
-              } else {
-                advance(lexer);
-                lexer->mark_end(lexer);
-                VEC_POP(scanner->delimiters);
-                lexer->result_symbol = STRING_END;
-                scanner->inside_f_string = false;
-              }
-              return true;
-            }
-            lexer->mark_end(lexer);
-            lexer->result_symbol = STRING_CONTENT;
-            return true;
-          }
-          lexer->mark_end(lexer);
-          lexer->result_symbol = STRING_CONTENT;
-          return true;
-        }
-        if (has_content) {
-          lexer->result_symbol = STRING_CONTENT;
-        } else {
-          advance(lexer);
-          VEC_POP(scanner->delimiters);
-          lexer->result_symbol = STRING_END;
-          scanner->inside_f_string = false;
-        }
-        lexer->mark_end(lexer);
-        return true;
-
-      } else if (lexer->lookahead == '\n' && has_content &&
-                 !is_triple(&delimiter)) {
-        return false;
-      }
-      advance(lexer);
-      has_content = true;
-    }
-  }
 
   lexer->mark_end(lexer);
 
@@ -333,17 +213,6 @@ bool tree_sitter_roc_external_scanner_scan(void *payload, TSLexer *lexer,
       skip(lexer);
       indent_length = 0;
     }
-    // else if (lexer->lookahead == '\\') {
-    //   skip(lexer);
-    //   if (lexer->lookahead == '\r') {
-    //     skip(lexer);
-    //   }
-    //   if (lexer->lookahead == '\n' || lexer->eof(lexer)) {
-    //     skip(lexer);
-    //   } else {
-    //     return false;
-    //   }
-    // }
     else if (lexer->eof(lexer)) {
       indent_length = 0;
       found_end_of_line = true;
@@ -363,13 +232,11 @@ bool tree_sitter_roc_external_scanner_scan(void *payload, TSLexer *lexer,
         return true;
       }
 
-      bool next_tok_is_string_start = lexer->lookahead == '\"' ||
-                                      lexer->lookahead == '\'' ||
-                                      lexer->lookahead == '`';
 
       if ((valid_symbols[DEDENT] ||
-           (!valid_symbols[NEWLINE] &&
-            !(valid_symbols[STRING_START] && next_tok_is_string_start))) &&
+           (!valid_symbols[NEWLINE] 
+         )
+        ) &&
           indent_length < current_indent_length && !scanner->inside_f_string &&
 
           // Wait to create a dedent token until we've consumed any
@@ -393,65 +260,6 @@ bool tree_sitter_roc_external_scanner_scan(void *payload, TSLexer *lexer,
     if (valid_symbols[NEWLINE] && !error_recovery_mode) {
       lexer->result_symbol = NEWLINE;
       return true;
-    }
-  }
-
-  if (first_comment_indent_length == -1 && valid_symbols[STRING_START]) {
-    Delimiter delimiter = new_delimiter();
-
-    bool has_flags = false;
-    while (lexer->lookahead) {
-      if (lexer->lookahead == 'f' || lexer->lookahead == 'F') {
-        set_format(&delimiter);
-      } else if (lexer->lookahead == 'r' || lexer->lookahead == 'R') {
-        set_raw(&delimiter);
-      } else if (lexer->lookahead == 'b' || lexer->lookahead == 'B') {
-        set_bytes(&delimiter);
-      } else if (lexer->lookahead != 'u' && lexer->lookahead != 'U') {
-        break;
-      }
-      has_flags = true;
-      advance(lexer);
-    }
-
-    if (lexer->lookahead == '`') {
-      set_end_character(&delimiter, '`');
-      advance(lexer);
-      lexer->mark_end(lexer);
-    } else if (lexer->lookahead == '\'') {
-      set_end_character(&delimiter, '\'');
-      advance(lexer);
-      lexer->mark_end(lexer);
-      if (lexer->lookahead == '\'') {
-        advance(lexer);
-        if (lexer->lookahead == '\'') {
-          advance(lexer);
-          lexer->mark_end(lexer);
-          set_triple(&delimiter);
-        }
-      }
-    } else if (lexer->lookahead == '"') {
-      set_end_character(&delimiter, '"');
-      advance(lexer);
-      lexer->mark_end(lexer);
-      if (lexer->lookahead == '"') {
-        advance(lexer);
-        if (lexer->lookahead == '"') {
-          advance(lexer);
-          lexer->mark_end(lexer);
-          set_triple(&delimiter);
-        }
-      }
-    }
-
-    if (end_character(&delimiter)) {
-      VEC_PUSH(scanner->delimiters, delimiter);
-      lexer->result_symbol = STRING_START;
-      scanner->inside_f_string = is_format(&delimiter);
-      return true;
-    }
-    if (has_flags) {
-      return false;
     }
   }
 
