@@ -2,7 +2,7 @@
 
 [
   (line_comment)
-  (doc_comment)
+  (doc_comment) @comment.block.documentation
 ] @comment
 
 
@@ -33,6 +33,7 @@
 [
   "|" 
   "&"
+  ".."
   (operator)
   (wildcard_pattern)
 ] @operator

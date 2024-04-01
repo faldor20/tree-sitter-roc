@@ -341,7 +341,7 @@ module.exports = grammar({
 		conjunct_pattern: ($) => prec.left(0, seq($._pattern, "&", $._pattern)),
 
 		paren_pattern: ($) => seq("(", $._pattern, ")"),
-		range_pattern: ($) => seq(".."),
+		range_pattern: ($) => prec.left(0, seq("..", optional(seq("as", $.identifier)))),
 
 		tag_pattern: ($) =>
 			prec.left(
