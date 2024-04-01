@@ -5,6 +5,30 @@
   (doc_comment) @comment.block.documentation
 ] @comment
 
+;;----typedefs-----
+
+;; opinion: typedefs cross into documentation and should be
+;; highlighted differently from normal code
+
+(where_implements _
+  (where) @type.keyword
+  (identifier) @type.parameter
+  (implements) @type.keyword
+  (ability_chain) @type.parameter)
+
+
+((concrete_type) @type.builtin
+  (#match? @type.builtin "^(Bool|Str|Num|List|Result|Dict|Set|Dec)"))
+((concrete_type) @type.builtin
+  (#match? @type.builtin "^[IU](8|16|32|64|128)"))
+((concrete_type) @type.builtin
+  (#match? @type.builtin "^F(32|64)"))
+
+
+(bound_variable) @type.parameter
+(tags_type (apply_type(concrete_type) @type.enum.variant))
+
+(concrete_type) @type
 
 ;;-----Punctuation----
 [
@@ -197,5 +221,4 @@
 (module)@module
 
 (identifier)@variable
-(concrete_type)@type
 

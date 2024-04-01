@@ -28,7 +28,9 @@ rangeTest = \ ->
 
 ## Graph type representing a graph as a dictionary of adjacency lists,
 ## where each key is a vertex and each value is a list of its adjacent vertices.
-#Graph a := Dict a (List a) where a implements Eq
+Graph a := Dict a (List a) where a implements Eq & Something
+
+foo : (U8, U30) #U30 is deliberately invalid
 
 ## Create a Graph from an adjacency list.
 # fromList : List (a, List a) -> Graph a
