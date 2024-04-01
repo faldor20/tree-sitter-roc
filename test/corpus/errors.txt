@@ -59,8 +59,14 @@ b= "other string"
     (decl_left
       (identifier_pattern
         (identifier)))
-    (ERROR
-      (UNEXPECTED '='))
+    (expr_body
+      (const
+        (string
+          (MISSING """)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
     (expr_body
       (const
         (int))))

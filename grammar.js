@@ -139,7 +139,7 @@ module.exports = grammar({
 				seq(
 					repeat(choice($.value_declaration, $.backpassing_expr, $.dbg_expr)),
 					field("result", $._expr_inner),
-					$._newline,
+					choice($._dedent, $._end_newline),
 				),
 			),
 		_atom_expr: ($) =>

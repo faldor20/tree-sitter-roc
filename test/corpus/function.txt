@@ -385,3 +385,23 @@ a= a.bb a a
           (identifier))
         (variable_expr
           (identifier))))))
+
+================================================================================
+function_same_line
+================================================================================
+a= html
+  "<div>"
+              
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (function_call_expr
+        (variable_expr
+          (identifier))
+        (const
+          (string))))))

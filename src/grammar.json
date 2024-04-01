@@ -316,8 +316,17 @@
               }
             },
             {
-              "type": "SYMBOL",
-              "name": "_newline"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_dedent"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_end_newline"
+                }
+              ]
             }
           ]
         }
