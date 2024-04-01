@@ -12,7 +12,7 @@
 (arrow)
 (back_arrow)
 (backslash)
-] @punctuation.delimiter
+] @punctuation.delimiter.structural
 
 [
   ","
@@ -95,7 +95,7 @@
 ;----decleration types----
 (value_declaration(decl_left 
   (identifier_pattern 
-   (identifier)@function))(expr_body(anon_fun_expr)))
+   (identifier)@function.definition))(expr_body(anon_fun_expr)))
 
 (value_declaration(decl_left 
   (identifier_pattern 
@@ -156,6 +156,8 @@
 
 (field_name)@variable.other.member
 (record_field_pattern (_(identifier) @variable))
+
+
 
 ;matches the second identifier and all subsequent ones
 (field_access_expr (identifier) @variable.other.member)
