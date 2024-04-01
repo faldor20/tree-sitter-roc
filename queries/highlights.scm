@@ -167,6 +167,7 @@
 ] @constant.numeric.float
 
 (string)@string
+(multiline_string)@string
 (char) @constant.character
 (escape_char)@constant.character.escape
 
