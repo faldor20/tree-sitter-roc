@@ -3714,8 +3714,12 @@
               {
                 "type": "IMMEDIATE_TOKEN",
                 "content": {
-                  "type": "PATTERN",
-                  "value": "[^\\n\\\\\"]"
+                  "type": "PREC",
+                  "value": 0,
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[^\\n\\\\\"]"
+                  }
                 }
               },
               {
@@ -3748,8 +3752,15 @@
             "type": "CHOICE",
             "members": [
               {
-                "type": "PATTERN",
-                "value": "[^\\\\]"
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "PREC",
+                  "value": 0,
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[^\\\\]"
+                  }
+                }
               },
               {
                 "type": "SYMBOL",
@@ -3772,7 +3783,7 @@
       "type": "IMMEDIATE_TOKEN",
       "content": {
         "type": "PATTERN",
-        "value": "\\\\[\\\\\"\\'ntbrafv]"
+        "value": "\\\\([\\\\\"\\'ntbrafv]|(\\$\\())"
       }
     },
     "interpolation_char": {

@@ -710,18 +710,22 @@ module.exports = grammar({
 		string: ($) =>
 			seq(
 				'"',
-				repeat(choice(imm(/[^\n\\"]/), $.interpolation_char, $.escape_char)),
+				repeat(
+					choice(imm(prec(0, /[^\n\\"]/)), $.interpolation_char, $.escape_char),
+				),
 				'"',
 			),
 
 		multiline_string: ($) =>
 			seq(
 				'"""',
-				repeat(choice(/[^\\]/, $.interpolation_char, $.escape_char)),
+				repeat(
+					choice(imm(prec(0, /[^\\]/)), $.interpolation_char, $.escape_char),
+				),
 				'"""',
 			),
 
-		escape_char: ($) => imm(/\\[\\"\'ntbrafv]/),
+		escape_char: ($) => imm(/\\([\\"\'ntbrafv]|(\$\())/),
 		interpolation_char: ($) =>
 			seq(
 				choice(

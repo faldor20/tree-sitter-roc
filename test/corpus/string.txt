@@ -57,7 +57,7 @@ string_multiline_wierd
 
 main =
     """
-    \" " '"' \n \t #hi
+    \\ " '"' \n \t #hi
     """
 --------------------------------------------------------------------------------
 
@@ -109,3 +109,30 @@ main =
     (expr_body
       (const
         (string)))))
+
+================================================================================
+string_multiline_interpolation
+================================================================================
+
+main =
+    """
+    $
+    $(hi)
+    \$(hi)
+    \\
+    """
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (multiline_string
+          (interpolation_char
+            (variable_expr
+              (identifier)))
+          (escape_char)
+          (escape_char))))))
