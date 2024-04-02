@@ -405,3 +405,25 @@ a= html
           (identifier))
         (const
           (string))))))
+
+================================================================================
+function_same_line_long
+================================================================================
+myHtml=html
+  """
+  <div>
+  """
+              
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (function_call_expr
+        (variable_expr
+          (identifier))
+        (const
+          (multiline_string))))))
