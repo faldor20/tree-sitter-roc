@@ -63,3 +63,38 @@ bfs = \a, b, Tag c -> a b c
               (identifier))
             (variable_expr
               (identifier))))))))
+
+================================================================================
+pattern_range
+================================================================================
+bfs = \a, b, [head, .. as tail] -> a b head tail
+--------------------------------------------------------------------------------
+(file
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (anon_fun_expr
+            (backslash)
+            (argument_patterns
+              (identifier_pattern
+                (identifier))
+              (identifier_pattern
+                (identifier))
+              (list_pattern
+                (identifier_pattern
+                  (identifier))
+                (range_pattern
+                  (identifier))))
+            (arrow)
+            (expr_body
+              (function_call_expr
+                (variable_expr
+                  (identifier))
+                (variable_expr
+                  (identifier))
+                (variable_expr
+                  (identifier))
+                (variable_expr
+                  (identifier))))))))

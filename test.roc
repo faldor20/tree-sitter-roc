@@ -12,9 +12,27 @@ interface Graph
     ]
     imports []
 
+rangeTest = \ ->
+    myList = [Foo, Bar, Baz]
+
+    when myList is
+        [] -> 0
+        [Foo, ..] -> 1
+        [_, ..] -> 2
+        [Foo, Bar, ..] -> 3
+        [Foo, Bar, Baz] -> 4
+        [Foo, a, ..] -> 5
+        [.., Foo] -> 7
+        [A, B, .., C, D] -> 8
+        [head, .. as tail] -> 9
+
 ## Graph type representing a graph as a dictionary of adjacency lists,
 ## where each key is a vertex and each value is a list of its adjacent vertices.
-#Graph a := Dict a (List a) where a implements Eq
+Graph a := Dict a (List a) where a implements Eq & Something
+
+foo : (U8, U30) #U30 is deliberately invalid
+bar : { test : Str, here : Dec }
+baz : (a -> Bool), a, Graph a -> Result a [NotFound]
 
 ## Create a Graph from an adjacency list.
 # fromList : List (a, List a) -> Graph a
