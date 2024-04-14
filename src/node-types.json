@@ -2694,11 +2694,27 @@
       "required": true,
       "types": [
         {
+          "type": "field_access_expr",
+          "named": true
+        },
+        {
           "type": "field_name",
           "named": true
         },
         {
-          "type": "identifier",
+          "type": "function_call_expr",
+          "named": true
+        },
+        {
+          "type": "operator_as_function_expr",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expr",
+          "named": true
+        },
+        {
+          "type": "variable_expr",
           "named": true
         }
       ]

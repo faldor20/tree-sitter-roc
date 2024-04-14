@@ -1027,8 +1027,17 @@
               "value": "<-"
             },
             {
-              "type": "SYMBOL",
-              "name": "identifier"
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "function_call_expr"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "_function_call_target"
+                }
+              ]
             }
           ]
         }
