@@ -35,13 +35,16 @@ main=
               (record_expr
                 (record_field_builder
                   (field_name)
-                  (identifier))
+                  (variable_expr
+                        (identifier)))
                 (record_field_builder
                   (field_name)
-                  (identifier))
+                  (variable_expr
+                        (identifier)))
                 (record_field_builder
                   (field_name)
-                  (identifier))))
+                  (variable_expr
+                        (identifier)))))
             (operator)
             (variable_expr
               (identifier)))))

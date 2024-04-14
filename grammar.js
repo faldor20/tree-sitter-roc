@@ -313,7 +313,7 @@ module.exports = grammar({
 		record_field_expr: ($) =>
 			prec.right(seq($.field_name, optional(seq(":", $.expr_body)))),
 		record_field_builder: ($) =>
-			seq($.field_name, seq(":", "<-", $.identifier)),
+			seq($.field_name, seq(":", "<-", choice($.function_call_expr, $._function_call_target))),
 
 		record_expr: ($) =>
 			seq(
