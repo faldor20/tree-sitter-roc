@@ -54,6 +54,7 @@ module.exports = grammar({
 		[$.identifier_pattern, $.long_identifier],
 		[$.list_pattern, $.list_expr],
 		[$._module_elem, $.value_declaration],
+		[$._more_when_is_branches],
 	],
 
 	words: ($) => /\s+/,
@@ -242,14 +243,27 @@ module.exports = grammar({
 		//WHEN_IS
 
 		when_is_expr: ($) =>
-			seq(
-				alias("when", $.when),
-				$._expr_inner,
-				alias("is", $.is),
-				$._indent,
-				$.when_is_branch,
-				optional($._more_when_is_branches),
-				$._dedent,
+			prec.right(
+				seq(
+					alias("when", $.when),
+					$._expr_inner,
+					alias("is", $.is),
+					choice(
+						//when the branches are indented
+						seq(
+							$._indent,
+							$.when_is_branch,
+							optional($._more_when_is_branches),
+							$._dedent,
+						),
+						//when the contents is not indented
+						seq(
+							$._end_newline,
+							$.when_is_branch,
+							optional($._more_when_is_branches),
+						),
+					),
+				),
 			),
 
 		_more_when_is_branches: ($) =>
@@ -341,7 +355,8 @@ module.exports = grammar({
 		conjunct_pattern: ($) => prec.left(0, seq($._pattern, "&", $._pattern)),
 
 		paren_pattern: ($) => seq("(", $._pattern, ")"),
-		range_pattern: ($) => prec.left(0, seq("..", optional(seq("as", $.identifier)))),
+		range_pattern: ($) =>
+			prec.left(0, seq("..", optional(seq("as", $.identifier)))),
 
 		tag_pattern: ($) =>
 			prec.left(
