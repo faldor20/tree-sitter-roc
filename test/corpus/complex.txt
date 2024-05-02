@@ -1,23 +1,24 @@
 ================================================================================
 complex_file
 ================================================================================
+app [main] { pf: platform "cli-platform/main.roc" }
 
-app "countdown"
-    packages { pf: "cli-platform/main.roc" }
-    imports [pf.Stdin, pf.Stdout, pf.Task.{ await, loop, succeed }, "./file.txt" as file: Str]
-    provides [main] to pf
+import pf.Stdin
+import pf.Stdout
+import pf.Task exposing [await, loop, succeed]
+import "./file.txt" as file : Str
 
 main =
     _ <- await (Stdout.line "\nLet's count down from 10 together - all you have to do is press <ENTER>.")
     _ <- await Stdin.line
     loop 10 tick
 
-tick = \ n ->
+tick = \n ->
     if n == 0 then
         _ <- await (Stdout.line "SURPRISE! Happy Birthday! ")
         succeed (Done {})
     else
-        _ <- await (n |> Num.toStr |> \s -> "\(s)..." |> Stdout.line)
+        _ <- await (n |> Num.toStr |> \s -> "$(s)..." |> Stdout.line)
         _ <- await Stdin.line
         succeed (Step (n - 1))
 
@@ -25,38 +26,30 @@ tick = \ n ->
 
 (file
   (app_header
-    (app_name)
-    (app_header_body
-      (packages
-        (record_pattern
-          (record_field_pattern
-            (field_name)
-            (const
-              (string)))))
-      (imports
-        (imports_entry
-          (identifier)
-          (module))
-        (imports_entry
-          (identifier)
-          (module))
-        (imports_entry
-          (identifier)
-          (module)
-          (exposes_list
-            (ident)
-            (ident)
-            (ident)))
-        (imports_entry
-          (import_path)
-          (import_as)
-          (identifier)
-          (apply_type
-            (concrete_type))))
-      (provides
-        (ident)
-        (to)
-        (ident))))
+    (provides_list
+      (ident))
+    (packages_list
+      (platform_ref
+        (identifier)
+        (package_uri))))
+  (import_expr
+    (identifier)
+    (module))
+  (import_expr
+    (identifier)
+    (module))
+  (import_expr
+    (identifier)
+    (module)
+    (exposing)
+    (exposing
+      (ident)
+      (ident)
+      (ident)))
+  (import_file_expr
+    (string)
+    (identifier)
+    (concrete_type))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -268,10 +261,12 @@ main =
 complex_env_decode
 ================================================================================
 
-app "env"
-    packages { pf: "cli-platform/main.roc" }
-    imports [pf.Stdout, pf.Stderr, pf.Env, pf.Task.{ Task }]
-    provides [main] to pf
+app [main] { pf: platform "cli-platform/main.roc" }
+
+import pf.Stdout
+import pf.Stderr
+import pf.Env
+import pf.Task exposing [Task]
 
 main : Task {} []
 main =
@@ -293,33 +288,27 @@ main =
 
 (file
   (app_header
-    (app_name)
-    (app_header_body
-      (packages
-        (record_pattern
-          (record_field_pattern
-            (field_name)
-            (const
-              (string)))))
-      (imports
-        (imports_entry
-          (identifier)
-          (module))
-        (imports_entry
-          (identifier)
-          (module))
-        (imports_entry
-          (identifier)
-          (module))
-        (imports_entry
-          (identifier)
-          (module)
-          (exposes_list
-            (ident))))
-      (provides
-        (ident)
-        (to)
-        (ident))))
+    (provides_list
+      (ident))
+    (packages_list
+      (platform_ref
+        (identifier)
+        (package_uri))))
+  (import_expr
+    (identifier)
+    (module))
+  (import_expr
+    (identifier)
+    (module))
+  (import_expr
+    (identifier)
+    (module))
+  (import_expr
+    (identifier)
+    (module)
+    (exposing)
+    (exposing
+      (ident)))
   (value_declaration
     (annotation_type_def
       (annotation_pre_colon
@@ -454,9 +443,14 @@ main =
 complex_interface
 ================================================================================
 
-interface Dir
-    exposes [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
-    imports [Effect, Task.{ Task }, InternalTask, Path.{ Path }, InternalPath, InternalDir]
+module [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
+
+import Effect
+import Task exposing [Task]
+import InternalTask
+import Path exposing [Path]
+import InternalPath
+import InternalDir
 
 ReadErr : InternalDir.ReadErr
 
@@ -478,33 +472,32 @@ deleteRecursive : Path -> Task
 --------------------------------------------------------------------------------
 
 (file
-  (interface_header
-    (name)
-    (interface_header_body
-      (exposes
-        (ident)
-        (ident)
-        (ident)
-        (ident)
-        (ident)
-        (ident))
-      (imports
-        (imports_entry
-          (module))
-        (imports_entry
-          (module)
-          (exposes_list
-            (ident)))
-        (imports_entry
-          (module))
-        (imports_entry
-          (module)
-          (exposes_list
-            (ident)))
-        (imports_entry
-          (module))
-        (imports_entry
-          (module)))))
+  (module_header
+    (exposes_list
+      (ident)
+      (ident)
+      (ident)
+      (ident)
+      (ident)
+      (ident)))
+  (import_expr
+    (module))
+  (import_expr
+    (module)
+    (exposing)
+    (exposing
+      (ident)))
+  (import_expr
+    (module))
+  (import_expr
+    (module)
+    (exposing)
+    (exposing
+      (ident)))
+  (import_expr
+    (module))
+  (import_expr
+    (module))
   (alias_type_def
     (apply_type
       (concrete_type))

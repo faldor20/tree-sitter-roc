@@ -8,6 +8,7 @@ const PREC = {
 	TYPEALIAS: 2,
 	CASE_OF_BRANCH: 6,
 	FUNC: 10,
+	IMPORT: 20,
 };
 
 module.exports = grammar({
@@ -54,6 +55,7 @@ module.exports = grammar({
 		[$.identifier_pattern, $.long_identifier],
 		[$.list_pattern, $.list_expr],
 		[$._module_elem, $.value_declaration],
+		[$._module_elem, $._expr_inner],
 		[$._more_when_is_branches],
 	],
 
@@ -76,7 +78,7 @@ module.exports = grammar({
 		file: ($) =>
 			seq(
 				//TODO
-				optional(seq($._module_header, $._end_newline)),
+				optional(seq($._header, $._end_newline)),
 
 				repeat1(seq($._module_elem, $._end_newline)),
 			),
@@ -90,6 +92,8 @@ module.exports = grammar({
 				$.implements_definition,
 				$.value_declaration,
 				$.expr_body,
+				$.import_expr,
+				$.import_file_expr,
 			),
 
 		expect: ($) => prec(1, seq("expect", field("body", $.expr_body))),
@@ -123,6 +127,7 @@ module.exports = grammar({
 					field("result", $._expr_inner),
 				),
 			),
+
 		/** 
 		An expression body that should contain a newline after, like within a value declaration
 		*/
@@ -162,7 +167,13 @@ module.exports = grammar({
 
 		_call_or_atom: ($) => choice($.function_call_expr, $._atom_expr),
 		_expr_inner: ($) =>
-			choice($.prefixed_expression, $.bin_op_expr, $._call_or_atom),
+			choice(
+				$.prefixed_expression,
+				$.bin_op_expr,
+				$._call_or_atom,
+				$.import_expr,
+				$.import_file_expr,
+			),
 
 		prefixed_expression: ($) => prec.left(seq($.operator, $._call_or_atom)),
 		dbg_expr: ($) => seq("dbg", alias($.expr_body_terminal, $.expr_body)),
@@ -348,6 +359,7 @@ module.exports = grammar({
 				// :? atomic-type
 				// :? atomic-type as ident
 			),
+
 		identifier_pattern: ($) => $.identifier,
 		as_pattern: ($) => prec.left(0, seq($._pattern, "as", $.identifier)),
 		cons_pattern: ($) => prec.left(0, seq($._pattern, "::", $._pattern)),
@@ -429,21 +441,12 @@ module.exports = grammar({
 		//### HEADER ####
 		//###--------###
 
-		_module_header: ($) =>
+		_header: ($) =>
 			seq(
-				choice($.app_header, $.platform_header, $.interface_header),
+				choice($.app_header, $.platform_header, $.module_header),
 				//sometimes it seems we have an unmatched close which stops this from ending and breaks everything after
 			),
-		app_header: ($) =>
-			seq(
-				"app",
-				alias($.string, $.app_name),
-				$._indent,
-				$.app_header_body,
-				$._dedent,
-			),
-		app_header_body: ($) =>
-			sep1(choice($.packages, $.imports, $.provides), "\n"),
+		app_header: ($) => seq("app", $.provides_list, $.packages_list),
 		//TODO make this a function for app and platform
 		platform_header: ($) =>
 			seq(
@@ -466,23 +469,40 @@ module.exports = grammar({
 				"\n",
 			),
 
-		interface_header: ($) =>
-			seq(
-				"interface",
-				alias(sep1($.module, "."), $.name),
-				$._indent,
-				$.interface_header_body,
-				$._dedent,
-			),
-
-		interface_header_body: ($) => sep1_tail(choice($.exposes, $.imports), "\n"),
+		module_header: ($) => seq("module", $.exposes_list),
 
 		//TODO: should this actually be a record_pattern?
 		packages: ($) => seq("packages", $.record_pattern),
 
-		exposes_list: ($) => seq("{", sep_tail($.ident, ","), "}"),
-		exposes: ($) => seq("exposes", "[", sep_tail($.ident, ","), "]"),
+		packages_list: ($) =>
+			seq("{", sep_tail(choice($.package_ref, $.platform_ref), ","), "}"),
+		package_ref: ($) => seq($.identifier, ":"),
+		platform_ref: ($) =>
+			seq($.identifier, ":", "platform", alias($.string, $.package_uri)),
 
+		exposed_list: ($) => seq("{", sep_tail($.ident, ","), "}"),
+		exposes: ($) => seq("exposes", $.exposes_list),
+		exposes_list: ($) => seq("[", sep_tail($.ident, ","), "]"),
+		import_expr: ($) =>
+			prec(
+				PREC.IMPORT,
+				seq(
+					"import",
+					optional(seq($.identifier, ".")),
+					sep1($.module, "."),
+					optional(
+						choice(
+							alias(seq("exposing", $.exposes_list), $.exposing),
+							alias(seq("as", $.module), $.as),
+						),
+					),
+				),
+			),
+		import_file_expr: ($) =>
+			prec(
+				PREC.IMPORT,
+				seq("import", $.string, seq("as", $.identifier, ":", $.concrete_type)),
+			),
 		imports: ($) => seq("imports", "[", sep_tail($.imports_entry, ","), "]"),
 		imports_entry: ($) =>
 			seq(
@@ -490,7 +510,7 @@ module.exports = grammar({
 					seq(
 						optional(seq($.identifier, ".")),
 						seq($.module, repeat(seq(".", $.module))),
-						optional(seq(".", $.exposes_list)),
+						optional(seq(".", $.exposed_list)),
 					),
 					alias($.string, $.import_path),
 				),
@@ -509,6 +529,14 @@ module.exports = grammar({
 				optional(","),
 				"]",
 				optional(seq($.to, choice($.string, $.ident))),
+			),
+		provides_list: ($) =>
+			seq(
+				"[",
+				optional($.ident),
+				repeat(seq(",", $.ident)),
+				optional(","),
+				"]",
 			),
 		requires: ($) =>
 			seq("requires", $.requires_rigids, "{", $.typed_ident, "}"),

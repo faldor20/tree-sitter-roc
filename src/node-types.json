@@ -213,53 +213,11 @@
       "required": true,
       "types": [
         {
-          "type": "app_header_body",
+          "type": "packages_list",
           "named": true
         },
         {
-          "type": "app_name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "app_header_body",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "imports",
-          "named": true
-        },
-        {
-          "type": "packages",
-          "named": true
-        },
-        {
-          "type": "provides",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "app_name",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "escape_char",
-          "named": true
-        },
-        {
-          "type": "interpolation_char",
+          "type": "provides_list",
           "named": true
         }
       ]
@@ -545,6 +503,14 @@
           },
           {
             "type": "if_expr",
+            "named": true
+          },
+          {
+            "type": "import_expr",
+            "named": true
+          },
+          {
+            "type": "import_file_expr",
             "named": true
           },
           {
@@ -1112,6 +1078,14 @@
             "named": true
           },
           {
+            "type": "import_expr",
+            "named": true
+          },
+          {
+            "type": "import_file_expr",
+            "named": true
+          },
+          {
             "type": "list_expr",
             "named": true
           },
@@ -1182,7 +1156,7 @@
     }
   },
   {
-    "type": "exposes",
+    "type": "exposed_list",
     "named": true,
     "fields": {},
     "children": {
@@ -1197,7 +1171,37 @@
     }
   },
   {
+    "type": "exposes",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "exposes_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "exposes_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "exposing",
     "named": true,
     "fields": {},
     "children": {
@@ -1259,6 +1263,14 @@
           },
           {
             "type": "if_expr",
+            "named": true
+          },
+          {
+            "type": "import_expr",
+            "named": true
+          },
+          {
+            "type": "import_file_expr",
             "named": true
           },
           {
@@ -1399,7 +1411,15 @@
           "named": true
         },
         {
-          "type": "interface_header",
+          "type": "import_expr",
+          "named": true
+        },
+        {
+          "type": "import_file_expr",
+          "named": true
+        },
+        {
+          "type": "module_header",
           "named": true
         },
         {
@@ -1671,6 +1691,14 @@
           "named": true
         },
         {
+          "type": "import_expr",
+          "named": true
+        },
+        {
+          "type": "import_file_expr",
+          "named": true
+        },
+        {
           "type": "list_expr",
           "named": true
         },
@@ -1743,6 +1771,14 @@
           },
           {
             "type": "if_expr",
+            "named": true
+          },
+          {
+            "type": "import_expr",
+            "named": true
+          },
+          {
+            "type": "import_file_expr",
             "named": true
           },
           {
@@ -1886,6 +1922,56 @@
     }
   },
   {
+    "type": "import_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "as",
+          "named": true
+        },
+        {
+          "type": "exposing",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "module",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_file_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "concrete_type",
+          "named": true
+        },
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "import_path",
     "named": true,
     "fields": {},
@@ -1936,7 +2022,7 @@
           "named": true
         },
         {
-          "type": "exposes_list",
+          "type": "exposed_list",
           "named": true
         },
         {
@@ -1995,44 +2081,6 @@
     }
   },
   {
-    "type": "interface_header",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "interface_header_body",
-          "named": true
-        },
-        {
-          "type": "name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "interface_header_body",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "exposes",
-          "named": true
-        },
-        {
-          "type": "imports",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "interpolation_char",
     "named": true,
     "fields": {},
@@ -2062,6 +2110,14 @@
         },
         {
           "type": "if_expr",
+          "named": true
+        },
+        {
+          "type": "import_expr",
+          "named": true
+        },
+        {
+          "type": "import_file_expr",
           "named": true
         },
         {
@@ -2137,6 +2193,14 @@
           },
           {
             "type": "if_expr",
+            "named": true
+          },
+          {
+            "type": "import_expr",
+            "named": true
+          },
+          {
+            "type": "import_file_expr",
             "named": true
           },
           {
@@ -2251,6 +2315,21 @@
     }
   },
   {
+    "type": "module_header",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "exposes_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "multiline_string",
     "named": true,
     "fields": {},
@@ -2283,10 +2362,6 @@
         },
         {
           "type": "interpolation_char",
-          "named": true
-        },
-        {
-          "type": "module",
           "named": true
         }
       ]
@@ -2378,6 +2453,40 @@
     "fields": {}
   },
   {
+    "type": "package_ref",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "package_uri",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "escape_char",
+          "named": true
+        },
+        {
+          "type": "interpolation_char",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "packages",
     "named": true,
     "fields": {},
@@ -2387,6 +2496,25 @@
       "types": [
         {
           "type": "record_pattern",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "packages_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "package_ref",
+          "named": true
+        },
+        {
+          "type": "platform_ref",
           "named": true
         }
       ]
@@ -2581,6 +2709,25 @@
     }
   },
   {
+    "type": "platform_ref",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "package_uri",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "prefixed_expression",
     "named": true,
     "fields": {},
@@ -2669,6 +2816,21 @@
         },
         {
           "type": "to",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "provides_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
           "named": true
         }
       ]
@@ -3289,6 +3451,14 @@
             "named": true
           },
           {
+            "type": "import_expr",
+            "named": true
+          },
+          {
+            "type": "import_file_expr",
+            "named": true
+          },
+          {
             "type": "list_expr",
             "named": true
           },
@@ -3804,6 +3974,14 @@
           "named": true
         },
         {
+          "type": "import_expr",
+          "named": true
+        },
+        {
+          "type": "import_file_expr",
+          "named": true
+        },
+        {
           "type": "is",
           "named": true
         },
@@ -4120,6 +4298,10 @@
     "named": false
   },
   {
+    "type": "as",
+    "named": true
+  },
+  {
     "type": "backslash",
     "named": true
   },
@@ -4184,6 +4366,10 @@
     "named": true
   },
   {
+    "type": "import",
+    "named": false
+  },
+  {
     "type": "import_as",
     "named": true
   },
@@ -4200,16 +4386,16 @@
     "named": true
   },
   {
-    "type": "interface",
-    "named": false
-  },
-  {
     "type": "is",
     "named": true
   },
   {
     "type": "line_comment",
     "named": true
+  },
+  {
+    "type": "module",
+    "named": false
   },
   {
     "type": "module",

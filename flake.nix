@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
+    nixpkgs = { url = "nixpkgs-unstable"; };
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -9,30 +9,41 @@
   };
   outputs = { self, nixpkgs, flake-utils, ... }@inputs:
     #let
-      # defaultPackage = pkgs: pkgs.callPackage (nixpkgs + "/pkgs/development/tools/parsing/tree-sitter/grammar.nix") { } {
-      #   language = "norg";
-      #   source = ./.;
-      #   inherit (pkgs.tree-sitter) version;
-      # };
+    # defaultPackage = pkgs: pkgs.callPackage (nixpkgs + "/pkgs/development/tools/parsing/tree-sitter/grammar.nix") { } {
+    #   language = "norg";
+    #   source = ./.;
+    #   inherit (pkgs.tree-sitter) version;
+    # };
     #in
-    (flake-utils.lib.eachDefaultSystem
-      (system:
-        let pkgs = import nixpkgs { inherit system;overlays=[(final: prev:{
-            tree-sitter = prev.tree-sitter.override {  webUISupport=true;     };   
-        })]; }; in
-        {
-          # defaultPackage = defaultPackage pkgs;
-          devShell = pkgs.mkShell {
-            nativeBuildInputs = with pkgs; [
-              nodejs
-              nodePackages.node-gyp
-              lldb
-              gdb
-              tree-sitter
-            ];
-          };
-        })); 
+    (flake-utils.lib.eachDefaultSystem (system:
+      let
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = [
+            (final: prev: {
+              tree-sitter = prev.tree-sitter.override { webUISupport = true; };
+            })
+          ];
+        };
+      in {
+        # defaultPackage = defaultPackage pkgs;
+        devShell = pkgs.mkShell {
+          nativeBuildInputs = with pkgs; [
+            # binutils
+            # glibc
+            # glibc.dev
+            nodejs
+            # gcc
+            # clang
+            # nodePackages.node-gyp
+            # lldb
+            # gdb
+            tree-sitter
+            # pkg-config
+          ];
+        };
+      }));
 
-        # // (let pkgs = import nixpkgs { }; in { defaultPackage = defaultPackage pkgs; });
-        
+  # // (let pkgs = import nixpkgs { }; in { defaultPackage = defaultPackage pkgs; });
+
 }

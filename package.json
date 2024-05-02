@@ -1,27 +1,56 @@
 {
-	"name": "tree-sitter-roc",
-	"version": "1.0.0",
-	"description": "",
-	"main": "grammar.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"author": "",
-	"license": "ISC",
-	"dependencies": {
-		"nan": "^2.18.0"
-	},
-	"devDependencies": {
-		"tree-sitter-cli": "^0.20.8"
-	},
-	"tree-sitter": [
-		{
-			"scope": "source.roc",
-			"file-types": ["roc"],
-			"locals": ["queries/locals.scm"],
-			"tags": ["queries/tags.scm"],
-			"highlights": ["queries/highlights.scm"],
-			"injection-regex": "^(roc)$"
-		}
-	]
+  "name": "tree-sitter-roc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "grammar.js",
+  "types": "bindings/node",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node-gyp-build",
+    "prebuildify": "prebuildify --napi --strip"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "node-addon-api": "^7.1.0",
+    "node-gyp-build": "^4.8.0"
+  },
+  "peerDependencies": {
+    "tree-sitter": "^0.21.0"
+  },
+  "peerDependenciesMeta": {
+    "tree_sitter": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "tree-sitter-cli": "^0.20.8",
+    "prebuildify": "^6.0.0"
+  },
+  "tree-sitter": [
+    {
+      "scope": "source.roc",
+      "file-types": [
+        "roc"
+      ],
+      "locals": [
+        "queries/locals.scm"
+      ],
+      "tags": [
+        "queries/tags.scm"
+      ],
+      "highlights": [
+        "queries/highlights.scm"
+      ],
+      "injection-regex": "^(roc)$"
+    }
+  ],
+  "files": [
+    "grammar.js",
+    "binding.gyp",
+    "prebuilds/**",
+    "bindings/node/*",
+    "queries/*",
+    "src/**"
+  ]
 }
