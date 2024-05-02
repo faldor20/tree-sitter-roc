@@ -603,12 +603,14 @@ module.exports = grammar({
 			),
 		_implements_body: ($) => seq($.identifier, $.implements, $.ability_chain),
 
+		ability_implementation: ($) =>
+			seq(alias($._upper_identifier, $.ability_name), optional($.record_expr)),
 		implements_implementation: ($) =>
 			seq(
 				$._type_annotation_no_fun,
 				$.implements,
 				"[",
-				sep1_tail($.apply_type, ","),
+				sep1_tail($.ability_implementation, ","),
 				"]",
 			),
 
@@ -616,7 +618,6 @@ module.exports = grammar({
 			seq(
 				$._upper_identifier,
 				$.implements,
-
 				$.record_type,
 				// "{",
 				//   $._indent,

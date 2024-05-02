@@ -891,25 +891,27 @@ Json := { fieldNameMapping : FieldNameMapping, skipMissingProperties : Bool }
           (apply_type
             (concrete_type))))
       (implements)
-      (apply_type
-        (concrete_type)
-        (apply_type_args
-          (apply_type_arg
-            (record_type
-              (record_field_type
-                (field_name)
-                (bound_variable))
-              (record_field_type
-                (field_name)
-                (bound_variable))))))
-      (apply_type
-        (concrete_type)
-        (apply_type_args
-          (apply_type_arg
-            (record_type
-              (record_field_type
-                (field_name)
-                (bound_variable)))))))))
+      (ability_implementation
+        (ability_name)
+        (record_expr
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (variable_expr
+                (identifier))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (variable_expr
+                (identifier))))))
+      (ability_implementation
+        (ability_name)
+        (record_expr
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (variable_expr
+                (identifier)))))))))
 
 ================================================================================
 opaque tag pattern
