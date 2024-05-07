@@ -148,6 +148,7 @@ module.exports = grammar({
 					choice($._dedent, $._end_newline),
 				),
 			),
+
 		_atom_expr: ($) =>
 			choice(
 				$.anon_fun_expr,
@@ -442,10 +443,13 @@ module.exports = grammar({
 		//###--------###
 
 		_header: ($) =>
-			seq(
-				choice($.app_header, $.platform_header, $.module_header),
-				//sometimes it seems we have an unmatched close which stops this from ending and breaks everything after
+			choice(
+				$.app_header,
+				$.platform_header,
+				$.module_header,
+				$.package_header,
 			),
+		package_header: ($) => seq("package", $.provides_list, $.packages_list),
 		app_header: ($) => seq("app", $.provides_list, $.packages_list),
 		//TODO make this a function for app and platform
 		platform_header: ($) =>
@@ -476,7 +480,7 @@ module.exports = grammar({
 
 		packages_list: ($) =>
 			seq("{", sep_tail(choice($.package_ref, $.platform_ref), ","), "}"),
-		package_ref: ($) => seq($.identifier, ":"),
+		package_ref: ($) => seq($.identifier, ":", $.string),
 		platform_ref: ($) =>
 			seq($.identifier, ":", "platform", alias($.string, $.package_uri)),
 
@@ -493,7 +497,7 @@ module.exports = grammar({
 					optional(
 						choice(
 							alias(seq("exposing", $.exposes_list), $.exposing),
-							alias(seq("as", $.module), $.as),
+							seq(alias("as", $.as), $.module),
 						),
 					),
 				),

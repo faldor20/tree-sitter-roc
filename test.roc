@@ -2,15 +2,15 @@
 ## using an [adjacency list](https://en.wikipedia.org/wiki/Adjacency_list)
 ## and exposes functions for working with graphs, such as creating one from a list and
 ## performing a depth-first or breadth-first search.
-interface Graph
-    exposes [
+module
+    [
         Graph,
         fromList,
         fromDict,
         dfs,
         bfs,
     ]
-    imports []
+import OtherTest
 
 rangeTest = \ ->
     myList = [Foo, Bar, Baz]
@@ -199,7 +199,7 @@ expect
 
 # Some helpers for testing
 testGraphSmall =
-    fromList    
+    fromList
         [
             ("A", ["B", "C", "F-BFS"]),
             ("B", ["D", "E"]),

@@ -223,3 +223,34 @@ import "myfile.txt" as file:Str
     (string)
     (identifier)
     (concrete_type)))
+
+====
+header_package
+====
+package [ParserCore, ParserCsv, ParserStr] {
+    json: "https://…/json/…",
+    unicode: "https://…/unicode/…",
+}
+main=10
+----
+
+(file
+  (package_header
+    (provides_list
+      (ident)
+      (ident)
+      (ident))
+    (packages_list
+      (package_ref
+        (identifier)
+        (string))
+      (package_ref
+        (identifier)
+        (string))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (int)))))

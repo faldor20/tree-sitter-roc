@@ -1427,6 +1427,10 @@
           "named": true
         },
         {
+          "type": "package_header",
+          "named": true
+        },
+        {
           "type": "platform_header",
           "named": true
         },
@@ -2453,15 +2457,38 @@
     "fields": {}
   },
   {
+    "type": "package_header",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "packages_list",
+          "named": true
+        },
+        {
+          "type": "provides_list",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "package_ref",
     "named": true,
     "fields": {},
     "children": {
-      "multiple": false,
+      "multiple": true,
       "required": true,
       "types": [
         {
           "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "string",
           "named": true
         }
       ]
@@ -4295,11 +4322,11 @@
   },
   {
     "type": "as",
-    "named": false
+    "named": true
   },
   {
     "type": "as",
-    "named": true
+    "named": false
   },
   {
     "type": "backslash",
@@ -4412,6 +4439,10 @@
   {
     "type": "opaque_tag",
     "named": true
+  },
+  {
+    "type": "package",
+    "named": false
   },
   {
     "type": "packages",
