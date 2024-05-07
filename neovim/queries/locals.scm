@@ -8,6 +8,8 @@
 (exposes_list
   (ident) @local.reference)
 
+(import_expr(as)(module)@local.definition)
+
 (opaque_type_def
   (apply_type
     (concrete_type) @local.definition.type))
@@ -31,8 +33,6 @@
 (identifier_pattern
   (identifier) @local.definition)
 
-(exposes
-  (ident) @local.reference)
 
 (identifier) @local.reference
 

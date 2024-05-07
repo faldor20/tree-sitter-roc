@@ -79,29 +79,13 @@
 ] @keyword
 
 ;----headers-----
-(interface_header
-  (name) @type.definition)
-
-(imports
-  (imports_entry
-    (module) @module))
-
-(packages
-  (record_pattern
-    (record_field_pattern
-      (field_name) @module)))
-
-(app_name) @string.special
-
-(import_path) @string.special.path
 
 [
   "app"
-  "packages"
-  "provides"
-  "interface"
-  "exposes"
   "expect"
+  "module"
+  "package"
+  "import"
 ] @keyword
 
 [
@@ -185,5 +169,6 @@
 ] @number.float
 
 (string) @string
+(multiline_string) @string
 
 (char) @character

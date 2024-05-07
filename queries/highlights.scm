@@ -93,30 +93,12 @@
 
 ;----headers-----
 
-(interface_header(name)@type.interface)
-
-(imports
-  (imports_entry
-            (module)@namespace))
-
-(packages
-  (record_pattern
-    (record_field_pattern
-      (field_name)@namespace)))
-
-(app_name) @string
-(import_as) @string
-
-
 [
-    "app"
-    "packages"
-    "imports"
-    "provides"
-    "interface"
-    "exposes"
-    "expect"
-    (import_as)
+  "app"
+  "expect"
+  "module"
+  "package"
+  "import"
  ] @keyword.control
 
 ;---annotations----

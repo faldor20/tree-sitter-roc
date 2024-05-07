@@ -298,7 +298,15 @@ module.exports = grammar({
 				seq(choice($.opaque_tag, $.tag), repeat($._atom_expr)),
 			),
 		anon_fun_expr: ($) =>
-			seq($.backslash, $.argument_patterns, $.arrow, $.expr_body),
+			prec.left(
+				seq(
+					$.backslash,
+					$.argument_patterns,
+					$.arrow,
+					$.expr_body,
+					optional($._newline),
+				),
+			),
 
 		//RECORDS
 

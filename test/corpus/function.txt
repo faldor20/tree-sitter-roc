@@ -427,3 +427,56 @@ myHtml=html
           (identifier))
         (const
           (multiline_string))))))
+====
+function_single_line_in_pipe
+====
+output=
+  thing
+    |> List.findFirst \p -> p.region |> isInRange position
+    |> Result.mapErr NoPara
+    |> Result.map
+----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bin_op_expr
+        (variable_expr
+          (identifier))
+        (operator)
+        (function_call_expr
+          (variable_expr
+            (module)
+            (identifier))
+          (anon_fun_expr
+            (backslash)
+            (argument_patterns
+              (identifier_pattern
+                (identifier)))
+            (arrow)
+            (expr_body
+              (bin_op_expr
+                (field_access_expr
+                  (variable_expr
+                    (identifier))
+                  (identifier))
+                (operator)
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (variable_expr
+                    (identifier)))))))
+        (operator)
+        (function_call_expr
+          (variable_expr
+            (module)
+            (identifier))
+          (tag_expr
+            (tag)))
+        (operator)
+        (variable_expr
+          (module)
+          (identifier))))))
