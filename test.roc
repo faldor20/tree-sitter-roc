@@ -25,7 +25,7 @@ rangeTest = \ ->
         [.., Foo] -> 7
         [A, B, .., C, D] -> 8
         [head, .. as tail] -> 9
-
+a=a!|>hi
 ## Graph type representing a graph as a dictionary of adjacency lists,
 ## where each key is a vertex and each value is a list of its adjacent vertices.
 Graph a := Dict a (List a) where a implements Eq & Something

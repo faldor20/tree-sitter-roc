@@ -46,6 +46,7 @@
   ","
   ":"
 ] @punctuation.delimiter
+(bang_expr "!" @punctuation.delimiter)
 
 [
   "("
