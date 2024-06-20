@@ -1,0 +1,99 @@
+================================================================================
+bang_simple
+================================================================================
+main5=
+    task!
+    10+10|>Task.ok
+task2=Stdin.line 
+main2=
+    a=Stdin.line! 
+    a|>Task.ok
+main3=
+    task!
+main4=
+    b=Stdin.line! |> other
+    b|>Task.ok
+
+----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bang_expr
+        (variable_expr
+          (identifier)))
+      (bin_op_expr
+        (const
+          (int))
+        (operator)
+        (const
+          (int))
+        (operator)
+        (variable_expr
+          (module)
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (variable_expr
+        (module)
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (bang_expr
+            (variable_expr
+              (module)
+              (identifier)))))
+      (bin_op_expr
+        (variable_expr
+          (identifier))
+        (operator)
+        (variable_expr
+          (module)
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bang_expr
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (bin_op_expr
+            (bang_expr
+              (variable_expr
+                (module)
+                (identifier)))
+            (operator)
+            (variable_expr
+              (identifier)))))
+      (bin_op_expr
+        (variable_expr
+          (identifier))
+        (operator)
+        (variable_expr
+          (module)
+          (identifier))))))

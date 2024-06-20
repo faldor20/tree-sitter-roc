@@ -57,6 +57,9 @@ module.exports = grammar({
 		[$._module_elem, $.value_declaration],
 		[$._module_elem, $._expr_inner],
 		[$._more_when_is_branches],
+		//Introduced because of the bang expression
+		[$._atom_expr, $.expr_body],
+		[$._atom_expr],
 	],
 
 	words: ($) => /\s+/,
@@ -77,9 +80,7 @@ module.exports = grammar({
 	rules: {
 		file: ($) =>
 			seq(
-				//TODO
 				optional(seq($._header, $._end_newline)),
-
 				repeat1(seq($._module_elem, $._end_newline)),
 			),
 		//TODO i could make a different version of this for when the module is an interface
@@ -117,7 +118,14 @@ module.exports = grammar({
 					$._indent,
 					field(
 						"declarations",
-						repeat(choice($.value_declaration, $.backpassing_expr, $.dbg_expr)),
+						repeat(
+							choice(
+								$.value_declaration,
+								$.backpassing_expr,
+								$.dbg_expr,
+								$.bang_expr,
+							),
+						),
 					),
 					field("result", $._expr_inner),
 					$._dedent,
@@ -137,7 +145,14 @@ module.exports = grammar({
 					$._indent,
 					field(
 						"declarations",
-						repeat(choice($.value_declaration, $.backpassing_expr, $.dbg_expr)),
+						repeat(
+							choice(
+								$.value_declaration,
+								$.backpassing_expr,
+								$.dbg_expr,
+								$.bang_expr,
+							),
+						),
 					),
 					field("result", $._expr_inner),
 					$._dedent,
@@ -163,6 +178,7 @@ module.exports = grammar({
 				$.tag_expr,
 				$.tuple_expr,
 				$.list_expr,
+				$.bang_expr,
 				$.field_access_expr,
 			),
 
@@ -251,6 +267,7 @@ module.exports = grammar({
 					),
 				),
 			),
+		bang_expr: ($) => prec(PREC.PART, seq($._atom_expr, "!")),
 
 		//WHEN_IS
 

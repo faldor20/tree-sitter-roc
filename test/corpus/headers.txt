@@ -26,13 +26,12 @@ main =
       (identifier_pattern
         (identifier)))
     (expr_body
-      (bin_op_expr
+      (bang_expr
         (variable_expr
           (module)
-          (identifier))
-        (operator)
-        (const
-          (string))))))
+          (identifier)))
+      (const
+        (string)))))
 
 ================================================================================
 header_platform

@@ -190,6 +190,10 @@
                     {
                       "type": "SYMBOL",
                       "name": "dbg_expr"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "bang_expr"
                     }
                   ]
                 }
@@ -273,6 +277,10 @@
                     {
                       "type": "SYMBOL",
                       "name": "dbg_expr"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "bang_expr"
                     }
                   ]
                 }
@@ -390,6 +398,10 @@
         {
           "type": "SYMBOL",
           "name": "list_expr"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "bang_expr"
         },
         {
           "type": "SYMBOL",
@@ -812,6 +824,23 @@
             }
           ]
         }
+      }
+    },
+    "bang_expr": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "_atom_expr"
+          },
+          {
+            "type": "STRING",
+            "value": "!"
+          }
+        ]
       }
     },
     "when_is_expr": {
@@ -4574,6 +4603,13 @@
     ],
     [
       "_more_when_is_branches"
+    ],
+    [
+      "_atom_expr",
+      "expr_body"
+    ],
+    [
+      "_atom_expr"
     ]
   ],
   "precedences": [],
