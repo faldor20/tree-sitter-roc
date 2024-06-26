@@ -8,13 +8,13 @@
     };
   };
   outputs = { self, nixpkgs, flake-utils, ... }@inputs:
-    #let
-    # defaultPackage = pkgs: pkgs.callPackage (nixpkgs + "/pkgs/development/tools/parsing/tree-sitter/grammar.nix") { } {
-    #   language = "norg";
-    #   source = ./.;
-    #   inherit (pkgs.tree-sitter) version;
-    # };
-    #in
+    let
+     defaultPackage = pkgs: pkgs.callPackage (nixpkgs + "/pkgs/development/tools/parsing/tree-sitter/grammar.nix") { } {
+       language = "roc";
+       src = ./.;
+       inherit (pkgs.tree-sitter) version;
+     };
+    in
     (flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = import nixpkgs {
@@ -26,7 +26,7 @@
           ];
         };
       in {
-        # defaultPackage = defaultPackage pkgs;
+        defaultPackage = defaultPackage pkgs;
         devShell = pkgs.mkShell {
           nativeBuildInputs = with pkgs; [
             # binutils
