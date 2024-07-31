@@ -169,6 +169,7 @@ module.exports = grammar({
 				$.anon_fun_expr,
 				$.const,
 				$.record_expr,
+				$.record_builder_expr,
 				$.record_update_expr,
 				$.if_expr,
 				$.when_is_expr,
@@ -224,6 +225,7 @@ module.exports = grammar({
 					$.variable_expr,
 					$.parenthesized_expr,
 					$.record_expr,
+					$.record_builder_expr,
 					$.record_update_expr,
 				),
 			),
@@ -329,15 +331,18 @@ module.exports = grammar({
 
 		record_field_expr: ($) =>
 			prec.right(seq($.field_name, optional(seq(":", $.expr_body)))),
-		record_field_builder: ($) =>
+		record_field_old_builder: ($) =>
 			seq($.field_name, seq(":", "<-", choice($.function_call_expr, $._function_call_target))),
 
 		record_expr: ($) =>
 			seq(
 				"{",
-				sep_tail(choice($.record_field_expr, $.record_field_builder), ","),
+				sep_tail(choice($.record_field_expr, $.record_field_old_builder), ","),
 				"}",
 			),
+
+		record_builder_expr: ($) =>
+			seq("{", $.identifier, "<-", sep1_tail($.record_field_expr, ","), "}"),
 
 		record_update_expr: ($) =>
 			seq("{", $.identifier, "&", sep1_tail($.record_field_expr, ","), "}"),

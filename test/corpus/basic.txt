@@ -1,5 +1,5 @@
 ================================================================================
-record builder
+old record builder
 ================================================================================
 main=
   { aliceID, bobID, trudyID } = 
@@ -33,15 +33,15 @@ main=
               (variable_expr
                 (identifier))
               (record_expr
-                (record_field_builder
+                (record_field_old_builder
                   (field_name)
                   (variable_expr
                         (identifier)))
-                (record_field_builder
+                (record_field_old_builder
                   (field_name)
                   (variable_expr
                         (identifier)))
-                (record_field_builder
+                (record_field_old_builder
                   (field_name)
                   (variable_expr
                         (identifier)))))

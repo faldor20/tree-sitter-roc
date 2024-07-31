@@ -365,6 +365,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "record_builder_expr"
+        },
+        {
+          "type": "SYMBOL",
           "name": "record_update_expr"
         },
         {
@@ -674,6 +678,10 @@
           {
             "type": "SYMBOL",
             "name": "record_expr"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "record_builder_expr"
           },
           {
             "type": "SYMBOL",
@@ -1108,7 +1116,7 @@
         ]
       }
     },
-    "record_field_builder": {
+    "record_field_old_builder": {
       "type": "SEQ",
       "members": [
         {
@@ -1165,7 +1173,7 @@
                     },
                     {
                       "type": "SYMBOL",
-                      "name": "record_field_builder"
+                      "name": "record_field_old_builder"
                     }
                   ]
                 },
@@ -1187,7 +1195,7 @@
                           },
                           {
                             "type": "SYMBOL",
-                            "name": "record_field_builder"
+                            "name": "record_field_old_builder"
                           }
                         ]
                       }
@@ -1210,6 +1218,64 @@
             },
             {
               "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "}"
+        }
+      ]
+    },
+    "record_builder_expr": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "{"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "<-"
+        },
+        {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "record_field_expr"
+            },
+            {
+              "type": "REPEAT",
+              "content": {
+                "type": "SEQ",
+                "members": [
+                  {
+                    "type": "STRING",
+                    "value": ","
+                  },
+                  {
+                    "type": "SYMBOL",
+                    "name": "record_field_expr"
+                  }
+                ]
+              }
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": ","
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             }
           ]
         },

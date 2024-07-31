@@ -72,6 +72,7 @@
 [
   "|"
   "&"
+  "<-"
   ".."
   (operator)
   (wildcard_pattern)

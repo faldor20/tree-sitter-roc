@@ -32,6 +32,11 @@
 (field_access_expr
   (identifier) @variable.member)
 
+;highlight module members as records instead of free variables
+; avoids highlighting them as out-of-scope vars
+(variable_expr
+  (module) (identifier) @variable.member)
+
 ;----comments----
 (line_comment) @comment @spell
 
@@ -60,6 +65,8 @@
 [
   "|"
   "&"
+  "<-"
+  ".."
   (operator)
 ] @operator
 

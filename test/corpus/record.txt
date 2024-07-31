@@ -66,6 +66,61 @@ a =
                     (identifier)))))))))))
 
 ================================================================================
+record_builder
+================================================================================
+main={ a <- b: c }
+main=
+  a {a <- a: B a, c:a b (c+d)}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (record_builder_expr
+        (identifier)
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (variable_expr
+              (identifier)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (function_call_expr
+        (variable_expr
+          (identifier))
+        (record_builder_expr
+          (identifier)
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (tag_expr
+                (tag)
+                (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (function_call_expr
+                (variable_expr
+                  (identifier))
+                (variable_expr
+                  (identifier))
+                (parenthesized_expr
+                  (expr_body
+                    (bin_op_expr
+                      (variable_expr
+                        (identifier))
+                      (operator)
+                      (variable_expr
+                        (identifier)))))))))))))
+
+================================================================================
 record_update
 ================================================================================
 main={ a & b: c }
@@ -157,7 +212,7 @@ main=
               (identifier))))))))
 
 ================================================================================
-record builder
+old record builder
 ================================================================================
 main=
   { aliceID, bobID, trudyID } = 
@@ -190,15 +245,15 @@ main=
               (variable_expr
                 (identifier))
               (record_expr
-                (record_field_builder
+                (record_field_old_builder
                   (field_name)
                   (variable_expr
                         (identifier)))
-                (record_field_builder
+                (record_field_old_builder
                   (field_name)
                   (variable_expr
                         (identifier)))
-                (record_field_builder
+                (record_field_old_builder
                   (field_name)
                   (variable_expr
                         (identifier)))))
@@ -209,7 +264,7 @@ main=
         (identifier)))))
 
 ================================================================================
-record builder w/args
+old record builder w/args
 ================================================================================
 
 main=
@@ -232,7 +287,7 @@ main=
           (variable_expr
             (identifier))
           (record_expr
-            (record_field_builder
+            (record_field_old_builder
               (field_name)
               (function_call_expr
                 (variable_expr
@@ -250,7 +305,7 @@ main=
                     (expr_body
                       (const
                         (string)))))))
-            (record_field_builder
+            (record_field_old_builder
               (field_name)
               (function_call_expr
                 (variable_expr
