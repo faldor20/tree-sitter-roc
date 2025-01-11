@@ -2,12 +2,12 @@
 header_app
 ====
 
-app [main] { pf: platform "https://basic-cli" }
+app [main!] { pf: platform "https://basic-cli" }
 
 import pf.Stdout
 
-main =
-    Stdout.line! "Hello world"
+main! = \_args ->
+    Stdout.line!("Hello world")
 ---
 
 (file
@@ -26,12 +26,21 @@ main =
       (identifier_pattern
         (identifier)))
     (expr_body
-      (bang_expr
-        (variable_expr
-          (module)
-          (identifier)))
-      (const
-        (string)))))
+      (anon_fun_expr
+        (backslash)
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (arrow)
+        (expr_body
+          (function_call_expr
+            (variable_expr
+              (module)
+              (identifier))
+            (parenthesized_expr
+              (expr_body
+                (const
+                  (string))))))))))
 
 ================================================================================
 header_platform
@@ -94,8 +103,8 @@ header_module
 module [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
 import other.Expect
 import pf.Stdout exposing [line]
-import pf.Task.Task  
-import pf.Task.Task exposing [await]  
+import pf.Task.Task
+import pf.Task.Task exposing [await]
 import other.Path exposing [Path]
 
 AA: AA.BB

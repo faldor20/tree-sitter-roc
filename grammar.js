@@ -118,14 +118,7 @@ module.exports = grammar({
 					$._indent,
 					field(
 						"declarations",
-						repeat(
-							choice(
-								$.value_declaration,
-								$.backpassing_expr,
-								$.dbg_expr,
-								$.bang_expr,
-							),
-						),
+						repeat(choice($.value_declaration, $.backpassing_expr, $.dbg_expr)),
 					),
 					field("result", $._expr_inner),
 					$._dedent,
@@ -136,7 +129,7 @@ module.exports = grammar({
 				),
 			),
 
-		/** 
+		/**
 		An expression body that should contain a newline after, like within a value declaration
 		*/
 		expr_body_terminal: ($) =>
@@ -145,14 +138,7 @@ module.exports = grammar({
 					$._indent,
 					field(
 						"declarations",
-						repeat(
-							choice(
-								$.value_declaration,
-								$.backpassing_expr,
-								$.dbg_expr,
-								$.bang_expr,
-							),
-						),
+						repeat(choice($.value_declaration, $.backpassing_expr, $.dbg_expr)),
 					),
 					field("result", $._expr_inner),
 					$._dedent,
@@ -179,7 +165,6 @@ module.exports = grammar({
 				$.tag_expr,
 				$.tuple_expr,
 				$.list_expr,
-				$.bang_expr,
 				$.field_access_expr,
 			),
 
@@ -269,7 +254,6 @@ module.exports = grammar({
 					),
 				),
 			),
-		bang_expr: ($) => prec(PREC.PART, seq($._atom_expr, "!")),
 
 		//WHEN_IS
 
@@ -332,7 +316,10 @@ module.exports = grammar({
 		record_field_expr: ($) =>
 			prec.right(seq($.field_name, optional(seq(":", $.expr_body)))),
 		record_field_old_builder: ($) =>
-			seq($.field_name, seq(":", "<-", choice($.function_call_expr, $._function_call_target))),
+			seq(
+				$.field_name,
+				seq(":", "<-", choice($.function_call_expr, $._function_call_target)),
+			),
 
 		record_expr: ($) =>
 			seq(
@@ -837,7 +824,7 @@ module.exports = grammar({
 		identifier: ($) => $._lower_identifier,
 		field_name: ($) => alias($.identifier, $.field_name),
 		ident: ($) => choice($._lower_identifier, $._upper_identifier),
-		_lower_identifier: ($) => /_?[a-z][0-9a-zA-Z_]*/,
+		_lower_identifier: ($) => /_?[a-z][0-9a-zA-Z_]*!?/,
 		_upper_identifier: ($) => /[A-Z][0-9a-zA-Z_]*/,
 		tag: ($) => alias($._upper_identifier, $.tag),
 		opaque_tag: ($) => /@[A-Z][0-9a-zA-Z_]*/,
