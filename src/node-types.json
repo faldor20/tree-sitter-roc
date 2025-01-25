@@ -494,6 +494,10 @@
             "named": true
           },
           {
+            "type": "function_call_pnc_expr",
+            "named": true
+          },
+          {
             "type": "if_expr",
             "named": true
           },
@@ -531,6 +535,10 @@
           },
           {
             "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "static_dispatch_expr",
             "named": true
           },
           {
@@ -588,6 +596,10 @@
             "named": true
           },
           {
+            "type": "function_call_pnc_expr",
+            "named": true
+          },
+          {
             "type": "if_expr",
             "named": true
           },
@@ -617,6 +629,10 @@
           },
           {
             "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "static_dispatch_expr",
             "named": true
           },
           {
@@ -1074,6 +1090,10 @@
             "named": true
           },
           {
+            "type": "function_call_pnc_expr",
+            "named": true
+          },
+          {
             "type": "if_expr",
             "named": true
           },
@@ -1111,6 +1131,10 @@
           },
           {
             "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "static_dispatch_expr",
             "named": true
           },
           {
@@ -1266,6 +1290,10 @@
             "named": true
           },
           {
+            "type": "function_call_pnc_expr",
+            "named": true
+          },
+          {
             "type": "if_expr",
             "named": true
           },
@@ -1303,6 +1331,10 @@
           },
           {
             "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "static_dispatch_expr",
             "named": true
           },
           {
@@ -1545,6 +1577,116 @@
     }
   },
   {
+    "type": "function_call_pnc_expr",
+    "named": true,
+    "fields": {
+      "args": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "anon_fun_expr",
+            "named": true
+          },
+          {
+            "type": "bin_op_expr",
+            "named": true
+          },
+          {
+            "type": "const",
+            "named": true
+          },
+          {
+            "type": "field_access_expr",
+            "named": true
+          },
+          {
+            "type": "function_call_expr",
+            "named": true
+          },
+          {
+            "type": "function_call_pnc_expr",
+            "named": true
+          },
+          {
+            "type": "if_expr",
+            "named": true
+          },
+          {
+            "type": "import_expr",
+            "named": true
+          },
+          {
+            "type": "import_file_expr",
+            "named": true
+          },
+          {
+            "type": "list_expr",
+            "named": true
+          },
+          {
+            "type": "operator_as_function_expr",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expr",
+            "named": true
+          },
+          {
+            "type": "prefixed_expression",
+            "named": true
+          },
+          {
+            "type": "record_builder_expr",
+            "named": true
+          },
+          {
+            "type": "record_expr",
+            "named": true
+          },
+          {
+            "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "static_dispatch_expr",
+            "named": true
+          },
+          {
+            "type": "tag_expr",
+            "named": true
+          },
+          {
+            "type": "tuple_expr",
+            "named": true
+          },
+          {
+            "type": "variable_expr",
+            "named": true
+          },
+          {
+            "type": "when_is_expr",
+            "named": true
+          }
+        ]
+      },
+      "method": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "function_type",
     "named": true,
     "fields": {
@@ -1708,6 +1850,10 @@
           "named": true
         },
         {
+          "type": "function_call_pnc_expr",
+          "named": true
+        },
+        {
           "type": "if_expr",
           "named": true
         },
@@ -1745,6 +1891,10 @@
         },
         {
           "type": "record_update_expr",
+          "named": true
+        },
+        {
+          "type": "static_dispatch_expr",
           "named": true
         },
         {
@@ -1795,6 +1945,10 @@
             "named": true
           },
           {
+            "type": "function_call_pnc_expr",
+            "named": true
+          },
+          {
             "type": "if_expr",
             "named": true
           },
@@ -1832,6 +1986,10 @@
           },
           {
             "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "static_dispatch_expr",
             "named": true
           },
           {
@@ -2138,6 +2296,10 @@
           "named": true
         },
         {
+          "type": "function_call_pnc_expr",
+          "named": true
+        },
+        {
           "type": "if_expr",
           "named": true
         },
@@ -2175,6 +2337,10 @@
         },
         {
           "type": "record_update_expr",
+          "named": true
+        },
+        {
+          "type": "static_dispatch_expr",
           "named": true
         },
         {
@@ -2225,6 +2391,10 @@
             "named": true
           },
           {
+            "type": "function_call_pnc_expr",
+            "named": true
+          },
+          {
             "type": "if_expr",
             "named": true
           },
@@ -2262,6 +2432,10 @@
           },
           {
             "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "static_dispatch_expr",
             "named": true
           },
           {
@@ -2812,6 +2986,10 @@
           "named": true
         },
         {
+          "type": "function_call_pnc_expr",
+          "named": true
+        },
+        {
           "type": "if_expr",
           "named": true
         },
@@ -2841,6 +3019,10 @@
         },
         {
           "type": "record_update_expr",
+          "named": true
+        },
+        {
+          "type": "static_dispatch_expr",
           "named": true
         },
         {
@@ -3322,6 +3504,36 @@
     }
   },
   {
+    "type": "static_dispatch_expr",
+    "named": true,
+    "fields": {
+      "dispatcher": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "static_dispatch_expr",
+            "named": true
+          },
+          {
+            "type": "variable_expr",
+            "named": true
+          }
+        ]
+      }
+    },
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "function_call_pnc_expr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "string",
     "named": true,
     "fields": {},
@@ -3550,6 +3762,10 @@
             "named": true
           },
           {
+            "type": "function_call_pnc_expr",
+            "named": true
+          },
+          {
             "type": "if_expr",
             "named": true
           },
@@ -3587,6 +3803,10 @@
           },
           {
             "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "static_dispatch_expr",
             "named": true
           },
           {
@@ -4077,6 +4297,10 @@
           "named": true
         },
         {
+          "type": "function_call_pnc_expr",
+          "named": true
+        },
+        {
           "type": "if_expr",
           "named": true
         },
@@ -4118,6 +4342,10 @@
         },
         {
           "type": "record_update_expr",
+          "named": true
+        },
+        {
+          "type": "static_dispatch_expr",
           "named": true
         },
         {
@@ -4502,11 +4730,11 @@
   },
   {
     "type": "module",
-    "named": true
+    "named": false
   },
   {
     "type": "module",
-    "named": false
+    "named": true
   },
   {
     "type": "natural",

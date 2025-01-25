@@ -57,9 +57,6 @@ module.exports = grammar({
 		[$._module_elem, $.value_declaration],
 		[$._module_elem, $._expr_inner],
 		[$._more_when_is_branches],
-		//Introduced because of the bang expression
-		[$._atom_expr, $.expr_body],
-		[$._atom_expr],
 	],
 
 	words: ($) => /\s+/,
@@ -168,7 +165,7 @@ module.exports = grammar({
 				$.field_access_expr,
 			),
 
-		_call_or_atom: ($) => choice($.function_call_expr, $._atom_expr),
+		_call_or_atom: ($) => choice( $.static_dispatch_expr,$.function_call_pnc_expr,$.function_call_expr, $._atom_expr),
 		_expr_inner: ($) =>
 			choice(
 				$.prefixed_expression,
@@ -177,7 +174,7 @@ module.exports = grammar({
 				$.import_expr,
 				$.import_file_expr,
 			),
-
+		
 		prefixed_expression: ($) => prec.left(seq($.operator, $._call_or_atom)),
 		dbg_expr: ($) => seq("dbg", alias($.expr_body_terminal, $.expr_body)),
 		else: ($) => seq("else", $.expr_body),
@@ -230,6 +227,27 @@ module.exports = grammar({
 					field("args", repeat1($._atom_expr)),
 				),
 			),
+		function_call_pnc_expr: ($) =>
+				prec.right(
+					PREC.FUNC+1,
+					seq(
+						field("method", $.identifier),
+						"(",
+						field("args", sep_tail($._expr_inner, ",")),
+						")",
+					),
+				),
+
+		static_dispatch_expr: ($) =>
+			prec.right(
+				PREC.FUNC+2,
+				seq(
+					field("dispatcher", choice( $.variable_expr,$.static_dispatch_expr)),
+					".",
+					$.function_call_pnc_expr
+				),
+			),
+				
 		operator_as_function_expr: ($) => $._operator_as_function_inner,
 
 		_operator_as_function_inner: ($) =>
@@ -240,7 +258,7 @@ module.exports = grammar({
 				$.field_access_expr,
 				// $.field_accessor_function_expr,
 				$.variable_expr,
-				$.operator_as_function_expr,
+				$.operator_as_function_expr, //TODO: this is technically not compatible with PNC calling
 				$.parenthesized_expr,
 			),
 		bin_op_expr: ($) =>
