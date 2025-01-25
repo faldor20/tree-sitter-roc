@@ -790,15 +790,12 @@ module.exports = grammar({
 				'"""',
 			),
 
-		escape_char: ($) => imm(/\\([\\"\'ntbrafv]|(\$\())/),
+		escape_char: ($) => imm(/\\([\\"\'ntbrafv]|(\$\{))/),
 		interpolation_char: ($) =>
 			seq(
-				choice(
-					imm(/\\\(/), //This is the old inderpolation syntax
-					imm(/\$\(/), //This is the new interpolation syntax
-				),
+				imm("${"), //This is the new interpolation syntax
 				$._expr_inner,
-				")",
+				"}",
 			),
 		_simple_string_char: ($) => /[^\t\r\u0008\a\f\v\\"]/,
 		_simple_char_char: ($) => imm(/[^\n\t\r\u0008\a\f\v'\\]/),
