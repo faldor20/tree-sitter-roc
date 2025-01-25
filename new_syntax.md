@@ -1,5 +1,5 @@
 changes:
 
-- PNC calling syntax
-- |a| lambda syntax
-- 
+- [ ] PNC calling syntax
+- [x] |a| lambda syntax
+- [x] "${}" string interpolation syntax  
