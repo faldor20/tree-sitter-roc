@@ -1,0 +1,77 @@
+====
+function_def
+====
+a = |x| x
+a = |x| x + 1
+a = |x| |y| x + y
+a = |x, y| x + y
+----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (variable_expr
+            (identifier))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (bin_op_expr
+            (variable_expr
+              (identifier))
+            (operator)
+            (const
+              (int)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (anon_fun_expr
+            (argument_patterns
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (bin_op_expr
+                (variable_expr
+                  (identifier))
+                (operator)
+                (variable_expr
+                  (identifier)))))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (bin_op_expr
+            (variable_expr
+              (identifier))
+            (operator)
+            (variable_expr
+              (identifier))))))))
