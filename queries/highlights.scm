@@ -50,7 +50,7 @@
 "?"
 (arrow)
 (back_arrow)
-(backslash)
+("|")
 ] @punctuation.delimiter.structural
 [
   ","

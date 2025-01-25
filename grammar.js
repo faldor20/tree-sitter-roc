@@ -303,9 +303,9 @@ module.exports = grammar({
 		anon_fun_expr: ($) =>
 			prec.left(
 				seq(
-					$.backslash,
+					"|",
 					$.argument_patterns,
-					$.arrow,
+					"|",
 					$.expr_body,
 					optional($._newline),
 				),

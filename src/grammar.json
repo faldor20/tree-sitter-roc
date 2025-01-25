@@ -1,4 +1,5 @@
 {
+  "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "roc",
   "rules": {
     "file": {
@@ -1023,16 +1024,16 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "backslash"
+            "type": "STRING",
+            "value": "|"
           },
           {
             "type": "SYMBOL",
             "name": "argument_patterns"
           },
           {
-            "type": "SYMBOL",
-            "name": "arrow"
+            "type": "STRING",
+            "value": "|"
           },
           {
             "type": "SYMBOL",
