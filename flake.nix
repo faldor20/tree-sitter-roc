@@ -1,50 +1,39 @@
 {
   inputs = {
-    nixpkgs = { url = "github:nixos/nixpkgs/nixpkgs-unstable"; };
-    flake-utils.url = "github:numtide/flake-utils";
-    flake-compat = {
-      url = "github:edolstra/flake-compat";
-      flake = false;
-    };
+    nixpkgs.url = "nixpkgs-unstable";
+    flakelight.url = "github:nix-community/flakelight";
   };
-  outputs = { self, nixpkgs, flake-utils, ... }@inputs:
-    let
-     defaultPackage = pkgs: pkgs.callPackage (nixpkgs + "/pkgs/development/tools/parsing/tree-sitter/grammar.nix") { } {
-       language = "roc";
-       src = ./.;
-       inherit (pkgs.tree-sitter) version;
-     };
-    in
-    (flake-utils.lib.eachDefaultSystem (system:
-      let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [
-            (final: prev: {
-              tree-sitter = prev.tree-sitter.override { webUISupport = true; };
-            })
-          ];
-        };
-      in {
-        defaultPackage = defaultPackage pkgs;
-        devShell = pkgs.mkShell {
-          nativeBuildInputs = with pkgs; [
-            nodejs
-            tree-sitter
-            # binutils
-            # glibc
-            # glibc.dev
-            # gcc
-            # clang
-            # nodePackages.node-gyp
-            # lldb
-            # gdb
-         
-            # pkg-config
-          ];
-        };
-      }));
 
-  # // (let pkgs = import nixpkgs { }; in { defaultPackage = defaultPackage pkgs; });
+  outputs =
+    { flakelight, ... }@inputs:
+    flakelight ./. {
+      inherit inputs;
+      packages.default =
+        pkgs:
+        pkgs.callPackage
+          (flakelight.inputs.nixpkgs + "/pkgs/development/tools/parsing/tree-sitter/grammar.nix")
+          { }
+          {
+            language = "roc";
+            src = ./.;
+            inherit (pkgs.tree-sitter) version;
+          };
 
+      withOverlays = [
+        (final: prev: { tree-sitter-web = prev.tree-sitter.override { webUISupport = true; }; })
+      ];
+      #This allows calling tree-sitter webui stuff
+      devShells.webui.packages =
+        pkgs: with pkgs; [
+          nodejs_20
+          tree-sitter-web
+        ];
+      # default devshell that doesn't require tons of dependencies
+      devShell.packages =
+        pkgs: with pkgs; [
+          nodejs_20
+          tree-sitter
+        ];
+
+    };
 }
