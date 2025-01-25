@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs = { url = "nixpkgs-unstable"; };
+    nixpkgs = { url = "github:nixos/nixpkgs/nixpkgs-unstable"; };
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat = {
       url = "github:edolstra/flake-compat";
@@ -29,16 +29,17 @@
         defaultPackage = defaultPackage pkgs;
         devShell = pkgs.mkShell {
           nativeBuildInputs = with pkgs; [
+            nodejs
+            tree-sitter
             # binutils
             # glibc
             # glibc.dev
-            nodejs
             # gcc
             # clang
             # nodePackages.node-gyp
             # lldb
             # gdb
-            tree-sitter
+         
             # pkg-config
           ];
         };
