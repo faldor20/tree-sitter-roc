@@ -150,7 +150,7 @@ escaped= "\${notinterpolated}"
 string_interpolation_complex
 ================================================================================
 
-main ="\t hi\n\\${"hi"}${Num.toStr 10}${"hi${"nested"}"}\${notinterpolated}"
+main ="\t hi\n\\${"hi"}${Num.toStr(10)}${"hi${"nested"}"}\${notinterpolated}"
 --------------------------------------------------------------------------------
 
 (file
@@ -169,7 +169,7 @@ main ="\t hi\n\\${"hi"}${Num.toStr 10}${"hi${"nested"}"}\${notinterpolated}"
             (const
               (string)))
           (interpolation_char
-            (function_call_expr
+            (function_call_pnc_expr
               (variable_expr
                 (module)
                 (identifier
@@ -194,7 +194,7 @@ main =
     \n
     \\
     ${"hi"}
-    ${Num.toStr 10}
+    ${Num.toStr(10)}
     \${"hi"}
     
     """
@@ -216,7 +216,7 @@ main =
             (const
               (string)))
           (interpolation_char
-            (function_call_expr
+            (function_call_pnc_expr
               (variable_expr
                 (module)
                 (identifier

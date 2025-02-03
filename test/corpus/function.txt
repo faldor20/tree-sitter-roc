@@ -107,30 +107,30 @@ a=a.b(1).c(2,2).d(potato,1)
         (identifier
           (regular_ident))))
     (expr_body
-      (static_dispatch_expr
-        (variable_expr
+      (function_call_pnc_expr
+        (field_access_expr
+          (variable_expr
+            (identifier
+              (regular_ident)))
           (identifier
             (regular_ident)))
-        (function_call_pnc_expr
-          (identifier
-            (regular_ident))
-          (const
-            (int))
-          (const
-            (int))
-          (const
-            (int))))))
+        (const
+          (int))
+        (const
+          (int))
+        (const
+          (int)))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier
           (regular_ident))))
     (expr_body
-      (static_dispatch_expr
-        (variable_expr
-          (identifier
-            (regular_ident)))
-        (function_call_pnc_expr
+      (function_call_pnc_expr
+        (field_access_expr
+          (variable_expr
+            (identifier
+              (regular_ident)))
           (identifier
             (regular_ident))))))
   (value_declaration
@@ -139,32 +139,32 @@ a=a.b(1).c(2,2).d(potato,1)
         (identifier
           (regular_ident))))
     (expr_body
-      (static_dispatch_expr
-        (static_dispatch_expr
-          (static_dispatch_expr
-            (variable_expr
+      (function_call_pnc_expr
+        (field_access_expr
+          (function_call_pnc_expr
+            (field_access_expr
+              (function_call_pnc_expr
+                (field_access_expr
+                  (variable_expr
+                    (identifier
+                      (regular_ident)))
+                  (identifier
+                    (regular_ident)))
+                (const
+                  (int)))
               (identifier
                 (regular_ident)))
-            (function_call_pnc_expr
-              (identifier
-                (regular_ident))
-              (const
-                (int))))
-          (function_call_pnc_expr
-            (identifier
-              (regular_ident))
             (const
               (int))
             (const
-              (int))))
-        (function_call_pnc_expr
+              (int)))
           (identifier
-            (regular_ident))
-          (variable_expr
-            (identifier
-              (regular_ident)))
-          (const
-            (int)))))))
+            (regular_ident)))
+        (variable_expr
+          (identifier
+            (regular_ident)))
+        (const
+          (int))))))
 
 ====
 function_call_static_dispatch_complex
@@ -189,68 +189,68 @@ a=
         (identifier
           (regular_ident))))
     (expr_body
-      (static_dispatch_expr
-        (static_dispatch_expr
-          (variable_expr
-            (identifier
-              (regular_ident)))
+      (function_call_pnc_expr
+        (field_access_expr
           (function_call_pnc_expr
-            (identifier
-              (regular_ident))
+            (field_access_expr
+              (variable_expr
+                (identifier
+                  (regular_ident)))
+              (identifier
+                (regular_ident)))
             (const
-              (int))))
-        (function_call_pnc_expr
+              (int)))
           (identifier
-            (regular_ident))
-          (static_dispatch_expr
+            (regular_ident)))
+        (function_call_pnc_expr
+          (field_access_expr
             (variable_expr
               (identifier
                 (regular_ident)))
-            (function_call_pnc_expr
-              (identifier
-                (regular_ident))
-              (const
-                (int))))))))
+            (identifier
+              (regular_ident)))
+          (const
+            (int))))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier
           (regular_ident))))
     (expr_body
-      (static_dispatch_expr
-        (static_dispatch_expr
-          (static_dispatch_expr
-            (variable_expr
+      (function_call_pnc_expr
+        (field_access_expr
+          (function_call_pnc_expr
+            (field_access_expr
+              (function_call_pnc_expr
+                (field_access_expr
+                  (variable_expr
+                    (identifier
+                      (regular_ident)))
+                  (identifier
+                    (regular_ident)))
+                (const
+                  (int)))
               (identifier
                 (regular_ident)))
             (function_call_pnc_expr
-              (identifier
-                (regular_ident))
-              (const
-                (int))))
-          (function_call_pnc_expr
-            (identifier
-              (regular_ident))
-            (static_dispatch_expr
-              (variable_expr
+              (field_access_expr
+                (variable_expr
+                  (identifier
+                    (regular_ident)))
                 (identifier
                   (regular_ident)))
-              (function_call_pnc_expr
-                (identifier
-                  (regular_ident))
-                (const
-                  (int))
-                (const
-                  (int))))
+              (const
+                (int))
+              (const
+                (int)))
             (const
               (int))
             (const
-              (int))))
-        (function_call_pnc_expr
+              (int)))
           (identifier
-            (regular_ident))
-          (const
-            (int)))))))
+            (regular_ident)))
+        (const
+          (int))))))
 
 ===
 function_call_pnc
@@ -266,11 +266,58 @@ a= b(1,2,3)
           (regular_ident))))
     (expr_body
       (function_call_pnc_expr
-        (identifier
-          (regular_ident))
+        (variable_expr
+          (identifier
+            (regular_ident)))
         (const
           (int))
         (const
           (int))
         (const
           (int))))))
+
+====
+function_call_pnc_module
+====
+Num.str(1)
+----
+
+(file
+  (expr_body
+    (function_call_pnc_expr
+      (variable_expr
+        (module)
+        (identifier
+          (regular_ident)))
+      (const
+        (int)))))
+
+====
+function_call_chain
+====
+a.b(1).c(2).d(3)
+----
+
+(file
+  (expr_body
+    (function_call_pnc_expr
+      (field_access_expr
+        (function_call_pnc_expr
+          (field_access_expr
+            (function_call_pnc_expr
+              (field_access_expr
+                (variable_expr
+                  (identifier
+                    (regular_ident)))
+                (identifier
+                  (regular_ident)))
+              (const
+                (int)))
+            (identifier
+              (regular_ident)))
+          (const
+            (int)))
+        (identifier
+          (regular_ident)))
+      (const
+        (int)))))

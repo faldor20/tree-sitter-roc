@@ -145,7 +145,7 @@ var =
 value_record
 ================================================================================
 
-{ result: commaResult, rest: nextBytes } = comma beforeCommaOrBreak
+{ result: commaResult, rest: nextBytes } = comma( beforeCommaOrBreak)
 --------------------------------------------------------------------------------
 
 (file
@@ -165,7 +165,7 @@ value_record
             (identifier
               (regular_ident))))))
     (expr_body
-      (function_call_expr
+      (function_call_pnc_expr
         (variable_expr
           (identifier
             (regular_ident)))
@@ -181,6 +181,8 @@ a= My.Module.field
 a= {a}.field
 a= ({a}).field
 a= a.field.b.c.d
+b=10
+
 --------------------------------------------------------------------------------
 
 (file
@@ -250,7 +252,15 @@ a= a.field.b.c.d
         (identifier
           (regular_ident))
         (identifier
-          (regular_ident))))))
+          (regular_ident)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (regular_ident))))
+    (expr_body
+      (const
+        (int)))))
 
 ================================================================================
 value_ignore
@@ -287,7 +297,7 @@ _shadow= a
 ================================================================================
 value_effectful
 ================================================================================
-effect! = |a| doThing! a
+effect! = |a| doThing!( a)
 --------------------------------------------------------------------------------
 
 (file
@@ -303,7 +313,7 @@ effect! = |a| doThing! a
             (identifier
               (regular_ident))))
         (expr_body
-          (function_call_expr
+          (function_call_pnc_expr
             (variable_expr
               (identifier
                 (effectful_ident)))
@@ -314,7 +324,7 @@ effect! = |a| doThing! a
 ================================================================================
 value_effectful_shadowable
 ================================================================================
-_effect! = |a| doThing! a
+_effect! = |a| doThing!(a)
 --------------------------------------------------------------------------------
 
 (file
@@ -330,7 +340,7 @@ _effect! = |a| doThing! a
             (identifier
               (regular_ident))))
         (expr_body
-          (function_call_expr
+          (function_call_pnc_expr
             (variable_expr
               (identifier
                 (effectful_ident)))

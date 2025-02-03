@@ -1,0 +1,169 @@
+================================================================================
+pattern_opaque_tag
+================================================================================
+bfs = |a, b, @OTag c| a( b, c)
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (regular_ident))))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier
+              (regular_ident)))
+          (identifier_pattern
+            (identifier
+              (regular_ident)))
+          (tag_pattern
+            (opaque_tag)
+            (identifier_pattern
+              (identifier
+                (regular_ident)))))
+        (expr_body
+          (function_call_pnc_expr
+            (variable_expr
+              (identifier
+                (regular_ident)))
+            (variable_expr
+              (identifier
+                (regular_ident)))
+            (variable_expr
+              (identifier
+                (regular_ident)))))))))
+
+================================================================================
+pattern_tag
+================================================================================
+bfs = |a, b, Tag c| a( b, c)
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (regular_ident))))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier
+              (regular_ident)))
+          (identifier_pattern
+            (identifier
+              (regular_ident)))
+          (tag_pattern
+            (tag)
+            (identifier_pattern
+              (identifier
+                (regular_ident)))))
+        (expr_body
+          (function_call_pnc_expr
+            (variable_expr
+              (identifier
+                (regular_ident)))
+            (variable_expr
+              (identifier
+                (regular_ident)))
+            (variable_expr
+              (identifier
+                (regular_ident)))))))))
+
+================================================================================
+pattern_range
+================================================================================
+bfs = |a, b, [head, ..tail]| a( b, head, tail)
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (regular_ident))))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier
+              (regular_ident)))
+          (identifier_pattern
+            (identifier
+              (regular_ident)))
+          (list_pattern
+            (identifier_pattern
+              (identifier
+                (regular_ident)))
+            (spread_pattern
+              (identifier
+                (regular_ident)))))
+        (expr_body
+          (function_call_pnc_expr
+            (variable_expr
+              (identifier
+                (regular_ident)))
+            (variable_expr
+              (identifier
+                (regular_ident)))
+            (variable_expr
+              (identifier
+                (regular_ident)))
+            (variable_expr
+              (identifier
+                (regular_ident)))))))))
+
+================================================================================
+pattern_range_many
+================================================================================
+
+record=|bytes,dict|
+    when bytes is 
+	    ['}']-> decOk( (dict), rest)
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (regular_ident))))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier
+              (regular_ident)))
+          (identifier_pattern
+            (identifier
+              (regular_ident))))
+        (expr_body
+          (when_is_expr
+            (when)
+            (variable_expr
+              (identifier
+                (regular_ident)))
+            (is)
+            (when_is_branch
+              (list_pattern
+                (const
+                  (char)))
+              (arrow)
+              (expr_body
+                (function_call_pnc_expr
+                  (variable_expr
+                    (identifier
+                      (regular_ident)))
+                  (parenthesized_expr
+                    (expr_body
+                      (variable_expr
+                        (identifier
+                          (regular_ident)))))
+                  (variable_expr
+                    (identifier
+                      (regular_ident))))))))))))
