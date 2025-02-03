@@ -1,0 +1,122 @@
+================================================================================
+when_is
+================================================================================
+main=
+    when color is
+        Blue -> 1
+        Green | Red | Yellow -> 
+          p=10
+          p
+        Purple -> 3
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (when_is_expr
+        (when)
+        (variable_expr
+          (identifier))
+        (is)
+        (when_is_branch
+          (tag_pattern
+            (tag))
+          (arrow)
+          (expr_body
+            (const
+              (int))))
+        (when_is_branch
+          (disjunct_pattern
+            (disjunct_pattern
+              (tag_pattern
+                (tag))
+              (tag_pattern
+                (tag)))
+            (tag_pattern
+              (tag)))
+          (arrow)
+          (expr_body
+            (value_declaration
+              (decl_left
+                (identifier_pattern
+                  (identifier)))
+              (expr_body
+                (const
+                  (int))))
+            (variable_expr
+              (identifier))))
+        (when_is_branch
+          (tag_pattern
+            (tag))
+          (arrow)
+          (expr_body
+            (const
+              (int))))))))
+
+====
+when_is_string_interpolation
+====
+a="hi"
+b=
+	when a is 
+		"hi"->0
+		"hi ${name}" -> 1
+		"hey ${name}" -> 2
+c=1
+----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (string))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (when_is_expr
+        (when)
+        (variable_expr
+          (identifier))
+        (is)
+        (when_is_branch
+          (const_pattern
+            (string))
+          (arrow)
+          (expr_body
+            (const
+              (int))))
+        (when_is_branch
+          (const_pattern
+            (string
+              (interpolation_char
+                (variable_expr
+                  (identifier)))))
+          (arrow)
+          (expr_body
+            (const
+              (int))))
+        (when_is_branch
+          (const_pattern
+            (string
+              (interpolation_char
+                (variable_expr
+                  (identifier)))))
+          (arrow)
+          (expr_body
+            (const
+              (int)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (int)))))
