@@ -400,6 +400,10 @@
         {
           "type": "SYMBOL",
           "name": "field_access_expr"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "todo_expr"
         }
       ]
     },
@@ -1648,6 +1652,10 @@
           "value": ")"
         }
       ]
+    },
+    "todo_expr": {
+      "type": "STRING",
+      "value": "..."
     },
     "_pattern": {
       "type": "CHOICE",

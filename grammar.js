@@ -166,6 +166,7 @@ module.exports = grammar({
 				$.tuple_expr,
 				$.list_expr,
 				$.field_access_expr,
+				$.todo_expr,
 			),
 
 		_call_or_atom: ($) =>
@@ -372,6 +373,7 @@ module.exports = grammar({
 				),
 				")",
 			),
+		todo_expr: ($) => "...",
 
 		//####---------###
 		//#### PATTERN ###
