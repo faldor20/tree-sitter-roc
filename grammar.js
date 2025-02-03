@@ -150,6 +150,9 @@ module.exports = grammar({
 				),
 			),
 
+		/**
+		atomic expressions can be used as function args without being wrapped in parens
+		*/
 		_atom_expr: ($) =>
 			choice(
 				$.anon_fun_expr,

@@ -27,12 +27,16 @@
         pkgs: with pkgs; [
           nodejs_20
           tree-sitter-web
+          python3
+          gcc
         ];
       # default devshell that doesn't require tons of dependencies
       devShell.packages =
         pkgs: with pkgs; [
           nodejs_20
           tree-sitter
+          python3
+          gcc
         ];
 
     };
