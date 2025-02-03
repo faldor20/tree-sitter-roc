@@ -1,6 +1,7 @@
 {
   "$schema": "https://tree-sitter.github.io/tree-sitter/assets/schemas/grammar.schema.json",
   "name": "roc",
+  "word": "_lower_identifier",
   "rules": {
     "file": {
       "type": "SEQ",
@@ -137,7 +138,7 @@
             "type": "ALIAS",
             "content": {
               "type": "SYMBOL",
-              "name": "_assigment_pattern"
+              "name": "_assignment_pattern"
             },
             "named": true,
             "value": "decl_left"
@@ -637,7 +638,7 @@
           "name": "assignee",
           "content": {
             "type": "SYMBOL",
-            "name": "_assigment_pattern"
+            "name": "_assignment_pattern"
           }
         },
         {
@@ -659,33 +660,29 @@
       ]
     },
     "_field_access_start": {
-      "type": "PREC",
-      "value": 0,
-      "content": {
-        "type": "CHOICE",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "variable_expr"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "parenthesized_expr"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "record_expr"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "record_builder_expr"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "record_update_expr"
-          }
-        ]
-      }
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "variable_expr"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "parenthesized_expr"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "record_expr"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "record_builder_expr"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "record_update_expr"
+        }
+      ]
     },
     "field_access_expr": {
       "type": "PREC_LEFT",
@@ -1720,8 +1717,13 @@
       ]
     },
     "identifier_pattern": {
-      "type": "SYMBOL",
-      "name": "identifier"
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        }
+      ]
     },
     "as_pattern": {
       "type": "PREC_LEFT",
@@ -2024,7 +2026,7 @@
         }
       ]
     },
-    "_assigment_pattern": {
+    "_assignment_pattern": {
       "type": "CHOICE",
       "members": [
         {
@@ -4480,10 +4482,6 @@
       "type": "STRING",
       "value": "->"
     },
-    "identifier": {
-      "type": "SYMBOL",
-      "name": "_lower_identifier"
-    },
     "field_name": {
       "type": "ALIAS",
       "content": {
@@ -4506,13 +4504,45 @@
         }
       ]
     },
+    "identifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "_lower_identifier"
+          },
+          "named": true,
+          "value": "regular_ident"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "\\_[\\p{Ll}][\\p{XID_Continue}]*"
+          },
+          "named": true,
+          "value": "shadowed_ident"
+        },
+        {
+          "type": "ALIAS",
+          "content": {
+            "type": "PATTERN",
+            "value": "\\_?[\\p{Ll}][\\p{XID_Continue}]*\\!"
+          },
+          "named": true,
+          "value": "effectful_ident"
+        }
+      ]
+    },
     "_lower_identifier": {
       "type": "PATTERN",
-      "value": "_?[a-z][0-9a-zA-Z_]*!?"
+      "value": "[\\p{Ll}][\\p{XID_Continue}]*"
     },
     "_upper_identifier": {
       "type": "PATTERN",
-      "value": "[A-Z][0-9a-zA-Z_]*"
+      "value": "[\\p{Lu}][\\p{XID_Continue}]*"
     },
     "tag": {
       "type": "ALIAS",
@@ -4788,6 +4818,7 @@
   ],
   "inline": [
     "_type_annotation_paren_fun",
+    "_field_access_start",
     "module",
     "tag",
     "field_name",

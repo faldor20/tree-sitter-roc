@@ -2,16 +2,28 @@
 value_decl
 ================================================================================
 var= a
+my_var= a
 --------------------------------------------------------------------------------
 
 (file
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (variable_expr
-        (identifier)))))
+        (identifier
+          (regular_ident)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (regular_ident))))
+    (expr_body
+      (variable_expr
+        (identifier
+          (regular_ident))))))
 
 ================================================================================
 value_decl_nested
@@ -26,24 +38,29 @@ var=
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (variable_expr
-        (identifier))))
+        (identifier
+          (regular_ident)))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (value_declaration
         (decl_left
           (identifier_pattern
-            (identifier)))
+            (identifier
+              (regular_ident))))
         (expr_body
           (const
             (int))))
       (variable_expr
-        (identifier)))))
+        (identifier
+          (regular_ident))))))
 
 ================================================================================
 value_decl_typed
@@ -65,53 +82,64 @@ var =
   (value_declaration
     (annotation_type_def
       (annotation_pre_colon
-        (identifier))
+        (identifier
+          (regular_ident)))
       (apply_type
         (concrete_type)))
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (variable_expr
-        (identifier))))
+        (identifier
+          (regular_ident)))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (value_declaration
         (annotation_type_def
           (annotation_pre_colon
-            (identifier))
+            (identifier
+              (regular_ident)))
           (apply_type
             (concrete_type)))
         (decl_left
           (identifier_pattern
-            (identifier)))
+            (identifier
+              (regular_ident))))
         (expr_body
           (const
             (int))))
       (variable_expr
-        (identifier))))
+        (identifier
+          (regular_ident)))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (value_declaration
         (annotation_type_def
           (annotation_pre_colon
-            (identifier))
+            (identifier
+              (regular_ident)))
           (apply_type
             (concrete_type)))
         (decl_left
           (identifier_pattern
-            (identifier)))
+            (identifier
+              (regular_ident))))
         (expr_body
           (const
             (int))))
       (variable_expr
-        (identifier)))))
+        (identifier
+          (regular_ident))))))
 
 ================================================================================
 value_record
@@ -125,19 +153,25 @@ value_record
     (decl_left
       (record_pattern
         (record_field_pattern
-          (field_name)
+          (field_name
+            (regular_ident))
           (identifier_pattern
-            (identifier)))
+            (identifier
+              (regular_ident))))
         (record_field_pattern
-          (field_name)
+          (field_name
+            (regular_ident))
           (identifier_pattern
-            (identifier)))))
+            (identifier
+              (regular_ident))))))
     (expr_body
       (function_call_expr
         (variable_expr
-          (identifier))
+          (identifier
+            (regular_ident)))
         (variable_expr
-          (identifier))))))
+          (identifier
+            (regular_ident)))))))
 
 ================================================================================
 value_field
@@ -153,60 +187,75 @@ a= a.field.b.c.d
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (variable_expr
         (module)
-        (identifier))))
+        (identifier
+          (regular_ident)))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (variable_expr
         (module)
         (module)
-        (identifier))))
+        (identifier
+          (regular_ident)))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (field_access_expr
         (record_expr
           (record_field_expr
-            (field_name)))
-        (identifier))))
+            (field_name
+              (regular_ident))))
+        (identifier
+          (regular_ident)))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (field_access_expr
         (parenthesized_expr
           (expr_body
             (record_expr
               (record_field_expr
-                (field_name)))))
-        (identifier))))
+                (field_name
+                  (regular_ident))))))
+        (identifier
+          (regular_ident)))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (field_access_expr
         (variable_expr
-          (identifier))
-        (identifier)
-        (identifier)
-        (identifier)
-        (identifier)))))
+          (identifier
+            (regular_ident)))
+        (identifier
+          (regular_ident))
+        (identifier
+          (regular_ident))
+        (identifier
+          (regular_ident))
+        (identifier
+          (regular_ident))))))
 
 ================================================================================
 value_ignore
 ================================================================================
 _= a
-_a= a
 --------------------------------------------------------------------------------
 
 (file
@@ -215,11 +264,76 @@ _a= a
       (wildcard_pattern))
     (expr_body
       (variable_expr
-        (identifier))))
+        (identifier
+          (regular_ident))))))
+
+================================================================================
+value_shadowable
+================================================================================
+_shadow= a
+--------------------------------------------------------------------------------
+
+(file
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (shadowed_ident))))
     (expr_body
       (variable_expr
-        (identifier)))))
+        (identifier
+          (regular_ident))))))
+
+================================================================================
+value_effectful
+================================================================================
+effect! = |a| doThing! a
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (effectful_ident))))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier
+              (regular_ident))))
+        (expr_body
+          (function_call_expr
+            (variable_expr
+              (identifier
+                (effectful_ident)))
+            (variable_expr
+              (identifier
+                (regular_ident)))))))))
+
+================================================================================
+value_effectful_shadowable
+================================================================================
+_effect! = |a| doThing! a
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (effectful_ident))))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier
+              (regular_ident))))
+        (expr_body
+          (function_call_expr
+            (variable_expr
+              (identifier
+                (effectful_ident)))
+            (variable_expr
+              (identifier
+                (regular_ident)))))))))

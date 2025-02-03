@@ -1,3 +1,5 @@
+/// <reference types="tree-sitter-cli/dsl" />
+// @ts-check
 const PREC = {
 	FIELD_ACCESS_START: 0,
 	WHERE_IMPLEMENTS: 1,
@@ -58,11 +60,12 @@ module.exports = grammar({
 		[$._module_elem, $._expr_inner],
 		[$._more_when_is_branches],
 	],
-
 	words: ($) => /\s+/,
+	word: ($) => $._lower_identifier,
 
 	inline: ($) => [
 		$._type_annotation_paren_fun,
+		$._field_access_start,
 		$.module,
 		$.tag,
 		$.field_name,
@@ -103,7 +106,7 @@ module.exports = grammar({
 					optional(seq($.annotation_type_def, $._end_newline)),
 
 					// $._newline,
-					alias($._assigment_pattern, $.decl_left),
+					alias($._assignment_pattern, $.decl_left),
 					"=",
 					field("body", alias($.expr_body_terminal, $.expr_body)),
 				),
@@ -165,7 +168,13 @@ module.exports = grammar({
 				$.field_access_expr,
 			),
 
-		_call_or_atom: ($) => choice( $.static_dispatch_expr,$.function_call_pnc_expr,$.function_call_expr, $._atom_expr),
+		_call_or_atom: ($) =>
+			choice(
+				$.static_dispatch_expr,
+				$.function_call_pnc_expr,
+				$.function_call_expr,
+				$._atom_expr,
+			),
 		_expr_inner: ($) =>
 			choice(
 				$.prefixed_expression,
@@ -174,10 +183,11 @@ module.exports = grammar({
 				$.import_expr,
 				$.import_file_expr,
 			),
-		
+
 		prefixed_expression: ($) => prec.left(seq($.operator, $._call_or_atom)),
 		dbg_expr: ($) => seq("dbg", alias($.expr_body_terminal, $.expr_body)),
 		else: ($) => seq("else", $.expr_body),
+		// biome-ignore lint/suspicious/noThenProperty: <explanation>
 		then: ($) => seq("then", field("then", $.expr_body)),
 		else_if: ($) =>
 			prec.left(seq("else", "if", field("guard", $._expr_inner), $.then)),
@@ -195,22 +205,22 @@ module.exports = grammar({
 			),
 		backpassing_expr: ($) =>
 			seq(
-				field("assignee", $._assigment_pattern),
+				field("assignee", $._assignment_pattern),
 				$.back_arrow,
 				field("value", $._expr_inner),
 				$._end_newline,
 			),
 		_field_access_start: ($) =>
-			prec(
-				PREC.FIELD_ACCESS_START,
-				choice(
-					$.variable_expr,
-					$.parenthesized_expr,
-					$.record_expr,
-					$.record_builder_expr,
-					$.record_update_expr,
-				),
+			// prec(
+			// 	PREC.FIELD_ACCESS_START,
+			choice(
+				$.variable_expr,
+				$.parenthesized_expr,
+				$.record_expr,
+				$.record_builder_expr,
+				$.record_update_expr,
 			),
+		// ),
 		field_access_expr: ($) =>
 			prec.left(
 				seq(
@@ -228,26 +238,26 @@ module.exports = grammar({
 				),
 			),
 		function_call_pnc_expr: ($) =>
-				prec.right(
-					PREC.FUNC+1,
-					seq(
-						field("method", $.identifier),
-						"(",
-						field("args", sep_tail($._expr_inner, ",")),
-						")",
-					),
+			prec.right(
+				PREC.FUNC + 1,
+				seq(
+					field("method", $.identifier),
+					"(",
+					field("args", sep_tail($._expr_inner, ",")),
+					")",
 				),
+			),
 
 		static_dispatch_expr: ($) =>
 			prec.right(
-				PREC.FUNC+2,
+				PREC.FUNC + 2,
 				seq(
-					field("dispatcher", choice( $.variable_expr,$.static_dispatch_expr)),
+					field("dispatcher", choice($.variable_expr, $.static_dispatch_expr)),
 					".",
-					$.function_call_pnc_expr
+					$.function_call_pnc_expr,
 				),
 			),
-				
+
 		operator_as_function_expr: ($) => $._operator_as_function_inner,
 
 		_operator_as_function_inner: ($) =>
@@ -320,13 +330,7 @@ module.exports = grammar({
 			),
 		anon_fun_expr: ($) =>
 			prec.left(
-				seq(
-					"|",
-					$.argument_patterns,
-					"|",
-					$.expr_body,
-					optional($._newline),
-				),
+				seq("|", $.argument_patterns, "|", $.expr_body, optional($._newline)),
 			),
 
 		//RECORDS
@@ -396,7 +400,7 @@ module.exports = grammar({
 				// :? atomic-type as ident
 			),
 
-		identifier_pattern: ($) => $.identifier,
+		identifier_pattern: ($) => choice($.identifier),
 		as_pattern: ($) => prec.left(0, seq($._pattern, "as", $.identifier)),
 		cons_pattern: ($) => prec.left(0, seq($._pattern, "::", $._pattern)),
 		disjunct_pattern: ($) => prec.left(0, seq($._pattern, "|", $._pattern)),
@@ -440,7 +444,7 @@ module.exports = grammar({
 
 				// :? atomic_type
 			),
-		_assigment_pattern: ($) =>
+		_assignment_pattern: ($) =>
 			choice(
 				alias("_", $.wildcard_pattern),
 				$.identifier_pattern,
@@ -836,11 +840,18 @@ module.exports = grammar({
 		//PRIMATIVES
 		back_arrow: ($) => "<-",
 		arrow: ($) => "->",
-		identifier: ($) => $._lower_identifier,
 		field_name: ($) => alias($.identifier, $.field_name),
 		ident: ($) => choice($._lower_identifier, $._upper_identifier),
-		_lower_identifier: ($) => /_?[a-z][0-9a-zA-Z_]*!?/,
-		_upper_identifier: ($) => /[A-Z][0-9a-zA-Z_]*/,
+		identifier: ($) =>
+			choice(
+				alias($._lower_identifier, $.regular_ident),
+				alias(/\_[\p{Ll}][\p{XID_Continue}]*/, $.shadowed_ident),
+				alias(/\_?[\p{Ll}][\p{XID_Continue}]*\!/, $.effectful_ident),
+			),
+
+		_lower_identifier: ($) => /[\p{Ll}][\p{XID_Continue}]*/,
+
+		_upper_identifier: ($) => /[\p{Lu}][\p{XID_Continue}]*/,
 		tag: ($) => alias($._upper_identifier, $.tag),
 		opaque_tag: ($) => /@[A-Z][0-9a-zA-Z_]*/,
 		module: ($) => alias($._upper_identifier, $.module),

@@ -14,12 +14,14 @@ main=
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (when_is_expr
         (when)
         (variable_expr
-          (identifier))
+          (identifier
+            (regular_ident)))
         (is)
         (when_is_branch
           (tag_pattern
@@ -42,12 +44,14 @@ main=
             (value_declaration
               (decl_left
                 (identifier_pattern
-                  (identifier)))
+                  (identifier
+                    (regular_ident))))
               (expr_body
                 (const
                   (int))))
             (variable_expr
-              (identifier))))
+              (identifier
+                (regular_ident)))))
         (when_is_branch
           (tag_pattern
             (tag))
@@ -72,19 +76,22 @@ c=1
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (const
         (string))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (when_is_expr
         (when)
         (variable_expr
-          (identifier))
+          (identifier
+            (regular_ident)))
         (is)
         (when_is_branch
           (const_pattern
@@ -98,7 +105,8 @@ c=1
             (string
               (interpolation_char
                 (variable_expr
-                  (identifier)))))
+                  (identifier
+                    (regular_ident))))))
           (arrow)
           (expr_body
             (const
@@ -108,7 +116,8 @@ c=1
             (string
               (interpolation_char
                 (variable_expr
-                  (identifier)))))
+                  (identifier
+                    (regular_ident))))))
           (arrow)
           (expr_body
             (const
@@ -116,7 +125,8 @@ c=1
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier)))
+        (identifier
+          (regular_ident))))
     (expr_body
       (const
         (int)))))

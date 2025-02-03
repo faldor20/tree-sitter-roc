@@ -1420,7 +1420,25 @@
   {
     "type": "field_name",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "effectful_ident",
+          "named": true
+        },
+        {
+          "type": "regular_ident",
+          "named": true
+        },
+        {
+          "type": "shadowed_ident",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "file",
@@ -1804,7 +1822,25 @@
   {
     "type": "identifier",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "effectful_ident",
+          "named": true
+        },
+        {
+          "type": "regular_ident",
+          "named": true
+        },
+        {
+          "type": "shadowed_ident",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "identifier_pattern",
@@ -4634,11 +4670,11 @@
   },
   {
     "type": "as",
-    "named": false
+    "named": true
   },
   {
     "type": "as",
-    "named": true
+    "named": false
   },
   {
     "type": "bound_variable",
@@ -4658,6 +4694,10 @@
   },
   {
     "type": "doc_comment",
+    "named": true
+  },
+  {
+    "type": "effectful_ident",
     "named": true
   },
   {
@@ -4730,11 +4770,11 @@
   },
   {
     "type": "module",
-    "named": false
+    "named": true
   },
   {
     "type": "module",
-    "named": true
+    "named": false
   },
   {
     "type": "natural",
@@ -4765,8 +4805,16 @@
     "named": false
   },
   {
+    "type": "regular_ident",
+    "named": true
+  },
+  {
     "type": "requires",
     "named": false
+  },
+  {
+    "type": "shadowed_ident",
+    "named": true
   },
   {
     "type": "tag",
