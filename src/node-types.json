@@ -388,10 +388,6 @@
             "named": true
           },
           {
-            "type": "if_expr",
-            "named": true
-          },
-          {
             "type": "list_expr",
             "named": true
           },
@@ -405,6 +401,10 @@
           },
           {
             "type": "parenthesized_expr",
+            "named": true
+          },
+          {
+            "type": "prefixed_expression",
             "named": true
           },
           {
@@ -433,10 +433,6 @@
           },
           {
             "type": "variable_expr",
-            "named": true
-          },
-          {
-            "type": "when_is_expr",
             "named": true
           }
         ]
@@ -1367,6 +1363,14 @@
         "required": true,
         "types": [
           {
+            "type": "anon_fun_expr",
+            "named": true
+          },
+          {
+            "type": "const",
+            "named": true
+          },
+          {
             "type": "field_access_expr",
             "named": true
           },
@@ -1375,11 +1379,43 @@
             "named": true
           },
           {
+            "type": "list_expr",
+            "named": true
+          },
+          {
             "type": "operator_as_function_expr",
             "named": true
           },
           {
             "type": "parenthesized_expr",
+            "named": true
+          },
+          {
+            "type": "prefixed_expression",
+            "named": true
+          },
+          {
+            "type": "record_builder_expr",
+            "named": true
+          },
+          {
+            "type": "record_expr",
+            "named": true
+          },
+          {
+            "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "tag_expr",
+            "named": true
+          },
+          {
+            "type": "todo_expr",
+            "named": true
+          },
+          {
+            "type": "tuple_expr",
             "named": true
           },
           {
@@ -2141,6 +2177,10 @@
             "named": true
           },
           {
+            "type": "spread_expr",
+            "named": true
+          },
+          {
             "type": "tag_expr",
             "named": true
           },
@@ -2664,13 +2704,9 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
-        {
-          "type": "anon_fun_expr",
-          "named": true
-        },
         {
           "type": "const",
           "named": true
@@ -2684,55 +2720,11 @@
           "named": true
         },
         {
-          "type": "if_expr",
-          "named": true
-        },
-        {
-          "type": "list_expr",
-          "named": true
-        },
-        {
-          "type": "operator",
-          "named": true
-        },
-        {
-          "type": "operator_as_function_expr",
-          "named": true
-        },
-        {
           "type": "parenthesized_expr",
           "named": true
         },
         {
-          "type": "record_builder_expr",
-          "named": true
-        },
-        {
-          "type": "record_expr",
-          "named": true
-        },
-        {
-          "type": "record_update_expr",
-          "named": true
-        },
-        {
-          "type": "tag_expr",
-          "named": true
-        },
-        {
-          "type": "todo_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_expr",
-          "named": true
-        },
-        {
           "type": "variable_expr",
-          "named": true
-        },
-        {
-          "type": "when_is_expr",
           "named": true
         }
       ]
@@ -2808,7 +2800,7 @@
           "named": true
         },
         {
-          "type": "record_field_old_builder",
+          "type": "spread_expr",
           "named": true
         }
       ]
@@ -2828,41 +2820,6 @@
         },
         {
           "type": "field_name",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "record_field_old_builder",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "field_access_expr",
-          "named": true
-        },
-        {
-          "type": "field_name",
-          "named": true
-        },
-        {
-          "type": "function_call_pnc_expr",
-          "named": true
-        },
-        {
-          "type": "operator_as_function_expr",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expr",
-          "named": true
-        },
-        {
-          "type": "variable_expr",
           "named": true
         }
       ]
@@ -3160,6 +3117,97 @@
     }
   },
   {
+    "type": "spread_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "anon_fun_expr",
+          "named": true
+        },
+        {
+          "type": "bin_op_expr",
+          "named": true
+        },
+        {
+          "type": "const",
+          "named": true
+        },
+        {
+          "type": "field_access_expr",
+          "named": true
+        },
+        {
+          "type": "function_call_pnc_expr",
+          "named": true
+        },
+        {
+          "type": "if_expr",
+          "named": true
+        },
+        {
+          "type": "import_expr",
+          "named": true
+        },
+        {
+          "type": "import_file_expr",
+          "named": true
+        },
+        {
+          "type": "list_expr",
+          "named": true
+        },
+        {
+          "type": "operator_as_function_expr",
+          "named": true
+        },
+        {
+          "type": "parenthesized_expr",
+          "named": true
+        },
+        {
+          "type": "prefixed_expression",
+          "named": true
+        },
+        {
+          "type": "record_builder_expr",
+          "named": true
+        },
+        {
+          "type": "record_expr",
+          "named": true
+        },
+        {
+          "type": "record_update_expr",
+          "named": true
+        },
+        {
+          "type": "tag_expr",
+          "named": true
+        },
+        {
+          "type": "todo_expr",
+          "named": true
+        },
+        {
+          "type": "tuple_expr",
+          "named": true
+        },
+        {
+          "type": "variable_expr",
+          "named": true
+        },
+        {
+          "type": "when_is_expr",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "spread_pattern",
     "named": true,
     "fields": {},
@@ -3218,10 +3266,6 @@
           "named": true
         },
         {
-          "type": "if_expr",
-          "named": true
-        },
-        {
           "type": "list_expr",
           "named": true
         },
@@ -3235,6 +3279,10 @@
         },
         {
           "type": "parenthesized_expr",
+          "named": true
+        },
+        {
+          "type": "prefixed_expression",
           "named": true
         },
         {
@@ -3267,10 +3315,6 @@
         },
         {
           "type": "variable_expr",
-          "named": true
-        },
-        {
-          "type": "when_is_expr",
           "named": true
         }
       ]
@@ -4138,10 +4182,6 @@
     "named": false
   },
   {
-    "type": "++",
-    "named": false
-  },
-  {
     "type": ",",
     "named": false
   },
@@ -4186,23 +4226,7 @@
     "named": false
   },
   {
-    "type": "</>",
-    "named": false
-  },
-  {
-    "type": "<<",
-    "named": false
-  },
-  {
     "type": "<=",
-    "named": false
-  },
-  {
-    "type": "<?>",
-    "named": false
-  },
-  {
-    "type": "<|",
     "named": false
   },
   {
@@ -4223,10 +4247,6 @@
   },
   {
     "type": ">=",
-    "named": false
-  },
-  {
-    "type": ">>",
     "named": false
   },
   {
@@ -4263,11 +4283,11 @@
   },
   {
     "type": "as",
-    "named": false
+    "named": true
   },
   {
     "type": "as",
-    "named": true
+    "named": false
   },
   {
     "type": "bound_variable",
@@ -4451,14 +4471,6 @@
   },
   {
     "type": "|",
-    "named": false
-  },
-  {
-    "type": "|.",
-    "named": false
-  },
-  {
-    "type": "|=",
     "named": false
   },
   {

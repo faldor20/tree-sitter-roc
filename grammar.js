@@ -56,6 +56,7 @@ module.exports = grammar({
     [$.record_pattern, $.record_expr],
     [$.record_field_pattern, $.record_field_expr],
     [$.identifier_pattern, $.long_identifier],
+    [$.spread_pattern, $.long_identifier],
     //TODO: this should be rethought. maybe they can be combined?
     // [$.field_access_expr, $.long_identifier],
     [$.list_pattern, $.list_expr],
@@ -134,6 +135,7 @@ module.exports = grammar({
 
     /**
 		An expression body that should contain a newline after, like within a value declaration
+		I checked and removing this only improved the parser size by 200k
 		*/
     expr_body_terminal: ($) =>
       choice(
@@ -163,8 +165,6 @@ module.exports = grammar({
         $.record_expr,
         $.record_builder_expr,
         $.record_update_expr,
-        $.if_expr,
-        $.when_is_expr,
         $.variable_expr,
         $.parenthesized_expr,
         $.operator_as_function_expr,
@@ -174,19 +174,35 @@ module.exports = grammar({
         $.field_access_expr,
         $.todo_expr,
         $.function_call_pnc_expr,
+        $.prefixed_expression,
       ),
 
     _expr_inner: ($) =>
       choice(
-        $.prefixed_expression,
         $.bin_op_expr,
         $._atom_expr,
         $.import_expr,
         $.import_file_expr,
+        $.if_expr,
+        $.when_is_expr,
         // $.chain_expr,
       ),
 
-    prefixed_expression: ($) => prec.left(seq($.operator, $._atom_expr)),
+    //orginally this had all operators, but it was making the parser almost twice as large so I cut the list down
+    prefixed_expression: ($) =>
+      prec(
+        10,
+        seq(
+          choice("!", "*", "-", "^"),
+          choice(
+            $.const,
+            $.parenthesized_expr,
+            $.field_access_expr,
+            $.variable_expr,
+            $.function_call_pnc_expr,
+          ),
+        ),
+      ),
     dbg_expr: ($) => seq("dbg", alias($.expr_body_terminal, $.expr_body)),
     else: ($) => seq("else", $.expr_body),
     // biome-ignore lint/suspicious/noThenProperty: <explanation>
@@ -205,6 +221,8 @@ module.exports = grammar({
         repeat($.else_if),
         $.else,
       ),
+
+    //Some things, like tags cannot be the start of a field access so we can't just use any expression
     _field_access_start: ($) =>
       // prec(
       // 	PREC.FIELD_ACCESS_START,
@@ -235,7 +253,7 @@ module.exports = grammar({
       prec.right(
         PREC.FUNC + 1,
         seq(
-          field("method", $._function_call_target),
+          field("method", $._atom_expr),
           "(",
           field("args", sep_tail($._expr_inner, ",")),
           ")",
@@ -321,15 +339,8 @@ module.exports = grammar({
     record_field_expr: ($) =>
       prec.right(seq($.field_name, optional(seq(":", $.expr_body)))),
 
-    record_field_old_builder: ($) =>
-      seq($.field_name, seq(":", "<-", choice($._function_call_target))),
-
     record_expr: ($) =>
-      seq(
-        "{",
-        sep_tail(choice($.record_field_expr, $.record_field_old_builder), ","),
-        "}",
-      ),
+      seq("{", sep_tail(choice($.record_field_expr, $.spread_expr), ","), "}"),
 
     record_builder_expr: ($) =>
       seq("{", $.identifier, "<-", sep1_tail($.record_field_expr, ","), "}"),
@@ -338,8 +349,18 @@ module.exports = grammar({
       seq("{", $.identifier, "&", sep1_tail($.record_field_expr, ","), "}"),
 
     list_expr: ($) =>
-      seq("[", optional(sep1_tail(field("exprList", $._expr_inner), ",")), "]"),
+      seq(
+        "[",
+        optional(
+          sep1_tail(
+            field("exprList", choice($._expr_inner, $.spread_expr)),
+            ",",
+          ),
+        ),
+        "]",
+      ),
 
+    spread_expr: ($) => seq("..", $._expr_inner),
     tuple_expr: ($) =>
       seq(
         "(",
@@ -846,9 +867,9 @@ module.exports = grammar({
         "-",
         "*",
         "/",
+        "//",
         "%",
         "!",
-        "//",
         "^",
         "==",
         "!=",
@@ -859,16 +880,16 @@ module.exports = grammar({
         ">=",
         "&&",
         "||",
-        "++",
-        "<|",
+        // "++",
+        // "<|",
         "|>",
-        "<<",
-        ">>",
-        "::",
-        "</>",
-        "<?>",
-        "|.",
-        "|=",
+        // "<<",
+        // ">>",
+        // "::",
+        // "</>",
+        // "<?>",
+        // "|.",
+        // "|=",
       ),
   },
 });

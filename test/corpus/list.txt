@@ -1,3 +1,62 @@
 ====
+list_normal
+====
 a= [a, b, c]
 ----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (regular_ident))))
+    (expr_body
+      (list_expr
+        (variable_expr
+          (identifier
+            (regular_ident)))
+        (variable_expr
+          (identifier
+            (regular_ident)))
+        (variable_expr
+          (identifier
+            (regular_ident)))))))
+
+====
+list_spread
+====
+hi=[a]
+a= [a, b, c,..hi]
+----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (regular_ident))))
+    (expr_body
+      (list_expr
+        (variable_expr
+          (identifier
+            (regular_ident))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (regular_ident))))
+    (expr_body
+      (list_expr
+        (variable_expr
+          (identifier
+            (regular_ident)))
+        (variable_expr
+          (identifier
+            (regular_ident)))
+        (variable_expr
+          (identifier
+            (regular_ident)))
+        (spread_expr
+          (variable_expr
+            (identifier
+              (regular_ident))))))))

@@ -77,7 +77,7 @@ a =
                       (regular_ident))))))))))))
 
 ====
-record_spread
+record_spread_pattern
 ====
 
 when a is
@@ -135,6 +135,37 @@ when a is
               (regular_ident))))
         (arrow)
         (expr_body
+          (variable_expr
+            (identifier
+              (regular_ident))))))))
+
+====
+record_spread
+====
+
+a={a,a:b,..b}
+ 
+----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (regular_ident))))
+    (expr_body
+      (record_expr
+        (record_field_expr
+          (field_name
+            (regular_ident)))
+        (record_field_expr
+          (field_name
+            (regular_ident))
+          (expr_body
+            (variable_expr
+              (identifier
+                (regular_ident)))))
+        (spread_expr
           (variable_expr
             (identifier
               (regular_ident))))))))

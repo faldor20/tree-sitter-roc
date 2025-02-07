@@ -1,0 +1,22 @@
+====
+math
+====
+-1 + 2 * 10 / -1
+----
+
+(file
+  (expr_body
+    (bin_op_expr
+      (prefixed_expression
+        (const
+          (int)))
+      (operator)
+      (const
+        (int))
+      (operator)
+      (const
+        (int))
+      (operator)
+      (prefixed_expression
+        (const
+          (int))))))

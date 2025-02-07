@@ -11,14 +11,16 @@ changes:
 - [ ] changes in extensable types
   - [ ] add `..` or `..<type>` to the end of records and tags
 - [ ] remove `*` in type variables
-- [ ] pattern matching/destructuring
-  - [ ] Change list destructuring to use .. and remove as
+- [x] pattern matching/destructuring
+  - [x] Change list destructuring to use .. and remove as
         Lists: [a, b, c] or [a, b, .., d] or [a, b, c, ..d] (not .. as d)
-  - [ ] Change record destructuring to support ..
+  - [x] Change record destructuring to support ..
         {a, b, ..} or {a, b, ..rest}
 - [ ] support  .. as a spread operator inside records and lists
       
 
+## Notes on performance:
+disabling the "prefixed_expr" massively reduces the sizeof the parser. infact it almost halves it
 
 
 
