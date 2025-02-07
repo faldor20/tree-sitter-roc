@@ -1,0 +1,48 @@
+====
+types_record_open
+====
+A rest:{a:Str,b:Str,..rest}
+----
+
+(file
+  (alias_type_def
+    (apply_type
+      (concrete_type)
+      (apply_type_arg
+        (bound_variable)))
+    (record_type
+      (record_field_type
+        (field_name
+          (regular_ident))
+        (apply_type
+          (concrete_type)))
+      (record_field_type
+        (field_name
+          (regular_ident))
+        (apply_type
+          (concrete_type)))
+      (open_type_var
+        (type_variable
+          (bound_variable))))))
+
+====
+types_tag_open
+====
+A rest:[T1,T2 Str,..rest ]
+----
+
+(file
+  (alias_type_def
+    (apply_type
+      (concrete_type)
+      (apply_type_arg
+        (bound_variable)))
+    (tags_type
+      (tag_type)
+      (tag_type
+        (apply_type_arg
+          (apply_type
+            (concrete_type))))
+      (open_type_var
+        (type_variable
+          (bound_variable))))))

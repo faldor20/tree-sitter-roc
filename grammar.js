@@ -650,7 +650,6 @@ module.exports = grammar({
         $.tags_type,
         $.bound_variable,
         $.inferred,
-        $.wildcard,
         $.tuple_type,
       ),
     tuple_type: ($) =>
@@ -703,26 +702,18 @@ module.exports = grammar({
 
     tags_type: ($) => seq("[", optional($._tags_only), "]"),
 
-    _tags_only: ($) =>
-      seq(
-        // optional(T('SameIndent')),
-        $.apply_type,
-        // optional(T('SameIndent')),
-        repeat(seq(",", $.apply_type)),
-        optional(","),
-        // optional(T('SameIndent'))
-      ),
+    _tags_only: ($) => seq(sep1_tail(choice($.tag_type, $.open_type_var), ",")),
 
+    tag_type: ($) =>
+      seq(field("name", $._upper_identifier), optional($._apply_type_args)),
     type_variable: ($) => choice("_", $.bound_variable),
 
     bound_variable: ($) => alias($._lower_identifier, $.bound_variable),
 
-    wildcard: ($) => "*",
-
     inferred: ($) => alias("_", $.inferred),
 
     apply_type: ($) =>
-      prec.right(seq($.concrete_type, optional($.apply_type_args))),
+      prec.right(seq($.concrete_type, optional($._apply_type_args))),
 
     concrete_type: ($) =>
       prec(
@@ -734,7 +725,8 @@ module.exports = grammar({
       ),
 
     //we need a n optional \n to stop this eating the value that follows it
-    apply_type_args: ($) => prec.right(repeat1($.apply_type_arg)),
+    _apply_type_args: ($) =>
+      field("type_args", prec.right(repeat1($.apply_type_arg))),
 
     apply_type_arg: ($) => prec.left($._type_annotation_no_fun),
 
@@ -743,16 +735,13 @@ module.exports = grammar({
     record_type: ($) =>
       seq(
         "{",
-        sep_tail(
-          choice($.record_field_type, $.record_field_type_optional),
-          ",",
-        ),
+        sep_tail(choice($.record_field_type, $.open_type_var), ","),
         "}",
       ),
 
     record_field_type: ($) => seq($.field_name, ":", $._type_annotation),
-    record_field_type_optional: ($) =>
-      seq($.field_name, "?", $._type_annotation),
+    /** can be used to make tag unions or records open*/
+    open_type_var: ($) => seq("..", $.type_variable),
 
     annotation_pre_colon: ($) =>
       choice(
