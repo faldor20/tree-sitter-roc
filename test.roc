@@ -1,11 +1,7 @@
 module
     [
-    a
-    ]
+    fn    ]
 
-    
-a= [
-    b = 10
-    b
-]
+B:[AAAA.BB]    
 
+fn=\a->a

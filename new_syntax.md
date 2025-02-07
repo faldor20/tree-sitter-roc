@@ -8,15 +8,15 @@ changes:
 - [x] ... for todo
 - [x] new ident type for _ suffixed shadowable variables
 - [x] new ident type for effecctful variables
-- [ ] changes in extensable types
-  - [ ] add `..` or `..<type>` to the end of records and tags
-- [ ] remove `*` in type variables
+- [x] changes in extensable types
+  - [x] add `..` or `..<type>` to the end of records and tags
+- [x] remove `*` in type variables
 - [x] pattern matching/destructuring
   - [x] Change list destructuring to use .. and remove as
         Lists: [a, b, c] or [a, b, .., d] or [a, b, c, ..d] (not .. as d)
   - [x] Change record destructuring to support ..
         {a, b, ..} or {a, b, ..rest}
-- [ ] support  .. as a spread operator inside records and lists
+- [x] support  .. as a spread operator inside records and lists
       
 
 ## Notes on performance:
