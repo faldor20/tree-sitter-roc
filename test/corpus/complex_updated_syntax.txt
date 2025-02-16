@@ -1,0 +1,2093 @@
+================================================================================
+complex_file
+================================================================================
+app [main] { pf: platform "cli-platform/main.roc" }
+
+import pf.Stdin
+import pf.Stdout
+import pf.Task exposing [await, loop, succeed]
+import "./file.txt" as file : Str
+
+main =
+    _ <- await (Stdout.line "\nLet's count down from 10 together - all you have to do is press <ENTER>.")
+    _ <- await Stdin.line
+    loop 10 tick
+
+tick = |n|
+    if n == 0 then
+        _ <- await (Stdout.line "SURPRISE! Happy Birthday! ")
+        succeed (Done {})
+    else
+        _ <- await (n |> Num.toStr |> |s | "$(s)..." |> Stdout.line)
+        _ <- await Stdin.line
+        succeed (Step (n - 1))
+
+--------------------------------------------------------------------------------
+
+(file
+  (app_header
+    (provides_list
+      (ident))
+    (packages_list
+      (platform_ref
+        (identifier)
+        (package_uri))))
+  (import_expr
+    (identifier)
+    (module))
+  (import_expr
+    (identifier)
+    (module))
+  (import_expr
+    (identifier)
+    (module)
+    (exposing)
+    (exposing
+      (ident)
+      (ident)
+      (ident)))
+  (import_file_expr
+    (string)
+    (identifier)
+    (concrete_type))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (backpassing_expr
+        (wildcard_pattern)
+        (back_arrow)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (parenthesized_expr
+            (expr_body
+              (function_call_expr
+                (variable_expr
+                  (module)
+                  (identifier))
+                (const
+                  (string
+                    (escape_char))))))))
+      (backpassing_expr
+        (wildcard_pattern)
+        (back_arrow)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (module)
+            (identifier))))
+      (function_call_expr
+        (variable_expr
+          (identifier))
+        (const
+          (int))
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (if_expr
+            (bin_op_expr
+              (variable_expr
+                (identifier))
+              (operator)
+              (const
+                (int)))
+            (then
+              (expr_body
+                (backpassing_expr
+                  (wildcard_pattern)
+                  (back_arrow)
+                  (function_call_expr
+                    (variable_expr
+                      (identifier))
+                    (parenthesized_expr
+                      (expr_body
+                        (function_call_expr
+                          (variable_expr
+                            (module)
+                            (identifier))
+                          (const
+                            (string)))))))
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (parenthesized_expr
+                    (expr_body
+                      (tag_expr
+                        (tag)
+                        (record_expr)))))))
+            (else
+              (expr_body
+                (backpassing_expr
+                  (wildcard_pattern)
+                  (back_arrow)
+                  (function_call_expr
+                    (variable_expr
+                      (identifier))
+                    (parenthesized_expr
+                      (expr_body
+                        (bin_op_expr
+                          (variable_expr
+                            (identifier))
+                          (operator)
+                          (variable_expr
+                            (module)
+                            (identifier))
+                          (operator)
+                          (anon_fun_expr
+                            (lambda_delimiter)
+                            (argument_patterns
+                              (identifier_pattern
+                                (identifier)))
+                            (lambda_delimiter)
+                            (expr_body
+                              (bin_op_expr
+                                (const
+                                  (string
+                                    (interpolation_char
+                                      (variable_expr
+                                        (identifier)))))
+                                (operator)
+                                (variable_expr
+                                  (module)
+                                  (identifier))))))))))
+                (backpassing_expr
+                  (wildcard_pattern)
+                  (back_arrow)
+                  (function_call_expr
+                    (variable_expr
+                      (identifier))
+                    (variable_expr
+                      (module)
+                      (identifier))))
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (parenthesized_expr
+                    (expr_body
+                      (tag_expr
+                        (tag)
+                        (parenthesized_expr
+                          (expr_body
+                            (bin_op_expr
+                              (variable_expr
+                                (identifier))
+                              (operator)
+                              (const
+                                (int)))))))))))))))))
+
+================================================================================
+simple_env
+================================================================================
+
+main =
+  task =
+    a "E"
+    |> t (|a | e "")
+    |> t (|{} | Env.decode "SHLVL")
+  task
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (bin_op_expr
+            (function_call_expr
+              (variable_expr
+                (identifier))
+              (const
+                (string)))
+            (operator)
+            (function_call_expr
+              (variable_expr
+                (identifier))
+              (parenthesized_expr
+                (expr_body
+                  (anon_fun_expr
+                    (lambda_delimiter)
+                    (argument_patterns
+                      (identifier_pattern
+                        (identifier)))
+                    (lambda_delimiter)
+                    (expr_body
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (const
+                          (string))))))))
+            (operator)
+            (function_call_expr
+              (variable_expr
+                (identifier))
+              (parenthesized_expr
+                (expr_body
+                  (anon_fun_expr
+                    (lambda_delimiter)
+                    (argument_patterns
+                      (record_pattern))
+                    (lambda_delimiter)
+                    (expr_body
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (const
+                          (string)))))))))))
+      (variable_expr
+        (identifier)))))
+
+================================================================================
+complex_env_decode
+================================================================================
+
+app [main] { pf: platform "cli-platform/main.roc" }
+
+import pf.Stdout
+import pf.Stderr
+import pf.Env
+import pf.Task exposing [Task]
+
+main : Task {} []
+main =
+    task =
+      x
+      |> Task.await (|editor | Stdout.line "Your favorite editor is \(editor)!")
+      |> Task.await (|{} | Env.decode "SHLVL")
+      |> Task.await
+          (|lvl |
+              when lvl is
+                  1 -> Stdout.line "You're running this in a root shell!"
+                  n ->
+                      lvlStr = Num.toStr n
+
+                      Stdout.line "Your current shell level is \(lvlStr)!")
+      |> Task.await "LETTERS"
+  a
+--------------------------------------------------------------------------------
+
+(file
+  (app_header
+    (provides_list
+      (ident))
+    (packages_list
+      (platform_ref
+        (identifier)
+        (package_uri))))
+  (import_expr
+    (identifier)
+    (module))
+  (import_expr
+    (identifier)
+    (module))
+  (import_expr
+    (identifier)
+    (module))
+  (import_expr
+    (identifier)
+    (module)
+    (exposing)
+    (exposing
+      (ident)))
+  (value_declaration
+    (annotation_type_def
+      (annotation_pre_colon
+        (identifier))
+      (apply_type
+        (concrete_type)
+        (apply_type_args
+          (apply_type_arg
+            (record_type))
+          (apply_type_arg
+            (tags_type)))))
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (bin_op_expr
+            (variable_expr
+              (identifier))
+            (operator)
+            (function_call_expr
+              (variable_expr
+                (module)
+                (identifier))
+              (parenthesized_expr
+                (expr_body
+                  (anon_fun_expr
+                    (lambda_delimiter)
+                    (argument_patterns
+                      (identifier_pattern
+                        (identifier)))
+                    (lambda_delimiter)
+                    (expr_body
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (const
+                          (string
+                            (interpolation_char
+                              (variable_expr
+                                (identifier)))))))))))
+            (operator)
+            (function_call_expr
+              (variable_expr
+                (module)
+                (identifier))
+              (parenthesized_expr
+                (expr_body
+                  (anon_fun_expr
+                    (lambda_delimiter)
+                    (argument_patterns
+                      (record_pattern))
+                    (lambda_delimiter)
+                    (expr_body
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (const
+                          (string))))))))
+            (operator)
+            (function_call_expr
+              (variable_expr
+                (module)
+                (identifier))
+              (parenthesized_expr
+                (expr_body
+                  (anon_fun_expr
+                    (lambda_delimiter)
+                    (argument_patterns
+                      (identifier_pattern
+                        (identifier)))
+                    (lambda_delimiter)
+                    (expr_body
+                      (when_is_expr
+                        (when)
+                        (variable_expr
+                          (identifier))
+                        (is)
+                        (when_is_branch
+                          (const_pattern
+                            (int))
+                          (arrow)
+                          (expr_body
+                            (function_call_expr
+                              (variable_expr
+                                (module)
+                                (identifier))
+                              (const
+                                (string)))))
+                        (when_is_branch
+                          (identifier_pattern
+                            (identifier))
+                          (arrow)
+                          (expr_body
+                            (value_declaration
+                              (decl_left
+                                (identifier_pattern
+                                  (identifier)))
+                              (expr_body
+                                (function_call_expr
+                                  (variable_expr
+                                    (module)
+                                    (identifier))
+                                  (variable_expr
+                                    (identifier)))))
+                            (function_call_expr
+                              (variable_expr
+                                (module)
+                                (identifier))
+                              (const
+                                (string
+                                  (interpolation_char
+                                    (variable_expr
+                                      (identifier))))))))))))))
+            (operator)
+            (function_call_expr
+              (variable_expr
+                (module)
+                (identifier))
+              (const
+                (string))))))
+      (variable_expr
+        (identifier)))))
+
+================================================================================
+complex_interface
+================================================================================
+
+module [ReadErr, DeleteErr, DirEntry, deleteEmptyDir, deleteRecursive, list]
+
+import Effect
+import Task exposing [Task]
+import InternalTask
+import Path exposing [Path]
+import InternalPath
+import InternalDir
+
+ReadErr : InternalDir.ReadErr
+
+DeleteErr : InternalDir.DeleteErr
+
+DirEntry : InternalDir.DirEntry
+
+list : Path -> Task (List Path) [DirReadErr Path ReadErr]
+list = |path |
+    effect = Effect.map (Effect.dirList (InternalPath.toBytes path)) |result |
+        when result is
+            Ok entries -> Ok (List.map entries InternalPath.fromOsBytes)
+            Err err -> Err (DirReadErr path err)
+
+    InternalTask.fromEffect effect
+
+deleteEmptyDir : Path -> Task
+deleteRecursive : Path -> Task
+--------------------------------------------------------------------------------
+
+(file
+  (module_header
+    (exposes_list
+      (ident)
+      (ident)
+      (ident)
+      (ident)
+      (ident)
+      (ident)))
+  (import_expr
+    (module))
+  (import_expr
+    (module)
+    (exposing)
+    (exposing
+      (ident)))
+  (import_expr
+    (module))
+  (import_expr
+    (module)
+    (exposing)
+    (exposing
+      (ident)))
+  (import_expr
+    (module))
+  (import_expr
+    (module))
+  (alias_type_def
+    (apply_type
+      (concrete_type))
+    (apply_type
+      (concrete_type)))
+  (alias_type_def
+    (apply_type
+      (concrete_type))
+    (apply_type
+      (concrete_type)))
+  (alias_type_def
+    (apply_type
+      (concrete_type))
+    (apply_type
+      (concrete_type)))
+  (value_declaration
+    (annotation_type_def
+      (annotation_pre_colon
+        (identifier))
+      (function_type
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_args
+            (apply_type_arg
+              (parenthesized_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)))))))
+            (apply_type_arg
+              (tags_type
+                (apply_type
+                  (concrete_type)
+                  (apply_type_args
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)
+                        (apply_type_args
+                          (apply_type_arg
+                            (apply_type
+                              (concrete_type))))))))))))))
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (function_call_expr
+                (variable_expr
+                  (module)
+                  (identifier))
+                (parenthesized_expr
+                  (expr_body
+                    (function_call_expr
+                      (variable_expr
+                        (module)
+                        (identifier))
+                      (parenthesized_expr
+                        (expr_body
+                          (function_call_expr
+                            (variable_expr
+                              (module)
+                              (identifier))
+                            (variable_expr
+                              (identifier))))))))
+                (anon_fun_expr
+                  (lambda_delimiter)
+                  (argument_patterns
+                    (identifier_pattern
+                      (identifier)))
+                  (lambda_delimiter)
+                  (expr_body
+                    (when_is_expr
+                      (when)
+                      (variable_expr
+                        (identifier))
+                      (is)
+                      (when_is_branch
+                        (tag_pattern
+                          (tag)
+                          (identifier_pattern
+                            (identifier)))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (parenthesized_expr
+                              (expr_body
+                                (function_call_expr
+                                  (variable_expr
+                                    (module)
+                                    (identifier))
+                                  (variable_expr
+                                    (identifier))
+                                  (variable_expr
+                                    (module)
+                                    (identifier))))))))
+                      (when_is_branch
+                        (tag_pattern
+                          (tag)
+                          (identifier_pattern
+                            (identifier)))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (parenthesized_expr
+                              (expr_body
+                                (tag_expr
+                                  (tag)
+                                  (variable_expr
+                                    (identifier))
+                                  (variable_expr
+                                    (identifier))))))))))))))
+          (function_call_expr
+            (variable_expr
+              (module)
+              (identifier))
+            (variable_expr
+              (identifier)))))))
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (function_type
+      (apply_type
+        (concrete_type))
+      (arrow)
+      (apply_type
+        (concrete_type))))
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (function_type
+      (apply_type
+        (concrete_type))
+      (arrow)
+      (apply_type
+        (concrete_type)))))
+
+================================================================================
+complex_list
+================================================================================
+view : NavLink, Str -> Html.Node
+view = |currentNavLink, htmlContent |
+    html [lang "en"] [
+        head [] [
+            meta [httpEquiv "content-type", content "text/html; charset=utf-8"],
+            Html.title [] [text currentNavLink.title],
+            link [rel "stylesheet", href "style.css"],
+        ],
+        body [] [
+            div [class "main"] [
+                div [class "navbar"] [
+                    viewNavbar currentNavLink,
+                ],
+                div [class "article"] [
+                    text htmlContent,
+                ],
+            ],
+        ],
+    ]
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (annotation_type_def
+      (annotation_pre_colon
+        (identifier))
+      (function_type
+        (apply_type
+          (concrete_type))
+        (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type))))
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (function_call_expr
+            (variable_expr
+              (identifier))
+            (list_expr
+              (function_call_expr
+                (variable_expr
+                  (identifier))
+                (const
+                  (string))))
+            (list_expr
+              (function_call_expr
+                (variable_expr
+                  (identifier))
+                (list_expr)
+                (list_expr
+                  (function_call_expr
+                    (variable_expr
+                      (identifier))
+                    (list_expr
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (const
+                          (string)))
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (const
+                          (string)))))
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (list_expr)
+                    (list_expr
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (field_access_expr
+                          (variable_expr
+                            (identifier))
+                          (identifier)))))
+                  (function_call_expr
+                    (variable_expr
+                      (identifier))
+                    (list_expr
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (const
+                          (string)))
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (const
+                          (string)))))))
+              (function_call_expr
+                (variable_expr
+                  (identifier))
+                (list_expr)
+                (list_expr
+                  (function_call_expr
+                    (variable_expr
+                      (identifier))
+                    (list_expr
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (const
+                          (string))))
+                    (list_expr
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (list_expr
+                          (function_call_expr
+                            (variable_expr
+                              (identifier))
+                            (const
+                              (string))))
+                        (list_expr
+                          (function_call_expr
+                            (variable_expr
+                              (identifier))
+                            (variable_expr
+                              (identifier)))))
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (list_expr
+                          (function_call_expr
+                            (variable_expr
+                              (identifier))
+                            (const
+                              (string))))
+                        (list_expr
+                          (function_call_expr
+                            (variable_expr
+                              (identifier))
+                            (variable_expr
+                              (identifier))))))))))))))))
+
+================================================================================
+complex_if_else
+================================================================================
+viewNavLink = |isCurrent, navlink |
+    if isCurrent then
+        li [class "nav-link nav-link--current"] [
+            text navlink.text,
+        ]
+    else
+        li [class "nav-link"] [
+            a
+                [href navlink.url, title navlink.title]
+                [text navlink.text],
+        ]
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (if_expr
+            (variable_expr
+              (identifier))
+            (then
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (list_expr
+                    (function_call_expr
+                      (variable_expr
+                        (identifier))
+                      (const
+                        (string))))
+                  (list_expr
+                    (function_call_expr
+                      (variable_expr
+                        (identifier))
+                      (field_access_expr
+                        (variable_expr
+                          (identifier))
+                        (identifier)))))))
+            (else
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (list_expr
+                    (function_call_expr
+                      (variable_expr
+                        (identifier))
+                      (const
+                        (string))))
+                  (list_expr
+                    (function_call_expr
+                      (variable_expr
+                        (identifier))
+                      (list_expr
+                        (function_call_expr
+                          (variable_expr
+                            (identifier))
+                          (field_access_expr
+                            (variable_expr
+                              (identifier))
+                            (identifier)))
+                        (function_call_expr
+                          (variable_expr
+                            (identifier))
+                          (field_access_expr
+                            (variable_expr
+                              (identifier))
+                            (identifier))))
+                      (list_expr
+                        (function_call_expr
+                          (variable_expr
+                            (identifier))
+                          (field_access_expr
+                            (variable_expr
+                              (identifier))
+                            (identifier)))))))))))))))
+
+================================================================================
+if func
+================================================================================
+viewNavLink = |isCurrent, navlink |
+    if isCurrent then
+      a b
+    else
+      a p
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (if_expr
+            (variable_expr
+              (identifier))
+            (then
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (variable_expr
+                    (identifier)))))
+            (else
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (variable_expr
+                    (identifier)))))))))))
+
+================================================================================
+annotation_run_on
+================================================================================
+expect
+  iput : List F64
+  iput = [-1, 0.00001, 1e12, 2.0e-2, 0.0003, 43]
+  actual = Encode.toBytes input json
+  expected = Str.toUtf8 "[-1,0.00001,1000000000000,0.02,0.0003,43]"
+
+  actual == expected
+--------------------------------------------------------------------------------
+
+(file
+  (expect
+    (expr_body
+      (value_declaration
+        (annotation_type_def
+          (annotation_pre_colon
+            (identifier))
+          (apply_type
+            (concrete_type)
+            (apply_type_args
+              (apply_type_arg
+                (apply_type
+                  (concrete_type))))))
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (list_expr
+            (prefixed_expression
+              (operator)
+              (const
+                (int)))
+            (const
+              (float))
+            (const
+              (float))
+            (const
+              (float))
+            (const
+              (float))
+            (const
+              (int)))))
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (function_call_expr
+            (variable_expr
+              (module)
+              (identifier))
+            (variable_expr
+              (identifier))
+            (variable_expr
+              (identifier)))))
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (function_call_expr
+            (variable_expr
+              (module)
+              (identifier))
+            (const
+              (string)))))
+      (bin_op_expr
+        (variable_expr
+          (identifier))
+        (operator)
+        (variable_expr
+          (identifier))))))
+
+================================================================================
+tags_mistake_field
+================================================================================
+encodeStrBytes = |str |
+    bytes = Str.toUtf8 str
+    p=bytes a
+
+    initialState = { bytePos: 0, status: NoEscapesFound }
+
+    firstPassState =
+        List.walkUntil bytes initialState |{ bytePos, status }, b |
+            when b is
+                0x22 -> Break { bytePos, status: FoundEscape } # U+0022 Quotation mark
+                0x5c -> Break { bytePos, status: FoundEscape } # U+005c Reverse solidus
+                0x2f -> Break { bytePos, status: FoundEscape } # U+002f Solidus
+                0x08 -> Break { bytePos, status: FoundEscape } # U+0008 Backspace
+                0x0c -> Break { bytePos, status: FoundEscape } # U+000c Form feed
+                0x0a -> Break { bytePos, status: FoundEscape } # U+000a Line feed
+                0x0d -> Break { bytePos, status: FoundEscape } # U+000d Carriage return
+                0x09 -> Break { bytePos, status: FoundEscape } # U+0009 Tab
+                _ -> Continue { bytePos: bytePos + 1, status }
+
+    when firstPassState.status is
+        NoEscapesFound ->
+            (List.len bytes)
+            + 2
+            |> List.withCapacity
+            |> List.concat ['"']
+            |> List.concat bytes
+            |> List.concat ['"']
+
+        FoundEscape ->
+            { before: bytesBeforeEscape, others: bytesWithEscapes } =
+                List.split bytes firstPassState.bytePos
+
+            # Reserve List with 120% capacity for escaped bytes to reduce
+            # allocations, include starting quote, and bytes up to first escape
+            initial =
+                List.len bytes
+                |> Num.mul 120
+                |> Num.divCeil 100
+                |> List.withCapacity
+                |> List.concat ['"']
+                |> List.concat bytesBeforeEscape
+
+            # Walk the remaining bytes and include escape '\' as required
+            # add closing quote
+            List.walk bytesWithEscapes initial |encodedBytes, byte |
+                List.concat encodedBytes (escapedByteToJson byte)
+            |> List.concat ['"']
+
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (function_call_expr
+                (variable_expr
+                  (module)
+                  (identifier))
+                (variable_expr
+                  (identifier)))))
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (function_call_expr
+                (variable_expr
+                  (identifier))
+                (variable_expr
+                  (identifier)))))
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (record_expr
+                (record_field_expr
+                  (field_name)
+                  (expr_body
+                    (const
+                      (int))))
+                (record_field_expr
+                  (field_name)
+                  (expr_body
+                    (tag_expr
+                      (tag)))))))
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (function_call_expr
+                (variable_expr
+                  (module)
+                  (identifier))
+                (variable_expr
+                  (identifier))
+                (variable_expr
+                  (identifier))
+                (anon_fun_expr
+                  (lambda_delimiter)
+                  (argument_patterns
+                    (record_pattern
+                      (record_field_pattern
+                        (field_name))
+                      (record_field_pattern
+                        (field_name)))
+                    (identifier_pattern
+                      (identifier)))
+                  (lambda_delimiter)
+                  (expr_body
+                    (when_is_expr
+                      (when)
+                      (variable_expr
+                        (identifier))
+                      (is)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (const_pattern
+                          (xint))
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name))
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (tag_expr
+                                    (tag))))))))
+                      (line_comment)
+                      (when_is_branch
+                        (wildcard_pattern)
+                        (arrow)
+                        (expr_body
+                          (tag_expr
+                            (tag)
+                            (record_expr
+                              (record_field_expr
+                                (field_name)
+                                (expr_body
+                                  (bin_op_expr
+                                    (variable_expr
+                                      (identifier))
+                                    (operator)
+                                    (const
+                                      (int)))))
+                              (record_field_expr
+                                (field_name))))))))))))
+          (when_is_expr
+            (when)
+            (field_access_expr
+              (variable_expr
+                (identifier))
+              (identifier))
+            (is)
+            (when_is_branch
+              (tag_pattern
+                (tag))
+              (arrow)
+              (expr_body
+                (bin_op_expr
+                  (parenthesized_expr
+                    (expr_body
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (variable_expr
+                          (identifier)))))
+                  (operator)
+                  (const
+                    (int))
+                  (operator)
+                  (variable_expr
+                    (module)
+                    (identifier))
+                  (operator)
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (list_expr
+                      (const
+                        (char))))
+                  (operator)
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (variable_expr
+                      (identifier)))
+                  (operator)
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (list_expr
+                      (const
+                        (char)))))))
+            (when_is_branch
+              (tag_pattern
+                (tag))
+              (arrow)
+              (expr_body
+                (value_declaration
+                  (decl_left
+                    (record_pattern
+                      (record_field_pattern
+                        (field_name)
+                        (identifier_pattern
+                          (identifier)))
+                      (record_field_pattern
+                        (field_name)
+                        (identifier_pattern
+                          (identifier)))))
+                  (expr_body
+                    (function_call_expr
+                      (variable_expr
+                        (module)
+                        (identifier))
+                      (variable_expr
+                        (identifier))
+                      (field_access_expr
+                        (variable_expr
+                          (identifier))
+                        (identifier)))))
+                (line_comment)
+                (line_comment)
+                (value_declaration
+                  (decl_left
+                    (identifier_pattern
+                      (identifier)))
+                  (expr_body
+                    (bin_op_expr
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (variable_expr
+                          (identifier)))
+                      (operator)
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (const
+                          (int)))
+                      (operator)
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (const
+                          (int)))
+                      (operator)
+                      (variable_expr
+                        (module)
+                        (identifier))
+                      (operator)
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (list_expr
+                          (const
+                            (char))))
+                      (operator)
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (variable_expr
+                          (identifier))))))
+                (line_comment)
+                (line_comment)
+                (bin_op_expr
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (variable_expr
+                      (identifier))
+                    (variable_expr
+                      (identifier))
+                    (anon_fun_expr
+                      (lambda_delimiter)
+                      (argument_patterns
+                        (identifier_pattern
+                          (identifier))
+                        (identifier_pattern
+                          (identifier)))
+                      (lambda_delimiter)
+                      (expr_body
+                        (function_call_expr
+                          (variable_expr
+                            (module)
+                            (identifier))
+                          (variable_expr
+                            (identifier))
+                          (parenthesized_expr
+                            (expr_body
+                              (function_call_expr
+                                (variable_expr
+                                  (identifier))
+                                (variable_expr
+                                  (identifier)))))))))
+                  (operator)
+                  (function_call_expr
+                    (variable_expr
+                      (module)
+                      (identifier))
+                    (list_expr
+                      (const
+                        (char)))))))))))))
+
+================================================================================
+complex_patterns
+================================================================================
+start=|bytes|
+    when bytes is
+        ['{',.. as rest]-> record rest (Dict.empty{})
+        []-> todo{}
+        _-> decErr (Start) bytes
+
+record=|bytes,dict|
+    when bytes is
+    ['}',.. as rest]-> decOk (dict) rest
+    ['"',.. as rest]->
+        when field rest  is
+            {result:Ok (name,num),rest:rest2}-> record rest2 (dict|>Dict.insert name num)
+            {result:Err e,rest:rest2}->decErr e rest2
+
+    []-> todo {}
+    _->decErr (Record "couldn't decode record ") bytes
+
+field =|bytes|
+    when fieldName bytes [] is
+        {result: Ok name, rest}->
+            when rest is
+            [':',.. as rest2] ->
+                numRes=number bytes
+                when numRes is
+                    {result:Ok num,rest:rest3}->
+                        decOk (name,num) rest3
+                    {result:Err e,rest:rest3}->decErr e rest3
+            []-> todo{}
+            _-> decErr FieldJoiner bytes
+        _-> decErr Field bytes
+
+decErr=| e,rest | {result:Err (e),rest}
+decOk=| e,rest | {result:Ok(e),rest}
+
+isNumber=| b| b>= '0' && b <= '9'
+
+todo =|a| crash "todo"
+
+number= |bytes|
+    when bytes is
+    [a,.. as rest] if isNumber a-> decOk (30u8-a) rest
+    [_,..]-> decErr (Num "not a number") bytes
+    []->todo{}
+
+fieldName =|bytes,name|
+    when bytes is
+    ['"',.. as rest] -> {result: Ok name,rest}
+    [a,.. as rest]-> fieldName rest (name|>List.append a)
+    []->todo{}
+    _->decErr (FieldName ) bytes
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (when_is_expr
+            (when)
+            (variable_expr
+              (identifier))
+            (is)
+            (when_is_branch
+              (list_pattern
+                (const
+                  (char))
+                (range_pattern
+                  (identifier)))
+              (arrow)
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (variable_expr
+                    (identifier))
+                  (parenthesized_expr
+                    (expr_body
+                      (function_call_expr
+                        (variable_expr
+                          (module)
+                          (identifier))
+                        (record_expr)))))))
+            (when_is_branch
+              (list_pattern)
+              (arrow)
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (record_expr))))
+            (when_is_branch
+              (wildcard_pattern)
+              (arrow)
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (parenthesized_expr
+                    (expr_body
+                      (tag_expr
+                        (tag))))
+                  (variable_expr
+                    (identifier))))))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (when_is_expr
+            (when)
+            (variable_expr
+              (identifier))
+            (is)
+            (when_is_branch
+              (list_pattern
+                (const
+                  (char))
+                (range_pattern
+                  (identifier)))
+              (arrow)
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (parenthesized_expr
+                    (expr_body
+                      (variable_expr
+                        (identifier))))
+                  (variable_expr
+                    (identifier)))))
+            (when_is_branch
+              (list_pattern
+                (const
+                  (char))
+                (range_pattern
+                  (identifier)))
+              (arrow)
+              (expr_body
+                (when_is_expr
+                  (when)
+                  (function_call_expr
+                    (variable_expr
+                      (identifier))
+                    (variable_expr
+                      (identifier)))
+                  (is)
+                  (when_is_branch
+                    (record_pattern
+                      (record_field_pattern
+                        (field_name)
+                        (tag_pattern
+                          (tag)
+                          (tuple_pattern
+                            (identifier_pattern
+                              (identifier))
+                            (identifier_pattern
+                              (identifier)))))
+                      (record_field_pattern
+                        (field_name)
+                        (identifier_pattern
+                          (identifier))))
+                    (arrow)
+                    (expr_body
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (variable_expr
+                          (identifier))
+                        (parenthesized_expr
+                          (expr_body
+                            (bin_op_expr
+                              (variable_expr
+                                (identifier))
+                              (operator)
+                              (function_call_expr
+                                (variable_expr
+                                  (module)
+                                  (identifier))
+                                (variable_expr
+                                  (identifier))
+                                (variable_expr
+                                  (identifier)))))))))
+                  (when_is_branch
+                    (record_pattern
+                      (record_field_pattern
+                        (field_name)
+                        (tag_pattern
+                          (tag)
+                          (identifier_pattern
+                            (identifier))))
+                      (record_field_pattern
+                        (field_name)
+                        (identifier_pattern
+                          (identifier))))
+                    (arrow)
+                    (expr_body
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (variable_expr
+                          (identifier))
+                        (variable_expr
+                          (identifier))))))))
+            (when_is_branch
+              (list_pattern)
+              (arrow)
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (record_expr))))
+            (when_is_branch
+              (wildcard_pattern)
+              (arrow)
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (parenthesized_expr
+                    (expr_body
+                      (tag_expr
+                        (tag)
+                        (const
+                          (string)))))
+                  (variable_expr
+                    (identifier))))))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (when_is_expr
+            (when)
+            (function_call_expr
+              (variable_expr
+                (identifier))
+              (variable_expr
+                (identifier))
+              (list_expr))
+            (is)
+            (when_is_branch
+              (record_pattern
+                (record_field_pattern
+                  (field_name)
+                  (tag_pattern
+                    (tag)
+                    (identifier_pattern
+                      (identifier))))
+                (record_field_pattern
+                  (field_name)))
+              (arrow)
+              (expr_body
+                (when_is_expr
+                  (when)
+                  (variable_expr
+                    (identifier))
+                  (is)
+                  (when_is_branch
+                    (list_pattern
+                      (const
+                        (char))
+                      (range_pattern
+                        (identifier)))
+                    (arrow)
+                    (expr_body
+                      (value_declaration
+                        (decl_left
+                          (identifier_pattern
+                            (identifier)))
+                        (expr_body
+                          (function_call_expr
+                            (variable_expr
+                              (identifier))
+                            (variable_expr
+                              (identifier)))))
+                      (when_is_expr
+                        (when)
+                        (variable_expr
+                          (identifier))
+                        (is)
+                        (when_is_branch
+                          (record_pattern
+                            (record_field_pattern
+                              (field_name)
+                              (tag_pattern
+                                (tag)
+                                (identifier_pattern
+                                  (identifier))))
+                            (record_field_pattern
+                              (field_name)
+                              (identifier_pattern
+                                (identifier))))
+                          (arrow)
+                          (expr_body
+                            (function_call_expr
+                              (variable_expr
+                                (identifier))
+                              (tuple_expr
+                                (variable_expr
+                                  (identifier))
+                                (variable_expr
+                                  (identifier)))
+                              (variable_expr
+                                (identifier)))))
+                        (when_is_branch
+                          (record_pattern
+                            (record_field_pattern
+                              (field_name)
+                              (tag_pattern
+                                (tag)
+                                (identifier_pattern
+                                  (identifier))))
+                            (record_field_pattern
+                              (field_name)
+                              (identifier_pattern
+                                (identifier))))
+                          (arrow)
+                          (expr_body
+                            (function_call_expr
+                              (variable_expr
+                                (identifier))
+                              (variable_expr
+                                (identifier))
+                              (variable_expr
+                                (identifier))))))))
+                  (when_is_branch
+                    (list_pattern)
+                    (arrow)
+                    (expr_body
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (record_expr))))
+                  (when_is_branch
+                    (wildcard_pattern)
+                    (arrow)
+                    (expr_body
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (tag_expr
+                          (tag))
+                        (variable_expr
+                          (identifier))))))))
+            (when_is_branch
+              (wildcard_pattern)
+              (arrow)
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (tag_expr
+                    (tag))
+                  (variable_expr
+                    (identifier))))))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (record_expr
+            (record_field_expr
+              (field_name)
+              (expr_body
+                (tag_expr
+                  (tag)
+                  (parenthesized_expr
+                    (expr_body
+                      (variable_expr
+                        (identifier)))))))
+            (record_field_expr
+              (field_name)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (record_expr
+            (record_field_expr
+              (field_name)
+              (expr_body
+                (tag_expr
+                  (tag)
+                  (parenthesized_expr
+                    (expr_body
+                      (variable_expr
+                        (identifier)))))))
+            (record_field_expr
+              (field_name)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (bin_op_expr
+            (variable_expr
+              (identifier))
+            (operator)
+            (const
+              (char))
+            (operator)
+            (variable_expr
+              (identifier))
+            (operator)
+            (const
+              (char)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (function_call_expr
+            (variable_expr
+              (identifier))
+            (const
+              (string)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (when_is_expr
+            (when)
+            (variable_expr
+              (identifier))
+            (is)
+            (when_is_branch
+              (list_pattern
+                (identifier_pattern
+                  (identifier))
+                (range_pattern
+                  (identifier)))
+              (if
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (variable_expr
+                    (identifier))))
+              (arrow)
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (parenthesized_expr
+                    (expr_body
+                      (bin_op_expr
+                        (const
+                          (uint))
+                        (operator)
+                        (variable_expr
+                          (identifier)))))
+                  (variable_expr
+                    (identifier)))))
+            (when_is_branch
+              (list_pattern
+                (wildcard_pattern)
+                (range_pattern))
+              (arrow)
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (parenthesized_expr
+                    (expr_body
+                      (tag_expr
+                        (tag)
+                        (const
+                          (string)))))
+                  (variable_expr
+                    (identifier)))))
+            (when_is_branch
+              (list_pattern)
+              (arrow)
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (record_expr)))))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (lambda_delimiter)
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (lambda_delimiter)
+        (expr_body
+          (when_is_expr
+            (when)
+            (variable_expr
+              (identifier))
+            (is)
+            (when_is_branch
+              (list_pattern
+                (const
+                  (char))
+                (range_pattern
+                  (identifier)))
+              (arrow)
+              (expr_body
+                (record_expr
+                  (record_field_expr
+                    (field_name)
+                    (expr_body
+                      (tag_expr
+                        (tag)
+                        (variable_expr
+                          (identifier)))))
+                  (record_field_expr
+                    (field_name)))))
+            (when_is_branch
+              (list_pattern
+                (identifier_pattern
+                  (identifier))
+                (range_pattern
+                  (identifier)))
+              (arrow)
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (variable_expr
+                    (identifier))
+                  (parenthesized_expr
+                    (expr_body
+                      (bin_op_expr
+                        (variable_expr
+                          (identifier))
+                        (operator)
+                        (function_call_expr
+                          (variable_expr
+                            (module)
+                            (identifier))
+                          (variable_expr
+                            (identifier)))))))))
+            (when_is_branch
+              (list_pattern)
+              (arrow)
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (record_expr))))
+            (when_is_branch
+              (wildcard_pattern)
+              (arrow)
+              (expr_body
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (parenthesized_expr
+                    (expr_body
+                      (tag_expr
+                        (tag))))
+                  (variable_expr
+                    (identifier)))))))))))
