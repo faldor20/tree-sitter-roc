@@ -60,6 +60,7 @@
   "}"
   "["
   "]"
+  (lambda_delimiter)
 ] @punctuation.bracket
 
 [

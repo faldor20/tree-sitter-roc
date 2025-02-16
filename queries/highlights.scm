@@ -66,6 +66,7 @@
   "["
   "]"
   (interpolation_char)
+  (lambda_delimiter)
 ] @punctuation.bracket
 
 [
