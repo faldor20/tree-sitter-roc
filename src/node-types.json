@@ -200,6 +200,10 @@
         {
           "type": "expr_body",
           "named": true
+        },
+        {
+          "type": "lambda_delimiter",
+          "named": true
         }
       ]
     }
@@ -2202,6 +2206,11 @@
         }
       ]
     }
+  },
+  {
+    "type": "lambda_delimiter",
+    "named": true,
+    "fields": {}
   },
   {
     "type": "list_expr",
@@ -4413,11 +4422,11 @@
   },
   {
     "type": "as",
-    "named": false
+    "named": true
   },
   {
     "type": "as",
-    "named": true
+    "named": false
   },
   {
     "type": "backslash",
@@ -4513,11 +4522,11 @@
   },
   {
     "type": "module",
-    "named": true
+    "named": false
   },
   {
     "type": "module",
-    "named": false
+    "named": true
   },
   {
     "type": "natural",

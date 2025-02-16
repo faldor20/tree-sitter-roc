@@ -1020,33 +1020,71 @@
       "type": "PREC_LEFT",
       "value": 0,
       "content": {
-        "type": "SEQ",
+        "type": "CHOICE",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "backslash"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "argument_patterns"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "arrow"
-          },
-          {
-            "type": "SYMBOL",
-            "name": "expr_body"
-          },
-          {
-            "type": "CHOICE",
+            "type": "SEQ",
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "_newline"
+                "name": "lambda_delimiter"
               },
               {
-                "type": "BLANK"
+                "type": "SYMBOL",
+                "name": "argument_patterns"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "lambda_delimiter"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "expr_body"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_newline"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "backslash"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "argument_patterns"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "arrow"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "expr_body"
+              },
+              {
+                "type": "CHOICE",
+                "members": [
+                  {
+                    "type": "SYMBOL",
+                    "name": "_newline"
+                  },
+                  {
+                    "type": "BLANK"
+                  }
+                ]
               }
             ]
           }
@@ -4434,6 +4472,10 @@
     "backslash": {
       "type": "STRING",
       "value": "\\"
+    },
+    "lambda_delimiter": {
+      "type": "STRING",
+      "value": "|"
     },
     "doc_comment": {
       "type": "TOKEN",
