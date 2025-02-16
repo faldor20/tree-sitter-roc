@@ -302,13 +302,24 @@ module.exports = grammar({
 			),
 		anon_fun_expr: ($) =>
 			prec.left(
-				seq(
-					$.backslash,
-					$.argument_patterns,
-					$.arrow,
-					$.expr_body,
-					optional($._newline),
-				),
+        choice(
+          // new syntax
+          seq(
+            $.lambda_delimiter,
+            $.argument_patterns,
+            $.lambda_delimiter,
+            $.expr_body,
+            optional($._newline),
+          ),
+          // old syntax
+          seq(
+            $.backslash,
+            $.argument_patterns,
+            $.arrow,
+            $.expr_body,
+            optional($._newline),
+          ),
+        ),
 			),
 
 		//RECORDS
@@ -830,6 +841,7 @@ module.exports = grammar({
 		opaque_tag: ($) => /@[A-Z][0-9a-zA-Z_]*/,
 		module: ($) => alias($._upper_identifier, $.module),
 		backslash: ($) => "\\",
+    lambda_delimiter: ($) => "|",
 
 		doc_comment: ($) => token(prec(-1, /##[^\n]*/)),
 		line_comment: ($) => token(prec(-1, /#[^\n]*/)),
