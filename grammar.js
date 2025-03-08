@@ -63,6 +63,7 @@ module.exports = grammar({
     [$._module_elem, $.value_declaration],
     [$._module_elem, $._expr_inner],
     [$._more_when_is_branches],
+    [$.operator_identifier, $.suffix_operator_identifier],
   ],
   words: ($) => /\s+/,
   word: ($) => $._lower_identifier,
@@ -75,6 +76,7 @@ module.exports = grammar({
     $.field_name,
     $.bound_variable,
     $.operator,
+    $.suffix_opeator,
     $.variable_expr,
     $.inferred,
   ],
@@ -179,6 +181,7 @@ module.exports = grammar({
 
     _expr_inner: ($) =>
       choice(
+        $.suffix_op_expr,
         $.bin_op_expr,
         $._atom_expr,
         $.import_expr,
@@ -283,6 +286,8 @@ module.exports = grammar({
           seq($._atom_expr, prec.right(repeat1(seq($.operator, $._atom_expr)))),
         ),
       ),
+    suffix_op_expr: ($) =>
+      field("part", prec(PREC.PART, seq($._atom_expr, $.suffix_operator))),
 
     //WHEN_IS
 
@@ -850,16 +855,20 @@ module.exports = grammar({
     doc_comment: ($) => token(prec(-1, /##[^\n]*/)),
     line_comment: ($) => token(prec(-1, /#[^\n]*/)),
 
+    suffix_operator: ($) =>
+      alias($.suffix_operator_identifier, $.suffix_operator),
+    suffix_operator_identifier: ($) => choice("?"),
     operator: ($) => alias($.operator_identifier, $.operator),
     operator_identifier: ($) =>
       choice(
+        "?",
+        "??",
         "+",
         "-",
         "*",
         "/",
         "//",
         "%",
-        "!",
         "^",
         "==",
         "!=",
@@ -868,8 +877,8 @@ module.exports = grammar({
         ">",
         "<=",
         ">=",
-        "&&",
-        "||",
+        "or",
+        "and",
         // "++",
         // "<|",
         "|>",

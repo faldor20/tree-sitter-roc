@@ -1,0 +1,63 @@
+====
+operator_try
+====
+a = tryer!(arg)?
+b= tryer(arg) ? |_| OtherErr
+c= tryer(arg) ?? "default"
+----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (regular_ident))))
+    (expr_body
+      (suffix_op_expr
+        (function_call_pnc_expr
+          (variable_expr
+            (identifier
+              (effectful_ident)))
+          (variable_expr
+            (identifier
+              (regular_ident))))
+        (suffix_operator
+          (suffix_operator)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (regular_ident))))
+    (expr_body
+      (bin_op_expr
+        (function_call_pnc_expr
+          (variable_expr
+            (identifier
+              (regular_ident)))
+          (variable_expr
+            (identifier
+              (regular_ident))))
+        (operator)
+        (anon_fun_expr
+          (argument_patterns
+            (wildcard_pattern))
+          (expr_body
+            (tag_expr
+              (tag)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier
+          (regular_ident))))
+    (expr_body
+      (bin_op_expr
+        (function_call_pnc_expr
+          (variable_expr
+            (identifier
+              (regular_ident)))
+          (variable_expr
+            (identifier
+              (regular_ident))))
+        (operator)
+        (const
+          (string))))))

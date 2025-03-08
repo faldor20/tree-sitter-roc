@@ -396,6 +396,10 @@
       "members": [
         {
           "type": "SYMBOL",
+          "name": "suffix_op_expr"
+        },
+        {
+          "type": "SYMBOL",
           "name": "bin_op_expr"
         },
         {
@@ -857,6 +861,27 @@
                   ]
                 }
               }
+            }
+          ]
+        }
+      }
+    },
+    "suffix_op_expr": {
+      "type": "FIELD",
+      "name": "part",
+      "content": {
+        "type": "PREC",
+        "value": 1,
+        "content": {
+          "type": "SEQ",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_atom_expr"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "suffix_operator"
             }
           ]
         }
@@ -4515,6 +4540,24 @@
         }
       }
     },
+    "suffix_operator": {
+      "type": "ALIAS",
+      "content": {
+        "type": "SYMBOL",
+        "name": "suffix_operator_identifier"
+      },
+      "named": true,
+      "value": "suffix_operator"
+    },
+    "suffix_operator_identifier": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "?"
+        }
+      ]
+    },
     "operator": {
       "type": "ALIAS",
       "content": {
@@ -4527,6 +4570,14 @@
     "operator_identifier": {
       "type": "CHOICE",
       "members": [
+        {
+          "type": "STRING",
+          "value": "?"
+        },
+        {
+          "type": "STRING",
+          "value": "??"
+        },
         {
           "type": "STRING",
           "value": "+"
@@ -4550,10 +4601,6 @@
         {
           "type": "STRING",
           "value": "%"
-        },
-        {
-          "type": "STRING",
-          "value": "!"
         },
         {
           "type": "STRING",
@@ -4589,11 +4636,11 @@
         },
         {
           "type": "STRING",
-          "value": "&&"
+          "value": "or"
         },
         {
           "type": "STRING",
-          "value": "||"
+          "value": "and"
         },
         {
           "type": "STRING",
@@ -4663,6 +4710,10 @@
     ],
     [
       "_more_when_is_branches"
+    ],
+    [
+      "operator_identifier",
+      "suffix_operator_identifier"
     ]
   ],
   "precedences": [],

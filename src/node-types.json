@@ -882,6 +882,10 @@
             "named": true
           },
           {
+            "type": "suffix_op_expr",
+            "named": true
+          },
+          {
             "type": "tag_expr",
             "named": true
           },
@@ -1071,6 +1075,10 @@
           },
           {
             "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "suffix_op_expr",
             "named": true
           },
           {
@@ -1319,6 +1327,10 @@
           },
           {
             "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "suffix_op_expr",
             "named": true
           },
           {
@@ -1629,6 +1641,10 @@
           "named": true
         },
         {
+          "type": "suffix_op_expr",
+          "named": true
+        },
+        {
           "type": "tag_expr",
           "named": true
         },
@@ -1717,6 +1733,10 @@
           },
           {
             "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "suffix_op_expr",
             "named": true
           },
           {
@@ -2059,6 +2079,10 @@
           "named": true
         },
         {
+          "type": "suffix_op_expr",
+          "named": true
+        },
+        {
           "type": "tag_expr",
           "named": true
         },
@@ -2151,6 +2175,10 @@
           },
           {
             "type": "spread_expr",
+            "named": true
+          },
+          {
+            "type": "suffix_op_expr",
             "named": true
           },
           {
@@ -3102,6 +3130,10 @@
           "named": true
         },
         {
+          "type": "suffix_op_expr",
+          "named": true
+        },
+        {
           "type": "tag_expr",
           "named": true
         },
@@ -3153,6 +3185,97 @@
         },
         {
           "type": "interpolation_char",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "suffix_op_expr",
+    "named": true,
+    "fields": {
+      "part": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "anon_fun_expr",
+            "named": true
+          },
+          {
+            "type": "const",
+            "named": true
+          },
+          {
+            "type": "field_access_expr",
+            "named": true
+          },
+          {
+            "type": "function_call_pnc_expr",
+            "named": true
+          },
+          {
+            "type": "list_expr",
+            "named": true
+          },
+          {
+            "type": "operator_as_function_expr",
+            "named": true
+          },
+          {
+            "type": "parenthesized_expr",
+            "named": true
+          },
+          {
+            "type": "prefixed_expression",
+            "named": true
+          },
+          {
+            "type": "record_builder_expr",
+            "named": true
+          },
+          {
+            "type": "record_expr",
+            "named": true
+          },
+          {
+            "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "suffix_operator",
+            "named": true
+          },
+          {
+            "type": "tag_expr",
+            "named": true
+          },
+          {
+            "type": "todo_expr",
+            "named": true
+          },
+          {
+            "type": "tuple_expr",
+            "named": true
+          },
+          {
+            "type": "variable_expr",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "suffix_operator",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "suffix_operator",
           "named": true
         }
       ]
@@ -3425,6 +3548,10 @@
           },
           {
             "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "suffix_op_expr",
             "named": true
           },
           {
@@ -3958,6 +4085,10 @@
           "named": true
         },
         {
+          "type": "suffix_op_expr",
+          "named": true
+        },
+        {
           "type": "tag_expr",
           "named": true
         },
@@ -4089,10 +4220,6 @@
     "named": false
   },
   {
-    "type": "&&",
-    "named": false
-  },
-  {
     "type": "'",
     "named": false
   },
@@ -4181,6 +4308,14 @@
     "named": false
   },
   {
+    "type": "?",
+    "named": false
+  },
+  {
+    "type": "??",
+    "named": false
+  },
+  {
     "type": "[",
     "named": false
   },
@@ -4203,6 +4338,10 @@
   {
     "type": "ability_name",
     "named": true
+  },
+  {
+    "type": "and",
+    "named": false
   },
   {
     "type": "app",
@@ -4314,11 +4453,11 @@
   },
   {
     "type": "module",
-    "named": true
+    "named": false
   },
   {
     "type": "module",
-    "named": false
+    "named": true
   },
   {
     "type": "natural",
@@ -4331,6 +4470,10 @@
   {
     "type": "opaque_tag",
     "named": true
+  },
+  {
+    "type": "or",
+    "named": false
   },
   {
     "type": "package",
@@ -4406,10 +4549,6 @@
   },
   {
     "type": "|>",
-    "named": false
-  },
-  {
-    "type": "||",
     "named": false
   },
   {
