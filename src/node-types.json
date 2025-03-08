@@ -1355,7 +1355,7 @@
           }
         ]
       },
-      "method": {
+      "caller": {
         "multiple": false,
         "required": true,
         "types": [

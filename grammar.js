@@ -256,7 +256,7 @@ module.exports = grammar({
       prec.right(
         PREC.FUNC + 1,
         seq(
-          field("method", $._atom_expr),
+          field("caller", $._atom_expr),
           "(",
           field("args", sep_tail($._expr_inner, ",")),
           ")",

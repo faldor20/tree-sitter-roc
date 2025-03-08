@@ -10,13 +10,13 @@
   ((_) @parameter.inner . ","? @parameter.outer) @parameter.outer(#not-eq? @parameter.inner "->")
 )
 
-(function_call_expr
+(function_pnc_expr         
   .
   (_)
   (parenthesized_expr (expr_body) @parameter.inner) @parameter.outer
 )
 
-(function_call_expr
+(function_pnc_expr
   .
   (_) ((_) @parameter.inner) @parameter.outer
 )
