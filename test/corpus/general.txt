@@ -1,0 +1,35 @@
+====
+Release notes example:
+====
+app [main] { pf: platform "<basic-cli>" }
+
+import pf.File
+import pf.Stdout
+
+main! = |_args|
+    readme_path = "./README.md"
+    license_path = "./LICENSE"
+
+    check_contents_of_files(readme_path, license_path)
+    |> Result.map_err!(|err|
+        msg =
+            when err is
+                FileReadErr(_) -> "Error reading README"
+                FailedToReadLicense -> "Failed to read LICENSE file"
+
+        Err(Exit(1, "unable to read file: ${msg}")))
+
+check_contents_of_files! : Str, Str => Result {} _
+check_contents_of_files! = |readme_path, license_path|
+    readme_contents = File.read_utf8!(readme_path)?
+    license_contents = File.read_utf8(license_path) ? |_| FailedToReadLicense
+
+    readme_lines = Str.split(readme_contents, "\n")
+    first_readme_line = List.first(lines) ?? "<empty README>"
+    license_length = Str.split(license, "\n") |> List.len
+
+    Stdout.line!("First line of ${readme_path}: ${first_readme_line}")?
+    Stdout.line!("Line count for ${license_path}: ${Num.to_str(license_length)}")
+----
+
+

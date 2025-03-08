@@ -1112,6 +1112,11 @@
     }
   },
   {
+    "type": "fat_arrow",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "field_access_expr",
     "named": true,
     "fields": {
@@ -1471,6 +1476,10 @@
         },
         {
           "type": "bound_variable",
+          "named": true
+        },
+        {
+          "type": "fat_arrow",
           "named": true
         },
         {
@@ -3624,6 +3633,10 @@
           "named": true
         },
         {
+          "type": "fat_arrow",
+          "named": true
+        },
+        {
           "type": "implements_implementation",
           "named": true
         },
@@ -4301,11 +4314,11 @@
   },
   {
     "type": "module",
-    "named": false
+    "named": true
   },
   {
     "type": "module",
-    "named": true
+    "named": false
   },
   {
     "type": "natural",

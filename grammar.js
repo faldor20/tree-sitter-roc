@@ -635,7 +635,7 @@ module.exports = grammar({
     function_type: ($) =>
       seq(
         sep1(field("param", $._type_annotation_paren_fun), ","),
-        $.arrow,
+        choice($.arrow, $.fat_arrow),
         sep1($._type_annotation_paren_fun, $.arrow),
       ),
 
@@ -829,6 +829,7 @@ module.exports = grammar({
     //PRIMATIVES
     back_arrow: ($) => "<-",
     arrow: ($) => "->",
+    fat_arrow: ($) => "=>",
     field_name: ($) => alias($.identifier, $.field_name),
     ident: ($) => choice($._lower_identifier, $._upper_identifier),
     identifier: ($) =>

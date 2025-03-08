@@ -3305,8 +3305,17 @@
           ]
         },
         {
-          "type": "SYMBOL",
-          "name": "arrow"
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "arrow"
+            },
+            {
+              "type": "SYMBOL",
+              "name": "fat_arrow"
+            }
+          ]
         },
         {
           "type": "SEQ",
@@ -4391,6 +4400,10 @@
     "arrow": {
       "type": "STRING",
       "value": "->"
+    },
+    "fat_arrow": {
+      "type": "STRING",
+      "value": "=>"
     },
     "field_name": {
       "type": "ALIAS",
