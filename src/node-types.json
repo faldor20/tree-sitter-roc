@@ -1820,7 +1820,7 @@
     }
   },
   {
-    "type": "import_expr",
+    "type": "import_body",
     "named": true,
     "fields": {},
     "children": {
@@ -1836,11 +1836,26 @@
           "named": true
         },
         {
-          "type": "identifier",
+          "type": "import_ident",
           "named": true
         },
         {
           "type": "module",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "import_body",
           "named": true
         }
       ]
@@ -1864,6 +1879,25 @@
         },
         {
           "type": "string",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "import_ident",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "module",
           "named": true
         }
       ]
@@ -3447,7 +3481,7 @@
     }
   },
   {
-    "type": "tuple_body",
+    "type": "tuple_expr",
     "named": true,
     "fields": {
       "expr": {
@@ -3540,21 +3574,6 @@
           }
         ]
       }
-    }
-  },
-  {
-    "type": "tuple_expr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "tuple_body",
-          "named": true
-        }
-      ]
     }
   },
   {
@@ -4379,6 +4398,10 @@
     "named": false
   },
   {
+    "type": "exposing",
+    "named": false
+  },
+  {
     "type": "false",
     "named": false
   },
@@ -4428,11 +4451,11 @@
   },
   {
     "type": "module",
-    "named": true
+    "named": false
   },
   {
     "type": "module",
-    "named": false
+    "named": true
   },
   {
     "type": "natural",

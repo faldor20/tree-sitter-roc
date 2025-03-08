@@ -290,13 +290,13 @@ module.exports = grammar({
       field("part", prec(PREC.PART, seq($._atom_expr, $.suffix_operator))),
 
     //WHEN_IS
+    _when_is_start: ($) =>
+      seq(alias("when", $.when), $._expr_inner, alias("is", $.is)),
 
     when_is_expr: ($) =>
       prec.right(
         seq(
-          alias("when", $.when),
-          $._expr_inner,
-          alias("is", $.is),
+          $._when_is_start,
           choice(
             //when the branches are indented
             seq(
@@ -353,31 +353,17 @@ module.exports = grammar({
     record_update_expr: ($) =>
       seq("{", $.identifier, "&", sep1_tail($.record_field_expr, ","), "}"),
 
-    list_expr: ($) =>
-      seq(
-        "[",
-        optional(
-          sep1_tail(
-            field("exprList", choice($._expr_inner, $.spread_expr)),
-            ",",
-          ),
-        ),
-        "]",
-      ),
+    _list_body: ($) =>
+      sep1_tail(field("exprList", choice($._expr_inner, $.spread_expr)), ","),
+    list_expr: ($) => seq("[", optional($._list_body), "]"),
     spread_expr: ($) => seq("..", $._expr_inner),
-    tuple_expr: ($) =>
+    _tuple_body: ($) =>
       seq(
-        "(",
-        optional_indent(
-          seq(
-            field("expr", $._expr_inner),
-            ",",
-            sep1_tail(field("expr", $._expr_inner), ","),
-          ),
-          $,
-        ),
-        ")",
+        field("expr", $._expr_inner),
+        ",",
+        sep1_tail(field("expr", $._expr_inner), ","),
       ),
+    tuple_expr: ($) => seq("(", optional_indent($._tuple_body, $), ")"),
     todo_expr: ($) => "...",
 
     //####---------###
@@ -529,22 +515,20 @@ module.exports = grammar({
 
     exposed_list: ($) => seq("{", sep_tail($.ident, ","), "}"),
     exposes: ($) => seq("exposes", $.exposes_list),
-    exposes_list: ($) => seq("[", sep_tail($.ident, ","), "]"),
-    import_expr: ($) =>
-      prec(
-        PREC.IMPORT,
-        seq(
-          "import",
-          optional(seq($.identifier, ".")),
-          sep1($.module, "."),
-          optional(
-            choice(
-              alias(seq("exposing", $.exposes_list), $.exposing),
-              seq(alias("as", $.as), $.module),
-            ),
+    exposes_list: ($) => seq("exposing", seq("[", sep_tail($.ident, ","), "]")),
+    import_ident: ($) =>
+      seq(optional(seq($.identifier, ".")), sep1($.module, ".")),
+    _import_body: ($) =>
+      seq(
+        $.import_ident,
+        optional(
+          choice(
+            alias($.exposes_list, $.exposing),
+            seq(alias("as", $.as), $.module),
           ),
         ),
       ),
+    import_expr: ($) => prec(PREC.IMPORT, seq("import", $._import_body)),
     import_file_expr: ($) =>
       prec(
         PREC.IMPORT,
