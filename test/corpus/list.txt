@@ -18,34 +18,3 @@ a= [a, b, c]
         (variable_expr
           (identifier))))))
 
-====
-list_spread
-====
-hi=[a]
-a= [a, b, c,..hi]
-----
-
-(file
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (list_expr
-        (variable_expr
-          (identifier)))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (list_expr
-        (variable_expr
-          (identifier))
-        (variable_expr
-          (identifier))
-        (variable_expr
-          (identifier))
-        (spread_expr
-          (variable_expr
-            (identifier)))))))

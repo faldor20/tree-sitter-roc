@@ -74,7 +74,7 @@ b=|a,b| b
 types_effectful
 ====
 eff!:Int=>Int
-eff! = ... 
+eff! = ...
 ----
 
 (file
@@ -97,7 +97,7 @@ eff! = ...
 ====
 types_record_open
 ====
-A rest:{a:Str,b:Str,..rest}
+A rest:{a:Str,b:Str} rest
 ----
 
 (file
@@ -115,14 +115,13 @@ A rest:{a:Str,b:Str,..rest}
         (field_name)
         (apply_type
           (concrete_type)))
-      (open_type_var
-        (type_variable
-          (bound_variable))))))
+      (type_variable
+        (bound_variable)))))
 
 ====
 types_tag_open
 ====
-A rest:[T1,T2 Str,..rest ]
+A rest:[T1,T2 Str] rest
 ----
 
 (file
@@ -137,6 +136,5 @@ A rest:[T1,T2 Str,..rest ]
         (apply_type_arg
           (apply_type
             (concrete_type))))
-      (open_type_var
-        (type_variable
-          (bound_variable))))))
+      (type_variable
+        (bound_variable)))))

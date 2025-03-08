@@ -2368,21 +2368,6 @@
     }
   },
   {
-    "type": "open_type_var",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "type_variable",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "operator",
     "named": true,
     "fields": {}
@@ -2974,11 +2959,11 @@
       "required": false,
       "types": [
         {
-          "type": "open_type_var",
+          "type": "record_field_type",
           "named": true
         },
         {
-          "type": "record_field_type",
+          "type": "type_variable",
           "named": true
         }
       ]
@@ -3447,11 +3432,11 @@
       "required": false,
       "types": [
         {
-          "type": "open_type_var",
+          "type": "tag_type",
           "named": true
         },
         {
-          "type": "tag_type",
+          "type": "type_variable",
           "named": true
         }
       ]
@@ -3799,7 +3784,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
           "type": "bound_variable",
@@ -4448,11 +4433,11 @@
   },
   {
     "type": "module",
-    "named": true
+    "named": false
   },
   {
     "type": "module",
-    "named": false
+    "named": true
   },
   {
     "type": "natural",

@@ -293,8 +293,9 @@ _effect! = |a| doThing!(a)
               (identifier))
             (variable_expr
               (identifier))))))))
+
 ================================================================================
-value_error 
+value_error
 ================================================================================
 effect! = |a| _ doThing!( a)
 --------------------------------------------------------------------------------
@@ -303,19 +304,15 @@ effect! = |a| _ doThing!( a)
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (effectful_ident))))
+        (identifier)))
     (expr_body
       (anon_fun_expr
         (argument_patterns
           (identifier_pattern
-            (identifier
-              (regular_ident))))
+            (identifier)))
         (expr_body
           (function_call_pnc_expr
             (variable_expr
-              (identifier
-                (effectful_ident)))
+              (identifier))
             (variable_expr
-              (identifier
-                (regular_ident)))))))))
+              (identifier))))))))

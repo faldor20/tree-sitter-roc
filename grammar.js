@@ -64,6 +64,8 @@ module.exports = grammar({
     [$._module_elem, $._expr_inner],
     [$._more_when_is_branches],
     [$.operator_identifier, $.suffix_operator_identifier],
+    [$.record_type],
+    [$.tags_type],
   ],
   words: ($) => /\s+/,
   word: ($) => $._lower_identifier,
@@ -398,7 +400,8 @@ module.exports = grammar({
     conjunct_pattern: ($) => prec.left(0, seq($._pattern, "&", $._pattern)),
 
     paren_pattern: ($) => seq("(", $._pattern, ")"),
-    spread_pattern: ($) => prec.left(0, seq("..", optional($.identifier))),
+    spread_pattern: ($) =>
+      prec.left(0, seq("..", optional(seq("as", $.identifier)))),
 
     tag_pattern: ($) =>
       prec.left(
@@ -689,13 +692,14 @@ module.exports = grammar({
       sep1end($.module, ".", alias($._upper_identifier, $.ability)),
     ability_chain: ($) => prec.right(sep1($._ability, "&")),
 
-    tags_type: ($) => seq("[", optional($._tags_only), "]"),
+    tags_type: ($) =>
+      seq("[", optional($._tags_only), "]", optional($.type_variable)),
 
-    _tags_only: ($) => seq(sep1_tail(choice($.tag_type, $.open_type_var), ",")),
+    _tags_only: ($) => seq(sep1_tail(choice($.tag_type), ",")),
 
     tag_type: ($) =>
       seq(field("name", $._upper_identifier), optional($._apply_type_args)),
-    type_variable: ($) => choice("_", $.bound_variable),
+    type_variable: ($) => choice($.bound_variable),
 
     bound_variable: ($) => alias($._lower_identifier, $.bound_variable),
 
@@ -724,13 +728,13 @@ module.exports = grammar({
     record_type: ($) =>
       seq(
         "{",
-        sep_tail(choice($.record_field_type, $.open_type_var), ","),
+        sep_tail($.record_field_type, ","),
         "}",
+        optional($.type_variable),
       ),
 
     record_field_type: ($) => seq($.field_name, ":", $._type_annotation),
     /** can be used to make tag unions or records open*/
-    open_type_var: ($) => seq("..", $.type_variable),
 
     annotation_pre_colon: ($) =>
       choice(

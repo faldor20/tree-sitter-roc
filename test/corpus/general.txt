@@ -41,11 +41,13 @@ check_contents_of_files! = |readme_path, license_path|
         (identifier)
         (package_uri))))
   (import_expr
-    (identifier)
-    (module))
+    (import_ident
+      (identifier)
+      (module)))
   (import_expr
-    (identifier)
-    (module))
+    (import_ident
+      (identifier)
+      (module)))
   (value_declaration
     (decl_left
       (identifier_pattern

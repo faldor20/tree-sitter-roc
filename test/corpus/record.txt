@@ -72,7 +72,7 @@ record_spread_pattern
 when a is
 	{a,b}-> a
 	{a,b,..}-> a
- 	{a,b,..rest}-> a
+ 	{a,b,.. as rest}-> a
  
 ----
 
