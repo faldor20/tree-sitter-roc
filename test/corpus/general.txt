@@ -1,0 +1,268 @@
+====
+Release notes example:
+====
+app [main] { pf: platform "<basic-cli>" }
+
+import pf.File
+import pf.Stdout
+
+main! = |_args|
+    readme_path = "./README.md"
+    license_path = "./LICENSE"
+
+    check_contents_of_files(readme_path, license_path)
+    |> Result.map_err!(|err|
+        msg =
+            when err is
+                FileReadErr(_) -> "Error reading README"
+                FailedToReadLicense -> "Failed to read LICENSE file"
+
+        Err(Exit(1, "unable to read file: ${msg}")))
+
+check_contents_of_files! : Str, Str => Result {} _
+check_contents_of_files! = |readme_path, license_path|
+    readme_contents = File.read_utf8!(readme_path)?
+    license_contents = File.read_utf8(license_path) ? |_| FailedToReadLicense
+
+    readme_lines = Str.split(readme_contents, "\n")
+    first_readme_line = List.first(lines) ?? "<empty README>"
+    license_length = Str.split(license, "\n") |> List.len
+
+    Stdout.line!("First line of ${readme_path}: ${first_readme_line}")?
+    Stdout.line!("Line count for ${license_path}: ${Num.to_str(license_length)}")
+----
+
+(file
+  (app_header
+    (provides_list
+      (ident))
+    (packages_list
+      (platform_ref
+        (identifier)
+        (package_uri))))
+  (import_expr
+    (import_ident
+      (identifier)
+      (module)))
+  (import_expr
+    (import_ident
+      (identifier)
+      (module)))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (const
+                (string))))
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (const
+                (string))))
+          (bin_op_expr
+            (function_call_pnc_expr
+              (variable_expr
+                (identifier))
+              (variable_expr
+                (identifier))
+              (variable_expr
+                (identifier)))
+            (operator)
+            (function_call_pnc_expr
+              (variable_expr
+                (module)
+                (identifier))
+              (anon_fun_expr
+                (argument_patterns
+                  (identifier_pattern
+                    (identifier)))
+                (expr_body
+                  (value_declaration
+                    (decl_left
+                      (identifier_pattern
+                        (identifier)))
+                    (expr_body
+                      (when_is_expr
+                        (when)
+                        (variable_expr
+                          (identifier))
+                        (is)
+                        (when_is_branch
+                          (tag_pattern
+                            (tag)
+                            (wildcard_pattern))
+                          (arrow)
+                          (expr_body
+                            (const
+                              (string))))
+                        (when_is_branch
+                          (tag_pattern
+                            (tag))
+                          (arrow)
+                          (expr_body
+                            (const
+                              (string)))))))
+                  (function_call_pnc_expr
+                    (tag_expr
+                      (tag))
+                    (function_call_pnc_expr
+                      (tag_expr
+                        (tag))
+                      (const
+                        (int))
+                      (const
+                        (string
+                          (interpolation_char
+                            (variable_expr
+                              (identifier)))))))))))))))
+  (value_declaration
+    (annotation_type_def
+      (annotation_pre_colon
+        (identifier))
+      (function_type
+        (apply_type
+          (concrete_type))
+        (apply_type
+          (concrete_type))
+        (fat_arrow)
+        (apply_type
+          (concrete_type)
+          (apply_type_arg
+            (record_type))
+          (apply_type_arg
+            (inferred)))))
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (suffix_op_expr
+                (function_call_pnc_expr
+                  (variable_expr
+                    (module)
+                    (identifier))
+                  (variable_expr
+                    (identifier)))
+                (suffix_operator
+                  (suffix_operator)))))
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (bin_op_expr
+                (function_call_pnc_expr
+                  (variable_expr
+                    (module)
+                    (identifier))
+                  (variable_expr
+                    (identifier)))
+                (operator)
+                (anon_fun_expr
+                  (argument_patterns
+                    (wildcard_pattern))
+                  (expr_body
+                    (tag_expr
+                      (tag)))))))
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (function_call_pnc_expr
+                (variable_expr
+                  (module)
+                  (identifier))
+                (variable_expr
+                  (identifier))
+                (const
+                  (string
+                    (escape_char))))))
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (bin_op_expr
+                (function_call_pnc_expr
+                  (variable_expr
+                    (module)
+                    (identifier))
+                  (variable_expr
+                    (identifier)))
+                (operator)
+                (const
+                  (string)))))
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (bin_op_expr
+                (function_call_pnc_expr
+                  (variable_expr
+                    (module)
+                    (identifier))
+                  (variable_expr
+                    (identifier))
+                  (const
+                    (string
+                      (escape_char))))
+                (operator)
+                (variable_expr
+                  (module)
+                  (identifier)))))
+          (bin_op_expr
+            (function_call_pnc_expr
+              (variable_expr
+                (module)
+                (identifier))
+              (const
+                (string
+                  (interpolation_char
+                    (variable_expr
+                      (identifier)))
+                  (interpolation_char
+                    (variable_expr
+                      (identifier))))))
+            (operator)
+            (function_call_pnc_expr
+              (variable_expr
+                (module)
+                (identifier))
+              (const
+                (string
+                  (interpolation_char
+                    (variable_expr
+                      (identifier)))
+                  (interpolation_char
+                    (function_call_pnc_expr
+                      (variable_expr
+                        (module)
+                        (identifier))
+                      (variable_expr
+                        (identifier)))))))))))))

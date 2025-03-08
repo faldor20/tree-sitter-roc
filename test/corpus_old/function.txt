@@ -1,0 +1,482 @@
+================================================================================
+function_call
+================================================================================
+a=
+  b 1 
+a=
+  b=someFunc
+  b 
+    1 
+    a 
+c= 10
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (function_call_expr
+        (variable_expr
+          (identifier))
+        (const
+          (int)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (variable_expr
+            (identifier))))
+      (function_call_expr
+        (variable_expr
+          (identifier))
+        (const
+          (int))
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (int)))))
+
+================================================================================
+function_nested
+================================================================================
+a= f a b (a b)
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (function_call_expr
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier))
+        (parenthesized_expr
+          (expr_body
+            (function_call_expr
+              (variable_expr
+                (identifier))
+              (variable_expr
+                (identifier)))))))))
+
+================================================================================
+function_infix
+================================================================================
+a= 
+  f a b (a b)
+  |> a b
+  |> a 
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bin_op_expr
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier))
+          (parenthesized_expr
+            (expr_body
+              (function_call_expr
+                (variable_expr
+                  (identifier))
+                (variable_expr
+                  (identifier))))))
+        (operator)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier)))
+        (operator)
+        (variable_expr
+          (identifier))))))
+
+================================================================================
+function_when
+================================================================================
+main=
+  (\lvl ->
+      when lvl is
+          1u8 -> Stdout.line "You're running this in a root shell!"
+          n ->
+              lvlStr = Num.toStr n
+
+              Stdout.line "Your current shell level is \(lvlStr)!")
+              
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (parenthesized_expr
+        (expr_body
+          (anon_fun_expr
+            (backslash)
+            (argument_patterns
+              (identifier_pattern
+                (identifier)))
+            (arrow)
+            (expr_body
+              (when_is_expr
+                (when)
+                (variable_expr
+                  (identifier))
+                (is)
+                (when_is_branch
+                  (const_pattern
+                    (uint))
+                  (arrow)
+                  (expr_body
+                    (function_call_expr
+                      (variable_expr
+                        (module)
+                        (identifier))
+                      (const
+                        (string)))))
+                (when_is_branch
+                  (identifier_pattern
+                    (identifier))
+                  (arrow)
+                  (expr_body
+                    (value_declaration
+                      (decl_left
+                        (identifier_pattern
+                          (identifier)))
+                      (expr_body
+                        (function_call_expr
+                          (variable_expr
+                            (module)
+                            (identifier))
+                          (variable_expr
+                            (identifier)))))
+                    (function_call_expr
+                      (variable_expr
+                        (module)
+                        (identifier))
+                      (const
+                        (string
+                          (interpolation_char
+                            (variable_expr
+                              (identifier))))))))))))))))
+
+================================================================================
+function_paren
+================================================================================
+main=
+  (\lvl ->
+    when a is
+      A-> a
+      B-> 
+        _<-a b
+        a b)
+              
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (parenthesized_expr
+        (expr_body
+          (anon_fun_expr
+            (backslash)
+            (argument_patterns
+              (identifier_pattern
+                (identifier)))
+            (arrow)
+            (expr_body
+              (when_is_expr
+                (when)
+                (variable_expr
+                  (identifier))
+                (is)
+                (when_is_branch
+                  (tag_pattern
+                    (tag))
+                  (arrow)
+                  (expr_body
+                    (variable_expr
+                      (identifier))))
+                (when_is_branch
+                  (tag_pattern
+                    (tag))
+                  (arrow)
+                  (expr_body
+                    (backpassing_expr
+                      (wildcard_pattern)
+                      (back_arrow)
+                      (function_call_expr
+                        (variable_expr
+                          (identifier))
+                        (variable_expr
+                          (identifier))))
+                    (function_call_expr
+                      (variable_expr
+                        (identifier))
+                      (variable_expr
+                        (identifier)))))))))))))
+
+================================================================================
+function_pipe
+================================================================================
+main=
+  a b
+  |> a b
+  |> a 
+    (\a -> 
+        when a is
+          a-> b
+          a-> 
+            _<-a
+            a b )
+  |> a b
+              
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bin_op_expr
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier)))
+        (operator)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier)))
+        (operator)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (parenthesized_expr
+            (expr_body
+              (anon_fun_expr
+                (backslash)
+                (argument_patterns
+                  (identifier_pattern
+                    (identifier)))
+                (arrow)
+                (expr_body
+                  (when_is_expr
+                    (when)
+                    (variable_expr
+                      (identifier))
+                    (is)
+                    (when_is_branch
+                      (identifier_pattern
+                        (identifier))
+                      (arrow)
+                      (expr_body
+                        (variable_expr
+                          (identifier))))
+                    (when_is_branch
+                      (identifier_pattern
+                        (identifier))
+                      (arrow)
+                      (expr_body
+                        (backpassing_expr
+                          (wildcard_pattern)
+                          (back_arrow)
+                          (variable_expr
+                            (identifier)))
+                        (function_call_expr
+                          (variable_expr
+                            (identifier))
+                          (variable_expr
+                            (identifier)))))))))))
+        (operator)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (variable_expr
+            (identifier)))))))
+
+================================================================================
+function_discard
+================================================================================
+a=\_ ->a
+a=\ _ ->a
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (backslash)
+        (argument_patterns
+          (wildcard_pattern))
+        (arrow)
+        (expr_body
+          (variable_expr
+            (identifier))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (backslash)
+        (argument_patterns
+          (wildcard_pattern))
+        (arrow)
+        (expr_body
+          (variable_expr
+            (identifier)))))))
+
+================================================================================
+function_field
+================================================================================
+a= a.bb a a
+              
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (function_call_expr
+        (field_access_expr
+          (variable_expr
+            (identifier))
+          (identifier))
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier))))))
+
+================================================================================
+function_same_line
+================================================================================
+a= html
+  "<div>"
+              
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (function_call_expr
+        (variable_expr
+          (identifier))
+        (const
+          (string))))))
+
+================================================================================
+function_same_line_long
+================================================================================
+myHtml=html
+  """
+  <div>
+  """
+              
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (function_call_expr
+        (variable_expr
+          (identifier))
+        (const
+          (multiline_string))))))
+====
+function_single_line_in_pipe
+====
+output=
+  thing
+    |> List.findFirst \p -> p.region |> isInRange position
+    |> Result.mapErr NoPara
+    |> Result.map
+----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bin_op_expr
+        (variable_expr
+          (identifier))
+        (operator)
+        (function_call_expr
+          (variable_expr
+            (module)
+            (identifier))
+          (anon_fun_expr
+            (backslash)
+            (argument_patterns
+              (identifier_pattern
+                (identifier)))
+            (arrow)
+            (expr_body
+              (bin_op_expr
+                (field_access_expr
+                  (variable_expr
+                    (identifier))
+                  (identifier))
+                (operator)
+                (function_call_expr
+                  (variable_expr
+                    (identifier))
+                  (variable_expr
+                    (identifier)))))))
+        (operator)
+        (function_call_expr
+          (variable_expr
+            (module)
+            (identifier))
+          (tag_expr
+            (tag)))
+        (operator)
+        (variable_expr
+          (module)
+          (identifier))))))

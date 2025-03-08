@@ -1,7 +1,7 @@
 ================================================================================
 pattern_opaque_tag
 ================================================================================
-bfs = \a, b, @OTag c -> a b c
+bfs = |a, b, @OTag c| a( b, c)
 --------------------------------------------------------------------------------
 
 (file
@@ -11,7 +11,6 @@ bfs = \a, b, @OTag c -> a b c
         (identifier)))
     (expr_body
       (anon_fun_expr
-        (backslash)
         (argument_patterns
           (identifier_pattern
             (identifier))
@@ -21,9 +20,8 @@ bfs = \a, b, @OTag c -> a b c
             (opaque_tag)
             (identifier_pattern
               (identifier))))
-        (arrow)
         (expr_body
-          (function_call_expr
+          (function_call_pnc_expr
             (variable_expr
               (identifier))
             (variable_expr
@@ -34,7 +32,7 @@ bfs = \a, b, @OTag c -> a b c
 ================================================================================
 pattern_tag
 ================================================================================
-bfs = \a, b, Tag c -> a b c
+bfs = |a, b, Tag c| a( b, c)
 --------------------------------------------------------------------------------
 
 (file
@@ -44,7 +42,6 @@ bfs = \a, b, Tag c -> a b c
         (identifier)))
     (expr_body
       (anon_fun_expr
-        (backslash)
         (argument_patterns
           (identifier_pattern
             (identifier))
@@ -54,9 +51,8 @@ bfs = \a, b, Tag c -> a b c
             (tag)
             (identifier_pattern
               (identifier))))
-        (arrow)
         (expr_body
-          (function_call_expr
+          (function_call_pnc_expr
             (variable_expr
               (identifier))
             (variable_expr
@@ -67,7 +63,7 @@ bfs = \a, b, Tag c -> a b c
 ================================================================================
 pattern_range
 ================================================================================
-bfs = \a, b, [head, .. as tail] -> a b head tail
+bfs = |a, b, [head, .. as tail]| a( b, head, tail)
 --------------------------------------------------------------------------------
 
 (file
@@ -77,7 +73,6 @@ bfs = \a, b, [head, .. as tail] -> a b head tail
         (identifier)))
     (expr_body
       (anon_fun_expr
-        (backslash)
         (argument_patterns
           (identifier_pattern
             (identifier))
@@ -86,11 +81,10 @@ bfs = \a, b, [head, .. as tail] -> a b head tail
           (list_pattern
             (identifier_pattern
               (identifier))
-            (range_pattern
+            (spread_pattern
               (identifier))))
-        (arrow)
         (expr_body
-          (function_call_expr
+          (function_call_pnc_expr
             (variable_expr
               (identifier))
             (variable_expr
@@ -104,9 +98,9 @@ bfs = \a, b, [head, .. as tail] -> a b head tail
 pattern_range_many
 ================================================================================
 
-record=\bytes,dict->
+record=|bytes,dict|
     when bytes is 
-    ['}']-> decOk (dict) rest
+	    ['}']-> decOk( (dict), rest)
 
 --------------------------------------------------------------------------------
 
@@ -117,13 +111,11 @@ record=\bytes,dict->
         (identifier)))
     (expr_body
       (anon_fun_expr
-        (backslash)
         (argument_patterns
           (identifier_pattern
             (identifier))
           (identifier_pattern
             (identifier)))
-        (arrow)
         (expr_body
           (when_is_expr
             (when)
@@ -136,7 +128,7 @@ record=\bytes,dict->
                   (char)))
               (arrow)
               (expr_body
-                (function_call_expr
+                (function_call_pnc_expr
                   (variable_expr
                     (identifier))
                   (parenthesized_expr

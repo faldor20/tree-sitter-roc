@@ -46,12 +46,11 @@
 [
   "?"
   (arrow)
-  (back_arrow)
-  (backslash)
+  (fat_arrow)
+  "|"
   ","
   ":"
 ] @punctuation.delimiter
-(bang_expr "!" @punctuation.delimiter)
 
 [
   "("
@@ -101,9 +100,6 @@
   "imports"
 ] @keyword.import
 
-(backpassing_expr
-  assignee: (identifier_pattern
-    (identifier) @variable.parameter))
 
 (value_declaration
   (decl_left
@@ -114,8 +110,7 @@
 
 ;----tags----
 (tags_type
-  (apply_type
-    (concrete_type) @constructor))
+     (tag_type) @constructor)
 
 [
   (tag)
@@ -132,11 +127,11 @@
 "dbg" @keyword.debug
 
 ;----function invocations ----
-(function_call_expr
+(function_call_pnc_expr
   caller: (variable_expr
     (identifier) @function.call))
 
-(function_call_expr
+(function_call_pnc_expr
   caller: (field_access_expr
     (identifier) @function.call .))
 

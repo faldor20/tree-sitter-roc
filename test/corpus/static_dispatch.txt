@@ -1,0 +1,44 @@
+====
+method_call
+====
+a.b(c,d,e)
+---
+
+(file
+  (expr_body
+    (function_call_pnc_expr
+      (field_access_expr
+        (variable_expr
+          (identifier))
+        (identifier))
+      (variable_expr
+        (identifier))
+      (variable_expr
+        (identifier))
+      (variable_expr
+        (identifier)))))
+
+====
+method_call_other
+====
+a.b()
+a.b!(c!,d)
+---
+
+(file
+  (expr_body
+    (function_call_pnc_expr
+      (field_access_expr
+        (variable_expr
+          (identifier))
+        (identifier))))
+  (expr_body
+    (function_call_pnc_expr
+      (field_access_expr
+        (variable_expr
+          (identifier))
+        (identifier))
+      (variable_expr
+        (identifier))
+      (variable_expr
+        (identifier)))))

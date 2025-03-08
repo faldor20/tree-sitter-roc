@@ -6,7 +6,7 @@
  (anon_fun_expr)
  (list_expr)
  (parenthesized_expr)
- (function_call_expr)
+ (function_call_pnc_expr)
  (tuple_expr)
  (backpassing_expr)
  (imports)

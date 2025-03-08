@@ -1,0 +1,59 @@
+====
+todo
+====
+a = ...
+----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (todo_expr))))
+
+====
+todo_complex
+====
+
+b = 
+  d = ...
+  c = 
+    when d is 
+		"hi" -> ...
+  ...
+a
+----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (todo_expr)))
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (when_is_expr
+            (when)
+            (variable_expr
+              (identifier))
+            (is)
+            (when_is_branch
+              (const_pattern
+                (string))
+              (arrow)
+              (expr_body
+                (todo_expr))))))
+      (todo_expr)))
+  (expr_body
+    (variable_expr
+      (identifier))))

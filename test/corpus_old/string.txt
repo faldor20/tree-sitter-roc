@@ -1,0 +1,150 @@
+================================================================================
+string_basic
+================================================================================
+a="foo"
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (string)))))
+
+================================================================================
+string_multiline
+================================================================================
+a=
+    """
+    foo
+    bar
+    """
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (multiline_string)))))
+
+================================================================================
+string_multiline_with_string
+================================================================================
+
+main =
+    """
+    "test"
+    """
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (multiline_string)))))
+
+================================================================================
+string_multiline_wierd
+================================================================================
+
+main =
+    """
+    \\ " '"' \n \t #hi
+    """
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (multiline_string
+          (escape_char)
+          (escape_char)
+          (escape_char))))))
+
+================================================================================
+string_wierd
+================================================================================
+
+main =
+    "'\"' \n \t #hi"
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (string
+          (escape_char)
+          (escape_char)
+          (escape_char))))))
+
+================================================================================
+string_comment
+================================================================================
+
+main =
+    "#hi"
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (string)))))
+
+================================================================================
+string_multiline_interpolation
+================================================================================
+
+main =
+    """
+    \t hi
+    \n
+    \\
+    $("hi")
+    $(Num.toStr 10)
+    \$("hi")
+    
+    """
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (multiline_string
+          (escape_char)
+          (escape_char)
+          (escape_char)
+          (interpolation_char
+            (const
+              (string)))
+          (interpolation_char
+            (function_call_expr
+              (variable_expr
+                (module)
+                (identifier))
+              (const
+                (int))))
+          (escape_char))))))

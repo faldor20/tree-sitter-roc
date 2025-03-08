@@ -1,0 +1,343 @@
+================================================================================
+record_basic
+================================================================================
+a = {b:10,c:inp,d}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (record_expr
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (const
+              (int))))
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (variable_expr
+              (identifier))))
+        (record_field_expr
+          (field_name))))))
+
+================================================================================
+record_expr
+================================================================================
+a = 
+  {
+    b:10,
+    c:
+      if a then
+        d
+      else
+        v
+  }
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (record_expr
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (const
+              (int))))
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (if_expr
+              (variable_expr
+                (identifier))
+              (then
+                (expr_body
+                  (variable_expr
+                    (identifier))))
+              (else
+                (expr_body
+                  (variable_expr
+                    (identifier)))))))))))
+
+================================================================================
+record_builder
+================================================================================
+main={ a <- b: c }
+main=
+  a {a <- a: B a, c:a b (c+d)}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (record_builder_expr
+        (identifier)
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (variable_expr
+              (identifier)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (function_call_expr
+        (variable_expr
+          (identifier))
+        (record_builder_expr
+          (identifier)
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (tag_expr
+                (tag)
+                (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (function_call_expr
+                (variable_expr
+                  (identifier))
+                (variable_expr
+                  (identifier))
+                (parenthesized_expr
+                  (expr_body
+                    (bin_op_expr
+                      (variable_expr
+                        (identifier))
+                      (operator)
+                      (variable_expr
+                        (identifier)))))))))))))
+
+================================================================================
+record_update
+================================================================================
+main={ a & b: c }
+main=
+  a {a & a: B a, c:a b (c+d)}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (record_update_expr
+        (identifier)
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (variable_expr
+              (identifier)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (function_call_expr
+        (variable_expr
+          (identifier))
+        (record_update_expr
+          (identifier)
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (tag_expr
+                (tag)
+                (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (function_call_expr
+                (variable_expr
+                  (identifier))
+                (variable_expr
+                  (identifier))
+                (parenthesized_expr
+                  (expr_body
+                    (bin_op_expr
+                      (variable_expr
+                        (identifier))
+                      (operator)
+                      (variable_expr
+                        (identifier)))))))))))))
+
+================================================================================
+record pattern
+================================================================================
+main=
+  when a is 
+    Some { state: InCond, body, cond } -> b
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (when_is_expr
+        (when)
+        (variable_expr
+          (identifier))
+        (is)
+        (when_is_branch
+          (tag_pattern
+            (tag)
+            (record_pattern
+              (record_field_pattern
+                (field_name)
+                (tag_pattern
+                  (tag)))
+              (record_field_pattern
+                (field_name))
+              (record_field_pattern
+                (field_name))))
+          (arrow)
+          (expr_body
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+old record builder
+================================================================================
+main=
+  { aliceID, bobID, trudyID } = 
+      initIDCount {
+          aliceID: <- incID,
+          bobID: <- incID,
+          trudyID: <- incID,
+      } |> extractState   
+  aliceID
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (value_declaration
+        (decl_left
+          (record_pattern
+            (record_field_pattern
+              (field_name))
+            (record_field_pattern
+              (field_name))
+            (record_field_pattern
+              (field_name))))
+        (expr_body
+          (bin_op_expr
+            (function_call_expr
+              (variable_expr
+                (identifier))
+              (record_expr
+                (record_field_old_builder
+                  (field_name)
+                  (variable_expr
+                        (identifier)))
+                (record_field_old_builder
+                  (field_name)
+                  (variable_expr
+                        (identifier)))
+                (record_field_old_builder
+                  (field_name)
+                  (variable_expr
+                        (identifier)))))
+            (operator)
+            (variable_expr
+              (identifier)))))
+      (variable_expr
+        (identifier)))))
+
+================================================================================
+old record builder w/args
+================================================================================
+
+main=
+  cliBuilder {
+    alpha: <- numOption { name: Short "a", help: "Set alpha level." },
+    beta: <- flagOption { name: Both "b" "beta" },
+  }
+  |> finishCli { name: "app", version: "v0.0.1", authors: ["foobar foo@bar.baz"] }
+
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bin_op_expr
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (record_expr
+            (record_field_old_builder
+              (field_name)
+              (function_call_expr
+                (variable_expr
+                  (identifier))
+                (record_expr
+                  (record_field_expr
+                    (field_name)
+                    (expr_body
+                      (tag_expr
+                        (tag)
+                        (const
+                          (string)))))
+                  (record_field_expr
+                    (field_name)
+                    (expr_body
+                      (const
+                        (string)))))))
+            (record_field_old_builder
+              (field_name)
+              (function_call_expr
+                (variable_expr
+                  (identifier))
+                (record_expr
+                  (record_field_expr
+                    (field_name)
+                    (expr_body
+                      (tag_expr
+                        (tag)
+                        (const
+                          (string))
+                        (const
+                          (string))))))))))
+        (operator)
+        (function_call_expr
+          (variable_expr
+            (identifier))
+          (record_expr
+            (record_field_expr
+              (field_name)
+              (expr_body
+                (const
+                  (string))))
+            (record_field_expr
+              (field_name)
+              (expr_body
+                (const
+                  (string))))
+            (record_field_expr
+              (field_name)
+              (expr_body
+                (list_expr
+                  (const
+                    (string)))))))))))

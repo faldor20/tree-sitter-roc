@@ -33,6 +33,8 @@
 (identifier_pattern
   (identifier) @local.definition)
 
+(when_is_branch pattern: (_ (identifier_pattern (identifier) @local.definition)))
+(spread_pattern (identifier) @local.definition)
 
 (identifier) @local.reference
 

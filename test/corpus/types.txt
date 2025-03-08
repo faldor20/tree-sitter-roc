@@ -1,11 +1,35 @@
-================================================================================
-type_annotation
-================================================================================
-main : Task {} []
-main =
-	task = a
-	task
---------------------------------------------------------------------------------
+====
+types
+====
+A: Int
+B b: Type b
+----
+
+(file
+  (alias_type_def
+    (apply_type
+      (concrete_type))
+    (apply_type
+      (concrete_type)))
+  (alias_type_def
+    (apply_type
+      (concrete_type)
+      (apply_type_arg
+        (bound_variable)))
+    (apply_type
+      (concrete_type)
+      (apply_type_arg
+        (bound_variable)))))
+
+====
+types_def
+====
+a:Int
+a=1
+
+b: Int,Str->Str
+b=|a,b| b
+----
 
 (file
   (value_declaration
@@ -13,71 +37,13 @@ main =
       (annotation_pre_colon
         (identifier))
       (apply_type
-        (concrete_type)
-        (apply_type_args
-          (apply_type_arg
-            (record_type))
-          (apply_type_arg
-            (tags_type)))))
+        (concrete_type)))
     (decl_left
       (identifier_pattern
         (identifier)))
     (expr_body
-      (value_declaration
-        (decl_left
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (variable_expr
-            (identifier))))
-      (variable_expr
-        (identifier)))))
-
-================================================================================
-internal
-================================================================================
-main=
-  p:Int
-  p=10
-  p
---------------------------------------------------------------------------------
-
-(file
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (value_declaration
-        (annotation_type_def
-          (annotation_pre_colon
-            (identifier))
-          (apply_type
-            (concrete_type)))
-        (decl_left
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (const
-            (int))))
-      (variable_expr
-        (identifier)))))
-
-================================================================================
-type_interface
-================================================================================
-
-list : Path -> Task (List Path) [DirReadErr Path ReadErr]
-list = \path ->
-    effect = Effect.map (Effect.dirList (InternalPath.toBytes path)) \result ->
-        when result is
-            Ok entries -> Ok (List.map entries InternalPath.fromOsBytes)
-            Err err -> Err (DirReadErr path err)
-
-    a b
---------------------------------------------------------------------------------
-
-(file
+      (const
+        (int))))
   (value_declaration
     (annotation_type_def
       (annotation_pre_colon
@@ -85,205 +51,6 @@ list = \path ->
       (function_type
         (apply_type
           (concrete_type))
-        (arrow)
-        (apply_type
-          (concrete_type)
-          (apply_type_args
-            (apply_type_arg
-              (parenthesized_type
-                (apply_type
-                  (concrete_type)
-                  (apply_type_args
-                    (apply_type_arg
-                      (apply_type
-                        (concrete_type)))))))
-            (apply_type_arg
-              (tags_type
-                (apply_type
-                  (concrete_type)
-                  (apply_type_args
-                    (apply_type_arg
-                      (apply_type
-                        (concrete_type)
-                        (apply_type_args
-                          (apply_type_arg
-                            (apply_type
-                              (concrete_type))))))))))))))
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (backslash)
-        (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        (arrow)
-        (expr_body
-          (value_declaration
-            (decl_left
-              (identifier_pattern
-                (identifier)))
-            (expr_body
-              (function_call_expr
-                (variable_expr
-                  (module)
-                  (identifier))
-                (parenthesized_expr
-                  (expr_body
-                    (function_call_expr
-                      (variable_expr
-                        (module)
-                        (identifier))
-                      (parenthesized_expr
-                        (expr_body
-                          (function_call_expr
-                            (variable_expr
-                              (module)
-                              (identifier))
-                            (variable_expr
-                              (identifier))))))))
-                (anon_fun_expr
-                  (backslash)
-                  (argument_patterns
-                    (identifier_pattern
-                      (identifier)))
-                  (arrow)
-                  (expr_body
-                    (when_is_expr
-                      (when)
-                      (variable_expr
-                        (identifier))
-                      (is)
-                      (when_is_branch
-                        (tag_pattern
-                          (tag)
-                          (identifier_pattern
-                            (identifier)))
-                        (arrow)
-                        (expr_body
-                          (tag_expr
-                            (tag)
-                            (parenthesized_expr
-                              (expr_body
-                                (function_call_expr
-                                  (variable_expr
-                                    (module)
-                                    (identifier))
-                                  (variable_expr
-                                    (identifier))
-                                  (variable_expr
-                                    (module)
-                                    (identifier))))))))
-                      (when_is_branch
-                        (tag_pattern
-                          (tag)
-                          (identifier_pattern
-                            (identifier)))
-                        (arrow)
-                        (expr_body
-                          (tag_expr
-                            (tag)
-                            (parenthesized_expr
-                              (expr_body
-                                (tag_expr
-                                  (tag)
-                                  (variable_expr
-                                    (identifier))
-                                  (variable_expr
-                                    (identifier))))))))))))))
-          (function_call_expr
-            (variable_expr
-              (identifier))
-            (variable_expr
-              (identifier))))))))
-
-================================================================================
-types_implements
-================================================================================
-
-A :={a:a} implements[ B{a:a}]
-var=a
---------------------------------------------------------------------------------
-
-(file
-  (opaque_type_def
-    (apply_type
-      (concrete_type))
-    (colon_equals)
-    (implements_implementation
-      (record_type
-        (record_field_type
-          (field_name)
-          (bound_variable)))
-      (implements)
-      (ability_implementation
-        (ability_name)
-        (record_expr
-          (record_field_expr
-            (field_name)
-            (expr_body
-              (variable_expr
-                (identifier))))))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (variable_expr
-        (identifier)))))
-
-================================================================================
-types_functions
-================================================================================
-A: R->B a
-  ->Int
-  ->String
-
---------------------------------------------------------------------------------
-
-(file
-  (alias_type_def
-    (apply_type
-      (concrete_type))
-    (function_type
-      (apply_type
-        (concrete_type))
-      (arrow)
-      (apply_type
-        (concrete_type)
-        (apply_type_args
-          (apply_type_arg
-            (bound_variable))))
-      (arrow)
-      (apply_type
-        (concrete_type))
-      (arrow)
-      (apply_type
-        (concrete_type)))))
-
-================================================================================
-types_alias
-================================================================================
-A:A b
-a:A->B
-a=\a->b
---------------------------------------------------------------------------------
-
-(file
-  (alias_type_def
-    (apply_type
-      (concrete_type))
-    (apply_type
-      (concrete_type)
-      (apply_type_args
-        (apply_type_arg
-          (bound_variable)))))
-  (value_declaration
-    (annotation_type_def
-      (annotation_pre_colon
-        (identifier))
-      (function_type
         (apply_type
           (concrete_type))
         (arrow)
@@ -294,110 +61,80 @@ a=\a->b
         (identifier)))
     (expr_body
       (anon_fun_expr
-        (backslash)
         (argument_patterns
           (identifier_pattern
+            (identifier))
+          (identifier_pattern
             (identifier)))
-        (arrow)
         (expr_body
           (variable_expr
             (identifier)))))))
 
-================================================================================
-types_nested_func
-================================================================================
-a:
-  a->
-  (
-    a->
-    b->
-    S a
-  )->
-  SS b->
-  b
---------------------------------------------------------------------------------
+====
+types_effectful
+====
+eff!:Int=>Int
+eff! = ...
+----
 
 (file
-  (annotation_type_def
-    (annotation_pre_colon
-      (identifier))
-    (function_type
-      (bound_variable)
-      (arrow)
-      (parenthesized_type
-        (function_type
-          (bound_variable)
-          (arrow)
-          (bound_variable)
-          (arrow)
+  (value_declaration
+    (annotation_type_def
+      (annotation_pre_colon
+        (identifier))
+      (function_type
+        (apply_type
+          (concrete_type))
+        (fat_arrow)
+        (apply_type
+          (concrete_type))))
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (todo_expr))))
+
+====
+types_record_open
+====
+A rest:{a:Str,b:Str} rest
+----
+
+(file
+  (alias_type_def
+    (apply_type
+      (concrete_type)
+      (apply_type_arg
+        (bound_variable)))
+    (record_type
+      (record_field_type
+        (field_name)
+        (apply_type
+          (concrete_type)))
+      (record_field_type
+        (field_name)
+        (apply_type
+          (concrete_type)))
+      (type_variable
+        (bound_variable)))))
+
+====
+types_tag_open
+====
+A rest:[T1,T2 Str] rest
+----
+
+(file
+  (alias_type_def
+    (apply_type
+      (concrete_type)
+      (apply_type_arg
+        (bound_variable)))
+    (tags_type
+      (tag_type)
+      (tag_type
+        (apply_type_arg
           (apply_type
-            (concrete_type)
-            (apply_type_args
-              (apply_type_arg
-                (bound_variable))))))
-      (arrow)
-      (apply_type
-        (concrete_type)
-        (apply_type_args
-          (apply_type_arg
-            (bound_variable))))
-      (arrow)
-      (bound_variable))))
-
-================================================================================
-types_tuples
-================================================================================
-a:(Num a,Num b)
---------------------------------------------------------------------------------
-
-(file
-  (annotation_type_def
-    (annotation_pre_colon
-      (identifier))
-    (tuple_type
-      (apply_type
-        (concrete_type)
-        (apply_type_args
-          (apply_type_arg
-            (bound_variable))))
-      (apply_type
-        (concrete_type)
-        (apply_type_args
-          (apply_type_arg
-            (bound_variable)))))))
-
-================================================================================
-types_args
-================================================================================
-A b : B b
-
-A2 b2 c2 : B2 b2 c2
---------------------------------------------------------------------------------
-
-(file
-  (alias_type_def
-    (apply_type
-      (concrete_type)
-      (apply_type_args
-        (apply_type_arg
-          (bound_variable))))
-    (apply_type
-      (concrete_type)
-      (apply_type_args
-        (apply_type_arg
-          (bound_variable)))))
-  (alias_type_def
-    (apply_type
-      (concrete_type)
-      (apply_type_args
-        (apply_type_arg
-          (bound_variable))
-        (apply_type_arg
-          (bound_variable))))
-    (apply_type
-      (concrete_type)
-      (apply_type_args
-        (apply_type_arg
-          (bound_variable))
-        (apply_type_arg
-          (bound_variable))))))
+            (concrete_type))))
+      (type_variable
+        (bound_variable)))))

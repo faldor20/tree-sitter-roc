@@ -1,0 +1,20 @@
+====
+list_normal
+====
+a= [a, b, c]
+----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (list_expr
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier))))))
+

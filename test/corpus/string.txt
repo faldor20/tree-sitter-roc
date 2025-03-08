@@ -111,6 +111,69 @@ main =
         (string)))))
 
 ================================================================================
+string_interpolation
+================================================================================
+main= "hi, ${name}"
+escaped= "\${notinterpolated}"
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (string
+          (interpolation_char
+            (variable_expr
+              (identifier)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (string
+          (escape_char))))))
+
+================================================================================
+string_interpolation_complex
+================================================================================
+
+main ="\t hi\n\\${"hi"}${Num.toStr(10)}${"hi${"nested"}"}\${notinterpolated}"
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (string
+          (escape_char)
+          (escape_char)
+          (escape_char)
+          (interpolation_char
+            (const
+              (string)))
+          (interpolation_char
+            (function_call_pnc_expr
+              (variable_expr
+                (module)
+                (identifier))
+              (const
+                (int))))
+          (interpolation_char
+            (const
+              (string
+                (interpolation_char
+                  (const
+                    (string))))))
+          (escape_char))))))
+
+================================================================================
 string_multiline_interpolation
 ================================================================================
 
@@ -119,9 +182,9 @@ main =
     \t hi
     \n
     \\
-    $("hi")
-    $(Num.toStr 10)
-    \$("hi")
+    ${"hi"}
+    ${Num.toStr(10)}
+    \${"hi"}
     
     """
 --------------------------------------------------------------------------------
@@ -141,7 +204,7 @@ main =
             (const
               (string)))
           (interpolation_char
-            (function_call_expr
+            (function_call_pnc_expr
               (variable_expr
                 (module)
                 (identifier))

@@ -2,9 +2,17 @@
 value_decl
 ================================================================================
 var= a
+my_var= a
 --------------------------------------------------------------------------------
 
 (file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (variable_expr
+        (identifier))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -117,7 +125,7 @@ var =
 value_record
 ================================================================================
 
-{ result: commaResult, rest: nextBytes } = comma beforeCommaOrBreak
+{ result: commaResult, rest: nextBytes } = comma( beforeCommaOrBreak)
 --------------------------------------------------------------------------------
 
 (file
@@ -133,7 +141,7 @@ value_record
           (identifier_pattern
             (identifier)))))
     (expr_body
-      (function_call_expr
+      (function_call_pnc_expr
         (variable_expr
           (identifier))
         (variable_expr
@@ -147,6 +155,8 @@ a= My.Module.field
 a= {a}.field
 a= ({a}).field
 a= a.field.b.c.d
+b=10
+
 --------------------------------------------------------------------------------
 
 (file
@@ -200,13 +210,19 @@ a= a.field.b.c.d
         (identifier)
         (identifier)
         (identifier)
-        (identifier)))))
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (int)))))
 
 ================================================================================
 value_ignore
 ================================================================================
 _= a
-_a= a
 --------------------------------------------------------------------------------
 
 (file
@@ -215,7 +231,15 @@ _a= a
       (wildcard_pattern))
     (expr_body
       (variable_expr
-        (identifier))))
+        (identifier)))))
+
+================================================================================
+value_shadowable
+================================================================================
+_shadow= a
+--------------------------------------------------------------------------------
+
+(file
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -223,3 +247,72 @@ _a= a
     (expr_body
       (variable_expr
         (identifier)))))
+
+================================================================================
+value_effectful
+================================================================================
+effect! = |a| doThing!( a)
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (function_call_pnc_expr
+            (variable_expr
+              (identifier))
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+value_effectful_shadowable
+================================================================================
+_effect! = |a| doThing!(a)
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (function_call_pnc_expr
+            (variable_expr
+              (identifier))
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+value_error
+================================================================================
+effect! = |a| _ doThing!( a)
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (function_call_pnc_expr
+            (variable_expr
+              (identifier))
+            (variable_expr
+              (identifier))))))))
