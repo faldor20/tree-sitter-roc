@@ -638,6 +638,7 @@ module.exports = grammar({
         $.tags_type,
         $.bound_variable,
         $.inferred,
+        "*",
         $.tuple_type,
       ),
     tuple_type: ($) =>

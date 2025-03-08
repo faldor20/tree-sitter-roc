@@ -46,6 +46,10 @@
         "required": true,
         "types": [
           {
+            "type": "*",
+            "named": false
+          },
+          {
             "type": "apply_type",
             "named": true
           },
@@ -239,7 +243,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "apply_type",
@@ -1414,6 +1418,10 @@
         "required": true,
         "types": [
           {
+            "type": "*",
+            "named": false
+          },
+          {
             "type": "apply_type",
             "named": true
           },
@@ -1820,7 +1828,7 @@
     }
   },
   {
-    "type": "import_body",
+    "type": "import_expr",
     "named": true,
     "fields": {},
     "children": {
@@ -1841,21 +1849,6 @@
         },
         {
           "type": "module",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "import_expr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "import_body",
           "named": true
         }
       ]
@@ -2587,7 +2580,7 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "apply_type",
@@ -3645,7 +3638,7 @@
     "fields": {},
     "children": {
       "multiple": true,
-      "required": true,
+      "required": false,
       "types": [
         {
           "type": "apply_type",
@@ -3698,6 +3691,10 @@
         "multiple": true,
         "required": false,
         "types": [
+          {
+            "type": "*",
+            "named": false
+          },
           {
             "type": "apply_type",
             "named": true
@@ -4451,11 +4448,11 @@
   },
   {
     "type": "module",
-    "named": false
+    "named": true
   },
   {
     "type": "module",
-    "named": true
+    "named": false
   },
   {
     "type": "natural",

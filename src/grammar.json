@@ -2578,7 +2578,7 @@
         }
       ]
     },
-    "import_body": {
+    "_import_body": {
       "type": "SEQ",
       "members": [
         {
@@ -2639,7 +2639,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "import_body"
+            "name": "_import_body"
           }
         ]
       }
@@ -3397,6 +3397,10 @@
         {
           "type": "SYMBOL",
           "name": "inferred"
+        },
+        {
+          "type": "STRING",
+          "value": "*"
         },
         {
           "type": "SYMBOL",
