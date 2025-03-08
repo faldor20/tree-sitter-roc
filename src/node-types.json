@@ -1820,7 +1820,7 @@
     }
   },
   {
-    "type": "import_body",
+    "type": "import_expr",
     "named": true,
     "fields": {},
     "children": {
@@ -1841,21 +1841,6 @@
         },
         {
           "type": "module",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "import_expr",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "import_body",
           "named": true
         }
       ]
@@ -3267,17 +3252,7 @@
   {
     "type": "suffix_operator",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "suffix_operator",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "tag_expr",
@@ -4451,11 +4426,11 @@
   },
   {
     "type": "module",
-    "named": false
+    "named": true
   },
   {
     "type": "module",
-    "named": true
+    "named": false
   },
   {
     "type": "natural",

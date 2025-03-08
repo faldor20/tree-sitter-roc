@@ -76,7 +76,7 @@ module.exports = grammar({
     $.field_name,
     $.bound_variable,
     $.operator,
-    $.suffix_opeator,
+    $.suffix_operator,
     $.variable_expr,
     $.inferred,
   ],
@@ -801,7 +801,7 @@ module.exports = grammar({
     char: ($) => seq("'", choice($.escape_char, $._simple_char_char), imm("'")),
 
     //NUMBERS
-    int: ($) => token(seq(/[0-9][0-9_]*/)),
+    int: ($) => token(/[0-9][0-9_]*/),
 
     //ROC
     uint: ($) => token(seq(/[0-9][0-9_]*/, imm(/u(32|8|16|64|128)/))),
@@ -809,8 +809,8 @@ module.exports = grammar({
     decimal: ($) => token(/[0-9]+(\.)?[0-9]*(dec)/),
     natural: ($) => token(/[0-9]+(nat)/),
 
-    float: ($) => token(seq(/[0-9]+(\.)?[0-9]*(e-?[0-9]*)?((f32)|(f64))?/)),
-    _hex_int: ($) => token(seq(/0[x][0-9abcdef]*/)),
+    float: ($) => token(/[0-9]+(\.)?[0-9]*(e-?[0-9]*)?((f32)|(f64))?/),
+    _hex_int: ($) => token(/0[x][0-9abcdef]*/),
     _binary_int: ($) => token(seq(/0[b]/, /[01][01_]*/)),
     xint: ($) => choice($._binary_int, $._hex_int),
 

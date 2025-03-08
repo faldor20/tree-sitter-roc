@@ -2578,7 +2578,7 @@
         }
       ]
     },
-    "import_body": {
+    "_import_body": {
       "type": "SEQ",
       "members": [
         {
@@ -2639,7 +2639,7 @@
           },
           {
             "type": "SYMBOL",
-            "name": "import_body"
+            "name": "_import_body"
           }
         ]
       }
@@ -4281,13 +4281,8 @@
     "int": {
       "type": "TOKEN",
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "[0-9][0-9_]*"
-          }
-        ]
+        "type": "PATTERN",
+        "value": "[0-9][0-9_]*"
       }
     },
     "uint": {
@@ -4345,25 +4340,15 @@
     "float": {
       "type": "TOKEN",
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "[0-9]+(\\.)?[0-9]*(e-?[0-9]*)?((f32)|(f64))?"
-          }
-        ]
+        "type": "PATTERN",
+        "value": "[0-9]+(\\.)?[0-9]*(e-?[0-9]*)?((f32)|(f64))?"
       }
     },
     "_hex_int": {
       "type": "TOKEN",
       "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "PATTERN",
-            "value": "0[x][0-9abcdef]*"
-          }
-        ]
+        "type": "PATTERN",
+        "value": "0[x][0-9abcdef]*"
       }
     },
     "_binary_int": {
@@ -4748,6 +4733,7 @@
     "field_name",
     "bound_variable",
     "operator",
+    "suffix_operator",
     "variable_expr",
     "inferred"
   ],

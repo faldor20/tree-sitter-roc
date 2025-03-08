@@ -18,8 +18,7 @@ c= tryer(arg) ?? "default"
             (identifier))
           (variable_expr
             (identifier)))
-        (suffix_operator
-          (suffix_operator)))))
+        (suffix_operator))))
   (value_declaration
     (decl_left
       (identifier_pattern
