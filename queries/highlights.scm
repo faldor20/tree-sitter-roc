@@ -220,3 +220,5 @@
 (module)@module
 
 (identifier)@variable
+(identifier "!"@operator)
+(identifier "_"@operator)

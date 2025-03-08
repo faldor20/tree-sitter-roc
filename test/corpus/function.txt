@@ -11,86 +11,70 @@ a = |x, y| x + y
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (anon_fun_expr
         (argument_patterns
           (identifier_pattern
-            (identifier
-              (regular_ident))))
+            (identifier)))
         (expr_body
           (variable_expr
-            (identifier
-              (regular_ident)))))))
+            (identifier))))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (anon_fun_expr
         (argument_patterns
           (identifier_pattern
-            (identifier
-              (regular_ident))))
+            (identifier)))
         (expr_body
           (bin_op_expr
             (variable_expr
-              (identifier
-                (regular_ident)))
+              (identifier))
             (operator)
             (const
               (int)))))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (anon_fun_expr
         (argument_patterns
           (identifier_pattern
-            (identifier
-              (regular_ident))))
+            (identifier)))
         (expr_body
           (anon_fun_expr
             (argument_patterns
               (identifier_pattern
-                (identifier
-                  (regular_ident))))
+                (identifier)))
             (expr_body
               (bin_op_expr
                 (variable_expr
-                  (identifier
-                    (regular_ident)))
+                  (identifier))
                 (operator)
                 (variable_expr
-                  (identifier
-                    (regular_ident))))))))))
+                  (identifier)))))))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (anon_fun_expr
         (argument_patterns
           (identifier_pattern
-            (identifier
-              (regular_ident)))
+            (identifier))
           (identifier_pattern
-            (identifier
-              (regular_ident))))
+            (identifier)))
         (expr_body
           (bin_op_expr
             (variable_expr
-              (identifier
-                (regular_ident)))
+              (identifier))
             (operator)
             (variable_expr
-              (identifier
-                (regular_ident)))))))))
+              (identifier))))))))
 
 ===
 function_call_static_dispatch
@@ -104,16 +88,13 @@ a=a.b(1).c(2,2).d(potato,1)
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (function_call_pnc_expr
         (field_access_expr
           (variable_expr
-            (identifier
-              (regular_ident)))
-          (identifier
-            (regular_ident)))
+            (identifier))
+          (identifier))
         (const
           (int))
         (const
@@ -123,21 +104,17 @@ a=a.b(1).c(2,2).d(potato,1)
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (function_call_pnc_expr
         (field_access_expr
           (variable_expr
-            (identifier
-              (regular_ident)))
-          (identifier
-            (regular_ident))))))
+            (identifier))
+          (identifier)))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (function_call_pnc_expr
         (field_access_expr
@@ -146,23 +123,18 @@ a=a.b(1).c(2,2).d(potato,1)
               (function_call_pnc_expr
                 (field_access_expr
                   (variable_expr
-                    (identifier
-                      (regular_ident)))
-                  (identifier
-                    (regular_ident)))
+                    (identifier))
+                  (identifier))
                 (const
                   (int)))
-              (identifier
-                (regular_ident)))
+              (identifier))
             (const
               (int))
             (const
               (int)))
-          (identifier
-            (regular_ident)))
+          (identifier))
         (variable_expr
-          (identifier
-            (regular_ident)))
+          (identifier))
         (const
           (int))))))
 
@@ -186,36 +158,29 @@ a=
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (function_call_pnc_expr
         (field_access_expr
           (function_call_pnc_expr
             (field_access_expr
               (variable_expr
-                (identifier
-                  (regular_ident)))
-              (identifier
-                (regular_ident)))
+                (identifier))
+              (identifier))
             (const
               (int)))
-          (identifier
-            (regular_ident)))
+          (identifier))
         (function_call_pnc_expr
           (field_access_expr
             (variable_expr
-              (identifier
-                (regular_ident)))
-            (identifier
-              (regular_ident)))
+              (identifier))
+            (identifier))
           (const
             (int))))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (function_call_pnc_expr
         (field_access_expr
@@ -224,21 +189,16 @@ a=
               (function_call_pnc_expr
                 (field_access_expr
                   (variable_expr
-                    (identifier
-                      (regular_ident)))
-                  (identifier
-                    (regular_ident)))
+                    (identifier))
+                  (identifier))
                 (const
                   (int)))
-              (identifier
-                (regular_ident)))
+              (identifier))
             (function_call_pnc_expr
               (field_access_expr
                 (variable_expr
-                  (identifier
-                    (regular_ident)))
-                (identifier
-                  (regular_ident)))
+                  (identifier))
+                (identifier))
               (const
                 (int))
               (const
@@ -247,8 +207,7 @@ a=
               (int))
             (const
               (int)))
-          (identifier
-            (regular_ident)))
+          (identifier))
         (const
           (int))))))
 
@@ -262,13 +221,11 @@ a= b(1,2,3)
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (function_call_pnc_expr
         (variable_expr
-          (identifier
-            (regular_ident)))
+          (identifier))
         (const
           (int))
         (const
@@ -287,8 +244,7 @@ Num.str(1)
     (function_call_pnc_expr
       (variable_expr
         (module)
-        (identifier
-          (regular_ident)))
+        (identifier))
       (const
         (int)))))
 
@@ -307,17 +263,13 @@ a.b(1).c(2).d(3)
             (function_call_pnc_expr
               (field_access_expr
                 (variable_expr
-                  (identifier
-                    (regular_ident)))
-                (identifier
-                  (regular_ident)))
+                  (identifier))
+                (identifier))
               (const
                 (int)))
-            (identifier
-              (regular_ident)))
+            (identifier))
           (const
             (int)))
-        (identifier
-          (regular_ident)))
+        (identifier))
       (const
         (int)))))

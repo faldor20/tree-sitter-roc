@@ -364,7 +364,6 @@ module.exports = grammar({
         ),
         "]",
       ),
-
     spread_expr: ($) => seq("..", $._expr_inner),
     tuple_expr: ($) =>
       seq(
@@ -837,12 +836,9 @@ module.exports = grammar({
     fat_arrow: ($) => "=>",
     field_name: ($) => alias($.identifier, $.field_name),
     ident: ($) => choice($._lower_identifier, $._upper_identifier),
+
     identifier: ($) =>
-      choice(
-        alias($._lower_identifier, $.regular_ident),
-        alias(/\_[\p{Ll}][\p{XID_Continue}]*/, $.shadowed_ident),
-        alias(/\_?[\p{Ll}][\p{XID_Continue}]*\!/, $.effectful_ident),
-      ),
+      prec(100, seq(optional("_"), $._lower_identifier, optional(imm("!")))),
 
     _lower_identifier: ($) => /[\p{Ll}][\p{XID_Continue}]*/,
 

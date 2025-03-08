@@ -1173,25 +1173,7 @@
   {
     "type": "field_name",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "effectful_ident",
-          "named": true
-        },
-        {
-          "type": "regular_ident",
-          "named": true
-        },
-        {
-          "type": "shadowed_ident",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "file",
@@ -1537,25 +1519,7 @@
   {
     "type": "identifier",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": true,
-      "types": [
-        {
-          "type": "effectful_ident",
-          "named": true
-        },
-        {
-          "type": "regular_ident",
-          "named": true
-        },
-        {
-          "type": "shadowed_ident",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "identifier_pattern",
@@ -3483,7 +3447,7 @@
     }
   },
   {
-    "type": "tuple_expr",
+    "type": "tuple_body",
     "named": true,
     "fields": {
       "expr": {
@@ -3576,6 +3540,21 @@
           }
         ]
       }
+    }
+  },
+  {
+    "type": "tuple_expr",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "tuple_body",
+          "named": true
+        }
+      ]
     }
   },
   {
@@ -4380,10 +4359,6 @@
     "named": true
   },
   {
-    "type": "effectful_ident",
-    "named": true
-  },
-  {
     "type": "effects",
     "named": false
   },
@@ -4453,11 +4428,11 @@
   },
   {
     "type": "module",
-    "named": false
+    "named": true
   },
   {
     "type": "module",
-    "named": true
+    "named": false
   },
   {
     "type": "natural",
@@ -4492,16 +4467,8 @@
     "named": false
   },
   {
-    "type": "regular_ident",
-    "named": true
-  },
-  {
     "type": "requires",
     "named": false
-  },
-  {
-    "type": "shadowed_ident",
-    "named": true
   },
   {
     "type": "tag",

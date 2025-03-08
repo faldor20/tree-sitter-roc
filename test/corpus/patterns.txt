@@ -8,33 +8,26 @@ bfs = |a, b, @OTag c| a( b, c)
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (anon_fun_expr
         (argument_patterns
           (identifier_pattern
-            (identifier
-              (regular_ident)))
+            (identifier))
           (identifier_pattern
-            (identifier
-              (regular_ident)))
+            (identifier))
           (tag_pattern
             (opaque_tag)
             (identifier_pattern
-              (identifier
-                (regular_ident)))))
+              (identifier))))
         (expr_body
           (function_call_pnc_expr
             (variable_expr
-              (identifier
-                (regular_ident)))
+              (identifier))
             (variable_expr
-              (identifier
-                (regular_ident)))
+              (identifier))
             (variable_expr
-              (identifier
-                (regular_ident)))))))))
+              (identifier))))))))
 
 ================================================================================
 pattern_tag
@@ -46,33 +39,26 @@ bfs = |a, b, Tag c| a( b, c)
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (anon_fun_expr
         (argument_patterns
           (identifier_pattern
-            (identifier
-              (regular_ident)))
+            (identifier))
           (identifier_pattern
-            (identifier
-              (regular_ident)))
+            (identifier))
           (tag_pattern
             (tag)
             (identifier_pattern
-              (identifier
-                (regular_ident)))))
+              (identifier))))
         (expr_body
           (function_call_pnc_expr
             (variable_expr
-              (identifier
-                (regular_ident)))
+              (identifier))
             (variable_expr
-              (identifier
-                (regular_ident)))
+              (identifier))
             (variable_expr
-              (identifier
-                (regular_ident)))))))))
+              (identifier))))))))
 
 ================================================================================
 pattern_range
@@ -84,38 +70,29 @@ bfs = |a, b, [head, ..tail]| a( b, head, tail)
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (anon_fun_expr
         (argument_patterns
           (identifier_pattern
-            (identifier
-              (regular_ident)))
+            (identifier))
           (identifier_pattern
-            (identifier
-              (regular_ident)))
+            (identifier))
           (list_pattern
             (identifier_pattern
-              (identifier
-                (regular_ident)))
+              (identifier))
             (spread_pattern
-              (identifier
-                (regular_ident)))))
+              (identifier))))
         (expr_body
           (function_call_pnc_expr
             (variable_expr
-              (identifier
-                (regular_ident)))
+              (identifier))
             (variable_expr
-              (identifier
-                (regular_ident)))
+              (identifier))
             (variable_expr
-              (identifier
-                (regular_ident)))
+              (identifier))
             (variable_expr
-              (identifier
-                (regular_ident)))))))))
+              (identifier))))))))
 
 ================================================================================
 pattern_range_many
@@ -131,23 +108,19 @@ record=|bytes,dict|
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (anon_fun_expr
         (argument_patterns
           (identifier_pattern
-            (identifier
-              (regular_ident)))
+            (identifier))
           (identifier_pattern
-            (identifier
-              (regular_ident))))
+            (identifier)))
         (expr_body
           (when_is_expr
             (when)
             (variable_expr
-              (identifier
-                (regular_ident)))
+              (identifier))
             (is)
             (when_is_branch
               (list_pattern
@@ -157,13 +130,10 @@ record=|bytes,dict|
               (expr_body
                 (function_call_pnc_expr
                   (variable_expr
-                    (identifier
-                      (regular_ident)))
+                    (identifier))
                   (parenthesized_expr
                     (expr_body
                       (variable_expr
-                        (identifier
-                          (regular_ident)))))
+                        (identifier))))
                   (variable_expr
-                    (identifier
-                      (regular_ident))))))))))))
+                    (identifier)))))))))))

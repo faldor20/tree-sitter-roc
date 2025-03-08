@@ -8,8 +8,7 @@ a = ...
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (todo_expr))))
 
@@ -30,27 +29,23 @@ a
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (value_declaration
         (decl_left
           (identifier_pattern
-            (identifier
-              (regular_ident))))
+            (identifier)))
         (expr_body
           (todo_expr)))
       (value_declaration
         (decl_left
           (identifier_pattern
-            (identifier
-              (regular_ident))))
+            (identifier)))
         (expr_body
           (when_is_expr
             (when)
             (variable_expr
-              (identifier
-                (regular_ident)))
+              (identifier))
             (is)
             (when_is_branch
               (const_pattern
@@ -61,5 +56,4 @@ a
       (todo_expr)))
   (expr_body
     (variable_expr
-      (identifier
-        (regular_ident)))))
+      (identifier))))

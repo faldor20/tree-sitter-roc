@@ -8,26 +8,21 @@ a = {b:10,c:inp,d}
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (record_expr
         (record_field_expr
-          (field_name
-            (regular_ident))
+          (field_name)
           (expr_body
             (const
               (int))))
         (record_field_expr
-          (field_name
-            (regular_ident))
+          (field_name)
           (expr_body
             (variable_expr
-              (identifier
-                (regular_ident)))))
+              (identifier))))
         (record_field_expr
-          (field_name
-            (regular_ident)))))))
+          (field_name))))))
 
 ================================================================================
 record_expr
@@ -47,34 +42,28 @@ a =
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (record_expr
         (record_field_expr
-          (field_name
-            (regular_ident))
+          (field_name)
           (expr_body
             (const
               (int))))
         (record_field_expr
-          (field_name
-            (regular_ident))
+          (field_name)
           (expr_body
             (if_expr
               (variable_expr
-                (identifier
-                  (regular_ident)))
+                (identifier))
               (then
                 (expr_body
                   (variable_expr
-                    (identifier
-                      (regular_ident)))))
+                    (identifier))))
               (else
                 (expr_body
                   (variable_expr
-                    (identifier
-                      (regular_ident))))))))))))
+                    (identifier)))))))))))
 
 ====
 record_spread_pattern
@@ -92,52 +81,41 @@ when a is
     (when_is_expr
       (when)
       (variable_expr
-        (identifier
-          (regular_ident)))
+        (identifier))
       (is)
       (when_is_branch
         (record_pattern
           (record_field_pattern
-            (field_name
-              (regular_ident)))
+            (field_name))
           (record_field_pattern
-            (field_name
-              (regular_ident))))
+            (field_name)))
         (arrow)
         (expr_body
           (variable_expr
-            (identifier
-              (regular_ident)))))
+            (identifier))))
       (when_is_branch
         (record_pattern
           (record_field_pattern
-            (field_name
-              (regular_ident)))
+            (field_name))
           (record_field_pattern
-            (field_name
-              (regular_ident)))
+            (field_name))
           (spread_pattern))
         (arrow)
         (expr_body
           (variable_expr
-            (identifier
-              (regular_ident)))))
+            (identifier))))
       (when_is_branch
         (record_pattern
           (record_field_pattern
-            (field_name
-              (regular_ident)))
+            (field_name))
           (record_field_pattern
-            (field_name
-              (regular_ident)))
+            (field_name))
           (spread_pattern
-            (identifier
-              (regular_ident))))
+            (identifier)))
         (arrow)
         (expr_body
           (variable_expr
-            (identifier
-              (regular_ident))))))))
+            (identifier)))))))
 
 ====
 record_spread
@@ -151,21 +129,16 @@ a={a,a:b,..b}
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (record_expr
         (record_field_expr
-          (field_name
-            (regular_ident)))
+          (field_name))
         (record_field_expr
-          (field_name
-            (regular_ident))
+          (field_name)
           (expr_body
             (variable_expr
-              (identifier
-                (regular_ident)))))
+              (identifier))))
         (spread_expr
           (variable_expr
-            (identifier
-              (regular_ident))))))))
+            (identifier)))))))

@@ -8,19 +8,15 @@ a= [a, b, c]
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (list_expr
         (variable_expr
-          (identifier
-            (regular_ident)))
+          (identifier))
         (variable_expr
-          (identifier
-            (regular_ident)))
+          (identifier))
         (variable_expr
-          (identifier
-            (regular_ident)))))))
+          (identifier))))))
 
 ====
 list_spread
@@ -33,30 +29,23 @@ a= [a, b, c,..hi]
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (list_expr
         (variable_expr
-          (identifier
-            (regular_ident))))))
+          (identifier)))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (list_expr
         (variable_expr
-          (identifier
-            (regular_ident)))
+          (identifier))
         (variable_expr
-          (identifier
-            (regular_ident)))
+          (identifier))
         (variable_expr
-          (identifier
-            (regular_ident)))
+          (identifier))
         (spread_expr
           (variable_expr
-            (identifier
-              (regular_ident))))))))
+            (identifier)))))))

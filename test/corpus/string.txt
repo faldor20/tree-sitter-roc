@@ -8,8 +8,7 @@ a="foo"
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (const
         (string)))))
@@ -28,8 +27,7 @@ a=
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (const
         (multiline_string)))))
@@ -48,8 +46,7 @@ main =
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (const
         (multiline_string)))))
@@ -68,8 +65,7 @@ main =
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (const
         (multiline_string
@@ -89,8 +85,7 @@ main =
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (const
         (string
@@ -110,8 +105,7 @@ main =
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (const
         (string)))))
@@ -127,20 +121,17 @@ escaped= "\${notinterpolated}"
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (const
         (string
           (interpolation_char
             (variable_expr
-              (identifier
-                (regular_ident))))))))
+              (identifier)))))))
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (const
         (string
@@ -157,8 +148,7 @@ main ="\t hi\n\\${"hi"}${Num.toStr(10)}${"hi${"nested"}"}\${notinterpolated}"
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (const
         (string
@@ -172,8 +162,7 @@ main ="\t hi\n\\${"hi"}${Num.toStr(10)}${"hi${"nested"}"}\${notinterpolated}"
             (function_call_pnc_expr
               (variable_expr
                 (module)
-                (identifier
-                  (regular_ident)))
+                (identifier))
               (const
                 (int))))
           (interpolation_char
@@ -204,8 +193,7 @@ main =
   (value_declaration
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (const
         (multiline_string
@@ -219,8 +207,7 @@ main =
             (function_call_pnc_expr
               (variable_expr
                 (module)
-                (identifier
-                  (regular_ident)))
+                (identifier))
               (const
                 (int))))
           (escape_char))))))

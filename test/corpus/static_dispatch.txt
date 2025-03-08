@@ -9,19 +9,14 @@ a.b(c,d,e)
     (function_call_pnc_expr
       (field_access_expr
         (variable_expr
-          (identifier
-            (regular_ident)))
-        (identifier
-          (regular_ident)))
+          (identifier))
+        (identifier))
       (variable_expr
-        (identifier
-          (regular_ident)))
+        (identifier))
       (variable_expr
-        (identifier
-          (regular_ident)))
+        (identifier))
       (variable_expr
-        (identifier
-          (regular_ident))))))
+        (identifier)))))
 
 ====
 method_call_other
@@ -35,21 +30,15 @@ a.b!(c!,d)
     (function_call_pnc_expr
       (field_access_expr
         (variable_expr
-          (identifier
-            (regular_ident)))
-        (identifier
-          (regular_ident)))))
+          (identifier))
+        (identifier))))
   (expr_body
     (function_call_pnc_expr
       (field_access_expr
         (variable_expr
-          (identifier
-            (regular_ident)))
-        (identifier
-          (effectful_ident)))
+          (identifier))
+        (identifier))
       (variable_expr
-        (identifier
-          (effectful_ident)))
+        (identifier))
       (variable_expr
-        (identifier
-          (regular_ident))))))
+        (identifier)))))

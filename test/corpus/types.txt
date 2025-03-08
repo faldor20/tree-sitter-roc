@@ -35,22 +35,19 @@ b=|a,b| b
   (value_declaration
     (annotation_type_def
       (annotation_pre_colon
-        (identifier
-          (regular_ident)))
+        (identifier))
       (apply_type
         (concrete_type)))
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (const
         (int))))
   (value_declaration
     (annotation_type_def
       (annotation_pre_colon
-        (identifier
-          (regular_ident)))
+        (identifier))
       (function_type
         (apply_type
           (concrete_type))
@@ -61,21 +58,17 @@ b=|a,b| b
           (concrete_type))))
     (decl_left
       (identifier_pattern
-        (identifier
-          (regular_ident))))
+        (identifier)))
     (expr_body
       (anon_fun_expr
         (argument_patterns
           (identifier_pattern
-            (identifier
-              (regular_ident)))
+            (identifier))
           (identifier_pattern
-            (identifier
-              (regular_ident))))
+            (identifier)))
         (expr_body
           (variable_expr
-            (identifier
-              (regular_ident))))))))
+            (identifier)))))))
 
 ====
 types_effectful
@@ -88,8 +81,7 @@ eff! = ...
   (value_declaration
     (annotation_type_def
       (annotation_pre_colon
-        (identifier
-          (effectful_ident)))
+        (identifier))
       (function_type
         (apply_type
           (concrete_type))
@@ -98,8 +90,7 @@ eff! = ...
           (concrete_type))))
     (decl_left
       (identifier_pattern
-        (identifier
-          (effectful_ident))))
+        (identifier)))
     (expr_body
       (todo_expr))))
 
@@ -117,13 +108,11 @@ A rest:{a:Str,b:Str,..rest}
         (bound_variable)))
     (record_type
       (record_field_type
-        (field_name
-          (regular_ident))
+        (field_name)
         (apply_type
           (concrete_type)))
       (record_field_type
-        (field_name
-          (regular_ident))
+        (field_name)
         (apply_type
           (concrete_type)))
       (open_type_var
