@@ -118,21 +118,20 @@ module.exports = grammar({
         ),
       ),
 
+    /**
+      Expressions that can appear anywhere in the body of an expression. 
+      */
+    _body_expression: ($) =>
+      prec(-1, choice($.value_declaration, $.dbg_expr, $.suffix_op_expr)),
     expr_body: ($) =>
       choice(
         seq(
           $._indent,
-          field(
-            "declarations",
-            repeat(choice($.value_declaration, $.dbg_expr)),
-          ),
+          field("declarations", repeat($._body_expression)),
           field("result", $._expr_inner),
           $._dedent,
         ),
-        seq(
-          repeat(choice($.value_declaration, $.dbg_expr)),
-          field("result", $._expr_inner),
-        ),
+        seq(repeat($._body_expression), field("result", $._expr_inner)),
       ),
 
     /**
@@ -143,15 +142,12 @@ module.exports = grammar({
       choice(
         seq(
           $._indent,
-          field(
-            "declarations",
-            repeat(choice($.value_declaration, $.dbg_expr)),
-          ),
+          field("declarations", repeat($._body_expression)),
           field("result", $._expr_inner),
           $._dedent,
         ),
         seq(
-          repeat(choice($.value_declaration, $.dbg_expr)),
+          repeat($._body_expression),
           field("result", $._expr_inner),
           choice($._dedent, $._end_newline),
         ),
@@ -176,12 +172,12 @@ module.exports = grammar({
         $.field_access_expr,
         $.todo_expr,
         $.function_call_pnc_expr,
+        $.suffix_op_expr,
         $.prefixed_expression,
       ),
 
     _expr_inner: ($) =>
       choice(
-        $.suffix_op_expr,
         $.bin_op_expr,
         $._atom_expr,
         $.import_expr,
@@ -287,7 +283,13 @@ module.exports = grammar({
         ),
       ),
     suffix_op_expr: ($) =>
-      field("part", prec(PREC.PART, seq($._atom_expr, $.suffix_operator))),
+      field(
+        "part",
+        prec.left(
+          PREC.PART + 1,
+          seq($._atom_expr, $.suffix_operator, optional($._end_newline)),
+        ),
+      ),
 
     //WHEN_IS
     _when_is_start: ($) =>
@@ -819,7 +821,7 @@ module.exports = grammar({
     arrow: ($) => "->",
     fat_arrow: ($) => "=>",
     field_name: ($) => alias($.identifier, $.field_name),
-    ident: ($) => choice($._lower_identifier, $._upper_identifier),
+    ident: ($) => choice(alias($.identifier, $._), $._upper_identifier),
 
     identifier: ($) =>
       prec(100, seq(optional("_"), $._lower_identifier, optional(imm("!")))),

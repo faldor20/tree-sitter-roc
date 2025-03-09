@@ -35,7 +35,8 @@ check_contents_of_files! = |readme_path, license_path|
 (file
   (app_header
     (provides_list
-      (ident))
+      (ident
+        (_)))
     (packages_list
       (platform_ref
         (identifier)
@@ -235,7 +236,7 @@ check_contents_of_files! = |readme_path, license_path|
                 (variable_expr
                   (module)
                   (identifier)))))
-          (bin_op_expr
+          (suffix_op_expr
             (function_call_pnc_expr
               (variable_expr
                 (module)
@@ -248,20 +249,20 @@ check_contents_of_files! = |readme_path, license_path|
                   (interpolation_char
                     (variable_expr
                       (identifier))))))
-            (operator)
-            (function_call_pnc_expr
-              (variable_expr
-                (module)
-                (identifier))
-              (const
-                (string
-                  (interpolation_char
+            (suffix_operator))
+          (function_call_pnc_expr
+            (variable_expr
+              (module)
+              (identifier))
+            (const
+              (string
+                (interpolation_char
+                  (variable_expr
+                    (identifier)))
+                (interpolation_char
+                  (function_call_pnc_expr
                     (variable_expr
-                      (identifier)))
-                  (interpolation_char
-                    (function_call_pnc_expr
-                      (variable_expr
-                        (module)
-                        (identifier))
-                      (variable_expr
-                        (identifier)))))))))))))
+                      (module)
+                      (identifier))
+                    (variable_expr
+                      (identifier))))))))))))

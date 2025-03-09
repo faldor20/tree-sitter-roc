@@ -4,4 +4,4 @@ module
 
 B:[AAAA.BB]    
 
-fn=\a->a
+fn=|a| a
