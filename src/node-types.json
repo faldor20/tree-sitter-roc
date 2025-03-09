@@ -1,5 +1,10 @@
 [
   {
+    "type": "_",
+    "named": true,
+    "fields": {}
+  },
+  {
     "type": "ability_chain",
     "named": true,
     "fields": {},
@@ -401,6 +406,10 @@
           },
           {
             "type": "record_update_expr",
+            "named": true
+          },
+          {
+            "type": "suffix_op_expr",
             "named": true
           },
           {
@@ -1012,6 +1021,10 @@
             "named": true
           },
           {
+            "type": "suffix_op_expr",
+            "named": true
+          },
+          {
             "type": "value_declaration",
             "named": true
           }
@@ -1114,6 +1127,10 @@
       "types": [
         {
           "type": "dbg_expr",
+          "named": true
+        },
+        {
+          "type": "suffix_op_expr",
           "named": true
         },
         {
@@ -1390,6 +1407,10 @@
             "named": true
           },
           {
+            "type": "suffix_op_expr",
+            "named": true
+          },
+          {
             "type": "tag_expr",
             "named": true
           },
@@ -1522,7 +1543,17 @@
   {
     "type": "ident",
     "named": true,
-    "fields": {}
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": false,
+      "types": [
+        {
+          "type": "_",
+          "named": true
+        }
+      ]
+    }
   },
   {
     "type": "identifier",
@@ -3219,6 +3250,10 @@
             "named": true
           },
           {
+            "type": "suffix_op_expr",
+            "named": true
+          },
+          {
             "type": "suffix_operator",
             "named": true
           },
@@ -3245,17 +3280,7 @@
   {
     "type": "suffix_operator",
     "named": true,
-    "fields": {},
-    "children": {
-      "multiple": false,
-      "required": false,
-      "types": [
-        {
-          "type": "suffix_operator",
-          "named": true
-        }
-      ]
-    }
+    "fields": {}
   },
   {
     "type": "tag_expr",
@@ -3311,6 +3336,10 @@
         },
         {
           "type": "record_update_expr",
+          "named": true
+        },
+        {
+          "type": "suffix_op_expr",
           "named": true
         },
         {
@@ -4333,11 +4362,11 @@
   },
   {
     "type": "as",
-    "named": true
+    "named": false
   },
   {
     "type": "as",
-    "named": false
+    "named": true
   },
   {
     "type": "bound_variable",
@@ -4433,11 +4462,11 @@
   },
   {
     "type": "module",
-    "named": false
+    "named": true
   },
   {
     "type": "module",
-    "named": true
+    "named": false
   },
   {
     "type": "natural",

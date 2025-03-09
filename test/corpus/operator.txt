@@ -18,8 +18,7 @@ c= tryer(arg) ?? "default"
             (identifier))
           (variable_expr
             (identifier)))
-        (suffix_operator
-          (suffix_operator)))))
+        (suffix_operator))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -52,3 +51,88 @@ c= tryer(arg) ?? "default"
         (operator)
         (const
           (string))))))
+
+====
+operator_try_with_var
+====
+a =
+  Stdout.line!("${Num.to_str(n)}...")?
+  _ = Stdin.line!({})
+  b
+-----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (suffix_op_expr
+        (function_call_pnc_expr
+          (variable_expr
+            (module)
+            (identifier))
+          (const
+            (string
+              (interpolation_char
+                (function_call_pnc_expr
+                  (variable_expr
+                    (module)
+                    (identifier))
+                  (variable_expr
+                    (identifier)))))))
+        (suffix_operator))
+      (value_declaration
+        (decl_left
+          (wildcard_pattern))
+        (expr_body
+          (function_call_pnc_expr
+            (variable_expr
+              (module)
+              (identifier))
+            (record_expr))))
+      (variable_expr
+        (identifier)))))
+
+====
+operator_as_lastexpr
+====
+top=|b|
+  a =
+    Stdout.line!("${Num.to_str(n)}...")?
+  a
+-----
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (value_declaration
+            (decl_left
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (suffix_op_expr
+                (function_call_pnc_expr
+                  (variable_expr
+                    (module)
+                    (identifier))
+                  (const
+                    (string
+                      (interpolation_char
+                        (function_call_pnc_expr
+                          (variable_expr
+                            (module)
+                            (identifier))
+                          (variable_expr
+                            (identifier)))))))
+                (suffix_operator))))
+          (variable_expr
+            (identifier)))))))
