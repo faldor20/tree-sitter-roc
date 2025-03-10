@@ -817,7 +817,7 @@ module.exports = grammar({
     natural: ($) => token(/[0-9]+(nat)/),
 
     float: ($) => token(seq(/[0-9]+(\.)?[0-9]*(e-?[0-9]*)?((f32)|(f64))?/)),
-    _hex_int: ($) => token(seq(/0[x][0-9abcdef]*/)),
+    _hex_int: ($) => token(/0[x][0-9abcdefABCDEF]*/),
     _binary_int: ($) => token(seq(/0[b]/, /[01][01_]*/)),
     xint: ($) => choice($._binary_int, $._hex_int),
 
