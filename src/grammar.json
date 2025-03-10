@@ -163,6 +163,27 @@
         ]
       }
     },
+    "_body_expression": {
+      "type": "PREC",
+      "value": -1,
+      "content": {
+        "type": "CHOICE",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "value_declaration"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "dbg_expr"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "suffix_op_expr"
+          }
+        ]
+      }
+    },
     "expr_body": {
       "type": "CHOICE",
       "members": [
@@ -179,17 +200,8 @@
               "content": {
                 "type": "REPEAT",
                 "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "value_declaration"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "dbg_expr"
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "_body_expression"
                 }
               }
             },
@@ -213,17 +225,8 @@
             {
               "type": "REPEAT",
               "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "value_declaration"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "dbg_expr"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "_body_expression"
               }
             },
             {
@@ -254,17 +257,8 @@
               "content": {
                 "type": "REPEAT",
                 "content": {
-                  "type": "CHOICE",
-                  "members": [
-                    {
-                      "type": "SYMBOL",
-                      "name": "value_declaration"
-                    },
-                    {
-                      "type": "SYMBOL",
-                      "name": "dbg_expr"
-                    }
-                  ]
+                  "type": "SYMBOL",
+                  "name": "_body_expression"
                 }
               }
             },
@@ -288,17 +282,8 @@
             {
               "type": "REPEAT",
               "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "SYMBOL",
-                    "name": "value_declaration"
-                  },
-                  {
-                    "type": "SYMBOL",
-                    "name": "dbg_expr"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "_body_expression"
               }
             },
             {
@@ -387,6 +372,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "suffix_op_expr"
+        },
+        {
+          "type": "SYMBOL",
           "name": "prefixed_expression"
         }
       ]
@@ -394,10 +383,6 @@
     "_expr_inner": {
       "type": "CHOICE",
       "members": [
-        {
-          "type": "SYMBOL",
-          "name": "suffix_op_expr"
-        },
         {
           "type": "SYMBOL",
           "name": "bin_op_expr"
@@ -870,8 +855,8 @@
       "type": "FIELD",
       "name": "part",
       "content": {
-        "type": "PREC",
-        "value": 1,
+        "type": "PREC_LEFT",
+        "value": 2,
         "content": {
           "type": "SEQ",
           "members": [
@@ -882,6 +867,18 @@
             {
               "type": "SYMBOL",
               "name": "suffix_operator"
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_end_newline"
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
             }
           ]
         }
@@ -4414,8 +4411,13 @@
       "type": "CHOICE",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "_lower_identifier"
+          "type": "ALIAS",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          },
+          "named": true,
+          "value": "_"
         },
         {
           "type": "SYMBOL",
@@ -4748,6 +4750,7 @@
     "field_name",
     "bound_variable",
     "operator",
+    "suffix_operator",
     "variable_expr",
     "inferred"
   ],
