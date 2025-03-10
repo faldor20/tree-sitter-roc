@@ -1,10 +1,5 @@
 [
   {
-    "type": "_",
-    "named": true,
-    "fields": {}
-  },
-  {
     "type": "ability_chain",
     "named": true,
     "fields": {},
@@ -949,21 +944,6 @@
     }
   },
   {
-    "type": "exposed_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "ident",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "exposes",
     "named": true,
     "fields": {},
@@ -1546,10 +1526,14 @@
     "fields": {},
     "children": {
       "multiple": false,
-      "required": false,
+      "required": true,
       "types": [
         {
-          "type": "_",
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "module",
           "named": true
         }
       ]
@@ -1894,6 +1878,10 @@
       "required": true,
       "types": [
         {
+          "type": "as",
+          "named": true
+        },
+        {
           "type": "concrete_type",
           "named": true
         },
@@ -1922,111 +1910,6 @@
         },
         {
           "type": "module",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "import_path",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "escape_char",
-          "named": true
-        },
-        {
-          "type": "interpolation_char",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "imports",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "imports_entry",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
-    "type": "imports_entry",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": true,
-      "types": [
-        {
-          "type": "apply_type",
-          "named": true
-        },
-        {
-          "type": "bound_variable",
-          "named": true
-        },
-        {
-          "type": "exposed_list",
-          "named": true
-        },
-        {
-          "type": "function_type",
-          "named": true
-        },
-        {
-          "type": "identifier",
-          "named": true
-        },
-        {
-          "type": "implements_implementation",
-          "named": true
-        },
-        {
-          "type": "import_as",
-          "named": true
-        },
-        {
-          "type": "import_path",
-          "named": true
-        },
-        {
-          "type": "inferred",
-          "named": true
-        },
-        {
-          "type": "module",
-          "named": true
-        },
-        {
-          "type": "parenthesized_type",
-          "named": true
-        },
-        {
-          "type": "record_type",
-          "named": true
-        },
-        {
-          "type": "tags_type",
-          "named": true
-        },
-        {
-          "type": "tuple_type",
-          "named": true
-        },
-        {
-          "type": "where_implements",
           "named": true
         }
       ]
@@ -2677,10 +2560,6 @@
           "named": true
         },
         {
-          "type": "imports",
-          "named": true
-        },
-        {
           "type": "packages",
           "named": true
         },
@@ -2758,6 +2637,10 @@
           "named": true
         },
         {
+          "type": "identifier",
+          "named": true
+        },
+        {
           "type": "string",
           "named": true
         },
@@ -2777,7 +2660,7 @@
       "required": false,
       "types": [
         {
-          "type": "ident",
+          "type": "identifier",
           "named": true
         }
       ]
@@ -4437,14 +4320,6 @@
     "named": false
   },
   {
-    "type": "import_as",
-    "named": true
-  },
-  {
-    "type": "imports",
-    "named": false
-  },
-  {
     "type": "inferred",
     "named": true
   },
@@ -4462,11 +4337,11 @@
   },
   {
     "type": "module",
-    "named": true
+    "named": false
   },
   {
     "type": "module",
-    "named": false
+    "named": true
   },
   {
     "type": "natural",

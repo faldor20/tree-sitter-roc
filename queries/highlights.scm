@@ -25,16 +25,6 @@
 (tuple_type    "," @punctuation.delimiter.roc-special.in-typedef)
 
 
-
-(app_header (packages_list (platform_ref (":" @special.roc-special.package))))
-
-
-
-(record_field_pattern ":" @variable)
-
-(record_field_expr ":" @variable.other.member)
-
-(record_field_type ":"          @variable.other.member.roc-special.in-typedef)
 (record_field_type (field_name) @variable.other.member.roc-special.in-typedef)
 
 
@@ -133,6 +123,7 @@
 
 [
   "app"
+  (as)
   "as"
   "expect"
   "exposing"
@@ -162,6 +153,7 @@
 ; @keyword.control.repeat
 
 ; TODO: Implement this for `return`.
+(suffix_operator "?" @keyword.control.return)
 ; @keyword.control.return
 
 ; N/A
@@ -196,14 +188,13 @@
 
 
 [
-  ":"
   "="
   "."
-  "?"
   "&"
   ; "|" ; TODO: This conflicts with the `"|" @punctuation.bracket` query, so improve both.
   "<-"
   ".."
+  (wildcard_pattern) 
   (operator)
 ] @operator
 
@@ -225,12 +216,15 @@
 
 [
   ","
+  ":"
   (arrow)
   (fat_arrow)
 ] @punctuation.delimiter
 
 ; TODO: Implement this for string interpolation delimeters `$(` and `)`.
-; @punctuation.special
+[
+  (interpolation_char)
+] @punctuation.special
 
 
 
@@ -238,7 +232,7 @@
 ; @special
 
 ; TODO: Differentiate between values, functions, and types.
-(app_header (provides_list ((ident) @special.roc-special.provided)))
+(app_header (provides_list ((identifier) @special.roc-special.provided)))
 
 (app_header (packages_list ((platform_ref) @special.roc-special.package)))
 
@@ -304,7 +298,8 @@
 ; Note: See the lower-priority queries below for a `@variable` query.
 (record_field_pattern (_ (identifier) @variable))
 
-(wildcard_pattern) @variable.builtin
+; N/A
+;@variable.builtin
 
 ; N/A
 ; @variable.other

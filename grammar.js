@@ -496,14 +496,7 @@ module.exports = grammar({
       ),
     platform_header_body: ($) =>
       sep1(
-        choice(
-          $.requires,
-          $.exposes,
-          $.packages,
-          $.imports,
-          $.provides,
-          $.effects,
-        ),
+        choice($.requires, $.exposes, $.packages, $.provides, $.effects),
         "\n",
       ),
 
@@ -537,21 +530,10 @@ module.exports = grammar({
     import_file_expr: ($) =>
       prec(
         PREC.IMPORT,
-        seq("import", $.string, seq("as", $.identifier, ":", $.concrete_type)),
-      ),
-    imports: ($) => seq("imports", "[", sep_tail($.imports_entry, ","), "]"),
-    imports_entry: ($) =>
-      seq(
-        choice(
-          seq(
-            optional(seq($.identifier, ".")),
-            seq($.module, repeat(seq(".", $.module))),
-            optional(seq(".", $.exposed_list)),
-          ),
-          alias($.string, $.import_path),
-        ),
-        optional(
-          seq(alias("as", $.import_as), $.identifier, ":", $._type_annotation),
+        seq(
+          "import",
+          $.string,
+          seq(alias("as", $.as), $.identifier, ":", $.concrete_type),
         ),
       ),
     //TODO make a function for all these comma separated trailing comma things
@@ -560,8 +542,8 @@ module.exports = grammar({
       seq(
         "provides",
         "[",
-        optional($.ident),
-        repeat(seq(",", $.ident)),
+        optional($.identifier),
+        repeat(seq(",", $.identifier)),
         optional(","),
         "]",
         optional(seq($.to, choice($.string, $.ident))),
@@ -569,8 +551,8 @@ module.exports = grammar({
     provides_list: ($) =>
       seq(
         "[",
-        optional($.ident),
-        repeat(seq(",", $.ident)),
+        optional($.identifier),
+        repeat(seq(",", $.identifier)),
         optional(","),
         "]",
       ),
@@ -826,7 +808,7 @@ module.exports = grammar({
     arrow: ($) => "->",
     fat_arrow: ($) => "=>",
     field_name: ($) => alias($.identifier, $.field_name),
-    ident: ($) => choice(alias($.identifier, $._), $._upper_identifier),
+    ident: ($) => choice($.identifier, $.module),
 
     identifier: ($) =>
       prec(100, seq(optional("_"), $._lower_identifier, optional(imm("!")))),
