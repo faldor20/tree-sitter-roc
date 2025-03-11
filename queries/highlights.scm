@@ -68,11 +68,10 @@
   "dbg"
 ] @constant.builtin
 
-; TODO: prefix incidental names with `temp.` to avoid implicit exports? Like `@temp.module`
-(variable_expr (module) @module (identifier) @constant.builtin.boolean
-  (#eq? @constant.builtin.boolean "false") (#eq? @module "Bool"))
-(variable_expr (module) @module (identifier) @constant.builtin.boolean
-  (#eq? @constant.builtin.boolean "true") (#eq? @module "Bool"))
+(variable_expr (module) @ignoreme.module (identifier) @constant.builtin.boolean
+  (#eq? @constant.builtin.boolean "false") (#eq? @ignoreme.module "Bool"))
+(variable_expr (module) @ignoreme.module (identifier) @constant.builtin.boolean
+  (#eq? @constant.builtin.boolean "true") (#eq? @ignoreme.module "Bool"))
 
 (char) @constant.character
 
