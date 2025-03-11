@@ -44,15 +44,15 @@
 
 
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @attribute
 
 
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @comment
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @comment.block
 
 (doc_comment) @comment.block.documentation
@@ -61,7 +61,7 @@
 
 
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @constant
 
 [
@@ -78,7 +78,7 @@
 
 (escape_char) @constant.character.escape
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @constant.numeric
 
 [
@@ -109,22 +109,28 @@
 (function_call_pnc_expr caller: (field_access_expr (identifier) @function .))
 (function_call_pnc_expr caller: (variable_expr     (identifier) @function))
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @function.builtin
 
 ; TODO: remove or adapt, since this is not a Helix scope
 (value_declaration (decl_left (identifier_pattern (identifier) @function.definition))
   (expr_body (anon_fun_expr)))
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
-; @function.macros
+; N/A
+; @function.macro
+
+; N/A
 ; @function.method
+
+; N/A
 ; @function.method.private
+
+; N/A
 ; @function.special
 
 
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @keyword
 
 [
@@ -141,10 +147,16 @@
   "then"
 ] @keyword.control.conditional
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @keyword.control.exception
+
+; TODO: Implement this.
 ; @keyword.control.import
+
+; TODO: Implement this for `for` and `while`.
 ; @keyword.control.repeat
+
+; TODO: Implement this for `return`.
 ; @keyword.control.return
 
 ; TODO: remove or adapt, since this is not a Helix scope
@@ -156,17 +168,24 @@
   (when)
 ] @keyword.control.roc
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @keyword.directive
+
+; N/A
 ; @keyword.function
+
+; TODO: Implement this for `and`, `or`, and any others.
 ; @keyword.operator
-; @keyword.storage
+
+; N/A
 ; @keyword.storage.modifier
+
+; TODO: Implement this for `var`.
 ; @keyword.storage.type
 
 
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @label
 
 
@@ -190,7 +209,7 @@
 
 
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @punctuation
 
 [
@@ -216,12 +235,12 @@
   ("|")
 ] @punctuation.delimiter.structural
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; TODO: Implement this for string interpolation delimeters `$(` and `)`.
 ; @punctuation.special
 
 
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @special
 
 
@@ -229,22 +248,32 @@
 (multiline_string) @string
 (string) @string
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @string.regexp
+
+; N/A
 ; @string.special
+
+; N/A
 ; @string.special.path
+
+; N/A
 ; @string.special.symbol
+
+; N/A
 ; @string.special.url
 
 
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A (We use `@constructor` and `@type.enum.variant` for "tags".)
 ; @tag
+
+; N/A
 ; @tag.builtin
 
 
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @type
 
 ((concrete_type) @type.builtin
@@ -258,7 +287,7 @@
 ;          and should be highlighted differently from normal code.
 (opaque_type_def (_ (concrete_type) @type.definition))
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @type.enum
 
 (tag_type) @type.enum.variant
@@ -276,8 +305,10 @@
 
 (record_field_pattern (_ (identifier) @variable))
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @variable.builtin
+
+; N/A
 ; @variable.other
 
 (field_name)                         @variable.other.member
@@ -287,7 +318,7 @@
 ;       which avoids highlighting them as out-of-scope vars.
 (variable_expr (module) (identifier) @variable.other.member)
 
-; N/A [TODO: investigate, then either confirm N/A or implement]
+; N/A
 ; @variable.other.member.private
 
 (argument_patterns                (identifier_pattern (identifier) @variable.parameter))
