@@ -128,7 +128,6 @@
   "as"
   "expect"
   (implements)
-  "import"
   "module"
   "package"
   (to)
@@ -145,8 +144,9 @@
 ; N/A
 ; @keyword.control.exception
 
-; TODO: Implement this.
-; @keyword.control.import
+[
+  "import"
+] @keyword.control.import
 
 ; TODO: Implement this for `for` and `while`.
 ; @keyword.control.repeat
