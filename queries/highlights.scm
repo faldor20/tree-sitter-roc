@@ -11,27 +11,23 @@
 
 
 
-; TODO: adapt, since this is not a Helix scope
-(ability_chain "&" @operator.typedef)
+(ability_chain "&" @operator.roc-special.in-typedef)
 
 
 
-; TODO: adapt, since this is not a Helix scope
-(parenthesized_type ["(" ")"]  @punctuation.bracket.typedef)
-(record_type ["{" "}"] @punctuation.bracket.typedef)
-(tags_type ["[" "]"] @punctuation.bracket.typedef)
-(tuple_type ["(" ")"] @punctuation.bracket.typedef)
+(parenthesized_type ["(" ")"] @punctuation.bracket.roc-special.in-typedef)
+(record_type        ["{" "}"] @punctuation.bracket.roc-special.in-typedef)
+(tags_type          ["[" "]"] @punctuation.bracket.roc-special.in-typedef)
+(tuple_type         ["(" ")"] @punctuation.bracket.roc-special.in-typedef)
 
-; TODO: adapt, since this is not a Helix scope
-(function_type "," @punctuation.delimiter.typedef)
-(record_field_type ":" @punctuation.delimiter.typedef)
-(record_type "," @punctuation.delimiter.typedef)
-(tuple_type "," @punctuation.delimiter.typedef)
+(function_type     "," @punctuation.delimiter.roc-special.in-typedef)
+(record_field_type ":" @punctuation.delimiter.roc-special.in-typedef)
+(record_type       "," @punctuation.delimiter.roc-special.in-typedef)
+(tuple_type        "," @punctuation.delimiter.roc-special.in-typedef)
 
 
 
-; TODO: adapt, since this is not a Helix scope
-(record_field_type (field_name) @variable.other.enum.typedef)
+(record_field_type (field_name) @variable.other.member.roc-special.in-typedef)
 
 
 
@@ -180,6 +176,13 @@
 
 
 
+; Note: See the lower-priority queries below for a `@namespace` query.
+
+((module) @namespace.roc-special.builtin
+  (#match? @namespace.roc-special.builtin "^(Bool|Box|Decode|Dict|Encode|Hash|Inspect|List|Num|Result|Set|Str)"))
+
+
+
 (identifier "!" @operator)
 (identifier "_" @operator)
 [
@@ -253,8 +256,7 @@
 
 
 
-; N/A
-; @type
+; Note: See the lower-priority queries below for a `@type` query.
 
 ((concrete_type) @type.builtin
   (#match? @type.builtin "^(Bool|Box|Dec|Decode|Dict|Encode|Hash|Inspect|Int|List|Num|Result|Set|Str)"))
@@ -279,6 +281,7 @@
 
 
 
+; Note: See the lower-priority queries below for a `@variable` query.
 (record_field_pattern (_ (identifier) @variable))
 
 ; N/A
@@ -315,20 +318,6 @@
 
 
 
-; TODO: adapt, since this is not a Helix scope
-; #any-of? not working in the tree-sitter for helix 23.10
-((module) @namespace.builtin (#eq? @namespace.builtin "Bool"))
-((module) @namespace.builtin (#eq? @namespace.builtin "Box"))
-((module) @namespace.builtin (#eq? @namespace.builtin "Decode"))
-((module) @namespace.builtin (#eq? @namespace.builtin "Dict"))
-((module) @namespace.builtin (#eq? @namespace.builtin "Encode"))
-((module) @namespace.builtin (#eq? @namespace.builtin "Hash"))
-((module) @namespace.builtin (#eq? @namespace.builtin "Inspect"))
-((module) @namespace.builtin (#eq? @namespace.builtin "List"))
-((module) @namespace.builtin (#eq? @namespace.builtin "Num"))
-((module) @namespace.builtin (#eq? @namespace.builtin "Result"))
-((module) @namespace.builtin (#eq? @namespace.builtin "Set"))
-((module) @namespace.builtin (#eq? @namespace.builtin "Str"))
 (module) @namespace
 
 
