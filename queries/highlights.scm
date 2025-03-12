@@ -11,29 +11,26 @@
 
 
 
-; TODO: remove or adapt, since this is not a Helix scope
+; TODO: adapt, since this is not a Helix scope
 (ability_chain "&" @operator.typedef)
 
 
 
-; TODO: remove or adapt, since this is not a Helix scope
+; TODO: adapt, since this is not a Helix scope
 (parenthesized_type ["(" ")"]  @punctuation.bracket.typedef)
 (record_type ["{" "}"] @punctuation.bracket.typedef)
 (tags_type ["[" "]"] @punctuation.bracket.typedef)
 (tuple_type ["(" ")"] @punctuation.bracket.typedef)
 
-; TODO: remove or adapt, since this is not a Helix scope
+; TODO: adapt, since this is not a Helix scope
 (function_type "," @punctuation.delimiter.typedef)
 (record_field_type ":" @punctuation.delimiter.typedef)
 (record_type "," @punctuation.delimiter.typedef)
 (tuple_type "," @punctuation.delimiter.typedef)
 
-; TODO: remove or adapt, since this is not a Helix scope
-(function_type (arrow) @punctuation.delimiter.structural.typedef)
 
 
-
-; TODO: remove or adapt, since this is not a Helix scope
+; TODO: adapt, since this is not a Helix scope
 (record_field_type (field_name) @variable.other.enum.typedef)
 
 
@@ -107,13 +104,11 @@
 (bin_op_expr (operator "|>") (variable_expr        (identifier) @function))
 (function_call_pnc_expr caller: (field_access_expr (identifier) @function .))
 (function_call_pnc_expr caller: (variable_expr     (identifier) @function))
+(value_declaration (decl_left (identifier_pattern  (identifier) @function))
+  (expr_body (anon_fun_expr)))
 
 ; N/A
 ; @function.builtin
-
-; TODO: remove or adapt, since this is not a Helix scope
-(value_declaration (decl_left (identifier_pattern (identifier) @function.definition))
-  (expr_body (anon_fun_expr)))
 
 ; N/A
 ; @function.macro
@@ -134,16 +129,21 @@
 
 [
   "app"
+  "as"
   "expect"
+  (implements)
   "import"
   "module"
   "package"
+  (to)
 ] @keyword.control
 
 [
   "else"
   "if"
+  (is)
   "then"
+  (when)
 ] @keyword.control.conditional
 
 ; N/A
@@ -157,15 +157,6 @@
 
 ; TODO: Implement this for `return`.
 ; @keyword.control.return
-
-; TODO: remove or adapt, since this is not a Helix scope
-[
-  "as"
-  (implements)
-  (is)
-  (to)
-  (when)
-] @keyword.control.roc
 
 ; N/A
 ; @keyword.directive
@@ -202,12 +193,6 @@
 
 
 
-; TODO: remove or adapt, since this is not a Helix scope
-(annotation_type_def (annotation_pre_colon        (identifier) @parameter.definition))
-(value_declaration (decl_left (identifier_pattern (identifier) @parameter.definition)))
-
-
-
 ; N/A
 ; @punctuation
 
@@ -224,15 +209,11 @@
 [
   ","
   ":"
-] @punctuation.delimiter
-
-; TODO: remove or adapt, since this is not a Helix scope
-[
+  "|"
   "?"
   (arrow)
   (fat_arrow)
-  ("|")
-] @punctuation.delimiter.structural
+] @punctuation.delimiter
 
 ; TODO: Implement this for string interpolation delimeters `$(` and `)`.
 ; @punctuation.special
@@ -291,14 +272,10 @@
 
 (tag_type) @type.enum.variant
 
-; TODO: remove or adapt @type.keyword, since it is not a Helix scope
-(where_implements _
-  (where)      @type.keyword
-  (identifier)    @type.parameter
-  (implements) @type.keyword
-  (ability_chain) @type.parameter)
-
-(bound_variable) @type.parameter
+(annotation_type_def (annotation_pre_colon (identifier) @type.parameter))
+(bound_variable)                                        @type.parameter
+(where_implements _ (where)                (identifier) @type.parameter
+  (implements) (ability_chain)                          @type.parameter)
 
 
 
@@ -327,6 +304,7 @@
 (argument_patterns (_ (_ (_ (_    (identifier_pattern (identifier) @variable.parameter))))))
 (argument_patterns (_ (_ (_ (_ (_ (identifier_pattern (identifier) @variable.parameter)))))))
 (spread_pattern                                       (identifier) @variable.parameter)
+(value_declaration (decl_left     (identifier_pattern (identifier) @variable.parameter)))
 (when_is_branch pattern: (_       (identifier_pattern (identifier) @variable.parameter)))
 
 
@@ -337,7 +315,7 @@
 
 
 
-; TODO: remove or adapt, since this is not a Helix scope
+; TODO: adapt, since this is not a Helix scope
 ; #any-of? not working in the tree-sitter for helix 23.10
 ((module) @namespace.builtin (#eq? @namespace.builtin "Bool"))
 ((module) @namespace.builtin (#eq? @namespace.builtin "Box"))
