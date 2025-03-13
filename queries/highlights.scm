@@ -183,8 +183,6 @@
 
 
 
-(identifier "!" @operator)
-(identifier "_" @operator)
 [
   "|"
   "&"
@@ -307,7 +305,6 @@
 (argument_patterns (_ (_ (_ (_    (identifier_pattern (identifier) @variable.parameter))))))
 (argument_patterns (_ (_ (_ (_ (_ (identifier_pattern (identifier) @variable.parameter)))))))
 (spread_pattern                                       (identifier) @variable.parameter)
-(value_declaration (decl_left     (identifier_pattern (identifier) @variable.parameter)))
 (when_is_branch pattern: (_       (identifier_pattern (identifier) @variable.parameter)))
 
 
