@@ -262,8 +262,8 @@
 ; N/A
 ; @string.special.symbol
 
-; N/A
-; @string.special.url
+(app_header (packages_list (platform_ref ((package_uri) @string.special.url))))
+
 
 
 
