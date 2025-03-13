@@ -189,7 +189,6 @@
   "<-"
   ".."
   (operator)
-  (wildcard_pattern)
 ] @operator
 
 
@@ -284,8 +283,7 @@
 ; Note: See the lower-priority queries below for a `@variable` query.
 (record_field_pattern (_ (identifier) @variable))
 
-; N/A
-; @variable.builtin
+(wildcard_pattern) @variable.builtin
 
 ; N/A
 ; @variable.other
