@@ -293,7 +293,6 @@
 
 (tag_type) @type.enum.variant
 
-(annotation_type_def (annotation_pre_colon (identifier) @type.parameter))
 (bound_variable)                                        @type.parameter
 (where_implements _ (where)                (identifier) @type.parameter
   (implements) (ability_chain)                          @type.parameter)
