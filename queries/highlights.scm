@@ -277,6 +277,8 @@
 (where_implements _ (where)                (identifier) @type.parameter
   (implements) (ability_chain)                          @type.parameter)
 
+(inferred) @type.roc-special.inferred
+
 
 
 ; Note: See the lower-priority queries below for a `@variable` query.
