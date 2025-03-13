@@ -20,13 +20,17 @@
 (tags_type          ["[" "]"] @punctuation.bracket.roc-special.in-typedef)
 (tuple_type         ["(" ")"] @punctuation.bracket.roc-special.in-typedef)
 
-(function_type     "," @punctuation.delimiter.roc-special.in-typedef)
-(record_field_type ":" @punctuation.delimiter.roc-special.in-typedef)
-(record_type       "," @punctuation.delimiter.roc-special.in-typedef)
-(tuple_type        "," @punctuation.delimiter.roc-special.in-typedef)
+(function_type "," @punctuation.delimiter.roc-special.in-typedef)
+(record_type   "," @punctuation.delimiter.roc-special.in-typedef)
+(tuple_type    "," @punctuation.delimiter.roc-special.in-typedef)
 
 
 
+(record_field_pattern ":" @variable)
+
+(record_field_expr ":" @variable.other.member)
+
+(record_field_type ":"          @variable.other.member.roc-special.in-typedef)
 (record_field_type (field_name) @variable.other.member.roc-special.in-typedef)
 
 
@@ -181,7 +185,6 @@
 
 ((module) @namespace.roc-special.builtin
   (#match? @namespace.roc-special.builtin "^(Bool|Box|Decode|Dict|Encode|Hash|Inspect|List|Num|Result|Set|Str)"))
-
 
 
 [
