@@ -61,9 +61,8 @@
 ; N/A
 ; @constant
 
-[
-  "dbg"
-] @constant.builtin
+; N/A
+; @constant.builtin
 
 (variable_expr (module) @ignoreme.module (identifier) @constant.builtin.boolean
   (#eq? @constant.builtin.boolean "false") (#eq? @ignoreme.module "Bool"))
@@ -107,8 +106,10 @@
 (value_declaration (decl_left (identifier_pattern  (identifier) @function))
   (expr_body (anon_fun_expr)))
 
-; N/A
-; @function.builtin
+[
+  "dbg"
+] @function.builtin
+
 
 ; N/A
 ; @function.macro
