@@ -184,8 +184,12 @@
 
 
 [
-  "|"
+  ":"
+  "="
+  "."
+  "?"
   "&"
+  ; "|" ; TODO: This conflicts with the `"|" @punctuation.bracket` query, so improve both.
   "<-"
   ".."
   (operator)
@@ -203,14 +207,12 @@
   "}"
   "["
   "]"
+  "|" ; TODO: This conflicts with the `"|" @operator` query, so improve both.
   (interpolation_char)
 ] @punctuation.bracket
 
 [
   ","
-  ":"
-  "|"
-  "?"
   (arrow)
   (fat_arrow)
 ] @punctuation.delimiter
