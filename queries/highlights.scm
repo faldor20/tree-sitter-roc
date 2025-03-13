@@ -26,6 +26,10 @@
 
 
 
+(app_header (packages_list (platform_ref (":" @special.roc-special.package))))
+
+
+
 (record_field_pattern ":" @variable)
 
 (record_field_expr ":" @variable.other.member)
@@ -110,7 +114,6 @@
   "dbg"
 ] @function.builtin
 
-
 ; N/A
 ; @function.macro
 
@@ -129,13 +132,14 @@
 ; @keyword
 
 [
-  "app"      ; TODO: Implement queries for `main!` and platform `"../platform/main.roc"`, too.
+  "app"
   "as"
   "expect"
-  "exposing" ; TODO: Implement query for the `MyType`s that are exposed, too.
+  "exposing"
   (implements)
   "module"
   "package"
+  "platform"
   (to)
 ] @keyword.control
 
@@ -232,6 +236,14 @@
 
 ; N/A
 ; @special
+
+; TODO: Differentiate between values, functions, and types.
+(app_header (provides_list ((ident) @special.roc-special.provided)))
+
+(app_header (packages_list ((platform_ref) @special.roc-special.package)))
+
+; TODO: Differentiate between values, functions, and types.
+(import_expr (exposing ((ident) @special.roc-special.exposed)))
 
 
 
