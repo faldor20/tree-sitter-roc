@@ -124,9 +124,10 @@
 ; @keyword
 
 [
-  "app"
+  "app"      ; TODO: Implement queries for `main!` and platform `"../platform/main.roc"`, too.
   "as"
   "expect"
+  "exposing" ; TODO: Implement query for the `MyType`s that are exposed, too.
   (implements)
   "module"
   "package"
