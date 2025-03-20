@@ -211,7 +211,6 @@
   "["
   "]"
   "|" ; TODO: This conflicts with the `"|" @operator` query, so improve both.
-  (interpolation_char)
 ] @punctuation.bracket
 
 [
