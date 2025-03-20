@@ -1,0 +1,34 @@
+====
+app [main!] {
+    cli: platform "https://myurl",
+}
+----
+heading_import
+====
+import cli.Path 
+import cli.Path exposing [Path, thing , effectful!]
+import cli.Path as Path
+----
+
+(file
+  (import_expr
+    (import_ident
+      (identifier)
+      (module)))
+  (import_expr
+    (import_ident
+      (identifier)
+      (module))
+    (exposing
+      (ident
+        (module))
+      (ident
+        (identifier))
+      (ident
+        (identifier))))
+  (import_expr
+    (import_ident
+      (identifier)
+      (module))
+    (as)
+    (module)))

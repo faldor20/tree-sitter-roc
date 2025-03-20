@@ -107,8 +107,7 @@ list_cwd_contents! = |_|
 (file
   (app_header
     (provides_list
-      (ident
-        (_)))
+      (identifier))
     (packages_list
       (platform_ref
         (identifier)
@@ -122,7 +121,8 @@ list_cwd_contents! = |_|
       (identifier)
       (module))
     (exposing
-      (ident)))
+      (ident
+        (module))))
   (import_expr
     (import_ident
       (identifier)
@@ -140,13 +140,15 @@ list_cwd_contents! = |_|
       (identifier)
       (module))
     (exposing
-      (ident)))
+      (ident
+        (module))))
   (import_expr
     (import_ident
       (identifier)
       (module))
     (exposing
-      (ident)))
+      (ident
+        (module))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -728,8 +730,7 @@ tick! = |n|
 (file
   (app_header
     (provides_list
-      (ident
-        (_)))
+      (identifier))
     (packages_list
       (platform_ref
         (identifier)
