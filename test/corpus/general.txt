@@ -35,8 +35,7 @@ check_contents_of_files! = |readme_path, license_path|
 (file
   (app_header
     (provides_list
-      (ident
-        (_)))
+      (identifier))
     (packages_list
       (platform_ref
         (identifier)
