@@ -152,9 +152,8 @@
 ; TODO: Implement this for `for` and `while`.
 ; @keyword.control.repeat
 
-; TODO: Implement this for `return`.
+; TODO: Also implement this for `return`.
 (suffix_operator "?" @keyword.control.return)
-; @keyword.control.return
 
 ; N/A
 ; @keyword.directive
@@ -220,7 +219,6 @@
   (fat_arrow)
 ] @punctuation.delimiter
 
-; TODO: Implement this for string interpolation delimeters `$(` and `)`.
 [
   (interpolation_char)
 ] @punctuation.special
@@ -298,7 +296,7 @@
 (record_field_pattern (_ (identifier) @variable))
 
 ; N/A
-;@variable.builtin
+; @variable.builtin
 
 ; N/A
 ; @variable.other
