@@ -38,6 +38,17 @@ source = { git = "https://github.com/faldor20/tree-sitter-roc.git", rev = "whate
 3. Run `hx --health roc` in a new shell and verify that your changes have been picked up correctly. If things are green, you're good to go. 
 
 ### Neovim
+
+#### Via nvim-treesitter plugin
+
+Install the [nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#installation) plugin using your favorite package manager. The Roc language is [supported by nvim-treesitter](https://github.com/nvim-treesitter/nvim-treesitter?tab=readme-ov-file#supported-languages). Install it with the command:
+
+```vim
+:TSInstall roc
+```
+
+#### Manually
+
 Add the code in `neovim/roc.lua` to your config somewhere.
 Copy the folder `neovim/queries` to your neovim config at `after/` or in a custom neovim plugin at its root directory `./`
 eg: `after/queries/roc/highlights.lua`or `my_roc_plugin/queries/roc/highlights.lua`
@@ -73,5 +84,3 @@ once you are happy with you changes run
 tree-sitter test --update
 ```
 and it will update the test files with your new parsed tree
-
-
