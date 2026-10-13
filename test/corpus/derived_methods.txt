@@ -1,0 +1,250 @@
+==================
+associated inferred derive candidates
+==================
+Flags := [A, B].{
+    is_eq : _
+    to_hash : _
+    parser_for : _
+    encoder_for : _
+    map : _
+    map! : _
+}
+
+---
+
+(file
+  (nominal_type_def
+    (apply_type
+      (concrete_type))
+    (colon_equals)
+    (tags_type
+      (tag_type)
+      (tag_type))
+    (nominal_methods
+      (inferred_associated_annotation
+        (annotation_pre_colon
+          (identifier))
+        (inferred))
+      (inferred_associated_annotation
+        (annotation_pre_colon
+          (identifier))
+        (inferred))
+      (inferred_associated_annotation
+        (annotation_pre_colon
+          (identifier))
+        (inferred))
+      (inferred_associated_annotation
+        (annotation_pre_colon
+          (identifier))
+        (inferred))
+      (inferred_associated_annotation
+        (annotation_pre_colon
+          (identifier))
+        (inferred))
+      (inferred_associated_annotation
+        (annotation_pre_colon
+          (identifier))
+        (inferred)))))
+
+==================
+associated inferred annotations with definitions
+==================
+Flags := [A, B].{
+    is_eq : _
+    # ordinary constant
+    is_eq = 42
+    count : _
+    count = 42
+    to_hash : _
+    other = 7
+}
+
+---
+
+(file
+  (nominal_type_def
+    (apply_type
+      (concrete_type))
+    (colon_equals)
+    (tags_type
+      (tag_type)
+      (tag_type))
+    (nominal_methods
+      (inferred_associated_annotation
+        (annotation_pre_colon
+          (identifier))
+        (inferred))
+      (line_comment)
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (const
+            (int))))
+      (inferred_associated_annotation
+        (annotation_pre_colon
+          (identifier))
+        (inferred))
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (const
+            (int))))
+      (inferred_associated_annotation
+        (annotation_pre_colon
+          (identifier))
+        (inferred))
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (const
+            (int)))))))
+
+==================
+module and local inferred annotation controls
+==================
+is_eq : _
+is_eq = 42
+main = || {
+    to_hash : _
+    to_hash = 42
+    to_hash
+}
+
+---
+
+(file
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (inferred))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (int))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (expr_body
+          (body_expression
+            (value_declaration
+              (annotation_type_def
+                (annotation_pre_colon
+                  (identifier))
+                (inferred))
+              (decl_left
+                (identifier_pattern
+                  (identifier)))
+              (expr_body
+                (const
+                  (int))))
+            (variable_expr
+              (identifier))))))))
+
+==================
+nested associated inferred annotations
+==================
+Outer := [A].{
+    Inner := [B].{ is_eq : _ }
+    to_hash : _
+}
+
+---
+
+(file
+  (nominal_type_def
+    (apply_type
+      (concrete_type))
+    (colon_equals)
+    (tags_type
+      (tag_type))
+    (nominal_methods
+      (nominal_type_def
+        (apply_type
+          (concrete_type))
+        (colon_equals)
+        (tags_type
+          (tag_type))
+        (nominal_methods
+          (inferred_associated_annotation
+            (annotation_pre_colon
+              (identifier))
+            (inferred))))
+      (inferred_associated_annotation
+        (annotation_pre_colon
+          (identifier))
+        (inferred)))))
+
+==================
+explicit and composite associated annotation controls
+==================
+Flags := [A, B].{
+    is_eq : _, _ -> Bool
+    is_eq = |a, b| Bool.True
+    pair : (_, _)
+    pair = (1, 2)
+}
+
+---
+
+(file
+  (nominal_type_def
+    (apply_type
+      (concrete_type))
+    (colon_equals)
+    (tags_type
+      (tag_type)
+      (tag_type))
+    (nominal_methods
+      (annotation_type_def
+        (annotation_pre_colon
+          (identifier))
+        (function_type
+          (inferred)
+          (inferred)
+          (arrow)
+          (apply_type
+            (concrete_type))))
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (anon_fun_expr
+            (argument_patterns
+              (identifier_pattern
+                (identifier))
+              (identifier_pattern
+                (identifier)))
+            (expr_body
+              (tag_expr
+                (tag
+                  (module)
+                  (identifier)))))))
+      (annotation_type_def
+        (annotation_pre_colon
+          (identifier))
+        (tuple_type
+          (inferred)
+          (inferred)))
+      (value_declaration
+        (decl_left
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (tuple_expr
+            (const
+              (int))
+            (const
+              (int))))))))

@@ -14,9 +14,9 @@ const parserPath = path.join(__dirname, "..", "src", "parser.c");
 const source = fs.readFileSync(parserPath, "utf8");
 
 const limits = {
-  states: readLimit("ROC_MAX_PARSER_STATES", 3139),
+  states: readLimit("ROC_MAX_PARSER_STATES", 3140),
   largeStates: readLimit("ROC_MAX_LARGE_STATES", 877),
-  bytes: readLimit("ROC_MAX_PARSER_BYTES", 5158866),
+  bytes: readLimit("ROC_MAX_PARSER_BYTES", 5161245),
 };
 
 const metrics = {
