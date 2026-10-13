@@ -261,6 +261,8 @@
 (bin_op_expr (operator "->") (variable_expr        (identifier) @function))
 (annotation_type_def (annotation_pre_colon         (identifier) @function)
   (function_type))
+(annotation_type_def (annotation_pre_colon         (identifier) @function)
+  (where_implements type: (function_type)))
 
 
 
