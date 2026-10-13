@@ -1,5 +1,6 @@
 {
   "highlights": {
+    "_definition": "_definition",
     "comment.block.documentation": "comment.documentation",
     "comment.line": "comment",
     "constant.builtin.boolean": "boolean",

@@ -647,7 +647,18 @@ module.exports = grammar({
     // Nominal method blocks: `.{ ... }`
     // Allow any top-level items (defs, types, expects, expressions) inside.
     // Keep the grammar tight to avoid conflicts with module paths like `Type.Module`.
-    nominal_methods: ($) => seq(token.immediate(".{"), repeat($._module_elem), "}"),
+    nominal_methods: ($) =>
+      seq(
+        token.immediate(".{"),
+        repeat(choice($.inferred_associated_annotation, $._module_elem)),
+        "}",
+      ),
+
+    // A derive candidate, not necessarily a derive: a following same-named
+    // definition supplies an ordinary value. Consumers must check that sibling
+    // before treating this annotation as a compiler-generated method.
+    inferred_associated_annotation: ($) =>
+      prec(1, seq($.annotation_pre_colon, ":", $.inferred)),
 
     _type_annotation: ($) => prec.left(choice($.where_implements, $._non_atomic_type)),
     _non_atomic_type: ($) => choice($.function_type, $._atomic_type),

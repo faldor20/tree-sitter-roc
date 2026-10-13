@@ -3969,8 +3969,17 @@
         {
           "type": "REPEAT",
           "content": {
-            "type": "SYMBOL",
-            "name": "_module_elem"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "inferred_associated_annotation"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_module_elem"
+              }
+            ]
           }
         },
         {
@@ -3978,6 +3987,27 @@
           "value": "}"
         }
       ]
+    },
+    "inferred_associated_annotation": {
+      "type": "PREC",
+      "value": 1,
+      "content": {
+        "type": "SEQ",
+        "members": [
+          {
+            "type": "SYMBOL",
+            "name": "annotation_pre_colon"
+          },
+          {
+            "type": "STRING",
+            "value": ":"
+          },
+          {
+            "type": "SYMBOL",
+            "name": "inferred"
+          }
+        ]
+      }
     },
     "_type_annotation": {
       "type": "PREC_LEFT",

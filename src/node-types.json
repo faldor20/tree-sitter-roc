@@ -2731,6 +2731,25 @@
     }
   },
   {
+    "type": "inferred_associated_annotation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation_pre_colon",
+          "named": true
+        },
+        {
+          "type": "inferred",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "interpolation_char",
     "named": true,
     "fields": {},
@@ -3635,6 +3654,10 @@
         },
         {
           "type": "import_file_expr",
+          "named": true
+        },
+        {
+          "type": "inferred_associated_annotation",
           "named": true
         },
         {
