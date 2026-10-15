@@ -560,6 +560,10 @@
           "named": true
         },
         {
+          "type": "expect",
+          "named": true
+        },
+        {
           "type": "field_access_expr",
           "named": true
         },

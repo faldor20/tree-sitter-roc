@@ -236,6 +236,10 @@
               },
               {
                 "type": "SYMBOL",
+                "name": "expect"
+              },
+              {
+                "type": "SYMBOL",
                 "name": "_expr_inner"
               }
             ]

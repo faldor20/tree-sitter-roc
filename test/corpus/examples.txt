@@ -1790,14 +1790,14 @@ expect Bool.True != Bool.False
                 (identifier))
               args: (variable_expr
                 (identifier)))
-            (variable_expr
-              (identifier))
-            (bin_op_expr
-              part: (variable_expr
-                (identifier))
-              part: (operator)
-              part: (const
-                (int)))
+            (expect
+              body: (expr_body
+                (bin_op_expr
+                  part: (variable_expr
+                    (identifier))
+                  part: (operator)
+                  part: (const
+                    (int)))))
             (function_call_pnc_expr
               caller: (variable_expr
                 (identifier))
