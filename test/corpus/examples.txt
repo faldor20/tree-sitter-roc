@@ -761,7 +761,7 @@ record_update_2 = |person| {
                       target: (variable_expr
                         (identifier))
                       (identifier)))
-                  part: (suffix_operator))))
+                  part: (try_operator))))
             (value_declaration
               (decl_left
                 (identifier_pattern
@@ -774,7 +774,7 @@ record_update_2 = |person| {
                       (identifier))
                     args: (variable_expr
                       (identifier)))
-                  part: (suffix_operator))))
+                  part: (try_operator))))
             (function_call_pnc_expr
               caller: (tag_expr
                 (tag

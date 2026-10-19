@@ -181,19 +181,13 @@
 ; N/A
 ; @keyword.storage.modifier
 
-; TODO: Implement this for `and`, `or`, and any others.
-[
-   (suffix_operator)
-  ] @operator
-
 ; N/A
 ; @keyword.function
 
 ; N/A
 ; @keyword.directive
 
-; TODO: Also implement this for `return`.
-[(suffix_operator ) "return"]@keyword
+[(try_operator) "return"] @keyword
 
 [
   "for"

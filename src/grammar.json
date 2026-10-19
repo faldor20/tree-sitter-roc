@@ -1087,8 +1087,17 @@
                   "type": "SEQ",
                   "members": [
                     {
-                      "type": "SYMBOL",
-                      "name": "operator"
+                      "type": "CHOICE",
+                      "members": [
+                        {
+                          "type": "SYMBOL",
+                          "name": "operator"
+                        },
+                        {
+                          "type": "SYMBOL",
+                          "name": "try_operator"
+                        }
+                      ]
                     },
                     {
                       "type": "SYMBOL",
@@ -1116,8 +1125,16 @@
               "name": "_postfix_expr"
             },
             {
-              "type": "SYMBOL",
-              "name": "suffix_operator"
+              "type": "ALIAS",
+              "content": {
+                "type": "IMMEDIATE_TOKEN",
+                "content": {
+                  "type": "STRING",
+                  "value": "?"
+                }
+              },
+              "named": true,
+              "value": "try_operator"
             }
           ]
         }
@@ -6018,21 +6035,9 @@
         }
       }
     },
-    "suffix_operator": {
-      "type": "ALIAS",
-      "content": {
-        "type": "SYMBOL",
-        "name": "suffix_operator_identifier"
-      },
-      "named": true,
-      "value": "suffix_operator"
-    },
-    "suffix_operator_identifier": {
-      "type": "IMMEDIATE_TOKEN",
-      "content": {
-        "type": "STRING",
-        "value": "?"
-      }
+    "try_operator": {
+      "type": "STRING",
+      "value": "?"
     },
     "operator": {
       "type": "ALIAS",
@@ -6167,10 +6172,6 @@
               "value": "??"
             }
           }
-        },
-        {
-          "type": "STRING",
-          "value": "?"
         }
       ]
     }
@@ -6304,7 +6305,6 @@
     "field_name",
     "bound_variable",
     "operator",
-    "suffix_operator",
     "inferred"
   ],
   "supertypes": [],

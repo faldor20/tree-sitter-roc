@@ -500,6 +500,10 @@
             "named": true
           },
           {
+            "type": "try_operator",
+            "named": true
+          },
+          {
             "type": "tuple_access_expr",
             "named": true
           },
@@ -5125,15 +5129,15 @@
             "named": true
           },
           {
-            "type": "suffix_operator",
-            "named": true
-          },
-          {
             "type": "tag_expr",
             "named": true
           },
           {
             "type": "todo_expr",
+            "named": true
+          },
+          {
+            "type": "try_operator",
             "named": true
           },
           {
@@ -6316,10 +6320,6 @@
     "named": false
   },
   {
-    "type": "?",
-    "named": false
-  },
-  {
     "type": "??",
     "named": false
   },
@@ -6518,10 +6518,6 @@
     "named": false
   },
   {
-    "type": "suffix_operator",
-    "named": true
-  },
-  {
     "type": "targets",
     "named": false
   },
@@ -6536,6 +6532,10 @@
   {
     "type": "true",
     "named": false
+  },
+  {
+    "type": "try_operator",
+    "named": true
   },
   {
     "type": "unset_record_field",

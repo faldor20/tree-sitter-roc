@@ -953,7 +953,7 @@ plain = operation()?
         (function_call_pnc_expr
           (variable_expr
             (identifier)))
-        (operator)
+        (try_operator)
         (anon_fun_expr
           (argument_patterns
             (identifier_pattern
@@ -974,7 +974,7 @@ plain = operation()?
         (function_call_pnc_expr
           (variable_expr
             (identifier)))
-        (operator)
+        (try_operator)
         (tag_expr
           (tag
             (identifier))))))
@@ -987,7 +987,7 @@ plain = operation()?
         (function_call_pnc_expr
           (variable_expr
             (identifier)))
-        (suffix_operator)))))
+        (try_operator)))))
 
 ================================================================================
 fallback expression
@@ -1563,7 +1563,7 @@ field_suffix = a |> f().field?
         (function_call_pnc_expr
           (variable_expr
             (identifier)))
-        (suffix_operator))))
+        (try_operator))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -1577,7 +1577,7 @@ field_suffix = a |> f().field?
           (function_call_pnc_expr
             (variable_expr
               (identifier)))
-          (suffix_operator)))))
+          (try_operator)))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -1590,7 +1590,7 @@ field_suffix = a |> f().field?
         (suffix_op_expr
           (variable_expr
             (identifier))
-          (suffix_operator)))))
+          (try_operator)))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -1604,7 +1604,7 @@ field_suffix = a |> f().field?
           (function_call_pnc_expr
             (variable_expr
               (identifier)))
-          (suffix_operator)))))
+          (try_operator)))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -1618,13 +1618,13 @@ field_suffix = a |> f().field?
           (function_call_pnc_expr
             (variable_expr
               (identifier)))
-          (suffix_operator))
+          (try_operator))
         (operator)
         (suffix_op_expr
           (function_call_pnc_expr
             (variable_expr
               (identifier)))
-          (suffix_operator)))))
+          (try_operator)))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -1638,12 +1638,12 @@ field_suffix = a |> f().field?
           (function_call_pnc_expr
             (variable_expr
               (identifier)))
-          (suffix_operator))
+          (try_operator))
         (operator)
         (suffix_op_expr
           (variable_expr
             (identifier))
-          (suffix_operator)))))
+          (try_operator)))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -1659,7 +1659,7 @@ field_suffix = a |> f().field?
               (variable_expr
                 (identifier)))
             (identifier))
-          (suffix_operator))))))
+          (try_operator))))))
 
 ================================================================================
 mixed postfix chain
@@ -1689,7 +1689,7 @@ continued = source()?.value.0(next).?optional?
               (identifier)))
           (optional_access)
           (identifier))
-        (suffix_operator))))
+        (try_operator))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -1702,7 +1702,7 @@ continued = source()?.value.0(next).?optional?
               (variable_expr
                 (identifier)))
             (identifier))
-          (suffix_operator)))))
+          (try_operator)))))
   (value_declaration
     (decl_left
       (identifier_pattern
@@ -1717,14 +1717,14 @@ continued = source()?.value.0(next).?optional?
                   (function_call_pnc_expr
                     (variable_expr
                       (identifier)))
-                  (suffix_operator))
+                  (try_operator))
                 (identifier))
               (int))
             (variable_expr
               (identifier)))
           (optional_access)
           (identifier))
-        (suffix_operator)))))
+        (try_operator)))))
 
 ================================================================================
 accessor punctuation permits leading trivia

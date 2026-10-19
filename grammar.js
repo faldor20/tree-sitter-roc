@@ -94,7 +94,6 @@ module.exports = grammar({
     $.field_name,
     $.bound_variable,
     $.operator,
-    $.suffix_operator,
     // $.variable_expr,
     $.inferred,
   ],
@@ -331,14 +330,14 @@ module.exports = grammar({
             $._atom_expr,
             // Keeping operands atomic lets the enclosing repeat own
             // subsequent operators without reopening the expression tier.
-            prec.right(repeat1(seq($.operator, $._atom_expr))),
+            prec.right(repeat1(seq(choice($.operator, $.try_operator), $._atom_expr))),
           ),
         ),
       ),
     // Suffixes bind to the nearest postfix expression. Pipelines use the same
     // operand rule as every other operator rather than rebuilding this tier.
     suffix_op_expr: ($) =>
-      field("part", prec.left(PREC.PART + 1, seq($._postfix_expr, $.suffix_operator))),
+      field("part", prec.left(PREC.PART + 1, seq($._postfix_expr, alias(token.immediate("?"), $.try_operator)))),
     //PATTERN MATCHING
     _match_start: ($) => seq(alias("match", $.match), $._expr_inner),
 
@@ -917,8 +916,7 @@ module.exports = grammar({
     doc_comment: ($) => token(prec(-1, /##[^\n]*/)),
     line_comment: ($) => token(prec(-1, /#[^\n]*/)),
 
-    suffix_operator: ($) => alias($.suffix_operator_identifier, $.suffix_operator),
-    suffix_operator_identifier: ($) => imm("?"),
+    try_operator: ($) => "?",
 
     operator: ($) => alias($.operator_identifier, $.operator),
     _non_pipe_operator: ($) => alias($._non_pipe_operator_identifier, $.operator),
@@ -947,7 +945,6 @@ module.exports = grammar({
         "!=",
         alias($._tight_binary_minus, "-"),
         token(prec(1, "??")),
-        "?",
       ),
   },
 });

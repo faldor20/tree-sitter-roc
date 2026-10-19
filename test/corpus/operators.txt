@@ -109,3 +109,152 @@ lambda_result = values |> (|items| items)
               (expr_body
                 (variable_expr
                   (identifier))))))))))
+
+================================================================================
+try operators and whitespace boundaries
+================================================================================
+infix = a ? b
+handler_pipe = a ? |e| E(e) |> f
+flat = a ? (|e| E(e)) |> f
+mixed = a ?? b ? c
+line_suffix = a?
+next = b
+line_infix = a ?
+  b
+line_split = a
+  ? b
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bin_op_expr
+        (variable_expr
+          (identifier))
+        (try_operator)
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bin_op_expr
+        (variable_expr
+          (identifier))
+        (try_operator)
+        (anon_fun_expr
+          (argument_patterns
+            (identifier_pattern
+              (identifier)))
+          (expr_body
+            (bin_op_expr
+              (function_call_pnc_expr
+                (tag_expr
+                  (tag
+                    (identifier)))
+                (variable_expr
+                  (identifier)))
+              (operator)
+              (variable_expr
+                (identifier))))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bin_op_expr
+        (variable_expr
+          (identifier))
+        (try_operator)
+        (parenthesized_expr
+          (expr_body
+            (anon_fun_expr
+              (argument_patterns
+                (identifier_pattern
+                  (identifier)))
+              (expr_body
+                (function_call_pnc_expr
+                  (tag_expr
+                    (tag
+                      (identifier)))
+                  (variable_expr
+                    (identifier)))))))
+        (operator)
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bin_op_expr
+        (variable_expr
+          (identifier))
+        (operator)
+        (variable_expr
+          (identifier))
+        (try_operator)
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (suffix_op_expr
+        (variable_expr
+          (identifier))
+        (try_operator))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (variable_expr
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bin_op_expr
+        (variable_expr
+          (identifier))
+        (try_operator)
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bin_op_expr
+        (variable_expr
+          (identifier))
+        (try_operator)
+        (variable_expr
+          (identifier))))))
+
+================================================================================
+postfix question mark does not absorb a spaced operand
+================================================================================
+postfix = a? b
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (suffix_op_expr
+        (variable_expr
+          (identifier))
+        (try_operator))))
+  (expr_body
+    (variable_expr
+      (identifier))))
