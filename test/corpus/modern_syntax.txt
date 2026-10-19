@@ -814,22 +814,22 @@ main! = |_| {
           (wildcard_pattern))
         (expr_body
           (body_expression
+            (annotation_type_def
+              (annotation_pre_colon
+                (identifier))
+              (record_type
+                (record_field_type
+                  (field_name)
+                  (optional_field)
+                  (apply_type
+                    (concrete_type)
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)))
+                    (apply_type_arg
+                      (apply_type
+                        (concrete_type)))))))
             (value_declaration
-              (annotation_type_def
-                (annotation_pre_colon
-                  (identifier))
-                (record_type
-                  (record_field_type
-                    (field_name)
-                    (optional_field)
-                    (apply_type
-                      (concrete_type)
-                      (apply_type_arg
-                        (apply_type
-                          (concrete_type)))
-                      (apply_type_arg
-                        (apply_type
-                          (concrete_type)))))))
               (decl_left
                 (identifier_pattern
                   (identifier)))

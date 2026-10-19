@@ -142,11 +142,11 @@ main = || {
       (anon_fun_expr
         (expr_body
           (body_expression
+            (annotation_type_def
+              (annotation_pre_colon
+                (identifier))
+              (inferred))
             (value_declaration
-              (annotation_type_def
-                (annotation_pre_colon
-                  (identifier))
-                (inferred))
               (decl_left
                 (identifier_pattern
                   (identifier)))

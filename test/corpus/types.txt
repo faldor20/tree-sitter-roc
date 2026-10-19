@@ -53,12 +53,12 @@ main=
         (identifier)))
     body: (expr_body
       (body_expression
+        (annotation_type_def
+          name: (annotation_pre_colon
+            (identifier))
+          (apply_type
+            (concrete_type)))
         (value_declaration
-          (annotation_type_def
-            name: (annotation_pre_colon
-              (identifier))
-            (apply_type
-              (concrete_type)))
           pattern: (decl_left
             (identifier_pattern
               (identifier)))

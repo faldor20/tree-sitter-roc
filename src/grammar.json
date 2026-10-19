@@ -54,7 +54,7 @@
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
-            "name": "_module_value_declaration"
+            "name": "_value_declaration"
           },
           "named": true,
           "value": "value_declaration"
@@ -63,7 +63,7 @@
           "type": "ALIAS",
           "content": {
             "type": "SYMBOL",
-            "name": "_module_var_declaration"
+            "name": "_var_declaration"
           },
           "named": true,
           "value": "var_declaration"
@@ -103,7 +103,7 @@
         ]
       }
     },
-    "_module_value_declaration": {
+    "_value_declaration": {
       "type": "SEQ",
       "members": [
         {
@@ -138,28 +138,7 @@
         }
       ]
     },
-    "value_declaration": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "annotation_type_def"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_module_value_declaration"
-        }
-      ]
-    },
-    "_module_var_declaration": {
+    "_var_declaration": {
       "type": "SEQ",
       "members": [
         {
@@ -193,27 +172,6 @@
         }
       ]
     },
-    "var_declaration": {
-      "type": "SEQ",
-      "members": [
-        {
-          "type": "CHOICE",
-          "members": [
-            {
-              "type": "SYMBOL",
-              "name": "annotation_type_def"
-            },
-            {
-              "type": "BLANK"
-            }
-          ]
-        },
-        {
-          "type": "SYMBOL",
-          "name": "_module_var_declaration"
-        }
-      ]
-    },
     "body_expression": {
       "type": "SEQ",
       "members": [
@@ -228,11 +186,25 @@
             "members": [
               {
                 "type": "SYMBOL",
-                "name": "value_declaration"
+                "name": "annotation_type_def"
               },
               {
-                "type": "SYMBOL",
-                "name": "var_declaration"
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_value_declaration"
+                },
+                "named": true,
+                "value": "value_declaration"
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "SYMBOL",
+                  "name": "_var_declaration"
+                },
+                "named": true,
+                "value": "var_declaration"
               },
               {
                 "type": "SYMBOL",

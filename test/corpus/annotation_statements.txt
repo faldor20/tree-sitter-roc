@@ -1,0 +1,369 @@
+================================================================================
+block_annotation_before_declaration
+================================================================================
+f = |x| {
+    y : I64
+    y = x + 1
+    y
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (body_expression
+            (annotation_type_def
+              (annotation_pre_colon
+                (identifier))
+              (apply_type
+                (concrete_type)))
+            (value_declaration
+              (decl_left
+                (identifier_pattern
+                  (identifier)))
+              (expr_body
+                (bin_op_expr
+                  (variable_expr
+                    (identifier))
+                  (operator)
+                  (const
+                    (int)))))
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+block_annotation_with_function_type
+================================================================================
+f = {
+    g : I64, I64 -> I64
+    g = |a, b| a + b
+    g
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (body_expression
+        (annotation_type_def
+          (annotation_pre_colon
+            (identifier))
+          (function_type
+            (apply_type
+              (concrete_type))
+            (apply_type
+              (concrete_type))
+            (arrow)
+            (apply_type
+              (concrete_type))))
+        (value_declaration
+          (decl_left
+            (identifier_pattern
+              (identifier)))
+          (expr_body
+            (anon_fun_expr
+              (argument_patterns
+                (identifier_pattern
+                  (identifier))
+                (identifier_pattern
+                  (identifier)))
+              (expr_body
+                (bin_op_expr
+                  (variable_expr
+                    (identifier))
+                  (operator)
+                  (variable_expr
+                    (identifier)))))))
+        (variable_expr
+          (identifier))))))
+
+================================================================================
+block_annotation_with_where
+================================================================================
+f = {
+    g : a -> Str where [a.to_str : a -> Str]
+    g = |x| x.to_str()
+    g
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (body_expression
+        (annotation_type_def
+          (annotation_pre_colon
+            (identifier))
+          (where_implements
+            (function_type
+              (bound_variable)
+              (arrow)
+              (apply_type
+                (concrete_type)))
+            (where)
+            (static_dispatch_list
+              (static_dispatch
+                (static_dispatch_target
+                  (bound_variable)
+                  (identifier))
+                (function_type
+                  (bound_variable)
+                  (arrow)
+                  (apply_type
+                    (concrete_type)))))))
+        (value_declaration
+          (decl_left
+            (identifier_pattern
+              (identifier)))
+          (expr_body
+            (anon_fun_expr
+              (argument_patterns
+                (identifier_pattern
+                  (identifier)))
+              (expr_body
+                (function_call_pnc_expr
+                  (field_access_expr
+                    (variable_expr
+                      (identifier))
+                    (identifier)))))))
+        (variable_expr
+          (identifier))))))
+
+================================================================================
+block_mutable_annotation_and_module_control
+================================================================================
+count : I64
+var count = 0
+f = {
+    count : I64
+    var count = 0
+    count
+}
+--------------------------------------------------------------------------------
+
+(file
+  (annotation_type_def
+    (annotation_pre_colon
+      (identifier))
+    (apply_type
+      (concrete_type)))
+  (var_declaration
+    (identifier)
+    (expr_body
+      (const
+        (int))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (body_expression
+        (annotation_type_def
+          (annotation_pre_colon
+            (identifier))
+          (apply_type
+            (concrete_type)))
+        (var_declaration
+          (identifier)
+          (expr_body
+            (const
+              (int))))
+        (variable_expr
+          (identifier))))))
+
+================================================================================
+block_annotation_same_line_and_comments
+================================================================================
+f = { x : I64 x = 1 x }
+g = {
+    y : I64 # after annotation
+    # before declaration
+    y = 2
+    y
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (body_expression
+        (annotation_type_def
+          (annotation_pre_colon
+            (identifier))
+          (apply_type
+            (concrete_type)))
+        (value_declaration
+          (decl_left
+            (identifier_pattern
+              (identifier)))
+          (expr_body
+            (const
+              (int))))
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (body_expression
+        (annotation_type_def
+          (annotation_pre_colon
+            (identifier))
+          (apply_type
+            (concrete_type)))
+        (line_comment)
+        (line_comment)
+        (value_declaration
+          (decl_left
+            (identifier_pattern
+              (identifier)))
+          (expr_body
+            (const
+              (int))))
+        (variable_expr
+          (identifier))))))
+
+================================================================================
+nested_block_annotations
+================================================================================
+f = {
+    x : I64
+    x = { y : I64 y = 1 y }
+    x
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (body_expression
+        (annotation_type_def
+          (annotation_pre_colon
+            (identifier))
+          (apply_type
+            (concrete_type)))
+        (value_declaration
+          (decl_left
+            (identifier_pattern
+              (identifier)))
+          (expr_body
+            (body_expression
+              (annotation_type_def
+                (annotation_pre_colon
+                  (identifier))
+                (apply_type
+                  (concrete_type)))
+              (value_declaration
+                (decl_left
+                  (identifier_pattern
+                    (identifier)))
+                (expr_body
+                  (const
+                    (int))))
+              (variable_expr
+                (identifier)))))
+        (variable_expr
+          (identifier))))))
+
+================================================================================
+record_field_values_remain_records
+================================================================================
+a = { a : Foo }
+b = { a : Foo, b : Bar }
+f = {
+    x = { a : Foo }
+    y = { a : Foo, b : Bar }
+    x
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (record_expr
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (tag_expr
+              (tag
+                (identifier))))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (record_expr
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (tag_expr
+              (tag
+                (identifier)))))
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (tag_expr
+              (tag
+                (identifier))))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (body_expression
+        (value_declaration
+          (decl_left
+            (identifier_pattern
+              (identifier)))
+          (expr_body
+            (record_expr
+              (record_field_expr
+                (field_name)
+                (expr_body
+                  (tag_expr
+                    (tag
+                      (identifier))))))))
+        (value_declaration
+          (decl_left
+            (identifier_pattern
+              (identifier)))
+          (expr_body
+            (record_expr
+              (record_field_expr
+                (field_name)
+                (expr_body
+                  (tag_expr
+                    (tag
+                      (identifier)))))
+              (record_field_expr
+                (field_name)
+                (expr_body
+                  (tag_expr
+                    (tag
+                      (identifier))))))))
+        (variable_expr
+          (identifier))))))

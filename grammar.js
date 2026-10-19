@@ -110,8 +110,8 @@ module.exports = grammar({
         $.opaque_type_def,
         $.nominal_type_def,
         $.expect,
-        alias($._module_value_declaration, $.value_declaration),
-        alias($._module_var_declaration, $.var_declaration),
+        alias($._value_declaration, $.value_declaration),
+        alias($._var_declaration, $.var_declaration),
         $.expr_body,
         $.import_expr,
         $.import_file_expr,
@@ -119,26 +119,20 @@ module.exports = grammar({
 
     expect: ($) => prec(1, seq("expect", field("body", $.expr_body))),
 
-    // Module annotations are siblings; blocks retain the legacy combined node
-    // until statement boundaries can be represented without extra GLR states.
-    _module_value_declaration: ($) =>
+    _value_declaration: ($) =>
       seq(
         field("pattern", alias($._assignment_pattern, $.decl_left)),
         "=",
         field("body", alias($.expr_body_terminal, $.expr_body)),
       ),
 
-    value_declaration: ($) => seq(optional($.annotation_type_def), $._module_value_declaration),
-
-    _module_var_declaration: ($) =>
+    _var_declaration: ($) =>
       seq(
         "var",
         field("name", $.identifier),
         "=",
         field("body", alias($.expr_body_terminal, $.expr_body)),
       ),
-
-    var_declaration: ($) => seq(optional($.annotation_type_def), $._module_var_declaration),
 
     /**
      * A braced block contains at least one declaration or expression. Empty
@@ -149,8 +143,9 @@ module.exports = grammar({
         "{",
         repeat1(
           choice(
-            $.value_declaration,
-            $.var_declaration,
+            $.annotation_type_def,
+            alias($._value_declaration, $.value_declaration),
+            alias($._var_declaration, $.var_declaration),
             $.local_type_binding,
             $.expect,
             $._expr_inner,

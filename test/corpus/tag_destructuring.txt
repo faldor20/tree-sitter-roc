@@ -411,12 +411,12 @@ main! = |_args| {
               body: (expr_body
                 (variable_expr
                   (identifier))))
+            (annotation_type_def
+              name: (annotation_pre_colon
+                (identifier))
+              (apply_type
+                (concrete_type)))
             (value_declaration
-              (annotation_type_def
-                name: (annotation_pre_colon
-                  (identifier))
-                (apply_type
-                  (concrete_type)))
               pattern: (decl_left
                 (identifier_pattern
                   (identifier)))

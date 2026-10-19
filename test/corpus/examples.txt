@@ -1891,12 +1891,12 @@ expect Bool.True != Bool.False
             (line_comment)
             (line_comment)
             (line_comment)
+            (annotation_type_def
+              name: (annotation_pre_colon
+                (identifier))
+              (apply_type
+                (concrete_type)))
             (value_declaration
-              (annotation_type_def
-                name: (annotation_pre_colon
-                  (identifier))
-                (apply_type
-                  (concrete_type)))
               pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
@@ -1907,12 +1907,12 @@ expect Bool.True != Bool.False
                       (identifier)))
                   args: (const
                     (string)))))
+            (annotation_type_def
+              name: (annotation_pre_colon
+                (identifier))
+              (apply_type
+                (concrete_type)))
             (value_declaration
-              (annotation_type_def
-                name: (annotation_pre_colon
-                  (identifier))
-                (apply_type
-                  (concrete_type)))
               pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
