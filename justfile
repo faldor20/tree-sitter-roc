@@ -23,7 +23,7 @@ queries-generate:
 
 # generate queries and verify output is clean
 queries-check:
-    node tools/template-queries.js --queries-dir queries && node tools/check-neovim-try-highlight.js && git diff --exit-code queries-generated
+    node tools/template-queries.js --queries-dir queries && node tools/check-neovim-try-highlight.js --self-test && git diff --exit-code queries-generated
 
 # run CI checks: generation, parser metrics, tests, and queries
 ci:
