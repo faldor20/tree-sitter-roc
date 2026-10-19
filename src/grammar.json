@@ -1120,12 +1120,7 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "ALIAS",
-          "content": {
-            "type": "STRING",
-            "value": "match"
-          },
-          "named": true,
+          "type": "STRING",
           "value": "match"
         },
         {
@@ -1184,13 +1179,12 @@
                   "value": "if"
                 },
                 {
-                  "type": "ALIAS",
+                  "type": "FIELD",
+                  "name": "guard",
                   "content": {
                     "type": "SYMBOL",
                     "name": "_expr_inner"
-                  },
-                  "named": true,
-                  "value": "if"
+                  }
                 }
               ]
             },
@@ -3121,12 +3115,7 @@
               "type": "SEQ",
               "members": [
                 {
-                  "type": "ALIAS",
-                  "content": {
-                    "type": "STRING",
-                    "value": "as"
-                  },
-                  "named": true,
+                  "type": "STRING",
                   "value": "as"
                 },
                 {
@@ -3144,13 +3133,12 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "ALIAS",
+              "type": "FIELD",
+              "name": "exposing",
               "content": {
                 "type": "SYMBOL",
                 "name": "exposes_list"
-              },
-              "named": true,
-              "value": "exposing"
+              }
             },
             {
               "type": "BLANK"
@@ -3194,12 +3182,7 @@
             "type": "SEQ",
             "members": [
               {
-                "type": "ALIAS",
-                "content": {
-                  "type": "STRING",
-                  "value": "as"
-                },
-                "named": true,
+                "type": "STRING",
                 "value": "as"
               },
               {
@@ -3218,10 +3201,6 @@
           }
         ]
       }
-    },
-    "to": {
-      "type": "STRING",
-      "value": "to"
     },
     "provides": {
       "type": "SEQ",
@@ -3291,8 +3270,8 @@
                       "type": "SEQ",
                       "members": [
                         {
-                          "type": "SYMBOL",
-                          "name": "to"
+                          "type": "STRING",
+                          "value": "to"
                         },
                         {
                           "type": "CHOICE",
@@ -4241,12 +4220,7 @@
             }
           },
           {
-            "type": "ALIAS",
-            "content": {
-              "type": "STRING",
-              "value": "where"
-            },
-            "named": true,
+            "type": "STRING",
             "value": "where"
           },
           {

@@ -124,7 +124,6 @@ check = |input| {
                   (identifier)))
               (expr_body
                 (match_expr
-                  (match)
                   (variable_expr
                     (identifier))
                   (match_branch

@@ -115,7 +115,7 @@
 
 
 ; TODO: Differentiate between values, functions, and types.
-(import_expr (exposing ((ident) @label)))
+(import_expr exposing: (exposes_list (ident) @label))
 (module_header (module_exposes (ident [(identifier) (module)] @label)))
 
 (app_header (packages_list ((platform_ref) @label)))
@@ -203,12 +203,11 @@
   "else"
   "if"
 
-  (match)
+  "match"
 ] @keyword
 
 [
   "app"
-  (as)
   "as"
   (break_expr)
   "crash"
@@ -223,9 +222,9 @@
   "provides"
   "requires"
   "targets"
-  (to)
+  "to"
   "var"
-  (where)
+  "where"
 ] @keyword
 
 ; N/A

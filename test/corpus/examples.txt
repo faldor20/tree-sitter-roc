@@ -216,7 +216,6 @@ record_update_2 = |person| {
     (import_ident
       (identifier)
       (module))
-    (as)
     (module))
   (line_comment)
   (line_comment)
@@ -460,7 +459,6 @@ record_update_2 = |person| {
         body: (expr_body
           (body_expression
             (match_expr
-              (match)
               (variable_expr
                 (identifier))
               branch: (match_branch
@@ -511,7 +509,6 @@ record_update_2 = |person| {
         body: (expr_body
           (body_expression
             (match_expr
-              (match)
               (variable_expr
                 (identifier))
               branch: (match_branch
@@ -631,7 +628,6 @@ record_update_2 = |person| {
         (line_comment)
         body: (expr_body
           (match_expr
-            (match)
             (variable_expr
               (identifier))
             branch: (match_branch
@@ -1249,7 +1245,6 @@ stringify = |value| value.to_str()
                 (identifier)))
             body: (expr_body
               (match_expr
-                (match)
                 (tuple_expr
                   expr: (variable_expr
                     (identifier))
@@ -1378,7 +1373,6 @@ stringify = |value| value.to_str()
             (identifier)))
         body: (expr_body
           (match_expr
-            (match)
             (variable_expr
               (identifier))
             branch: (match_branch
@@ -1436,7 +1430,6 @@ stringify = |value| value.to_str()
             (identifier)))
         body: (expr_body
           (match_expr
-            (match)
             (variable_expr
               (identifier))
             branch: (match_branch
@@ -1502,7 +1495,6 @@ stringify = |value| value.to_str()
             (identifier)))
         body: (expr_body
           (match_expr
-            (match)
             (variable_expr
               (identifier))
             branch: (match_branch
@@ -1537,7 +1529,6 @@ stringify = |value| value.to_str()
         (arrow)
         (apply_type
           (concrete_type)))
-      (where)
       implements: (static_dispatch_list
         (static_dispatch
           (static_dispatch_target

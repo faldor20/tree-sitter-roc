@@ -334,14 +334,14 @@ module.exports = grammar({
     suffix_op_expr: ($) =>
       field("part", prec.left(PREC.PART + 1, seq($._postfix_expr, alias(token.immediate("?"), $.try_operator)))),
     //PATTERN MATCHING
-    _match_start: ($) => seq(alias("match", $.match), $._expr_inner),
+    _match_start: ($) => seq("match", $._expr_inner),
 
     match_expr: ($) => seq($._match_start, "{", repeat1(field("branch", $.match_branch)), "}"),
 
     match_branch: ($) =>
       seq(
         field("pattern", $._pattern),
-        optional(seq("if", alias($._expr_inner, $.if))),
+        optional(seq("if", field("guard", $._expr_inner))),
         $.fat_arrow,
         //TODO: evaluate what options can got here
         field("expr", $.expr_body),
@@ -541,17 +541,16 @@ module.exports = grammar({
     _import_body: ($) =>
       seq(
         choice($.import_ident, $.import_path),
-        optional(seq(alias("as", $.as), $.module)),
-        optional(alias($.exposes_list, $.exposing)),
+        optional(seq("as", $.module)),
+        optional(field("exposing", $.exposes_list)),
       ),
     import_expr: ($) => prec(PREC.IMPORT, seq("import", $._import_body)),
     import_file_expr: ($) =>
       prec(
         PREC.IMPORT,
-        seq("import", $.string, seq(alias("as", $.as), $.identifier, ":", $.concrete_type)),
+        seq("import", $.string, seq("as", $.identifier, ":", $.concrete_type)),
       ),
     //TODO make a function for all these comma separated trailing comma things
-    to: ($) => "to",
     provides: ($) =>
       seq(
         "provides",
@@ -562,7 +561,7 @@ module.exports = grammar({
             repeat(seq(",", $.identifier)),
             optional(","),
             "]",
-            optional(seq($.to, choice($.string, $.ident))),
+            optional(seq("to", choice($.string, $.ident))),
           ),
           $.platform_symbol_map,
         ),
@@ -695,7 +694,7 @@ module.exports = grammar({
       prec.right(
         seq(
           field("type", choice($._atomic_type, $.function_type)),
-          alias("where", $.where),
+          "where",
           field("implements", $.static_dispatch_list),
         ),
       ),

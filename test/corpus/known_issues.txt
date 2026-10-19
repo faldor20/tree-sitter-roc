@@ -129,7 +129,6 @@ result = match "abc" {
         (identifier)))
     (expr_body
       (match_expr
-        (match)
         (const
           (string))
         (match_branch
@@ -190,7 +189,6 @@ result = match value {
         (identifier)))
     (expr_body
       (match_expr
-        (match)
         (variable_expr
           (identifier))
         (match_branch

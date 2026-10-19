@@ -436,7 +436,6 @@ helper1 = |x| x.to_str()
         param: (bound_variable)
         (arrow)
         (bound_variable))
-      (where)
       implements: (static_dispatch_list
         (static_dispatch
           (static_dispatch_target
@@ -488,7 +487,6 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
               (concrete_type))))
         (arrow)
         (bound_variable))
-      (where)
       implements: (static_dispatch_list
         (static_dispatch
           (static_dispatch_target
@@ -532,7 +530,6 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
         param: (bound_variable)
         (arrow)
         (bound_variable))
-      (where)
       implements: (static_dispatch_list
         (static_dispatch
           (static_dispatch_target
@@ -593,7 +590,6 @@ helper1 = |x| x.to_str()
         param: (bound_variable)
         (arrow)
         (bound_variable))
-      (where)
       implements: (static_dispatch_list
         (static_dispatch
           (static_dispatch_target
@@ -644,7 +640,6 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
               (concrete_type))))
         (arrow)
         (bound_variable))
-      (where)
       implements: (static_dispatch_list
         (static_dispatch
           (static_dispatch_target
@@ -688,7 +683,6 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
         param: (bound_variable)
         (arrow)
         (bound_variable))
-      (where)
       implements: (static_dispatch_list
         (static_dispatch
           (static_dispatch_target

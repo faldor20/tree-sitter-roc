@@ -76,7 +76,6 @@ record = |bytes, dict| match bytes {
             (identifier)))
         body: (expr_body
           (match_expr
-            (match)
             (variable_expr
               (identifier))
             branch: (match_branch

@@ -56,7 +56,6 @@ color_name = |color| match color {
             (identifier)))
         body: (expr_body
           (match_expr
-            (match)
             (variable_expr
               (identifier))
             branch: (match_branch
@@ -309,7 +308,6 @@ unwrap = |opt| match opt {
             (identifier)))
         body: (expr_body
           (match_expr
-            (match)
             (variable_expr
               (identifier))
             branch: (match_branch
@@ -1067,7 +1065,6 @@ value = 1
     (import_path
       (module)
       (module))
-    (as)
     (module))
   (import_expr
     (import_path
@@ -1079,9 +1076,8 @@ value = 1
       (module)
       (module)
       (module))
-    (as)
     (module)
-    (exposing
+    (exposes_list
       (ident
         (module))))
   (value_declaration
@@ -1221,6 +1217,38 @@ Handlers(state, err) : {
               (bound_variable))
             (apply_type_arg
               (bound_variable))))))))
+
+================================================================================
+platform header provides to package
+================================================================================
+platform ""
+    requires {}
+    exposes []
+    packages {}
+    provides [main] to pf
+
+main = 1
+--------------------------------------------------------------------------------
+
+(file
+  (platform_header
+    (name)
+    (platform_header_body
+      (requires)
+      (platform_exposes)
+      (packages
+        (record_pattern))
+      (provides
+        (identifier)
+        (ident
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (const
+        (int)))))
 
 ================================================================================
 modern platform header sections
@@ -1426,7 +1454,6 @@ result = match value { { name } as person => person }
         (identifier)))
     (expr_body
       (match_expr
-        (match)
         (variable_expr
           (identifier))
         (match_branch

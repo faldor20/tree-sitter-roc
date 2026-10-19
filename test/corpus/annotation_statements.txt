@@ -114,7 +114,6 @@ f = {
               (arrow)
               (apply_type
                 (concrete_type)))
-            (where)
             (static_dispatch_list
               (static_dispatch
                 (static_dispatch_target
