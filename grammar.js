@@ -98,7 +98,7 @@ module.exports = grammar({
     $.inferred,
   ],
 
-  // supertypes: ($) => [$._module_elem, $._pattern, $._expr_inner],
+  supertypes: ($) => [$._expr_inner, $._pattern, $._atomic_type, $._module_elem],
 
   rules: {
     file: ($) => seq(optional($._header), repeat1($._module_elem)),
