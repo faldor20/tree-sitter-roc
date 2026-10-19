@@ -43,6 +43,44 @@ result = match color {
               (string))))))))
 
 ================================================================================
+match_with_guard
+================================================================================
+result = match x {
+    1 if x > 0 => 1
+    _ => 0
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (expr_body
+      (match_expr
+        (variable_expr
+          (identifier))
+        branch: (match_branch
+          pattern: (const_pattern
+            (int))
+          guard: (bin_op_expr
+            part: (variable_expr
+              (identifier))
+            part: (operator)
+            part: (const
+              (int)))
+          (fat_arrow)
+          expr: (expr_body
+            (const
+              (int))))
+        branch: (match_branch
+          pattern: (wildcard_pattern)
+          (fat_arrow)
+          expr: (expr_body
+            (const
+              (int))))))))
+
+================================================================================
 match_with_wildcard
 ================================================================================
 x = match val {
