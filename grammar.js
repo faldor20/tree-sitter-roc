@@ -512,7 +512,7 @@ module.exports = grammar({
         optional($.targets),
       ),
 
-    module_header: ($) => seq("module", $.exposes_list),
+    module_header: ($) => seq("module", $.module_exposes),
 
     //TODO: should this actually be a record_pattern?
     packages: ($) => seq("packages", $.record_pattern),
@@ -522,7 +522,7 @@ module.exports = grammar({
     package_ref: ($) => seq($.identifier, ":", $.string),
     platform_ref: ($) => seq($.identifier, ":", "platform", alias($.string, $.package_uri)),
 
-    exposed_list: ($) => seq("{", sep_tail($.ident, ","), "}"),
+    module_exposes: ($) => seq("[", sep_tail($.ident, ","), "]"),
     exposes: ($) => seq("exposes", $.exposes_list),
     platform_exposes: ($) => seq("exposes", "[", sep_tail($.platform_exposed_item, ","), "]"),
     platform_exposed_item: ($) =>

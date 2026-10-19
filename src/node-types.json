@@ -1345,21 +1345,6 @@
     }
   },
   {
-    "type": "exposes_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "ident",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "exposing",
     "named": true,
     "fields": {},
@@ -3291,6 +3276,21 @@
     "fields": {}
   },
   {
+    "type": "module_exposes",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "module_header",
     "named": true,
     "fields": {},
@@ -3299,7 +3299,7 @@
       "required": true,
       "types": [
         {
-          "type": "exposes_list",
+          "type": "module_exposes",
           "named": true
         }
       ]

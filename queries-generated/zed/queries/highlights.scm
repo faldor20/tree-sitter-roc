@@ -118,6 +118,7 @@
 
 ; TODO: Differentiate between values, functions, and types.
 (import_expr (exposing ((ident) @label)))
+(module_header (module_exposes (ident [(identifier) (module)] @label)))
 
 (app_header (packages_list ((platform_ref) @label)))
 
