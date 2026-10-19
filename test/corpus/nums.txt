@@ -558,7 +558,7 @@ number_literals = {
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (record_type
       (record_field_type
@@ -624,7 +624,7 @@ number_literals = {
         (apply_type
           (concrete_type)))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body

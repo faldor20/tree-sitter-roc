@@ -11,7 +11,7 @@ main =
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (apply_type
       (concrete_type)
@@ -20,13 +20,13 @@ main =
       type_args: (apply_type_arg
         (tags_type))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
       (body_expression
         (value_declaration
-          (decl_left
+          pattern: (decl_left
             (identifier_pattern
               (identifier)))
           body: (expr_body
@@ -48,18 +48,18 @@ main=
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
       (body_expression
         (value_declaration
           (annotation_type_def
-            (annotation_pre_colon
+            name: (annotation_pre_colon
               (identifier))
             (apply_type
               (concrete_type)))
-          (decl_left
+          pattern: (decl_left
             (identifier_pattern
               (identifier)))
           body: (expr_body
@@ -93,7 +93,7 @@ Color := [Red, Green, Blue].{
 
 (file
   (nominal_type_def
-    (apply_type
+    name: (apply_type
       (concrete_type))
     (colon_equals)
     (tags_type
@@ -105,7 +105,7 @@ Color := [Red, Green, Blue].{
         name: (tag_name)))
     (nominal_methods
       (annotation_type_def
-        (annotation_pre_colon
+        name: (annotation_pre_colon
           (identifier))
         (function_type
           param: (apply_type
@@ -114,7 +114,7 @@ Color := [Red, Green, Blue].{
           (apply_type
             (concrete_type))))
       (value_declaration
-        (decl_left
+        pattern: (decl_left
           (identifier_pattern
             (identifier)))
         body: (expr_body
@@ -152,7 +152,7 @@ A: R,(B(a)
 
 (file
   (alias_type_def
-    (apply_type
+    name: (apply_type
       (concrete_type))
     body: (function_type
       param: (apply_type
@@ -180,7 +180,7 @@ a=|a| b
 
 (file
   (alias_type_def
-    (apply_type
+    name: (apply_type
       (concrete_type))
     body: (apply_type
       (concrete_type)))
@@ -188,7 +188,7 @@ a=|a| b
     (variable_expr
       (identifier)))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -197,7 +197,7 @@ a=|a| b
       (apply_type
         (concrete_type))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -224,7 +224,7 @@ fun:  a,
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (bound_variable)
@@ -255,7 +255,7 @@ a:(Num(a),Num(b))
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (tuple_type
       (apply_type
@@ -315,7 +315,7 @@ foo : List(a) -> List(a)
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -336,7 +336,7 @@ foo : Result(Ok, Err) -> Bool
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -359,7 +359,7 @@ print! : Str => {}
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -375,7 +375,7 @@ main! : List(Str) => Try({}, [Exit(I32)])
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -404,7 +404,7 @@ write! : Str, Str => Try({}, Str)
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -429,7 +429,7 @@ helper1 = |x| x.to_str()
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (where_implements
       type: (function_type
@@ -447,7 +447,7 @@ helper1 = |x| x.to_str()
             (arrow)
             (bound_variable))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -474,7 +474,7 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (where_implements
       type: (function_type
@@ -506,7 +506,7 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
             (arrow)
             (bound_variable))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -525,7 +525,7 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
             args: (variable_expr
               (identifier)))))))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (where_implements
       type: (function_type
@@ -564,7 +564,7 @@ Letters(others) : [A, B, ..others]
 (file
   (line_comment)
   (alias_type_def
-    (apply_type
+    name: (apply_type
       (concrete_type)
       type_args: (apply_type_arg
         (bound_variable)))
@@ -586,7 +586,7 @@ helper1 = |x| x.to_str()
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (where_implements
       type: (function_type
@@ -604,7 +604,7 @@ helper1 = |x| x.to_str()
             (arrow)
             (bound_variable))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -630,7 +630,7 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (where_implements
       type: (function_type
@@ -662,7 +662,7 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
             (arrow)
             (bound_variable))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -681,7 +681,7 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
             args: (variable_expr
               (identifier)))))))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (where_implements
       type: (function_type

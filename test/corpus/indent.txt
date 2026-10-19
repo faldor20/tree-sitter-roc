@@ -12,14 +12,14 @@ a=Module.SubModule.variable.function()
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
       (variable_expr
         (identifier))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -27,7 +27,7 @@ a=Module.SubModule.variable.function()
         (module)
         (identifier))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -36,7 +36,7 @@ a=Module.SubModule.variable.function()
         (module)
         (identifier))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -47,7 +47,7 @@ a=Module.SubModule.variable.function()
           (identifier))
         (identifier))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body

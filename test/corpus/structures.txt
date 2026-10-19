@@ -10,7 +10,7 @@ a=
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -47,7 +47,7 @@ a={
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -64,7 +64,7 @@ a={
             (identifier))
           body: (body_expression
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -93,7 +93,7 @@ implement_me_later = |_str| ...
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -120,7 +120,7 @@ early_return = |arg| {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -131,7 +131,7 @@ early_return = |arg| {
         body: (expr_body
           (body_expression
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -161,7 +161,7 @@ early_return =
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body

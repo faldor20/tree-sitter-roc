@@ -123,7 +123,7 @@ module.exports = grammar({
     // until statement boundaries can be represented without extra GLR states.
     _module_value_declaration: ($) =>
       seq(
-        alias($._assignment_pattern, $.decl_left),
+        field("pattern", alias($._assignment_pattern, $.decl_left)),
         "=",
         field("body", alias($.expr_body_terminal, $.expr_body)),
       ),
@@ -624,12 +624,12 @@ module.exports = grammar({
     //#### TYPES ###
     //####-------###
 
-    annotation_type_def: ($) => seq($.annotation_pre_colon, ":", $._type_annotation),
-    alias_type_def: ($) => seq($.apply_type, ":", field("body", $._type_annotation)),
+    annotation_type_def: ($) => seq(field("name", $.annotation_pre_colon), ":", $._type_annotation),
+    alias_type_def: ($) => seq(field("name", $.apply_type), ":", field("body", $._type_annotation)),
 
     opaque_type_def: ($) =>
       seq(
-        $.apply_type,
+        field("name", $.apply_type),
         alias("::", $.double_colon),
         $._type_annotation,
         optional($.nominal_methods),
@@ -639,7 +639,7 @@ module.exports = grammar({
     // Use a tight ".{" token so this doesn't conflict with `Type.Module` paths.
     nominal_type_def: ($) =>
       seq(
-        $.apply_type,
+        field("name", $.apply_type),
         alias(":=", $.colon_equals),
         $._type_annotation,
         optional($.nominal_methods),
@@ -659,7 +659,7 @@ module.exports = grammar({
     // definition supplies an ordinary value. Consumers must check that sibling
     // before treating this annotation as a compiler-generated method.
     inferred_associated_annotation: ($) =>
-      prec(1, seq($.annotation_pre_colon, ":", $.inferred)),
+      prec(1, seq(field("name", $.annotation_pre_colon), ":", $.inferred)),
 
     _type_annotation: ($) => prec.left(choice($.where_implements, $._non_atomic_type)),
     _non_atomic_type: ($) => choice($.function_type, $._atomic_type),

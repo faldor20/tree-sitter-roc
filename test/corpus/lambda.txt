@@ -6,7 +6,7 @@ a = |x| x
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -26,7 +26,7 @@ add = |a, b| a + b
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -55,7 +55,7 @@ foo = |x| {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -66,7 +66,7 @@ foo = |x| {
         body: (expr_body
           (body_expression
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -87,7 +87,7 @@ thunk = || 42
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -106,7 +106,7 @@ main! = || {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -127,7 +127,7 @@ getX = |{x, y}| x
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -150,7 +150,7 @@ curry = |a| |b| a + b
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body

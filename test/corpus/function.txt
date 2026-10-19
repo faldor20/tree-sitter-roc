@@ -15,7 +15,7 @@ c= 10
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -25,13 +25,13 @@ c= 10
         args: (const
           (int)))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
       (body_expression
         (value_declaration
-          (decl_left
+          pattern: (decl_left
             (identifier_pattern
               (identifier)))
           body: (expr_body
@@ -45,7 +45,7 @@ c= 10
               args: (variable_expr
                 (identifier))))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -60,7 +60,7 @@ a= f( a, b(a, b))
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -91,7 +91,7 @@ main=
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -138,7 +138,7 @@ a=| _ | a
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -149,7 +149,7 @@ a=| _ | a
           (variable_expr
             (identifier))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -169,7 +169,7 @@ a= a.bb( a, a)
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -192,7 +192,7 @@ a= html("<div>")
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -211,7 +211,7 @@ myHtml=html(hi)
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -232,7 +232,7 @@ add = |a, b| {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -245,7 +245,7 @@ add = |a, b| {
         body: (expr_body
           (body_expression
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -272,7 +272,7 @@ main! =||{
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -332,7 +332,7 @@ a={
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body

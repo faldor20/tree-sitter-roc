@@ -6,7 +6,7 @@ bfs = |a, b, Tag(c)| c
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -33,7 +33,7 @@ bfs = |a, b, [head, .. as tail]| tail
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -64,7 +64,7 @@ record = |bytes, dict| match bytes {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -112,7 +112,7 @@ destructuring = || {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -120,7 +120,7 @@ destructuring = || {
         body: (expr_body
           (body_expression
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -130,7 +130,7 @@ destructuring = || {
                   expr: (const
                     (int)))))
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (tuple_pattern
                   (identifier_pattern
                     (identifier))
@@ -140,7 +140,7 @@ destructuring = || {
                 (variable_expr
                   (identifier))))
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -157,7 +157,7 @@ destructuring = || {
                         (identifier)))))))
             (line_comment)
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (record_pattern
                   (record_field_pattern
                     (field_name))

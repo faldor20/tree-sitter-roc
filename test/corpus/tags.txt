@@ -9,7 +9,7 @@ a= boolean_operators(Bool.True, Bool.False)
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -17,7 +17,7 @@ a= boolean_operators(Bool.True, Bool.False)
         (tag
           (identifier)))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -26,7 +26,7 @@ a= boolean_operators(Bool.True, Bool.False)
           (module)
           (identifier)))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -53,7 +53,7 @@ a=
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -84,7 +84,7 @@ main! = |_args| {
 ---
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -95,7 +95,7 @@ main! = |_args| {
         body: (expr_body
           (body_expression
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -107,7 +107,7 @@ main! = |_args| {
                     (variable_expr
                       (identifier))))))
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -122,7 +122,7 @@ main! = |_args| {
               args: (const
                 (int)))
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body

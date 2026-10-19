@@ -223,7 +223,7 @@ record_update_2 = |person| {
   (line_comment)
   (line_comment)
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -233,7 +233,7 @@ record_update_2 = |person| {
       (arrow)
       (inferred)))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -246,7 +246,7 @@ record_update_2 = |person| {
         body: (expr_body
           (body_expression
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -257,7 +257,7 @@ record_update_2 = |person| {
                   args: (variable_expr
                     (identifier)))))
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -388,7 +388,7 @@ record_update_2 = |person| {
                       (identifier)))))
               (line_comment)))))))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -398,7 +398,7 @@ record_update_2 = |person| {
       (arrow)
       (inferred)))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -435,7 +435,7 @@ record_update_2 = |person| {
                   (variable_expr
                     (identifier))))))))))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (tags_type
@@ -449,7 +449,7 @@ record_update_2 = |person| {
       (apply_type
         (concrete_type))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -488,7 +488,7 @@ record_update_2 = |person| {
                   (const
                     (string))))))))))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -500,7 +500,7 @@ record_update_2 = |person| {
       (apply_type
         (concrete_type))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -600,7 +600,7 @@ record_update_2 = |person| {
                   (const
                     (int))))))))))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -620,7 +620,7 @@ record_update_2 = |person| {
       (apply_type
         (concrete_type))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -673,7 +673,7 @@ record_update_2 = |person| {
                 (const
                   (string)))))))))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -682,7 +682,7 @@ record_update_2 = |person| {
       (apply_type
         (concrete_type))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -702,7 +702,7 @@ record_update_2 = |person| {
   (line_comment)
   (line_comment)
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -710,7 +710,7 @@ record_update_2 = |person| {
       (fat_arrow)
       (record_type)))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -727,7 +727,7 @@ record_update_2 = |person| {
               (identifier)))))))
   (line_comment)
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -744,7 +744,7 @@ record_update_2 = |person| {
         type_args: (apply_type_arg
           (inferred)))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -756,7 +756,7 @@ record_update_2 = |person| {
           (body_expression
             (line_comment)
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -768,7 +768,7 @@ record_update_2 = |person| {
                       (identifier)))
                   part: (try_operator))))
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -792,7 +792,7 @@ record_update_2 = |person| {
                   (int)))))))))
   (line_comment)
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -804,7 +804,7 @@ record_update_2 = |person| {
           (todo_expr)))))
   (line_comment)
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -826,7 +826,7 @@ record_update_2 = |person| {
                 (identifier))
               body: (body_expression
                 (value_declaration
-                  (decl_left
+                  pattern: (decl_left
                     (identifier_pattern
                       (identifier)))
                   body: (expr_body
@@ -839,7 +839,7 @@ record_update_2 = |person| {
             (variable_expr
               (identifier)))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -860,7 +860,7 @@ record_update_2 = |person| {
                 args: (variable_expr
                   (identifier)))))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -868,7 +868,7 @@ record_update_2 = |person| {
         body: (expr_body
           (body_expression
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -883,7 +883,7 @@ record_update_2 = |person| {
             (variable_expr
               (identifier)))))))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -892,7 +892,7 @@ record_update_2 = |person| {
       (apply_type
         (concrete_type))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -904,7 +904,7 @@ record_update_2 = |person| {
           (body_expression
             (line_comment)
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -922,7 +922,7 @@ record_update_2 = |person| {
                     (const
                       (string))))))
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -940,7 +940,7 @@ record_update_2 = |person| {
                     (const
                       (string))))))
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -995,7 +995,7 @@ record_update_2 = |person| {
                       args: (variable_expr
                         (identifier))))))))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     (line_comment)
@@ -1007,7 +1007,7 @@ record_update_2 = |person| {
           (int)))))
   (line_comment)
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -1020,7 +1020,7 @@ record_update_2 = |person| {
         type_args: (apply_type_arg
           (bound_variable)))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -1032,7 +1032,7 @@ record_update_2 = |person| {
           (variable_expr
             (identifier))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -1040,7 +1040,7 @@ record_update_2 = |person| {
         body: (expr_body
           (body_expression
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -1050,7 +1050,7 @@ record_update_2 = |person| {
                   expr: (const
                     (int)))))
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (tuple_pattern
                   (identifier_pattern
                     (identifier))
@@ -1060,7 +1060,7 @@ record_update_2 = |person| {
                 (variable_expr
                   (identifier))))
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -1077,7 +1077,7 @@ record_update_2 = |person| {
                         (identifier)))))))
             (line_comment)
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (record_pattern
                   (record_field_pattern
                     (field_name))
@@ -1102,7 +1102,7 @@ record_update_2 = |person| {
   (line_comment)
   (line_comment)
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (record_type
@@ -1125,7 +1125,7 @@ record_update_2 = |person| {
           (apply_type
             (concrete_type))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -1214,14 +1214,14 @@ stringify = |value| value.to_str()
 (file
   (line_comment)
   (opaque_type_def
-    (apply_type
+    name: (apply_type
       (concrete_type))
     (double_colon)
     (apply_type
       (concrete_type)))
   (line_comment)
   (nominal_type_def
-    (apply_type
+    name: (apply_type
       (concrete_type))
     (colon_equals)
     (tags_type
@@ -1237,7 +1237,7 @@ stringify = |value| value.to_str()
             (concrete_type)))))
     (nominal_methods
       (value_declaration
-        (decl_left
+        pattern: (decl_left
           (identifier_pattern
             (identifier)))
         body: (expr_body
@@ -1304,7 +1304,7 @@ stringify = |value| value.to_str()
                         (module)
                         (identifier))))))))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -1315,7 +1315,7 @@ stringify = |value| value.to_str()
         body: (expr_body
           (body_expression
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -1341,7 +1341,7 @@ stringify = |value| value.to_str()
               args: (variable_expr
                 (identifier))))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -1350,7 +1350,7 @@ stringify = |value| value.to_str()
         (identifier))))
   (line_comment)
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (tags_type
@@ -1368,7 +1368,7 @@ stringify = |value| value.to_str()
       (apply_type
         (concrete_type))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -1413,7 +1413,7 @@ stringify = |value| value.to_str()
   (line_comment)
   (line_comment)
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (tags_type
@@ -1426,7 +1426,7 @@ stringify = |value| value.to_str()
       (apply_type
         (concrete_type))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -1465,7 +1465,7 @@ stringify = |value| value.to_str()
   (line_comment)
   (line_comment)
   (alias_type_def
-    (apply_type
+    name: (apply_type
       (concrete_type)
       type_args: (apply_type_arg
         (bound_variable)))
@@ -1479,7 +1479,7 @@ stringify = |value| value.to_str()
           (bound_variable)))))
   (line_comment)
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -1492,7 +1492,7 @@ stringify = |value| value.to_str()
       (apply_type
         (concrete_type))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -1529,7 +1529,7 @@ stringify = |value| value.to_str()
                   (string)))))))))
   (line_comment)
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (where_implements
       type: (function_type
@@ -1549,7 +1549,7 @@ stringify = |value| value.to_str()
             (apply_type
               (concrete_type)))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -1652,7 +1652,7 @@ expect Bool.True != Bool.False
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -1781,7 +1781,7 @@ expect Bool.True != Bool.False
                 (string)))
             (line_comment)
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -1893,11 +1893,11 @@ expect Bool.True != Bool.False
             (line_comment)
             (value_declaration
               (annotation_type_def
-                (annotation_pre_colon
+                name: (annotation_pre_colon
                   (identifier))
                 (apply_type
                   (concrete_type)))
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -1909,11 +1909,11 @@ expect Bool.True != Bool.False
                     (string)))))
             (value_declaration
               (annotation_type_def
-                (annotation_pre_colon
+                name: (annotation_pre_colon
                   (identifier))
                 (apply_type
                   (concrete_type)))
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body

@@ -8,7 +8,7 @@ a=Mod.Sub.Tag(a)
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -17,7 +17,7 @@ a=Mod.Sub.Tag(a)
         (module)
         (identifier))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -29,7 +29,7 @@ a=Mod.Sub.Tag(a)
         args: (variable_expr
           (identifier)))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -51,14 +51,14 @@ a:Mod.Sub.List(a)
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (apply_type
       (concrete_type)
       type_args: (apply_type_arg
         (bound_variable))))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (apply_type
       (concrete_type)
@@ -77,7 +77,7 @@ a = 1
   (module_header
     (module_exposes))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -100,7 +100,7 @@ a = 1
       (ident
         (module))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -126,7 +126,7 @@ a = 1
       (ident
         (module))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body

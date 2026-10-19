@@ -10,7 +10,7 @@ result = match color {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -54,7 +54,7 @@ x = match val {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -92,7 +92,7 @@ len = match lst {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -141,7 +141,7 @@ greet = match name {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -186,7 +186,7 @@ a
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -199,7 +199,7 @@ a
             (match)
             (body_expression
               (value_declaration
-                (decl_left
+                pattern: (decl_left
                   (identifier_pattern
                     (identifier)))
                 body: (expr_body
@@ -223,7 +223,7 @@ a
               expr: (expr_body
                 (body_expression
                   (value_declaration
-                    (decl_left
+                    pattern: (decl_left
                       (identifier_pattern
                         (identifier)))
                     body: (expr_body
@@ -246,7 +246,7 @@ result = match color {
 (file
   (line_comment)
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body

@@ -21,7 +21,7 @@ main! = || Stdout.line!("Hello")
       (identifier)
       (module)))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -46,7 +46,7 @@ color_name = |color| match color {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -94,7 +94,7 @@ thunk = || 42
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -112,7 +112,7 @@ thunk = || 42
             part: (variable_expr
               (identifier)))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -124,7 +124,7 @@ thunk = || 42
           (variable_expr
             (identifier))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -144,7 +144,7 @@ Color := [Red, Green, Blue].{
 
 (file
   (nominal_type_def
-    (apply_type
+    name: (apply_type
       (concrete_type))
     (colon_equals)
     (tags_type
@@ -156,7 +156,7 @@ Color := [Red, Green, Blue].{
         name: (tag_name)))
     (nominal_methods
       (annotation_type_def
-        (annotation_pre_colon
+        name: (annotation_pre_colon
           (identifier))
         (function_type
           param: (apply_type
@@ -165,7 +165,7 @@ Color := [Red, Green, Blue].{
           (apply_type
             (concrete_type))))
       (value_declaration
-        (decl_left
+        pattern: (decl_left
           (identifier_pattern
             (identifier)))
         body: (expr_body
@@ -213,7 +213,7 @@ print! : Str => {}
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -229,7 +229,7 @@ numbers : List(I64)
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (apply_type
       (concrete_type)
@@ -249,7 +249,7 @@ compute = |x| {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -260,7 +260,7 @@ compute = |x| {
         body: (expr_body
           (body_expression
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -271,7 +271,7 @@ compute = |x| {
                   part: (const
                     (int)))))
             (value_declaration
-              (decl_left
+              pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
               body: (expr_body
@@ -299,7 +299,7 @@ unwrap = |opt| match opt {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -339,7 +339,7 @@ update_name = |person| { ..person, name: "New" }
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body

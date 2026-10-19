@@ -6,7 +6,7 @@ x = a
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -26,20 +26,20 @@ x =
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
       (variable_expr
         (identifier))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
       (body_expression
         (value_declaration
-          (decl_left
+          pattern: (decl_left
             (identifier_pattern
               (identifier)))
           body: (expr_body
@@ -70,30 +70,30 @@ x =
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (apply_type
       (concrete_type)))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
       (variable_expr
         (identifier))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
       (body_expression
         (value_declaration
           (annotation_type_def
-            (annotation_pre_colon
+            name: (annotation_pre_colon
               (identifier))
             (apply_type
               (concrete_type)))
-          (decl_left
+          pattern: (decl_left
             (identifier_pattern
               (identifier)))
           body: (expr_body
@@ -102,18 +102,18 @@ x =
         (variable_expr
           (identifier)))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
       (body_expression
         (value_declaration
           (annotation_type_def
-            (annotation_pre_colon
+            name: (annotation_pre_colon
               (identifier))
             (apply_type
               (concrete_type)))
-          (decl_left
+          pattern: (decl_left
             (identifier_pattern
               (identifier)))
           body: (expr_body
@@ -131,7 +131,7 @@ value_record
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (record_pattern
         (record_field_pattern
           (field_name)
@@ -159,7 +159,7 @@ a= a.field.b.c.d
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -167,7 +167,7 @@ a= a.field.b.c.d
         (module)
         (identifier))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -177,7 +177,7 @@ a= a.field.b.c.d
             (identifier)))
         (identifier))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -189,7 +189,7 @@ a= a.field.b.c.d
                 (identifier)))))
         (identifier))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -213,13 +213,13 @@ _a= a
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (wildcard_pattern))
     body: (expr_body
       (variable_expr
         (identifier))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body
@@ -235,7 +235,7 @@ var a= ""
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (apply_type
       (concrete_type)))
@@ -254,7 +254,7 @@ var $a= ""
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (apply_type
       (concrete_type)))
@@ -272,7 +272,7 @@ tup = ("Roc", 1)
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
     body: (expr_body

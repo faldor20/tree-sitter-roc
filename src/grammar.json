@@ -107,13 +107,17 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "ALIAS",
+          "type": "FIELD",
+          "name": "pattern",
           "content": {
-            "type": "SYMBOL",
-            "name": "_assignment_pattern"
-          },
-          "named": true,
-          "value": "decl_left"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_assignment_pattern"
+            },
+            "named": true,
+            "value": "decl_left"
+          }
         },
         {
           "type": "STRING",
@@ -3833,8 +3837,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "annotation_pre_colon"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "annotation_pre_colon"
+          }
         },
         {
           "type": "STRING",
@@ -3850,8 +3858,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "apply_type"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "apply_type"
+          }
         },
         {
           "type": "STRING",
@@ -3871,8 +3883,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "apply_type"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "apply_type"
+          }
         },
         {
           "type": "ALIAS",
@@ -3905,8 +3921,12 @@
       "type": "SEQ",
       "members": [
         {
-          "type": "SYMBOL",
-          "name": "apply_type"
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "apply_type"
+          }
         },
         {
           "type": "ALIAS",
@@ -3974,8 +3994,12 @@
         "type": "SEQ",
         "members": [
           {
-            "type": "SYMBOL",
-            "name": "annotation_pre_colon"
+            "type": "FIELD",
+            "name": "name",
+            "content": {
+              "type": "SYMBOL",
+              "name": "annotation_pre_colon"
+            }
           },
           {
             "type": "STRING",

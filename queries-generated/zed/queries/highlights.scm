@@ -33,7 +33,7 @@
 ; the later, higher-priority function rule.
 (identifier_pattern (identifier) @variable.parameter)
 (value_declaration
-  (decl_left (identifier_pattern (identifier) @variable)))
+  pattern: (decl_left (identifier_pattern (identifier) @variable)))
 
 ; N/A
 ; @variable.other.member.private
@@ -68,7 +68,7 @@
 
 ; Opinion: Type defs cross into documentation
 ;          and should be highlighted differently from normal code.
-(opaque_type_def (_ (concrete_type) @type))
+(opaque_type_def name: (apply_type (concrete_type) @type))
 
 ((concrete_type) @type
   (#match? @type "^(Dec|F(32|64))"))
@@ -238,13 +238,13 @@
   "dbg"
 ] @function
 
-(value_declaration (decl_left (identifier_pattern  (identifier) @function))
+(value_declaration pattern: (decl_left (identifier_pattern  (identifier) @function))
   (expr_body (anon_fun_expr)))
-(value_declaration (decl_left (identifier_pattern  (identifier) @function))
+(value_declaration pattern: (decl_left (identifier_pattern  (identifier) @function))
   (expr_body
     (function_call_pnc_expr
       caller: (anon_fun_expr))))
-(value_declaration (decl_left (identifier_pattern  (identifier) @function))
+(value_declaration pattern: (decl_left (identifier_pattern  (identifier) @function))
   (expr_body
     (bin_op_expr
       part: (function_call_pnc_expr
@@ -257,12 +257,12 @@
 ; A matching following definition instead supplies an ordinary value; the
 ; higher-priority rule below handles that case (including intervening comments).
 ((inferred_associated_annotation
-  (annotation_pre_colon (identifier) @function))
+  name: (annotation_pre_colon (identifier) @function))
   (#match? @function "^(is_eq|to_hash|parser_for|encoder_for|map|map!)$"))
 
-(annotation_type_def (annotation_pre_colon         (identifier) @function)
+(annotation_type_def name: (annotation_pre_colon (identifier) @function)
   (function_type))
-(annotation_type_def (annotation_pre_colon         (identifier) @function)
+(annotation_type_def name: (annotation_pre_colon (identifier) @function)
   (where_implements type: (function_type)))
 
 
@@ -363,13 +363,13 @@
   "}" @punctuation.bracket)
 
 (alias_type_def
-  (apply_type (concrete_type) @type)
+  name: (apply_type (concrete_type) @type)
   ":" @operator)
 (opaque_type_def
-  (apply_type (concrete_type) @type)
+  name: (apply_type (concrete_type) @type)
   (double_colon) @operator)
 (nominal_type_def
-  (apply_type (concrete_type) @type)
+  name: (apply_type (concrete_type) @type)
   (colon_equals) @operator)
 (string_pattern_capture
   "${" @punctuation.special
@@ -385,8 +385,8 @@
 ; Inferred annotations with an explicit body do not request derivation.
 ((nominal_methods
   (inferred_associated_annotation
-    (annotation_pre_colon (identifier) @variable))
+    name: (annotation_pre_colon (identifier) @variable))
   . [(line_comment) (doc_comment)]*
   . (value_declaration
-      (decl_left (identifier_pattern (identifier) @_definition))))
+      pattern: (decl_left (identifier_pattern (identifier) @_definition))))
   (#eq? @variable @_definition))
