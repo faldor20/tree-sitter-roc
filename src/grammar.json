@@ -2536,7 +2536,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "exposes_list"
+          "name": "module_exposes"
         }
       ]
     },
@@ -2672,12 +2672,12 @@
         }
       ]
     },
-    "exposed_list": {
+    "module_exposes": {
       "type": "SEQ",
       "members": [
         {
           "type": "STRING",
-          "value": "{"
+          "value": "["
         },
         {
           "type": "CHOICE",
@@ -2726,7 +2726,7 @@
         },
         {
           "type": "STRING",
-          "value": "}"
+          "value": "]"
         }
       ]
     },

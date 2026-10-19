@@ -118,6 +118,7 @@
 
 ; TODO: Differentiate between values, functions, and types.
 (import_expr (exposing ((ident) @special.roc-special.exposed)))
+(module_header (module_exposes (ident [(identifier) (module)] @special.roc-special.exposed)))
 
 (app_header (packages_list ((platform_ref) @special.roc-special.package)))
 
