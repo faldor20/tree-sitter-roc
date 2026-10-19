@@ -11,7 +11,7 @@ test-update:
 
 # run the pinned generator and verify generated files are clean and well-formed
 generate-check:
-    ./node_modules/.bin/tree-sitter generate && node tools/check-node-types.js && git diff --exit-code src/parser.c src/grammar.json src/node-types.json
+    ./node_modules/.bin/tree-sitter generate && node tools/check-node-types.js --self-test && git diff --exit-code src/parser.c src/grammar.json src/node-types.json
 
 # fail when generated parser complexity exceeds the reviewed budget
 parser-metrics-check:
@@ -23,7 +23,7 @@ queries-generate:
 
 # generate queries and verify output is clean
 queries-check:
-    node tools/template-queries.js --queries-dir queries && git diff --exit-code queries-generated
+    node tools/template-queries.js --queries-dir queries && node tools/check-neovim-try-highlight.js && git diff --exit-code queries-generated
 
 # run CI checks: generation, parser metrics, tests, and queries
 ci:

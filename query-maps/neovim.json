@@ -17,7 +17,7 @@
     "keyword.control.conditional": "keyword.conditional",
     "keyword.control.import": "keyword.import",
     "keyword.control.repeat": "keyword.repeat",
-    "keyword.control.return": "",
+    "keyword.control.return": "keyword.return",
     "keyword.operator": "",
     "module": "module",
     "namespace": "module",

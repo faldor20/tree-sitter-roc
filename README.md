@@ -112,15 +112,14 @@ This writes output to queries-generated/<editor>/...
 Once you've made a change, to test it, run:
 
 ```bash
-tree-sitter generate
-tree-sitter test
+just test-gen
 ```
 
 if you add a new feature you should add a test to one of the test files in `test/corpus/*.txt`
 once you are happy with you changes run
 
 ```bash
-tree-sitter test --update
+just test-update
 ```
 
 and it will update the test files with your new parsed tree

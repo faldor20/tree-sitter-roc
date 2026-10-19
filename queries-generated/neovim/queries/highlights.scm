@@ -187,7 +187,7 @@
 ; N/A
 ; @keyword.directive
 
-[(try_operator) "return"]
+[(try_operator) "return"] @keyword.return
 
 [
   "for"
