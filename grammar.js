@@ -719,7 +719,7 @@ module.exports = grammar({
     // Isolate recursive tag arguments from each surrounding type context.
     _tag_type_entries: ($) => sep1_tail(choice($.tag_type, $.spread_type), ","),
 
-    tag_type: ($) => seq(field("name", $._upper_identifier), optional($._apply_type_args)),
+    tag_type: ($) => seq(field("name", alias($._upper_identifier, $.tag_name)), optional($._apply_type_args)),
     type_variable: ($) => choice($.bound_variable),
 
     bound_variable: ($) => alias(token(/_*[\p{Ll}][\p{XID_Continue}]*/), $.bound_variable),

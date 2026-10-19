@@ -439,9 +439,12 @@ record_update_2 = |person| {
       (identifier))
     (function_type
       param: (tags_type
-        (tag_type)
-        (tag_type)
-        (tag_type))
+        (tag_type
+          name: (tag_name))
+        (tag_type
+          name: (tag_name))
+        (tag_type
+          name: (tag_name)))
       (arrow)
       (apply_type
         (concrete_type))))
@@ -607,10 +610,12 @@ record_update_2 = |person| {
         type_args: (apply_type_arg
           (tags_type
             (tag_type
+              name: (tag_name)
               type_args: (apply_type_arg
                 (apply_type
                   (concrete_type))))
-            (tag_type))))
+            (tag_type
+              name: (tag_name)))))
       (arrow)
       (apply_type
         (concrete_type))))
@@ -1221,10 +1226,12 @@ stringify = |value| value.to_str()
     (colon_equals)
     (tags_type
       (tag_type
+        name: (tag_name)
         type_args: (apply_type_arg
           (apply_type
             (concrete_type))))
       (tag_type
+        name: (tag_name)
         type_args: (apply_type_arg
           (apply_type
             (concrete_type)))))
@@ -1348,13 +1355,15 @@ stringify = |value| value.to_str()
     (function_type
       param: (tags_type
         (tag_type
+          name: (tag_name)
           type_args: (apply_type_arg
             (apply_type
               (concrete_type)))
           type_args: (apply_type_arg
             (apply_type
               (concrete_type))))
-        (tag_type))
+        (tag_type
+          name: (tag_name)))
       (arrow)
       (apply_type
         (concrete_type))))
@@ -1408,8 +1417,10 @@ stringify = |value| value.to_str()
       (identifier))
     (function_type
       param: (tags_type
-        (tag_type)
-        (tag_type)
+        (tag_type
+          name: (tag_name))
+        (tag_type
+          name: (tag_name))
         (spread_type))
       (arrow)
       (apply_type
@@ -1459,8 +1470,10 @@ stringify = |value| value.to_str()
       type_args: (apply_type_arg
         (bound_variable)))
     body: (tags_type
-      (tag_type)
-      (tag_type)
+      (tag_type
+        name: (tag_name))
+      (tag_type
+        name: (tag_name))
       (spread_type
         (type_variable
           (bound_variable)))))
@@ -1473,7 +1486,8 @@ stringify = |value| value.to_str()
         (concrete_type)
         type_args: (apply_type_arg
           (tags_type
-            (tag_type))))
+            (tag_type
+              name: (tag_name)))))
       (arrow)
       (apply_type
         (concrete_type))))

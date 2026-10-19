@@ -3,14 +3,45 @@ top-level tag destructuring
 ===
 Ok(parsed_value) = validate(str_input)
 ---
-(file (value_declaration (decl_left (tag_pattern (tag (identifier)) args: (identifier_pattern (identifier)))) body: (expr_body (function_call_pnc_expr caller: (variable_expr (identifier)) args: (variable_expr (identifier))))))
+
+(file
+  (value_declaration
+    (decl_left
+      (tag_pattern
+        (tag
+          (identifier))
+        args: (identifier_pattern
+          (identifier))))
+    body: (expr_body
+      (function_call_pnc_expr
+        caller: (variable_expr
+          (identifier))
+        args: (variable_expr
+          (identifier))))))
 
 ===
 top-level nested tag destructuring
 ===
 Ok(Some(parsed_value)) = validate(str_input)
 ---
-(file (value_declaration (decl_left (tag_pattern (tag (identifier)) args: (tag_pattern (tag (identifier)) args: (identifier_pattern (identifier))))) body: (expr_body (function_call_pnc_expr caller: (variable_expr (identifier)) args: (variable_expr (identifier))))))
+
+(file
+  (value_declaration
+    (decl_left
+      (tag_pattern
+        (tag
+          (identifier))
+        args: (tag_pattern
+          (tag
+            (identifier))
+          args: (identifier_pattern
+            (identifier)))))
+    body: (expr_body
+      (function_call_pnc_expr
+        caller: (variable_expr
+          (identifier))
+        args: (variable_expr
+          (identifier))))))
 
 ===
 top-level multi-argument tag destructuring
@@ -18,23 +49,68 @@ top-level multi-argument tag destructuring
 Pair(left, right) = pair
 Pair(left, right,) = pair
 ---
+
 (file
- (value_declaration (decl_left (tag_pattern (tag (identifier)) args: (identifier_pattern (identifier)) args: (identifier_pattern (identifier)))) body: (expr_body (variable_expr (identifier))))
- (value_declaration (decl_left (tag_pattern (tag (identifier)) args: (identifier_pattern (identifier)) args: (identifier_pattern (identifier)))) body: (expr_body (variable_expr (identifier)))))
+  (value_declaration
+    (decl_left
+      (tag_pattern
+        (tag
+          (identifier))
+        args: (identifier_pattern
+          (identifier))
+        args: (identifier_pattern
+          (identifier))))
+    body: (expr_body
+      (variable_expr
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (tag_pattern
+        (tag
+          (identifier))
+        args: (identifier_pattern
+          (identifier))
+        args: (identifier_pattern
+          (identifier))))
+    body: (expr_body
+      (variable_expr
+        (identifier)))))
 
 ===
 top-level wildcard tag destructuring
 ===
 Ok(_) = result
 ---
-(file (value_declaration (decl_left (tag_pattern (tag (identifier)) args: (wildcard_pattern))) body: (expr_body (variable_expr (identifier)))))
+
+(file
+  (value_declaration
+    (decl_left
+      (tag_pattern
+        (tag
+          (identifier))
+        args: (wildcard_pattern)))
+    body: (expr_body
+      (variable_expr
+        (identifier)))))
 
 ===
 top-level record tag destructuring
 ===
 Ok({ value }) = result
 ---
-(file (value_declaration (decl_left (tag_pattern (tag (identifier)) args: (record_pattern (record_field_pattern (field_name))))) body: (expr_body (variable_expr (identifier)))))
+
+(file
+  (value_declaration
+    (decl_left
+      (tag_pattern
+        (tag
+          (identifier))
+        args: (record_pattern
+          (record_field_pattern
+            (field_name)))))
+    body: (expr_body
+      (variable_expr
+        (identifier)))))
 
 ===
 block-local tag destructuring
@@ -45,10 +121,42 @@ output = {
     parsed_value
 }
 ---
-(file (value_declaration (decl_left (identifier_pattern (identifier))) body: (expr_body (body_expression
- (value_declaration (decl_left (tag_pattern (tag (identifier)) args: (identifier_pattern (identifier)))) body: (expr_body (function_call_pnc_expr caller: (variable_expr (identifier)) args: (variable_expr (identifier)))))
- (value_declaration (decl_left (tag_pattern (tag (identifier)) args: (tag_pattern (tag (identifier)) args: (identifier_pattern (identifier))))) body: (expr_body (variable_expr (identifier))))
- (variable_expr (identifier))))))
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (expr_body
+      (body_expression
+        (value_declaration
+          (decl_left
+            (tag_pattern
+              (tag
+                (identifier))
+              args: (identifier_pattern
+                (identifier))))
+          body: (expr_body
+            (function_call_pnc_expr
+              caller: (variable_expr
+                (identifier))
+              args: (variable_expr
+                (identifier)))))
+        (value_declaration
+          (decl_left
+            (tag_pattern
+              (tag
+                (identifier))
+              args: (tag_pattern
+                (tag
+                  (identifier))
+                args: (identifier_pattern
+                  (identifier)))))
+          body: (expr_body
+            (variable_expr
+              (identifier))))
+        (variable_expr
+          (identifier))))))
 
 ===
 tag destructuring between module declarations
@@ -57,10 +165,32 @@ str_input = "42"
 Ok(parsed_value) = x
 output = parsed_value
 ---
+
 (file
- (value_declaration (decl_left (identifier_pattern (identifier))) body: (expr_body (const (string))))
- (value_declaration (decl_left (tag_pattern (tag (identifier)) args: (identifier_pattern (identifier)))) body: (expr_body (variable_expr (identifier))))
- (value_declaration (decl_left (identifier_pattern (identifier))) body: (expr_body (variable_expr (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (expr_body
+      (const
+        (string))))
+  (value_declaration
+    (decl_left
+      (tag_pattern
+        (tag
+          (identifier))
+        args: (identifier_pattern
+          (identifier))))
+    body: (expr_body
+      (variable_expr
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (expr_body
+      (variable_expr
+        (identifier)))))
 
 ===
 tag destructuring type-definition controls
@@ -69,10 +199,38 @@ Ok(value) : [Ok(value)]
 Wrapper(value) := { value: value }
 Opaque(value) :: { value: value }
 ---
+
 (file
- (alias_type_def (apply_type (concrete_type) type_args: (apply_type_arg (bound_variable))) body: (tags_type (tag_type type_args: (apply_type_arg (bound_variable)))))
- (nominal_type_def (apply_type (concrete_type) type_args: (apply_type_arg (bound_variable))) (colon_equals) (record_type (record_field_type (field_name) (bound_variable))))
- (opaque_type_def (apply_type (concrete_type) type_args: (apply_type_arg (bound_variable))) (double_colon) (record_type (record_field_type (field_name) (bound_variable)))))
+  (alias_type_def
+    (apply_type
+      (concrete_type)
+      type_args: (apply_type_arg
+        (bound_variable)))
+    body: (tags_type
+      (tag_type
+        name: (tag_name)
+        type_args: (apply_type_arg
+          (bound_variable)))))
+  (nominal_type_def
+    (apply_type
+      (concrete_type)
+      type_args: (apply_type_arg
+        (bound_variable)))
+    (colon_equals)
+    (record_type
+      (record_field_type
+        (field_name)
+        (bound_variable))))
+  (opaque_type_def
+    (apply_type
+      (concrete_type)
+      type_args: (apply_type_arg
+        (bound_variable)))
+    (double_colon)
+    (record_type
+      (record_field_type
+        (field_name)
+        (bound_variable)))))
 
 ===
 tag destructuring expression controls
@@ -81,12 +239,46 @@ result = Ok(parsed_value)
 result = validate(str_input)
 result = { Ok(parsed_value) validate(str_input) }
 ---
+
 (file
- (value_declaration (decl_left (identifier_pattern (identifier))) body: (expr_body (function_call_pnc_expr caller: (tag_expr (tag (identifier))) args: (variable_expr (identifier)))))
- (value_declaration (decl_left (identifier_pattern (identifier))) body: (expr_body (function_call_pnc_expr caller: (variable_expr (identifier)) args: (variable_expr (identifier)))))
- (value_declaration (decl_left (identifier_pattern (identifier))) body: (expr_body (body_expression
-  (function_call_pnc_expr caller: (tag_expr (tag (identifier))) args: (variable_expr (identifier)))
-  (function_call_pnc_expr caller: (variable_expr (identifier)) args: (variable_expr (identifier)))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (expr_body
+      (function_call_pnc_expr
+        caller: (tag_expr
+          (tag
+            (identifier)))
+        args: (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (expr_body
+      (function_call_pnc_expr
+        caller: (variable_expr
+          (identifier))
+        args: (variable_expr
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (expr_body
+      (body_expression
+        (function_call_pnc_expr
+          caller: (tag_expr
+            (tag
+              (identifier)))
+          args: (variable_expr
+            (identifier)))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (variable_expr
+            (identifier)))))))
 
 ===
 whitespace before tag parentheses ends the tag pattern; parenthesized declaration patterns are not supported
@@ -99,6 +291,7 @@ main! = |_args| {
     Ok({})
 }
 ---
+
 (file
   (value_declaration
     (decl_left
@@ -164,14 +357,17 @@ main! = |_args| {
     Ok({})
 }
 ---
+
 (file
   (nominal_type_def
     (apply_type
       (concrete_type))
     (colon_equals)
     (tags_type
-      (tag_type)
       (tag_type
+        name: (tag_name))
+      (tag_type
+        name: (tag_name)
         type_args: (apply_type_arg
           (apply_type
             (concrete_type))))))
@@ -268,6 +464,7 @@ main! = |_args| {
     Ok({})
 }
 ---
+
 (file
   (value_declaration
     (decl_left
@@ -370,6 +567,7 @@ main! = |_args| {
     Ok({})
 }
 ---
+
 (file
   (value_declaration
     (decl_left
@@ -410,6 +608,23 @@ tag destructuring existing-binding controls
 Done = result
 Prepared.(prepared) = config
 ---
+
 (file
- (value_declaration (decl_left (tag_pattern (tag (identifier)))) body: (expr_body (variable_expr (identifier))))
- (value_declaration (decl_left (nominal_constructor_pattern (tag (identifier)) value: (identifier_pattern (identifier)))) body: (expr_body (variable_expr (identifier)))))
+  (value_declaration
+    (decl_left
+      (tag_pattern
+        (tag
+          (identifier))))
+    body: (expr_body
+      (variable_expr
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (nominal_constructor_pattern
+        (tag
+          (identifier))
+        value: (identifier_pattern
+          (identifier))))
+    body: (expr_body
+      (variable_expr
+        (identifier)))))

@@ -18,8 +18,10 @@ Flags := [A, B].{
       (concrete_type))
     (colon_equals)
     (tags_type
-      (tag_type)
-      (tag_type))
+      (tag_type
+        (tag_name))
+      (tag_type
+        (tag_name)))
     (nominal_methods
       (inferred_associated_annotation
         (annotation_pre_colon
@@ -67,8 +69,10 @@ Flags := [A, B].{
       (concrete_type))
     (colon_equals)
     (tags_type
-      (tag_type)
-      (tag_type))
+      (tag_type
+        (tag_name))
+      (tag_type
+        (tag_name)))
     (nominal_methods
       (inferred_associated_annotation
         (annotation_pre_colon
@@ -168,14 +172,16 @@ Outer := [A].{
       (concrete_type))
     (colon_equals)
     (tags_type
-      (tag_type))
+      (tag_type
+        (tag_name)))
     (nominal_methods
       (nominal_type_def
         (apply_type
           (concrete_type))
         (colon_equals)
         (tags_type
-          (tag_type))
+          (tag_type
+            (tag_name)))
         (nominal_methods
           (inferred_associated_annotation
             (annotation_pre_colon
@@ -204,8 +210,10 @@ Flags := [A, B].{
       (concrete_type))
     (colon_equals)
     (tags_type
-      (tag_type)
-      (tag_type))
+      (tag_type
+        (tag_name))
+      (tag_type
+        (tag_name)))
     (nominal_methods
       (annotation_type_def
         (annotation_pre_colon

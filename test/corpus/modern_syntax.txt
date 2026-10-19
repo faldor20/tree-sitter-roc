@@ -148,9 +148,12 @@ Color := [Red, Green, Blue].{
       (concrete_type))
     (colon_equals)
     (tags_type
-      (tag_type)
-      (tag_type)
-      (tag_type))
+      (tag_type
+        name: (tag_name))
+      (tag_type
+        name: (tag_name))
+      (tag_type
+        name: (tag_name)))
     (nominal_methods
       (annotation_type_def
         (annotation_pre_colon

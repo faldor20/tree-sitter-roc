@@ -4468,8 +4468,13 @@
           "type": "FIELD",
           "name": "name",
           "content": {
-            "type": "SYMBOL",
-            "name": "_upper_identifier"
+            "type": "ALIAS",
+            "content": {
+              "type": "SYMBOL",
+              "name": "_upper_identifier"
+            },
+            "named": true,
+            "value": "tag_name"
           }
         },
         {

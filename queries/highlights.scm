@@ -2,9 +2,7 @@
 
 
 
-[
-  (concrete_type)
-  (tag_type)] @type
+(concrete_type) @type
 
 
 
@@ -63,7 +61,7 @@
 
 (bound_variable) @type.parameter
 
-(tag_type) @type.enum.variant
+(tag_type name: (tag_name) @type.enum.variant)
 
 ; N/A
 ; @type.enum

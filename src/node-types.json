@@ -5280,6 +5280,16 @@
     "type": "tag_type",
     "named": true,
     "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "tag_name",
+            "named": true
+          }
+        ]
+      },
       "type_args": {
         "multiple": true,
         "required": false,
@@ -6349,11 +6359,11 @@
   },
   {
     "type": "as",
-    "named": false
+    "named": true
   },
   {
     "type": "as",
-    "named": true
+    "named": false
   },
   {
     "type": "bound_variable",
@@ -6516,6 +6526,10 @@
   {
     "type": "return",
     "named": false
+  },
+  {
+    "type": "tag_name",
+    "named": true
   },
   {
     "type": "targets",

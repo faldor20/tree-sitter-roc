@@ -97,9 +97,12 @@ Color := [Red, Green, Blue].{
       (concrete_type))
     (colon_equals)
     (tags_type
-      (tag_type)
-      (tag_type)
-      (tag_type))
+      (tag_type
+        name: (tag_name))
+      (tag_type
+        name: (tag_name))
+      (tag_type
+        name: (tag_name)))
     (nominal_methods
       (annotation_type_def
         (annotation_pre_colon
@@ -388,6 +391,7 @@ main! : List(Str) => Try({}, [Exit(I32)])
         type_args: (apply_type_arg
           (tags_type
             (tag_type
+              name: (tag_name)
               type_args: (apply_type_arg
                 (apply_type
                   (concrete_type))))))))))
@@ -565,8 +569,10 @@ Letters(others) : [A, B, ..others]
       type_args: (apply_type_arg
         (bound_variable)))
     body: (tags_type
-      (tag_type)
-      (tag_type)
+      (tag_type
+        name: (tag_name))
+      (tag_type
+        name: (tag_name))
       (spread_type
         (type_variable
           (bound_variable))))))
