@@ -187,7 +187,7 @@
 ; N/A
 ; @keyword.directive
 
-[(try_operator) "return"] 
+[(try_operator) "return"]
 
 [
   "for"
@@ -292,7 +292,7 @@
 ; N/A
 ; @constant.numeric
 
-(escape_char) 
+(escape_char)
 
 (char) @character
 

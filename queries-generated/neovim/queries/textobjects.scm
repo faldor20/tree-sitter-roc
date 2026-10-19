@@ -30,8 +30,8 @@
 (apply_type_arg) @parameter.inner
 
 (expect
-  (expr_body) 
-) 
+  (expr_body)
+)
 
 (line_comment) @comment.outer
 (doc_comment) @comment.outer

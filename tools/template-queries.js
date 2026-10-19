@@ -132,13 +132,15 @@ function applyMappingToContent(content, mapping) {
       if (trimmed.startsWith(";")) {
         return line;
       }
-      return line.replace(captureRegex, (match, name) => {
-        const mapped = mapping[name];
-        if (mapped === null || mapped === "" || mapped === false) {
-          return "";
-        }
-        return normalizeCaptureName(mapped);
-      });
+      return line
+        .replace(captureRegex, (match, name) => {
+          const mapped = mapping[name];
+          if (mapped === null || mapped === "" || mapped === false) {
+            return "";
+          }
+          return normalizeCaptureName(mapped);
+        })
+        .trimEnd();
     })
     .join("\n");
 }

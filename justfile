@@ -1,17 +1,17 @@
-test-gen: 
-    tree-sitter generate && tree-sitter test 
+test-gen:
+    ./node_modules/.bin/tree-sitter generate && ./node_modules/.bin/tree-sitter test
 
 test-gen-filter TEST:
-    tree-sitter generate && tree-sitter test -f {{TEST}}
+    ./node_modules/.bin/tree-sitter generate && ./node_modules/.bin/tree-sitter test -f {{TEST}}
 test:
-    tree-sitter test
+    ./node_modules/.bin/tree-sitter test
 
 test-update:
-    tree-sitter test --update
+    ./node_modules/.bin/tree-sitter test --update
 
-# run tree-sitter generate and verify generated files are clean
+# run the pinned generator and verify generated files are clean and well-formed
 generate-check:
-    tree-sitter generate && git diff --exit-code src/parser.c src/grammar.json src/node-types.json
+    ./node_modules/.bin/tree-sitter generate && node tools/check-node-types.js && git diff --exit-code src/parser.c src/grammar.json src/node-types.json
 
 # fail when generated parser complexity exceeds the reviewed budget
 parser-metrics-check:
@@ -27,8 +27,8 @@ queries-check:
 
 # run CI checks: generation, parser metrics, tests, and queries
 ci:
-    just generate-check && just parser-metrics-check && tree-sitter test && just queries-check
+    just generate-check && just parser-metrics-check && just test && just queries-check
 
 #generate and build wasm
 build-all:
-    tree-sitter generate && tree-sitter wasm
+    ./node_modules/.bin/tree-sitter generate && ./node_modules/.bin/tree-sitter wasm
