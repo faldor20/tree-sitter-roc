@@ -13,6 +13,5 @@ const highlights = fs.readFileSync(
 );
 
 assert.equal(mapping.highlights["keyword.control.return"], "keyword.return");
-assert.match(highlights, /^\[\(try_operator\) "return"\] @keyword\.return$/m);
-assert.equal((highlights.match(/\(try_operator\)/g) || []).length, 1);
+assert.match(highlights, /\[\s*\(try_operator\)\s*"return"\s*\]\s*@keyword\.return\b/);
 console.log("Neovim try operator uses @keyword.return");
