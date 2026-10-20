@@ -44,11 +44,11 @@ function checkInTemporaryDirectory(query, selfTest) {
   const directory = fs.mkdtempSync(path.join(os.tmpdir(), "roc-try-highlight-"));
   try {
     if (selfTest) {
-      const pattern = '[(try_operator) "return"] @keyword.return';
+      const pattern = '(try_operator) @keyword.return';
       assert.throws(() => checkTryCaptures("", directory), /Wrong capture/);
       assert.throws(() => checkTryCaptures(`; ${pattern}\n`, directory), /Wrong capture/);
       assert.throws(() => checkTryCaptures(`${pattern}.extra\n`, directory), /Wrong capture/);
-      checkTryCaptures('[(try_operator) ; a query comment\n "return"] @keyword.return\n', directory);
+      checkTryCaptures('(try_operator) ; a query comment\n @keyword.return\n', directory);
       console.log("Neovim try highlight failure-path tests passed");
     }
     checkTryCaptures(query, directory);

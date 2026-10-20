@@ -23,11 +23,11 @@ queries-generate:
 
 # generate queries and verify output is clean
 queries-check:
-    node tools/template-queries.js --queries-dir queries && node tools/check-neovim-try-highlight.js --self-test && git diff --exit-code queries-generated
+    node tools/template-queries.js --queries-dir queries && node tools/check-emacs-query-generator.js && node tools/check-neovim-try-highlight.js --self-test && git diff --exit-code queries-generated
 
 # run CI checks: generation, parser metrics, tests, and queries
 ci:
-    just generate-check && just parser-metrics-check && node tools/check-highlight-tests.js --self-test && just queries-check && node tools/check-expr-body-captures.js --self-test
+    just generate-check && just parser-metrics-check && node tools/check-highlight-tests.js --self-test && just queries-check && node tools/check-expr-body-captures.js --self-test && node tools/check-shared-highlight-parity.js
 
 #generate and build wasm
 build-all:

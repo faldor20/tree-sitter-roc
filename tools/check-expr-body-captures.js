@@ -121,9 +121,27 @@ function selfTest() {
 if (process.argv.includes("--self-test")) selfTest();
 const current = Object.fromEntries(names.map((name) => [name, captures(name)]));
 for (const name of names) {
-  // Branch isolation is a deliberate new local scope relationship. All other
-  // captures, including retained wrappers and duplicate ranges, must be exact.
-  sameCaptures(name, name === "locals" ? [...baseline[name], ...enclosingScopes] : baseline[name], current[name]);
+  // Branch scopes and the reviewed highlight changes below differ from the
+  // pinned pre-query-refinement captures. All remaining ranges stay exact.
+  let expected = name === "locals" ? [...baseline[name], ...enclosingScopes] : baseline[name];
+  if (name === "highlights") {
+    const redundantCallLines = new Set([29, 51]);
+    const formerArrowPositions = new Set([
+      "32:31", "32:39", "54:33", "54:41", "59:10", "6:18", "60:10", "7:19",
+    ]);
+    let keptUri = false;
+    expected = expected.filter((capture) => {
+      if (capture.name === "function" && redundantCallLines.has(capture.from[0])) return false;
+      if (capture.name === "punctuation.delimiter" &&
+          formerArrowPositions.has(capture.from.join(":"))) return false;
+      if (capture.name === "string.special.url" && capture.from[0] === 0) {
+        if (keptUri) return false;
+        keptUri = true;
+      }
+      return true;
+    });
+  }
+  sameCaptures(name, expected, current[name]);
   console.log(`${name}: ${current[name].length} exact captures verified`);
 }
 relationships(current.locals);

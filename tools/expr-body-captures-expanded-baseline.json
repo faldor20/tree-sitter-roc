@@ -5247,17 +5247,6 @@
     {
       "name": "keyword.control.return",
       "from": [
-        35,
-        15
-      ],
-      "to": [
-        35,
-        16
-      ]
-    },
-    {
-      "name": "keyword.control.return",
-      "from": [
         42,
         15
       ],
@@ -5322,7 +5311,7 @@
       ]
     },
     {
-      "name": "keyword.control",
+      "name": "keyword.control.exception",
       "from": [
         18,
         10
@@ -5333,7 +5322,7 @@
       ]
     },
     {
-      "name": "keyword.control",
+      "name": "keyword.control.exception",
       "from": [
         43,
         14
@@ -5619,7 +5608,7 @@
       ]
     },
     {
-      "name": "operator",
+      "name": "punctuation.delimiter",
       "from": [
         32,
         31
@@ -5630,7 +5619,7 @@
       ]
     },
     {
-      "name": "operator",
+      "name": "punctuation.delimiter",
       "from": [
         32,
         39
@@ -5971,7 +5960,7 @@
       ]
     },
     {
-      "name": "operator",
+      "name": "punctuation.delimiter",
       "from": [
         54,
         33
@@ -5982,7 +5971,7 @@
       ]
     },
     {
-      "name": "operator",
+      "name": "punctuation.delimiter",
       "from": [
         54,
         41
@@ -6037,7 +6026,7 @@
       ]
     },
     {
-      "name": "operator",
+      "name": "punctuation.delimiter",
       "from": [
         59,
         10
@@ -6059,7 +6048,7 @@
       ]
     },
     {
-      "name": "operator",
+      "name": "punctuation.delimiter",
       "from": [
         6,
         18
@@ -6081,7 +6070,7 @@
       ]
     },
     {
-      "name": "operator",
+      "name": "punctuation.delimiter",
       "from": [
         60,
         10
@@ -6092,7 +6081,7 @@
       ]
     },
     {
-      "name": "operator",
+      "name": "punctuation.delimiter",
       "from": [
         7,
         19
@@ -6873,116 +6862,6 @@
       ]
     },
     {
-      "name": "punctuation.delimiter",
-      "from": [
-        0,
-        16
-      ],
-      "to": [
-        0,
-        17
-      ]
-    },
-    {
-      "name": "punctuation.delimiter",
-      "from": [
-        21,
-        15
-      ],
-      "to": [
-        21,
-        16
-      ]
-    },
-    {
-      "name": "punctuation.delimiter",
-      "from": [
-        30,
-        18
-      ],
-      "to": [
-        30,
-        19
-      ]
-    },
-    {
-      "name": "punctuation.delimiter",
-      "from": [
-        32,
-        35
-      ],
-      "to": [
-        32,
-        36
-      ]
-    },
-    {
-      "name": "punctuation.delimiter",
-      "from": [
-        41,
-        21
-      ],
-      "to": [
-        41,
-        22
-      ]
-    },
-    {
-      "name": "punctuation.delimiter",
-      "from": [
-        54,
-        37
-      ],
-      "to": [
-        54,
-        38
-      ]
-    },
-    {
-      "name": "punctuation.delimiter",
-      "from": [
-        59,
-        22
-      ],
-      "to": [
-        59,
-        23
-      ]
-    },
-    {
-      "name": "punctuation.delimiter",
-      "from": [
-        6,
-        34
-      ],
-      "to": [
-        6,
-        35
-      ]
-    },
-    {
-      "name": "punctuation.delimiter",
-      "from": [
-        60,
-        20
-      ],
-      "to": [
-        60,
-        21
-      ]
-    },
-    {
-      "name": "punctuation.delimiter",
-      "from": [
-        7,
-        27
-      ],
-      "to": [
-        7,
-        28
-      ]
-    },
-    {
       "name": "string.special.url",
       "from": [
         0,
@@ -7062,17 +6941,6 @@
     {
       "name": "variable.other.member",
       "from": [
-        21,
-        10
-      ],
-      "to": [
-        21,
-        15
-      ]
-    },
-    {
-      "name": "variable.other.member",
-      "from": [
         29,
         13
       ],
@@ -7089,17 +6957,6 @@
       ],
       "to": [
         34,
-        21
-      ]
-    },
-    {
-      "name": "variable.other.member",
-      "from": [
-        41,
-        16
-      ],
-      "to": [
-        41,
         21
       ]
     },

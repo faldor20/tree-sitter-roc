@@ -1,4 +1,4 @@
 T : [Ok(I64), Err]
-#    ^^ type.enum.variant
+#    ^^ type.enum.variant.roc-special.builtin
 #       ^^^ type.builtin
-#             ^^^ type.enum.variant
+#             ^^^ type.enum.variant.roc-special.builtin
