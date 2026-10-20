@@ -98,18 +98,17 @@ q15_input = runtime_zero.to_i16() + (-32768)
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (function_call_pnc_expr
-          (field_access_expr
-            (variable_expr
-              (identifier))
-            (identifier)))
-        (operator)
-        (parenthesized_expr
-          (prefixed_expression
-            (operator_identifier)
-            (int)))))))
+    (bin_op_expr
+      (function_call_pnc_expr
+        (field_access_expr
+          (variable_expr
+            (identifier))
+          (identifier)))
+      (operator)
+      (parenthesized_expr
+        (prefixed_expression
+          (operator_identifier)
+          (int))))))
 
 ==================
 adjacent string pattern captures
@@ -127,26 +126,23 @@ result = match "abc" {
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (match_expr
+    (match_expr
+      (const
+        (string))
+      (match_branch
+        (const_pattern
+          (string_pattern_capture
+            (wildcard_pattern))
+          (string_pattern_capture
+            (wildcard_pattern)))
+        (fat_arrow)
         (const
-          (string))
-        (match_branch
-          (const_pattern
-            (string_pattern_capture
-              (wildcard_pattern))
-            (string_pattern_capture
-              (wildcard_pattern)))
-          (fat_arrow)
-          (expr_body
-            (const
-              (int))))
-        (match_branch
-          (wildcard_pattern)
-          (fat_arrow)
-          (expr_body
-            (const
-              (int))))))))
+          (int)))
+      (match_branch
+        (wildcard_pattern)
+        (fat_arrow)
+        (const
+          (int))))))
 
 ==================
 typed multiline string
@@ -163,11 +159,10 @@ message = \\first
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (const
-        (typed_string
-          (multiline_string)
-          (literal_type_suffix))))))
+    (const
+      (typed_string
+        (multiline_string)
+        (literal_type_suffix)))))
 
 ==================
 nominal record and tuple patterns
@@ -187,55 +182,50 @@ result = match value {
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (match_expr
+    (match_expr
+      (variable_expr
+        (identifier))
+      (match_branch
+        (nominal_record_pattern
+          (tag
+            (identifier))
+          (record_field_pattern
+            (field_name))
+          (spread_pattern))
+        (fat_arrow)
         (variable_expr
-          (identifier))
-        (match_branch
-          (nominal_record_pattern
-            (tag
-              (identifier))
-            (record_field_pattern
-              (field_name))
-            (spread_pattern))
-          (fat_arrow)
-          (expr_body
-            (variable_expr
-              (identifier))))
-        (match_branch
-          (nominal_constructor_pattern
-            (tag
-              (identifier))
-            (identifier_pattern
-              (identifier))
-            (identifier_pattern
-              (identifier)))
-          (fat_arrow)
-          (expr_body
-            (variable_expr
-              (identifier))))
-        (match_branch
-          (nominal_constructor_pattern
-            (tag
-              (identifier))
-            (identifier_pattern
-              (identifier))
-            (identifier_pattern
-              (identifier)))
-          (fat_arrow)
-          (expr_body
-            (variable_expr
-              (identifier))))
-        (match_branch
-          (nominal_constructor_pattern
-            (tag
-              (identifier))
-            (identifier_pattern
-              (identifier)))
-          (fat_arrow)
-          (expr_body
-            (variable_expr
-              (identifier))))))))
+          (identifier)))
+      (match_branch
+        (nominal_constructor_pattern
+          (tag
+            (identifier))
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (fat_arrow)
+        (variable_expr
+          (identifier)))
+      (match_branch
+        (nominal_constructor_pattern
+          (tag
+            (identifier))
+          (identifier_pattern
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (fat_arrow)
+        (variable_expr
+          (identifier)))
+      (match_branch
+        (nominal_constructor_pattern
+          (tag
+            (identifier))
+          (identifier_pattern
+            (identifier)))
+        (fat_arrow)
+        (variable_expr
+          (identifier))))))
 
 ==================
 reserved as after a declaration tag pattern lexes as an identifier
@@ -254,41 +244,37 @@ main! = |_args| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (function_call_pnc_expr
-                  caller: (tag_expr
-                    (tag
-                      (identifier)))
-                  args: (const
-                    (int)))))
-            (function_call_pnc_expr
-              caller: (tag_expr
-                (tag
-                  (identifier)))
-              args: (variable_expr
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (function_call_pnc_expr
+            caller: (tag_expr
+              (tag
                 (identifier)))
-            (variable_expr
-              (identifier))
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (variable_expr
-                  (identifier))))
-            (function_call_pnc_expr
-              caller: (tag_expr
-                (tag
-                  (identifier)))
-              args: (record_expr))))))))
+            args: (const
+              (int))))
+        (function_call_pnc_expr
+          caller: (tag_expr
+            (tag
+              (identifier)))
+          args: (variable_expr
+            (identifier)))
+        (variable_expr
+          (identifier))
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (variable_expr
+            (identifier)))
+        (function_call_pnc_expr
+          caller: (tag_expr
+            (tag
+              (identifier)))
+          args: (record_expr))))))

@@ -15,30 +15,28 @@ a=
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (bin_op_expr
-        part: (variable_expr
-          (identifier))
-        part: (operator)
-        part: (function_call_pnc_expr
-          caller: (variable_expr
-            (identifier)))
-        part: (operator)
-        part: (function_call_pnc_expr
-          caller: (variable_expr
-            (identifier))))))
+    body: (bin_op_expr
+      part: (variable_expr
+        (identifier))
+      part: (operator)
+      part: (function_call_pnc_expr
+        caller: (variable_expr
+          (identifier)))
+      part: (operator)
+      part: (function_call_pnc_expr
+        caller: (variable_expr
+          (identifier)))))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (bin_op_expr
-        part: (variable_expr
-          (identifier))
-        part: (operator)
-        part: (function_call_pnc_expr
-          caller: (variable_expr
-            (identifier)))))))
+    body: (bin_op_expr
+      part: (variable_expr
+        (identifier))
+      part: (operator)
+      part: (function_call_pnc_expr
+        caller: (variable_expr
+          (identifier))))))
 
 ================================================================================
 modern ranges and pipelines
@@ -54,61 +52,55 @@ lambda_result = values |> (|items| items)
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (const
-          (int))
-        (operator)
-        (variable_expr
-          (identifier)))))
+    (bin_op_expr
+      (const
+        (int))
+      (operator)
+      (variable_expr
+        (identifier))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (const
-          (int))
-        (operator)
-        (const
-          (int)))))
+    (bin_op_expr
+      (const
+        (int))
+      (operator)
+      (const
+        (int))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (operator)
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (operator)
+      (variable_expr
+        (module)
+        (identifier))
+      (operator)
+      (function_call_pnc_expr
         (variable_expr
           (module)
           (identifier))
-        (operator)
-        (function_call_pnc_expr
-          (variable_expr
-            (module)
-            (identifier))
-          (const
-            (string))))))
+        (const
+          (string)))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (operator)
-        (parenthesized_expr
-          (expr_body
-            (anon_fun_expr
-              (argument_patterns
-                (identifier_pattern
-                  (identifier)))
-              (expr_body
-                (variable_expr
-                  (identifier))))))))))
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (operator)
+      (parenthesized_expr
+        (anon_fun_expr
+          (argument_patterns
+            (identifier_pattern
+              (identifier)))
+          (variable_expr
+            (identifier)))))))
 
 ================================================================================
 try operators and whitespace boundaries
@@ -130,114 +122,103 @@ line_split = a
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (try_operator)
-        (variable_expr
-          (identifier)))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (try_operator)
-        (anon_fun_expr
-          (argument_patterns
-            (identifier_pattern
-              (identifier)))
-          (expr_body
-            (bin_op_expr
-              (function_call_pnc_expr
-                (tag_expr
-                  (tag
-                    (identifier)))
-                (variable_expr
-                  (identifier)))
-              (operator)
-              (variable_expr
-                (identifier))))))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (try_operator)
-        (parenthesized_expr
-          (expr_body
-            (anon_fun_expr
-              (argument_patterns
-                (identifier_pattern
-                  (identifier)))
-              (expr_body
-                (function_call_pnc_expr
-                  (tag_expr
-                    (tag
-                      (identifier)))
-                  (variable_expr
-                    (identifier)))))))
-        (operator)
-        (variable_expr
-          (identifier)))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (operator)
-        (variable_expr
-          (identifier))
-        (try_operator)
-        (variable_expr
-          (identifier)))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (suffix_op_expr
-        (variable_expr
-          (identifier))
-        (try_operator))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (try_operator)
       (variable_expr
         (identifier))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (try_operator)
-        (variable_expr
-          (identifier)))))
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (try_operator)
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (bin_op_expr
+          (function_call_pnc_expr
+            (tag_expr
+              (tag
+                (identifier)))
+            (variable_expr
+              (identifier)))
+          (operator)
+          (variable_expr
+            (identifier))))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (try_operator)
-        (variable_expr
-          (identifier))))))
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (try_operator)
+      (parenthesized_expr
+        (anon_fun_expr
+          (argument_patterns
+            (identifier_pattern
+              (identifier)))
+          (function_call_pnc_expr
+            (tag_expr
+              (tag
+                (identifier)))
+            (variable_expr
+              (identifier)))))
+      (operator)
+      (variable_expr
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (operator)
+      (variable_expr
+        (identifier))
+      (try_operator)
+      (variable_expr
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (suffix_op_expr
+      (variable_expr
+        (identifier))
+      (try_operator)))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (variable_expr
+      (identifier)))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (try_operator)
+      (variable_expr
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (try_operator)
+      (variable_expr
+        (identifier)))))
 
 ================================================================================
 postfix question mark does not absorb a spaced operand
@@ -250,11 +231,10 @@ postfix = a? b
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (suffix_op_expr
-        (variable_expr
-          (identifier))
-        (try_operator))))
+    (suffix_op_expr
+      (variable_expr
+        (identifier))
+      (try_operator)))
   (expr_body
     (variable_expr
       (identifier))))

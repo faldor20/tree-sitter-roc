@@ -12,12 +12,11 @@ Ok(parsed_value) = validate(str_input)
           (identifier))
         args: (identifier_pattern
           (identifier))))
-    body: (expr_body
-      (function_call_pnc_expr
-        caller: (variable_expr
-          (identifier))
-        args: (variable_expr
-          (identifier))))))
+    body: (function_call_pnc_expr
+      caller: (variable_expr
+        (identifier))
+      args: (variable_expr
+        (identifier)))))
 
 ===
 top-level nested tag destructuring
@@ -36,12 +35,11 @@ Ok(Some(parsed_value)) = validate(str_input)
             (identifier))
           args: (identifier_pattern
             (identifier)))))
-    body: (expr_body
-      (function_call_pnc_expr
-        caller: (variable_expr
-          (identifier))
-        args: (variable_expr
-          (identifier))))))
+    body: (function_call_pnc_expr
+      caller: (variable_expr
+        (identifier))
+      args: (variable_expr
+        (identifier)))))
 
 ===
 top-level multi-argument tag destructuring
@@ -60,9 +58,8 @@ Pair(left, right,) = pair
           (identifier))
         args: (identifier_pattern
           (identifier))))
-    body: (expr_body
-      (variable_expr
-        (identifier))))
+    body: (variable_expr
+      (identifier)))
   (value_declaration
     pattern: (decl_left
       (tag_pattern
@@ -72,9 +69,8 @@ Pair(left, right,) = pair
           (identifier))
         args: (identifier_pattern
           (identifier))))
-    body: (expr_body
-      (variable_expr
-        (identifier)))))
+    body: (variable_expr
+      (identifier))))
 
 ===
 top-level wildcard tag destructuring
@@ -89,9 +85,8 @@ Ok(_) = result
         (tag
           (identifier))
         args: (wildcard_pattern)))
-    body: (expr_body
-      (variable_expr
-        (identifier)))))
+    body: (variable_expr
+      (identifier))))
 
 ===
 top-level record tag destructuring
@@ -108,9 +103,8 @@ Ok({ value }) = result
         args: (record_pattern
           (record_field_pattern
             (field_name)))))
-    body: (expr_body
-      (variable_expr
-        (identifier)))))
+    body: (variable_expr
+      (identifier))))
 
 ===
 block-local tag destructuring
@@ -127,36 +121,33 @@ output = {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (body_expression
-        (value_declaration
-          pattern: (decl_left
-            (tag_pattern
+    body: (body_expression
+      (value_declaration
+        pattern: (decl_left
+          (tag_pattern
+            (tag
+              (identifier))
+            args: (identifier_pattern
+              (identifier))))
+        body: (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (variable_expr
+            (identifier))))
+      (value_declaration
+        pattern: (decl_left
+          (tag_pattern
+            (tag
+              (identifier))
+            args: (tag_pattern
               (tag
                 (identifier))
               args: (identifier_pattern
-                (identifier))))
-          body: (expr_body
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (variable_expr
                 (identifier)))))
-        (value_declaration
-          pattern: (decl_left
-            (tag_pattern
-              (tag
-                (identifier))
-              args: (tag_pattern
-                (tag
-                  (identifier))
-                args: (identifier_pattern
-                  (identifier)))))
-          body: (expr_body
-            (variable_expr
-              (identifier))))
-        (variable_expr
-          (identifier))))))
+        body: (variable_expr
+          (identifier)))
+      (variable_expr
+        (identifier)))))
 
 ===
 tag destructuring between module declarations
@@ -171,9 +162,8 @@ output = parsed_value
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (const
-        (string))))
+    body: (const
+      (string)))
   (value_declaration
     pattern: (decl_left
       (tag_pattern
@@ -181,16 +171,14 @@ output = parsed_value
           (identifier))
         args: (identifier_pattern
           (identifier))))
-    body: (expr_body
-      (variable_expr
-        (identifier))))
+    body: (variable_expr
+      (identifier)))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (variable_expr
-        (identifier)))))
+    body: (variable_expr
+      (identifier))))
 
 ===
 tag destructuring type-definition controls
@@ -245,40 +233,37 @@ result = { Ok(parsed_value) validate(str_input) }
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
+    body: (function_call_pnc_expr
+      caller: (tag_expr
+        (tag
+          (identifier)))
+      args: (variable_expr
+        (identifier))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (function_call_pnc_expr
+      caller: (variable_expr
+        (identifier))
+      args: (variable_expr
+        (identifier))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (body_expression
       (function_call_pnc_expr
         caller: (tag_expr
           (tag
             (identifier)))
         args: (variable_expr
-          (identifier)))))
-  (value_declaration
-    pattern: (decl_left
-      (identifier_pattern
-        (identifier)))
-    body: (expr_body
+          (identifier)))
       (function_call_pnc_expr
         caller: (variable_expr
           (identifier))
         args: (variable_expr
-          (identifier)))))
-  (value_declaration
-    pattern: (decl_left
-      (identifier_pattern
-        (identifier)))
-    body: (expr_body
-      (body_expression
-        (function_call_pnc_expr
-          caller: (tag_expr
-            (tag
-              (identifier)))
-          args: (variable_expr
-            (identifier)))
-        (function_call_pnc_expr
-          caller: (variable_expr
-            (identifier))
-          args: (variable_expr
-            (identifier)))))))
+          (identifier))))))
 
 ===
 whitespace before tag parentheses ends the tag pattern; parenthesized declaration patterns are not supported
@@ -297,49 +282,44 @@ main! = |_args| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (function_call_pnc_expr
+            caller: (tag_expr
+              (tag
+                (identifier)))
+            args: (const
+              (int))))
+        (tag_expr
+          (tag
             (identifier)))
-        body: (expr_body
-          (body_expression
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (function_call_pnc_expr
-                  caller: (tag_expr
-                    (tag
-                      (identifier)))
-                  args: (const
-                    (int)))))
-            (tag_expr
-              (tag
-                (identifier)))
-            (parenthesized_expr
-              expression: (expr_body
-                (variable_expr
-                  (identifier))))
-            (ERROR)
-            (variable_expr
-              (identifier))
-            (tag_expr
-              (tag
-                (identifier)))
-            (parenthesized_expr
-              expression: (expr_body
-                (variable_expr
-                  (identifier))))
-            (ERROR)
-            (variable_expr
-              (identifier))
-            (function_call_pnc_expr
-              caller: (tag_expr
-                (tag
-                  (identifier)))
-              args: (record_expr))))))))
+        (parenthesized_expr
+          expression: (variable_expr
+            (identifier)))
+        (ERROR)
+        (variable_expr
+          (identifier))
+        (tag_expr
+          (tag
+            (identifier)))
+        (parenthesized_expr
+          expression: (variable_expr
+            (identifier)))
+        (ERROR)
+        (variable_expr
+          (identifier))
+        (function_call_pnc_expr
+          caller: (tag_expr
+            (tag
+              (identifier)))
+          args: (record_expr))))))
 
 ===
 module-qualified tag destructuring
@@ -375,81 +355,73 @@ main! = |_args| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (function_call_pnc_expr
-                  caller: (tag_expr
-                    (tag
-                      (module)
-                      (identifier)))
-                  args: (const
-                    (int)))))
-            (value_declaration
-              pattern: (decl_left
-                (tag_pattern
-                  (tag
-                    (module)
-                    (identifier))
-                  args: (identifier_pattern
-                    (identifier))))
-              body: (expr_body
-                (variable_expr
-                  (identifier))))
-            (value_declaration
-              pattern: (decl_left
-                (wildcard_pattern))
-              body: (expr_body
-                (variable_expr
-                  (identifier))))
-            (annotation_type_def
-              name: (annotation_pre_colon
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (function_call_pnc_expr
+            caller: (tag_expr
+              (tag
+                (module)
+                (identifier)))
+            args: (const
+              (int))))
+        (value_declaration
+          pattern: (decl_left
+            (tag_pattern
+              (tag
+                (module)
                 (identifier))
-              (apply_type
-                (concrete_type)))
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (function_call_pnc_expr
-                  caller: (tag_expr
-                    (tag
-                      (module)
-                      (identifier)))
-                  args: (const
-                    (int)))))
-            (value_declaration
-              pattern: (decl_left
-                (tag_pattern
-                  (tag
-                    (module)
-                    (identifier))
-                  args: (identifier_pattern
-                    (identifier))))
-              body: (expr_body
-                (variable_expr
-                  (identifier))))
-            (value_declaration
-              pattern: (decl_left
-                (wildcard_pattern))
-              body: (expr_body
-                (variable_expr
-                  (identifier))))
-            (function_call_pnc_expr
-              caller: (tag_expr
-                (tag
-                  (identifier)))
-              args: (record_expr))))))))
+              args: (identifier_pattern
+                (identifier))))
+          body: (variable_expr
+            (identifier)))
+        (value_declaration
+          pattern: (decl_left
+            (wildcard_pattern))
+          body: (variable_expr
+            (identifier)))
+        (annotation_type_def
+          name: (annotation_pre_colon
+            (identifier))
+          (apply_type
+            (concrete_type)))
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (function_call_pnc_expr
+            caller: (tag_expr
+              (tag
+                (module)
+                (identifier)))
+            args: (const
+              (int))))
+        (value_declaration
+          pattern: (decl_left
+            (tag_pattern
+              (tag
+                (module)
+                (identifier))
+              args: (identifier_pattern
+                (identifier))))
+          body: (variable_expr
+            (identifier)))
+        (value_declaration
+          pattern: (decl_left
+            (wildcard_pattern))
+          body: (variable_expr
+            (identifier)))
+        (function_call_pnc_expr
+          caller: (tag_expr
+            (tag
+              (identifier)))
+          args: (record_expr))))))
 
 ===
 tuple and list tag destructuring
@@ -470,92 +442,84 @@ main! = |_args| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (function_call_pnc_expr
+            caller: (tag_expr
+              (tag
+                (identifier)))
+            args: (tuple_expr
+              expr: (const
+                (int))
+              expr: (const
+                (int)))))
+        (value_declaration
+          pattern: (decl_left
+            (tag_pattern
+              (tag
+                (identifier))
+              args: (tuple_pattern
+                (identifier_pattern
+                  (identifier))
+                (identifier_pattern
+                  (identifier)))))
+          body: (variable_expr
             (identifier)))
-        body: (expr_body
-          (body_expression
-            (value_declaration
-              pattern: (decl_left
+        (value_declaration
+          pattern: (decl_left
+            (wildcard_pattern))
+          body: (bin_op_expr
+            part: (variable_expr
+              (identifier))
+            part: (operator)
+            part: (variable_expr
+              (identifier))))
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (function_call_pnc_expr
+            caller: (tag_expr
+              (tag
+                (identifier)))
+            args: (list_expr
+              exprList: (const
+                (int))
+              exprList: (const
+                (int)))))
+        (value_declaration
+          pattern: (decl_left
+            (tag_pattern
+              (tag
+                (identifier))
+              args: (list_pattern
                 (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (function_call_pnc_expr
-                  caller: (tag_expr
-                    (tag
-                      (identifier)))
-                  args: (tuple_expr
-                    expr: (const
-                      (int))
-                    expr: (const
-                      (int))))))
-            (value_declaration
-              pattern: (decl_left
-                (tag_pattern
-                  (tag
-                    (identifier))
-                  args: (tuple_pattern
-                    (identifier_pattern
-                      (identifier))
-                    (identifier_pattern
-                      (identifier)))))
-              body: (expr_body
-                (variable_expr
-                  (identifier))))
-            (value_declaration
-              pattern: (decl_left
-                (wildcard_pattern))
-              body: (expr_body
-                (bin_op_expr
-                  part: (variable_expr
-                    (identifier))
-                  part: (operator)
-                  part: (variable_expr
-                    (identifier)))))
-            (value_declaration
-              pattern: (decl_left
+                  (identifier))
                 (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (function_call_pnc_expr
-                  caller: (tag_expr
-                    (tag
-                      (identifier)))
-                  args: (list_expr
-                    exprList: (const
-                      (int))
-                    exprList: (const
-                      (int))))))
-            (value_declaration
-              pattern: (decl_left
-                (tag_pattern
-                  (tag
-                    (identifier))
-                  args: (list_pattern
-                    (identifier_pattern
-                      (identifier))
-                    (identifier_pattern
-                      (identifier)))))
-              body: (expr_body
-                (variable_expr
-                  (identifier))))
-            (value_declaration
-              pattern: (decl_left
-                (wildcard_pattern))
-              body: (expr_body
-                (bin_op_expr
-                  part: (variable_expr
-                    (identifier))
-                  part: (operator)
-                  part: (variable_expr
-                    (identifier)))))
-            (function_call_pnc_expr
-              caller: (tag_expr
-                (tag
-                  (identifier)))
-              args: (record_expr))))))))
+                  (identifier)))))
+          body: (variable_expr
+            (identifier)))
+        (value_declaration
+          pattern: (decl_left
+            (wildcard_pattern))
+          body: (bin_op_expr
+            part: (variable_expr
+              (identifier))
+            part: (operator)
+            part: (variable_expr
+              (identifier))))
+        (function_call_pnc_expr
+          caller: (tag_expr
+            (tag
+              (identifier)))
+          args: (record_expr))))))
 
 ===
 call statement before a tag call expression
@@ -573,34 +537,30 @@ main! = |_args| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (record_expr)))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (record_expr)))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (const
-                (string)))
-            (function_call_pnc_expr
-              caller: (tag_expr
-                (tag
-                  (identifier)))
-              args: (record_expr))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (const
+            (string)))
+        (function_call_pnc_expr
+          caller: (tag_expr
+            (tag
+              (identifier)))
+          args: (record_expr))))))
 
 ===
 tag destructuring existing-binding controls
@@ -615,9 +575,8 @@ Prepared.(prepared) = config
       (tag_pattern
         (tag
           (identifier))))
-    body: (expr_body
-      (variable_expr
-        (identifier))))
+    body: (variable_expr
+      (identifier)))
   (value_declaration
     pattern: (decl_left
       (nominal_constructor_pattern
@@ -625,6 +584,5 @@ Prepared.(prepared) = config
           (identifier))
         value: (identifier_pattern
           (identifier))))
-    body: (expr_body
-      (variable_expr
-        (identifier)))))
+    body: (variable_expr
+      (identifier))))

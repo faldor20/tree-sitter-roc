@@ -97,7 +97,7 @@
             "name": "body",
             "content": {
               "type": "SYMBOL",
-              "name": "expr_body"
+              "name": "_expr_inner"
             }
           }
         ]
@@ -127,13 +127,17 @@
           "type": "FIELD",
           "name": "body",
           "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "SYMBOL",
-              "name": "expr_body_terminal"
-            },
-            "named": true,
-            "value": "expr_body"
+            "type": "CHOICE",
+            "members": [
+              {
+                "type": "SYMBOL",
+                "name": "bin_op_expr"
+              },
+              {
+                "type": "SYMBOL",
+                "name": "_atom_expr"
+              }
+            ]
           }
         }
       ]
@@ -161,13 +165,8 @@
           "type": "FIELD",
           "name": "body",
           "content": {
-            "type": "ALIAS",
-            "content": {
-              "type": "SYMBOL",
-              "name": "expr_body_terminal"
-            },
-            "named": true,
-            "value": "expr_body"
+            "type": "SYMBOL",
+            "name": "_expr_inner"
           }
         }
       ]
@@ -540,7 +539,7 @@
           "name": "message",
           "content": {
             "type": "SYMBOL",
-            "name": "expr_body"
+            "name": "_expr_inner"
           }
         }
       ]
@@ -557,7 +556,7 @@
           "name": "body",
           "content": {
             "type": "SYMBOL",
-            "name": "expr_body"
+            "name": "_expr_inner"
           }
         }
       ]
@@ -583,7 +582,7 @@
           "name": "expression",
           "content": {
             "type": "SYMBOL",
-            "name": "expr_body"
+            "name": "_expr_inner"
           }
         },
         {
@@ -1202,7 +1201,7 @@
           "name": "expr",
           "content": {
             "type": "SYMBOL",
-            "name": "expr_body"
+            "name": "_expr_inner"
           }
         },
         {
@@ -1258,7 +1257,7 @@
             "name": "body",
             "content": {
               "type": "SYMBOL",
-              "name": "expr_body"
+              "name": "_expr_inner"
             }
           }
         ]

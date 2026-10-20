@@ -117,13 +117,13 @@ module.exports = grammar({
         $.import_file_expr,
       ),
 
-    expect: ($) => prec(1, seq("expect", field("body", $.expr_body))),
+    expect: ($) => prec(1, seq("expect", field("body", $._expr_inner))),
 
     _value_declaration: ($) =>
       seq(
         field("pattern", alias($._assignment_pattern, $.decl_left)),
         "=",
-        field("body", alias($.expr_body_terminal, $.expr_body)),
+        field("body", choice($.bin_op_expr, $._atom_expr)),
       ),
 
     _var_declaration: ($) =>
@@ -131,7 +131,7 @@ module.exports = grammar({
         "var",
         field("name", $.identifier),
         "=",
-        field("body", alias($.expr_body_terminal, $.expr_body)),
+        field("body", $._expr_inner),
       ),
 
     /**
@@ -224,11 +224,11 @@ module.exports = grammar({
     while_expr: ($) =>
       seq("while", field("guard", $._expr_inner), field("body", $.body_expression)),
     break_expr: () => "break",
-    crash_expr: ($) => seq("crash", field("message", $.expr_body)),
-    early_return_expr: ($) => seq("return", field("body", $.expr_body)),
+    crash_expr: ($) => seq("crash", field("message", $._expr_inner)),
+    early_return_expr: ($) => seq("return", field("body", $._expr_inner)),
 
     _variable_expr: ($) => alias($.long_identifier, $.variable_expr),
-    parenthesized_expr: ($) => seq("(", field("expression", $.expr_body), ")"),
+    parenthesized_expr: ($) => seq("(", field("expression", $._expr_inner), ")"),
     _parenthesized_negative_expr: ($) =>
       prec(
         PREC.ARGS + 1,
@@ -344,13 +344,13 @@ module.exports = grammar({
         optional(seq("if", field("guard", $._expr_inner))),
         $.fat_arrow,
         //TODO: evaluate what options can got here
-        field("expr", $.expr_body),
+        field("expr", $._expr_inner),
         optional(","),
       ),
     tag_expr: ($) => $.tag,
     anon_fun_expr: ($) =>
       prec.left(
-        seq("|", field("args", optional($.argument_patterns)), "|", field("body", $.expr_body)),
+        seq("|", field("args", optional($.argument_patterns)), "|", field("body", $._expr_inner)),
       ),
 
     //RECORDS

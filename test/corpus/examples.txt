@@ -235,157 +235,153 @@ record_update_2 = |person| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier))
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (function_call_pnc_expr
-                  caller: (variable_expr
-                    (module)
-                    (identifier))
-                  args: (variable_expr
-                    (identifier)))))
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (function_call_pnc_expr
-                  caller: (variable_expr
-                    (module)
-                    (identifier))
-                  args: (variable_expr
-                    (identifier)))))
-            (record_expr
-              (line_comment)
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (variable_expr
-                      (identifier)))))
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (variable_expr
-                      (identifier)))))
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (variable_expr
-                      (identifier)))))
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (variable_expr
-                      (identifier)))))
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (variable_expr
-                      (identifier)))))
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (variable_expr
-                      (identifier)))))
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (variable_expr
-                      (identifier)))))
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (variable_expr
-                      (identifier)))))
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (variable_expr
-                      (identifier)))))
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (variable_expr
-                      (identifier)))))
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (variable_expr
-                      (identifier)))))
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (variable_expr
-                      (identifier)))))
-              (line_comment)
-              (line_comment)
-              (line_comment)
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (prefixed_expression
-                    (variable_expr
-                      (identifier)))))
-              (line_comment)))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier))
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (function_call_pnc_expr
+            caller: (variable_expr
+              (module)
+              (identifier))
+            args: (variable_expr
+              (identifier))))
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (function_call_pnc_expr
+            caller: (variable_expr
+              (module)
+              (identifier))
+            args: (variable_expr
+              (identifier))))
+        (record_expr
+          (line_comment)
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier)))))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier)))))
+          (line_comment)
+          (line_comment)
+          (line_comment)
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (prefixed_expression
+                (variable_expr
+                  (identifier)))))
+          (line_comment)))))
   (annotation_type_def
     name: (annotation_pre_colon
       (identifier))
@@ -400,39 +396,37 @@ record_update_2 = |person| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier))
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (record_expr
-            (record_field_expr
-              (field_name)
-              (expr_body
-                (bin_op_expr
-                  part: (variable_expr
-                    (identifier))
-                  part: (operator)
-                  part: (variable_expr
-                    (identifier)))))
-            (record_field_expr
-              (field_name)
-              (expr_body
-                (bin_op_expr
-                  part: (variable_expr
-                    (identifier))
-                  part: (operator)
-                  part: (variable_expr
-                    (identifier)))))
-            (record_field_expr
-              (field_name)
-              (expr_body
-                (prefixed_expression
-                  (variable_expr
-                    (identifier))))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier))
+        (identifier_pattern
+          (identifier)))
+      body: (record_expr
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (bin_op_expr
+              part: (variable_expr
+                (identifier))
+              part: (operator)
+              part: (variable_expr
+                (identifier)))))
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (bin_op_expr
+              part: (variable_expr
+                (identifier))
+              part: (operator)
+              part: (variable_expr
+                (identifier)))))
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (prefixed_expression
+              (variable_expr
+                (identifier))))))))
   (annotation_type_def
     name: (annotation_pre_colon
       (identifier))
@@ -451,40 +445,35 @@ record_update_2 = |person| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (match_expr
-              (variable_expr
-                (identifier))
-              branch: (match_branch
-                pattern: (tag_pattern
-                  (tag
-                    (identifier)))
-                (fat_arrow)
-                expr: (expr_body
-                  (const
-                    (string))))
-              branch: (match_branch
-                pattern: (tag_pattern
-                  (tag
-                    (identifier)))
-                (fat_arrow)
-                expr: (expr_body
-                  (const
-                    (string))))
-              branch: (match_branch
-                pattern: (tag_pattern
-                  (tag
-                    (identifier)))
-                (fat_arrow)
-                expr: (expr_body
-                  (const
-                    (string))))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (match_expr
+          (variable_expr
+            (identifier))
+          branch: (match_branch
+            pattern: (tag_pattern
+              (tag
+                (identifier)))
+            (fat_arrow)
+            expr: (const
+              (string)))
+          branch: (match_branch
+            pattern: (tag_pattern
+              (tag
+                (identifier)))
+            (fat_arrow)
+            expr: (const
+              (string)))
+          branch: (match_branch
+            pattern: (tag_pattern
+              (tag
+                (identifier)))
+            (fat_arrow)
+            expr: (const
+              (string)))))))
   (annotation_type_def
     name: (annotation_pre_colon
       (identifier))
@@ -501,101 +490,91 @@ record_update_2 = |person| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (match_expr
-              (variable_expr
-                (identifier))
-              branch: (match_branch
-                pattern: (list_pattern)
-                (fat_arrow)
-                expr: (expr_body
-                  (const
-                    (int))))
-              branch: (match_branch
-                pattern: (list_pattern
-                  (identifier_pattern
-                    (identifier)))
-                (fat_arrow)
-                expr: (expr_body
-                  (variable_expr
-                    (identifier))))
-              branch: (match_branch
-                pattern: (list_pattern
-                  (const
-                    (int))
-                  (const
-                    (int))
-                  (const
-                    (int)))
-                (fat_arrow)
-                expr: (expr_body
-                  (const
-                    (int))))
-              branch: (match_branch
-                pattern: (list_pattern
-                  (const
-                    (int))
-                  (const
-                    (int))
-                  (spread_pattern))
-                (fat_arrow)
-                expr: (expr_body
-                  (const
-                    (int))))
-              branch: (match_branch
-                pattern: (list_pattern
-                  (const
-                    (int))
-                  (spread_pattern)
-                  (const
-                    (int)))
-                (fat_arrow)
-                expr: (expr_body
-                  (const
-                    (int))))
-              branch: (match_branch
-                pattern: (list_pattern
-                  (const
-                    (int))
-                  (spread_pattern
-                    (identifier)))
-                (fat_arrow)
-                expr: (expr_body
-                  (bin_op_expr
-                    part: (const
-                      (int))
-                    part: (operator)
-                    part: (function_call_pnc_expr
-                      caller: (field_access_expr
-                        target: (variable_expr
-                          (identifier))
-                        (identifier))))))
-              branch: (match_branch
-                pattern: (list_pattern
-                  (identifier_pattern
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (match_expr
+          (variable_expr
+            (identifier))
+          branch: (match_branch
+            pattern: (list_pattern)
+            (fat_arrow)
+            expr: (const
+              (int)))
+          branch: (match_branch
+            pattern: (list_pattern
+              (identifier_pattern
+                (identifier)))
+            (fat_arrow)
+            expr: (variable_expr
+              (identifier)))
+          branch: (match_branch
+            pattern: (list_pattern
+              (const
+                (int))
+              (const
+                (int))
+              (const
+                (int)))
+            (fat_arrow)
+            expr: (const
+              (int)))
+          branch: (match_branch
+            pattern: (list_pattern
+              (const
+                (int))
+              (const
+                (int))
+              (spread_pattern))
+            (fat_arrow)
+            expr: (const
+              (int)))
+          branch: (match_branch
+            pattern: (list_pattern
+              (const
+                (int))
+              (spread_pattern)
+              (const
+                (int)))
+            (fat_arrow)
+            expr: (const
+              (int)))
+          branch: (match_branch
+            pattern: (list_pattern
+              (const
+                (int))
+              (spread_pattern
+                (identifier)))
+            (fat_arrow)
+            expr: (bin_op_expr
+              part: (const
+                (int))
+              part: (operator)
+              part: (function_call_pnc_expr
+                caller: (field_access_expr
+                  target: (variable_expr
                     (identifier))
-                  (const
-                    (int)))
-                (fat_arrow)
-                expr: (expr_body
-                  (const
-                    (int))))
-              (line_comment)
-              (line_comment)
-              (line_comment)
-              (line_comment)
-              branch: (match_branch
-                pattern: (wildcard_pattern)
-                (fat_arrow)
-                expr: (expr_body
-                  (const
-                    (int))))))))))
+                  (identifier)))))
+          branch: (match_branch
+            pattern: (list_pattern
+              (identifier_pattern
+                (identifier))
+              (const
+                (int)))
+            (fat_arrow)
+            expr: (const
+              (int)))
+          (line_comment)
+          (line_comment)
+          (line_comment)
+          (line_comment)
+          branch: (match_branch
+            pattern: (wildcard_pattern)
+            (fat_arrow)
+            expr: (const
+              (int)))))))
   (annotation_type_def
     name: (annotation_pre_colon
       (identifier))
@@ -620,54 +599,49 @@ record_update_2 = |person| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        (line_comment)
-        body: (expr_body
-          (match_expr
-            (variable_expr
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      (line_comment)
+      body: (match_expr
+        (variable_expr
+          (identifier))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
               (identifier))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier))
-                args: (wildcard_pattern))
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string))))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier))
-                args: (tag_pattern
-                  (tag
+            args: (wildcard_pattern))
+          (fat_arrow)
+          expr: (const
+            (string)))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
+              (identifier))
+            args: (tag_pattern
+              (tag
+                (identifier))
+              args: (identifier_pattern
+                (identifier))))
+          (fat_arrow)
+          expr: (const
+            (string
+              (interpolation_char
+                (function_call_pnc_expr
+                  caller: (variable_expr
+                    (module)
                     (identifier))
-                  args: (identifier_pattern
-                    (identifier))))
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string
-                    (interpolation_char
-                      (function_call_pnc_expr
-                        caller: (variable_expr
-                          (module)
-                          (identifier))
-                        args: (variable_expr
-                          (identifier))))))))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier))
-                args: (wildcard_pattern))
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string)))))))))
+                  args: (variable_expr
+                    (identifier)))))))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
+              (identifier))
+            args: (wildcard_pattern))
+          (fat_arrow)
+          expr: (const
+            (string))))))
   (annotation_type_def
     name: (annotation_pre_colon
       (identifier))
@@ -681,20 +655,18 @@ record_update_2 = |person| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (const
-            (multiline_string
-              (interpolation_char
-                (function_call_pnc_expr
-                  caller: (field_access_expr
-                    target: (variable_expr
-                      (identifier))
-                    (identifier))))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (const
+        (multiline_string
+          (interpolation_char
+            (function_call_pnc_expr
+              caller: (field_access_expr
+                target: (variable_expr
+                  (identifier))
+                (identifier))))))))
   (line_comment)
   (line_comment)
   (annotation_type_def
@@ -709,18 +681,16 @@ record_update_2 = |person| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (function_call_pnc_expr
-            caller: (variable_expr
-              (module)
-              (identifier))
-            args: (variable_expr
-              (identifier)))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (function_call_pnc_expr
+        caller: (variable_expr
+          (module)
+          (identifier))
+        args: (variable_expr
+          (identifier)))))
   (line_comment)
   (annotation_type_def
     name: (annotation_pre_colon
@@ -743,141 +713,126 @@ record_update_2 = |person| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (line_comment)
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (suffix_op_expr
-                  part: (function_call_pnc_expr
-                    caller: (field_access_expr
-                      target: (variable_expr
-                        (identifier))
-                      (identifier)))
-                  part: (try_operator))))
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (suffix_op_expr
-                  part: (function_call_pnc_expr
-                    caller: (variable_expr
-                      (module)
-                      (identifier))
-                    args: (variable_expr
-                      (identifier)))
-                  part: (try_operator))))
-            (function_call_pnc_expr
-              caller: (tag_expr
-                (tag
-                  (identifier)))
-              args: (bin_op_expr
-                part: (variable_expr
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (line_comment)
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (suffix_op_expr
+            part: (function_call_pnc_expr
+              caller: (field_access_expr
+                target: (variable_expr
                   (identifier))
-                part: (operator)
-                part: (const
-                  (int)))))))))
-  (line_comment)
-  (value_declaration
-    pattern: (decl_left
-      (identifier_pattern
-        (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (todo_expr)))))
-  (line_comment)
-  (value_declaration
-    pattern: (decl_left
-      (identifier_pattern
-        (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (var_declaration
-              name: (identifier)
-              body: (expr_body
-                (const
-                  (int))))
-            (for_expr
-              pattern: (identifier_pattern
-                (identifier))
-              iterable: (variable_expr
-                (identifier))
-              body: (body_expression
-                (value_declaration
-                  pattern: (decl_left
-                    (identifier_pattern
-                      (identifier)))
-                  body: (expr_body
-                    (bin_op_expr
-                      part: (variable_expr
-                        (identifier))
-                      part: (operator)
-                      part: (variable_expr
-                        (identifier)))))))
-            (variable_expr
-              (identifier)))))))
-  (value_declaration
-    pattern: (decl_left
-      (identifier_pattern
-        (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (function_call_pnc_expr
+                (identifier)))
+            part: (try_operator)))
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (suffix_op_expr
+            part: (function_call_pnc_expr
               caller: (variable_expr
                 (module)
                 (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (module)
-                  (identifier))
-                args: (variable_expr
-                  (identifier)))))))))
+              args: (variable_expr
+                (identifier)))
+            part: (try_operator)))
+        (function_call_pnc_expr
+          caller: (tag_expr
+            (tag
+              (identifier)))
+          args: (bin_op_expr
+            part: (variable_expr
+              (identifier))
+            part: (operator)
+            part: (const
+              (int)))))))
+  (line_comment)
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        body: (expr_body
-          (body_expression
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (todo_expr)))
+  (line_comment)
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (var_declaration
+          name: (identifier)
+          body: (const
+            (int)))
+        (for_expr
+          pattern: (identifier_pattern
+            (identifier))
+          iterable: (variable_expr
+            (identifier))
+          body: (body_expression
             (value_declaration
               pattern: (decl_left
                 (identifier_pattern
                   (identifier)))
-              body: (expr_body
-                (const
-                  (int))))
-            (dbg_expr
-              (expr_body
-                (variable_expr
-                  (identifier))))
-            (line_comment)
-            (line_comment)
-            (variable_expr
+              body: (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier))))))
+        (variable_expr
+          (identifier)))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (module)
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (module)
+              (identifier))
+            args: (variable_expr
               (identifier)))))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (anon_fun_expr
+      body: (body_expression
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (const
+            (int)))
+        (dbg_expr
+          (expr_body
+            (variable_expr
+              (identifier))))
+        (line_comment)
+        (line_comment)
+        (variable_expr
+          (identifier)))))
   (annotation_type_def
     name: (annotation_pre_colon
       (identifier))
@@ -891,71 +846,77 @@ record_update_2 = |person| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (line_comment)
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (if_expr
-                  guard: (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (const
-                      (int)))
-                  (then
-                    then: (const
-                      (string)))
-                  (else
-                    (const
-                      (string))))))
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (if_expr
-                  guard: (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (const
-                      (int)))
-                  (then
-                    then: (const
-                      (string)))
-                  (else
-                    (const
-                      (string))))))
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (if_expr
-                  guard: (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (const
-                      (int)))
-                  (then
-                    then: (body_expression
-                      (const
-                        (string))))
-                  (else
-                    (body_expression
-                      (const
-                        (string)))))))
-            (line_comment)
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (line_comment)
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (if_expr
+            guard: (bin_op_expr
+              part: (variable_expr
+                (identifier))
+              part: (operator)
+              part: (const
+                (int)))
+            (then
+              then: (const
+                (string)))
+            (else
+              (const
+                (string)))))
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (if_expr
+            guard: (bin_op_expr
+              part: (variable_expr
+                (identifier))
+              part: (operator)
+              part: (const
+                (int)))
+            (then
+              then: (const
+                (string)))
+            (else
+              (const
+                (string)))))
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (if_expr
+            guard: (bin_op_expr
+              part: (variable_expr
+                (identifier))
+              part: (operator)
+              part: (const
+                (int)))
+            (then
+              then: (body_expression
+                (const
+                  (string))))
+            (else
+              (body_expression
+                (const
+                  (string))))))
+        (line_comment)
+        (if_expr
+          guard: (bin_op_expr
+            part: (variable_expr
+              (identifier))
+            part: (operator)
+            part: (const
+              (int)))
+          (then
+            then: (const
+              (string)))
+          (else
             (if_expr
               guard: (bin_op_expr
                 part: (variable_expr
@@ -967,40 +928,28 @@ record_update_2 = |person| {
                 then: (const
                   (string)))
               (else
-                (if_expr
-                  guard: (bin_op_expr
-                    part: (variable_expr
-                      (identifier))
-                    part: (operator)
-                    part: (const
-                      (int)))
-                  (then
-                    then: (const
-                      (string)))
-                  (else
-                    (function_call_pnc_expr
+                (function_call_pnc_expr
+                  caller: (field_access_expr
+                    target: (function_call_pnc_expr
                       caller: (field_access_expr
-                        target: (function_call_pnc_expr
-                          caller: (field_access_expr
-                            target: (variable_expr
-                              (identifier))
-                            (identifier))
-                          args: (variable_expr
-                            (identifier)))
+                        target: (variable_expr
+                          (identifier))
                         (identifier))
                       args: (variable_expr
-                        (identifier))))))))))))
+                        (identifier)))
+                    (identifier))
+                  args: (variable_expr
+                    (identifier))))))))))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
     (line_comment)
-    body: (expr_body
-      (tuple_expr
-        expr: (const
-          (string))
-        expr: (const
-          (int)))))
+    body: (tuple_expr
+      expr: (const
+        (string))
+      expr: (const
+        (int))))
   (line_comment)
   (annotation_type_def
     name: (annotation_pre_colon
@@ -1019,78 +968,70 @@ record_update_2 = |person| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (variable_expr
-            (identifier))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (variable_expr
+        (identifier))))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        body: (expr_body
-          (body_expression
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (tuple_expr
-                  expr: (const
-                    (string))
-                  expr: (const
-                    (int)))))
-            (value_declaration
-              pattern: (decl_left
-                (tuple_pattern
-                  (identifier_pattern
-                    (identifier))
-                  (identifier_pattern
-                    (identifier))))
-              body: (expr_body
+    body: (anon_fun_expr
+      body: (body_expression
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (tuple_expr
+            expr: (const
+              (string))
+            expr: (const
+              (int))))
+        (value_declaration
+          pattern: (decl_left
+            (tuple_pattern
+              (identifier_pattern
+                (identifier))
+              (identifier_pattern
+                (identifier))))
+          body: (variable_expr
+            (identifier)))
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (record_expr
+            (record_field_expr
+              (field_name)
+              (expr_body
+                (const
+                  (int))))
+            (record_field_expr
+              (field_name)
+              (expr_body
                 (variable_expr
-                  (identifier))))
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (record_expr
-                  (record_field_expr
-                    (field_name)
-                    (expr_body
-                      (const
-                        (int))))
-                  (record_field_expr
-                    (field_name)
-                    (expr_body
-                      (variable_expr
-                        (identifier)))))))
-            (line_comment)
-            (value_declaration
-              pattern: (decl_left
-                (record_pattern
-                  (record_field_pattern
-                    (field_name))
-                  (record_field_pattern
-                    (field_name))))
-              body: (expr_body
-                (variable_expr
-                  (identifier))))
-            (tuple_expr
-              expr: (variable_expr
-                (identifier))
-              expr: (variable_expr
-                (identifier))
-              expr: (variable_expr
-                (identifier))
-              expr: (variable_expr
-                (identifier))))))))
+                  (identifier))))))
+        (line_comment)
+        (value_declaration
+          pattern: (decl_left
+            (record_pattern
+              (record_field_pattern
+                (field_name))
+              (record_field_pattern
+                (field_name))))
+          body: (variable_expr
+            (identifier)))
+        (tuple_expr
+          expr: (variable_expr
+            (identifier))
+          expr: (variable_expr
+            (identifier))
+          expr: (variable_expr
+            (identifier))
+          expr: (variable_expr
+            (identifier))))))
   (line_comment)
   (line_comment)
   (line_comment)
@@ -1124,22 +1065,20 @@ record_update_2 = |person| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (record_expr
-              (spread_expr
-                (variable_expr
-                  (identifier)))
-              (record_field_expr
-                (field_name)
-                (expr_body
-                  (const
-                    (int)))))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (record_expr
+          (spread_expr
+            (variable_expr
+              (identifier)))
+          (record_field_expr
+            (field_name)
+            (expr_body
+              (const
+                (int)))))))))
 
 ===
 all_syntax_example_nums
@@ -1236,113 +1175,103 @@ stringify = |value| value.to_str()
         pattern: (decl_left
           (identifier_pattern
             (identifier)))
-        body: (expr_body
-          (anon_fun_expr
-            args: (argument_patterns
-              (identifier_pattern
+        body: (anon_fun_expr
+          args: (argument_patterns
+            (identifier_pattern
+              (identifier))
+            (identifier_pattern
+              (identifier)))
+          body: (match_expr
+            (tuple_expr
+              expr: (variable_expr
                 (identifier))
-              (identifier_pattern
+              expr: (variable_expr
                 (identifier)))
-            body: (expr_body
-              (match_expr
-                (tuple_expr
-                  expr: (variable_expr
+            branch: (match_branch
+              pattern: (tuple_pattern
+                (tag_pattern
+                  (tag
                     (identifier))
-                  expr: (variable_expr
+                  args: (identifier_pattern
                     (identifier)))
-                branch: (match_branch
-                  pattern: (tuple_pattern
-                    (tag_pattern
-                      (tag
-                        (identifier))
-                      args: (identifier_pattern
-                        (identifier)))
-                    (tag_pattern
-                      (tag
-                        (identifier))
-                      args: (identifier_pattern
-                        (identifier))))
-                  (fat_arrow)
-                  expr: (expr_body
-                    (bin_op_expr
-                      part: (variable_expr
-                        (identifier))
-                      part: (operator)
-                      part: (variable_expr
-                        (identifier)))))
-                branch: (match_branch
-                  pattern: (tuple_pattern
-                    (tag_pattern
-                      (tag
-                        (identifier))
-                      args: (identifier_pattern
-                        (identifier)))
-                    (tag_pattern
-                      (tag
-                        (identifier))
-                      args: (identifier_pattern
-                        (identifier))))
-                  (fat_arrow)
-                  expr: (expr_body
-                    (bin_op_expr
-                      part: (variable_expr
-                        (identifier))
-                      part: (operator)
-                      part: (variable_expr
-                        (identifier)))))
-                branch: (match_branch
-                  pattern: (wildcard_pattern)
-                  (fat_arrow)
-                  expr: (expr_body
-                    (tag_expr
-                      (tag
-                        (module)
-                        (identifier))))))))))))
+                (tag_pattern
+                  (tag
+                    (identifier))
+                  args: (identifier_pattern
+                    (identifier))))
+              (fat_arrow)
+              expr: (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier))))
+            branch: (match_branch
+              pattern: (tuple_pattern
+                (tag_pattern
+                  (tag
+                    (identifier))
+                  args: (identifier_pattern
+                    (identifier)))
+                (tag_pattern
+                  (tag
+                    (identifier))
+                  args: (identifier_pattern
+                    (identifier))))
+              (fat_arrow)
+              expr: (bin_op_expr
+                part: (variable_expr
+                  (identifier))
+                part: (operator)
+                part: (variable_expr
+                  (identifier))))
+            branch: (match_branch
+              pattern: (wildcard_pattern)
+              (fat_arrow)
+              expr: (tag_expr
+                (tag
+                  (module)
+                  (identifier)))))))))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (if_expr
-                  guard: (prefixed_expression
-                    (variable_expr
-                      (identifier)))
-                  (then
-                    then: (body_expression
-                      (early_return_expr
-                        body: (expr_body
-                          (const
-                            (int))))))
-                  (else
-                    (body_expression
-                      (const
-                        (string)))))))
-            (line_comment)
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (module)
-                (identifier))
-              args: (variable_expr
-                (identifier))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (if_expr
+            guard: (prefixed_expression
+              (variable_expr
+                (identifier)))
+            (then
+              then: (body_expression
+                (early_return_expr
+                  body: (const
+                    (int)))))
+            (else
+              (body_expression
+                (const
+                  (string))))))
+        (line_comment)
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (module)
+            (identifier))
+          args: (variable_expr
+            (identifier))))))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (variable_expr
-        (module)
-        (identifier))))
+    body: (variable_expr
+      (module)
+      (identifier)))
   (line_comment)
   (annotation_type_def
     name: (annotation_pre_colon
@@ -1366,44 +1295,40 @@ stringify = |value| value.to_str()
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (match_expr
-            (variable_expr
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (match_expr
+        (variable_expr
+          (identifier))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
               (identifier))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier))
-                args: (identifier_pattern
-                  (identifier))
-                args: (identifier_pattern
-                  (identifier)))
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string
-                    (interpolation_char
-                      (function_call_pnc_expr
-                        caller: (field_access_expr
-                          target: (variable_expr
-                            (identifier))
-                          (identifier))))
-                    (interpolation_char
-                      (variable_expr
-                        (identifier)))))))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier)))
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string)))))))))
+            args: (identifier_pattern
+              (identifier))
+            args: (identifier_pattern
+              (identifier)))
+          (fat_arrow)
+          expr: (const
+            (string
+              (interpolation_char
+                (function_call_pnc_expr
+                  caller: (field_access_expr
+                    target: (variable_expr
+                      (identifier))
+                    (identifier))))
+              (interpolation_char
+                (variable_expr
+                  (identifier))))))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
+              (identifier)))
+          (fat_arrow)
+          expr: (const
+            (string))))))
   (line_comment)
   (line_comment)
   (annotation_type_def
@@ -1423,37 +1348,32 @@ stringify = |value| value.to_str()
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (match_expr
-            (variable_expr
-              (identifier))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier)))
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string))))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier)))
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string))))
-            branch: (match_branch
-              pattern: (wildcard_pattern)
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string)))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (match_expr
+        (variable_expr
+          (identifier))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
+              (identifier)))
+          (fat_arrow)
+          expr: (const
+            (string)))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
+              (identifier)))
+          (fat_arrow)
+          expr: (const
+            (string)))
+        branch: (match_branch
+          pattern: (wildcard_pattern)
+          (fat_arrow)
+          expr: (const
+            (string))))))
   (line_comment)
   (line_comment)
   (line_comment)
@@ -1488,37 +1408,32 @@ stringify = |value| value.to_str()
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (match_expr
-            (variable_expr
-              (identifier))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier)))
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string))))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier)))
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string))))
-            branch: (match_branch
-              pattern: (wildcard_pattern)
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string)))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (match_expr
+        (variable_expr
+          (identifier))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
+              (identifier)))
+          (fat_arrow)
+          expr: (const
+            (string)))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
+              (identifier)))
+          (fat_arrow)
+          expr: (const
+            (string)))
+        branch: (match_branch
+          pattern: (wildcard_pattern)
+          (fat_arrow)
+          expr: (const
+            (string))))))
   (line_comment)
   (annotation_type_def
     name: (annotation_pre_colon
@@ -1543,17 +1458,15 @@ stringify = |value| value.to_str()
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (function_call_pnc_expr
-            caller: (field_access_expr
-              target: (variable_expr
-                (identifier))
-              (identifier))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (function_call_pnc_expr
+        caller: (field_access_expr
+          target: (variable_expr
+            (identifier))
+          (identifier))))))
 
 ===
 all_syntax_example_main
@@ -1646,360 +1559,353 @@ expect Bool.True != Bool.False
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        body: (expr_body
-          (body_expression
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (module)
-                (identifier))
-              args: (const
-                (string)))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (module)
-                (identifier))
-              args: (const
-                (string)))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (module)
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (module)
-                  (identifier))
-                args: (function_call_pnc_expr
-                  caller: (variable_expr
-                    (identifier))
-                  args: (const
-                    (int))
-                  args: (const
-                    (int)))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (tag_expr
-                  (tag
-                    (module)
-                    (identifier)))
-                args: (tag_expr
-                  (tag
-                    (module)
-                    (identifier)))))
-            (line_comment)
-            (line_comment)
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (field_access_expr
-                  target: (const
-                    (string))
-                  (identifier))
-                args: (const
-                  (string))))
-            (line_comment)
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (bin_op_expr
-                part: (const
-                  (string))
-                part: (operator)
-                part: (function_call_pnc_expr
-                  caller: (variable_expr
-                    (identifier))
-                  args: (const
-                    (string)))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (module)
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (tag_expr
-                  (tag
-                    (identifier)))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (list_expr
-                  exprList: (const
-                    (int))
-                  exprList: (const
-                    (int)))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (module)
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (function_call_pnc_expr
-                  caller: (tag_expr
-                    (tag
-                      (identifier)))
-                  args: (record_expr))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (module)
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (const
-                  (int))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (module)
-                (identifier))
-              args: (const
-                (string
-                  (escape_char))))
-            (function_call_pnc_expr
+    body: (anon_fun_expr
+      body: (body_expression
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (module)
+            (identifier))
+          args: (const
+            (string)))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (module)
+            (identifier))
+          args: (const
+            (string)))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (module)
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (module)
+              (identifier))
+            args: (function_call_pnc_expr
               caller: (variable_expr
                 (identifier))
               args: (const
-                (string)))
-            (line_comment)
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
+                (int))
+              args: (const
+                (int)))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (tag_expr
+              (tag
+                (module)
+                (identifier)))
+            args: (tag_expr
+              (tag
+                (module)
+                (identifier)))))
+        (line_comment)
+        (line_comment)
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (field_access_expr
+              target: (const
+                (string))
+              (identifier))
+            args: (const
+              (string))))
+        (line_comment)
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (bin_op_expr
+            part: (const
+              (string))
+            part: (operator)
+            part: (function_call_pnc_expr
+              caller: (variable_expr
+                (identifier))
+              args: (const
+                (string)))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (module)
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (tag_expr
+              (tag
+                (identifier)))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (list_expr
+              exprList: (const
+                (int))
+              exprList: (const
+                (int)))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (module)
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (function_call_pnc_expr
+              caller: (tag_expr
+                (tag
                   (identifier)))
-              body: (expr_body
-                (function_call_pnc_expr
-                  caller: (variable_expr
-                    (identifier))
-                  args: (list_expr
-                    exprList: (const
-                      (int))
-                    exprList: (const
-                      (int))
-                    exprList: (const
-                      (int))
-                    exprList: (const
-                      (int))
-                    exprList: (const
-                      (int))))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (variable_expr
-                (identifier)))
-            (expect
-              body: (expr_body
-                (bin_op_expr
-                  part: (variable_expr
-                    (identifier))
-                  part: (operator)
-                  part: (const
+              args: (record_expr))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (module)
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (const
+              (int))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (module)
+            (identifier))
+          args: (const
+            (string
+              (escape_char))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (const
+            (string)))
+        (line_comment)
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (list_expr
+              exprList: (const
+                (int))
+              exprList: (const
+                (int))
+              exprList: (const
+                (int))
+              exprList: (const
+                (int))
+              exprList: (const
+                (int)))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (variable_expr
+            (identifier)))
+        (expect
+          body: (bin_op_expr
+            part: (variable_expr
+              (identifier))
+            part: (operator)
+            part: (const
+              (int))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (module)
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (const
+              (int))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (variable_expr
+            (identifier)))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (list_expr
+              exprList: (const
+                (string))
+              exprList: (const
+                (string)))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))))
+        (line_comment)
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (field_access_expr
+            target: (record_expr
+              (record_field_expr
+                (field_name)
+                (expr_body
+                  (const
+                    (int))))
+              (record_field_expr
+                (field_name)
+                (expr_body
+                  (const
                     (int)))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))))
-            (function_call_pnc_expr
-              caller: (variable_expr
+            (identifier)))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (record_expr
+              (record_field_expr
+                (field_name)
+                (expr_body
+                  (const
+                    (string))))
+              (record_field_expr
+                (field_name)
+                (expr_body
+                  (const
+                    (int)))))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (variable_expr
+            (identifier)))
+        (line_comment)
+        (line_comment)
+        (line_comment)
+        (annotation_type_def
+          name: (annotation_pre_colon
+            (identifier))
+          (apply_type
+            (concrete_type)))
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (function_call_pnc_expr
+            caller: (tag_expr
+              (tag
+                (identifier)))
+            args: (const
+              (string))))
+        (annotation_type_def
+          name: (annotation_pre_colon
+            (identifier))
+          (apply_type
+            (concrete_type)))
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (function_call_pnc_expr
+            caller: (tag_expr
+              (tag
+                (identifier)))
+            args: (const
+              (string))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (bin_op_expr
+            part: (variable_expr
+              (identifier))
+            part: (operator)
+            part: (variable_expr
+              (identifier))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (tag_expr
+              (tag
                 (module)
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (const
-                  (int))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (variable_expr
-                (identifier)))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (list_expr
-                  exprList: (const
-                    (string))
-                  exprList: (const
-                    (string)))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))))
-            (line_comment)
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (field_access_expr
-                target: (record_expr
-                  (record_field_expr
-                    (field_name)
-                    (expr_body
-                      (const
-                        (int))))
-                  (record_field_expr
-                    (field_name)
-                    (expr_body
-                      (const
-                        (int)))))
-                (identifier)))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (record_expr
-                  (record_field_expr
-                    (field_name)
-                    (expr_body
-                      (const
-                        (string))))
-                  (record_field_expr
-                    (field_name)
-                    (expr_body
-                      (const
-                        (int)))))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (variable_expr
-                (identifier)))
-            (line_comment)
-            (line_comment)
-            (line_comment)
-            (annotation_type_def
-              name: (annotation_pre_colon
-                (identifier))
-              (apply_type
-                (concrete_type)))
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
+                (identifier)))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (const
+              (int))))
+        (line_comment)
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (function_call_pnc_expr
+              caller: (tag_expr
+                (tag
                   (identifier)))
-              body: (expr_body
-                (function_call_pnc_expr
-                  caller: (tag_expr
-                    (tag
-                      (identifier)))
-                  args: (const
-                    (string)))))
-            (annotation_type_def
-              name: (annotation_pre_colon
-                (identifier))
-              (apply_type
-                (concrete_type)))
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (function_call_pnc_expr
-                  caller: (tag_expr
-                    (tag
-                      (identifier)))
-                  args: (const
-                    (string)))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (bin_op_expr
-                part: (variable_expr
-                  (identifier))
-                part: (operator)
-                part: (variable_expr
-                  (identifier))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (tag_expr
-                  (tag
-                    (module)
-                    (identifier)))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (const
-                  (int))))
-            (line_comment)
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (function_call_pnc_expr
-                  caller: (tag_expr
-                    (tag
-                      (identifier)))
-                  args: (const
-                    (int))
-                  args: (const
-                    (string)))))
-            (line_comment)
-            (line_comment)
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (tag_expr
-                  (tag
-                    (identifier)))))
-            (line_comment)
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (tag_expr
-                  (tag
-                    (identifier)))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (tag_expr
-                  (tag
-                    (identifier)))))
-            (line_comment)
-            (line_comment)
-            (line_comment)
-            (line_comment))))))
+              args: (const
+                (int))
+              args: (const
+                (string)))))
+        (line_comment)
+        (line_comment)
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (tag_expr
+              (tag
+                (identifier)))))
+        (line_comment)
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (tag_expr
+              (tag
+                (identifier)))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (tag_expr
+              (tag
+                (identifier)))))
+        (line_comment)
+        (line_comment)
+        (line_comment)
+        (line_comment))))
   (line_comment)
   (expect
-    body: (expr_body
-      (bin_op_expr
-        part: (tag_expr
-          (tag
-            (module)
-            (identifier)))
-        part: (operator)
-        part: (tag_expr
-          (tag
-            (module)
-            (identifier)))))))
+    body: (bin_op_expr
+      part: (tag_expr
+        (tag
+          (module)
+          (identifier)))
+      part: (operator)
+      part: (tag_expr
+        (tag
+          (module)
+          (identifier))))))

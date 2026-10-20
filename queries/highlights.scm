@@ -237,17 +237,12 @@
   "dbg"
 ] @function.builtin
 
-(value_declaration pattern: (decl_left (identifier_pattern  (identifier) @function))
-  (expr_body (anon_fun_expr)))
-(value_declaration pattern: (decl_left (identifier_pattern  (identifier) @function))
-  (expr_body
-    (function_call_pnc_expr
-      caller: (anon_fun_expr))))
-(value_declaration pattern: (decl_left (identifier_pattern  (identifier) @function))
-  (expr_body
-    (bin_op_expr
-      part: (function_call_pnc_expr
-        caller: (anon_fun_expr)))))
+(value_declaration pattern: (decl_left (identifier_pattern (identifier) @function))
+  body: (anon_fun_expr))
+(value_declaration pattern: (decl_left (identifier_pattern (identifier) @function))
+  body: (function_call_pnc_expr caller: (anon_fun_expr)))
+(value_declaration pattern: (decl_left (identifier_pattern (identifier) @function))
+  body: (bin_op_expr part: (function_call_pnc_expr caller: (anon_fun_expr))))
 (function_call_pnc_expr caller: (variable_expr     (identifier) @function))
 (function_call_pnc_expr caller: (field_access_expr (identifier) @function .))
 (bin_op_expr (operator "->") (variable_expr        (identifier) @function))

@@ -27,7 +27,7 @@ queries-check:
 
 # run CI checks: generation, parser metrics, tests, and queries
 ci:
-    just generate-check && just parser-metrics-check && just test && just queries-check
+    just generate-check && just parser-metrics-check && just test && just queries-check && node tools/check-expr-body-captures.js --self-test
 
 #generate and build wasm
 build-all:

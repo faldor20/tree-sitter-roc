@@ -9,21 +9,19 @@ bfs = |a, b, Tag(c)| c
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier))
+        (identifier_pattern
+          (identifier))
+        (tag_pattern
+          (tag
             (identifier))
-          (identifier_pattern
-            (identifier))
-          (tag_pattern
-            (tag
-              (identifier))
-            args: (identifier_pattern
-              (identifier))))
-        body: (expr_body
-          (variable_expr
-            (identifier)))))))
+          args: (identifier_pattern
+            (identifier))))
+      body: (variable_expr
+        (identifier)))))
 
 ================================================================================
 pattern_range
@@ -36,21 +34,19 @@ bfs = |a, b, [head, .. as tail]| tail
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier))
+        (identifier_pattern
+          (identifier))
+        (list_pattern
           (identifier_pattern
             (identifier))
-          (identifier_pattern
-            (identifier))
-          (list_pattern
-            (identifier_pattern
-              (identifier))
-            (spread_pattern
-              (identifier))))
-        body: (expr_body
-          (variable_expr
-            (identifier)))))))
+          (spread_pattern
+            (identifier))))
+      body: (variable_expr
+        (identifier)))))
 
 ================================================================================
 pattern_range_many
@@ -67,32 +63,28 @@ record = |bytes, dict| match bytes {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier))
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (match_expr
-            (variable_expr
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier))
+        (identifier_pattern
+          (identifier)))
+      body: (match_expr
+        (variable_expr
+          (identifier))
+        branch: (match_branch
+          pattern: (list_pattern
+            (const
+              (char)))
+          (fat_arrow)
+          expr: (function_call_pnc_expr
+            caller: (variable_expr
               (identifier))
-            branch: (match_branch
-              pattern: (list_pattern
-                (const
-                  (char)))
-              (fat_arrow)
-              expr: (expr_body
-                (function_call_pnc_expr
-                  caller: (variable_expr
-                    (identifier))
-                  args: (parenthesized_expr
-                    expression: (expr_body
-                      (variable_expr
-                        (identifier))))
-                  args: (variable_expr
-                    (identifier)))))))))))
+            args: (parenthesized_expr
+              expression: (variable_expr
+                (identifier)))
+            args: (variable_expr
+              (identifier))))))))
 
 ====
 pattern_destructuring
@@ -114,63 +106,57 @@ destructuring = || {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        body: (expr_body
-          (body_expression
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (tuple_expr
-                  expr: (const
-                    (string))
-                  expr: (const
-                    (int)))))
-            (value_declaration
-              pattern: (decl_left
-                (tuple_pattern
-                  (identifier_pattern
-                    (identifier))
-                  (identifier_pattern
-                    (identifier))))
-              body: (expr_body
+    body: (anon_fun_expr
+      body: (body_expression
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (tuple_expr
+            expr: (const
+              (string))
+            expr: (const
+              (int))))
+        (value_declaration
+          pattern: (decl_left
+            (tuple_pattern
+              (identifier_pattern
+                (identifier))
+              (identifier_pattern
+                (identifier))))
+          body: (variable_expr
+            (identifier)))
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (record_expr
+            (record_field_expr
+              (field_name)
+              (expr_body
+                (const
+                  (int))))
+            (record_field_expr
+              (field_name)
+              (expr_body
                 (variable_expr
-                  (identifier))))
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (record_expr
-                  (record_field_expr
-                    (field_name)
-                    (expr_body
-                      (const
-                        (int))))
-                  (record_field_expr
-                    (field_name)
-                    (expr_body
-                      (variable_expr
-                        (identifier)))))))
-            (line_comment)
-            (value_declaration
-              pattern: (decl_left
-                (record_pattern
-                  (record_field_pattern
-                    (field_name))
-                  (record_field_pattern
-                    (field_name))))
-              body: (expr_body
-                (variable_expr
-                  (identifier))))
-            (tuple_expr
-              expr: (variable_expr
-                (identifier))
-              expr: (variable_expr
-                (identifier))
-              expr: (variable_expr
-                (identifier))
-              expr: (variable_expr
-                (identifier)))))))))
+                  (identifier))))))
+        (line_comment)
+        (value_declaration
+          pattern: (decl_left
+            (record_pattern
+              (record_field_pattern
+                (field_name))
+              (record_field_pattern
+                (field_name))))
+          body: (variable_expr
+            (identifier)))
+        (tuple_expr
+          expr: (variable_expr
+            (identifier))
+          expr: (variable_expr
+            (identifier))
+          expr: (variable_expr
+            (identifier))
+          expr: (variable_expr
+            (identifier)))))))

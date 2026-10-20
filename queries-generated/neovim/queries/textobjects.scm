@@ -1,5 +1,5 @@
 (anon_fun_expr
-  (expr_body) @function.inner
+  body: (_) @function.inner
 ) @function.outer
 
 (argument_patterns
@@ -13,7 +13,7 @@
 (function_call_pnc_expr
   .
   (_)
-  (parenthesized_expr (expr_body) @parameter.inner) @parameter.outer
+  (parenthesized_expr expression: (_) @parameter.inner) @parameter.outer
 )
 
 (function_call_pnc_expr
@@ -30,7 +30,7 @@
 (apply_type_arg) @parameter.inner
 
 (expect
-  (expr_body)
+  body: (_)
 )
 
 (line_comment) @comment.outer

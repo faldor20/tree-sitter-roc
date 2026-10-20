@@ -18,39 +18,35 @@ c= 10
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (function_call_pnc_expr
-        caller: (variable_expr
-          (identifier))
-        args: (const
-          (int)))))
+    body: (function_call_pnc_expr
+      caller: (variable_expr
+        (identifier))
+      args: (const
+        (int))))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (body_expression
-        (value_declaration
-          pattern: (decl_left
-            (identifier_pattern
-              (identifier)))
-          body: (expr_body
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (variable_expr
-                (identifier))
-              args: (const
-                (int))
-              args: (variable_expr
-                (identifier))))))))
+    body: (body_expression
+      (value_declaration
+        pattern: (decl_left
+          (identifier_pattern
+            (identifier)))
+        body: (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (variable_expr
+            (identifier))
+          args: (const
+            (int))
+          args: (variable_expr
+            (identifier))))))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (const
-        (int)))))
+    body: (const
+      (int))))
 
 ================================================================================
 function_nested
@@ -63,19 +59,18 @@ a= f( a, b(a, b))
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (function_call_pnc_expr
+    body: (function_call_pnc_expr
+      caller: (variable_expr
+        (identifier))
+      args: (variable_expr
+        (identifier))
+      args: (function_call_pnc_expr
         caller: (variable_expr
           (identifier))
         args: (variable_expr
           (identifier))
-        args: (function_call_pnc_expr
-          caller: (variable_expr
-            (identifier))
-          args: (variable_expr
-            (identifier))
-          args: (variable_expr
-            (identifier)))))))
+        args: (variable_expr
+          (identifier))))))
 
 ================================================================================
 function_with_match
@@ -94,39 +89,34 @@ main=
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (parenthesized_expr
-        expression: (expr_body
-          (anon_fun_expr
-            args: (argument_patterns
-              (identifier_pattern
-                (identifier)))
-            body: (expr_body
-              (match_expr
-                (variable_expr
-                  (identifier))
-                branch: (match_branch
-                  pattern: (const_pattern
-                    (int))
-                  (fat_arrow)
-                  expr: (expr_body
-                    (function_call_pnc_expr
-                      caller: (variable_expr
-                        (module)
-                        (identifier))
-                      args: (const
-                        (string)))))
-                branch: (match_branch
-                  pattern: (identifier_pattern
-                    (identifier))
-                  (fat_arrow)
-                  expr: (expr_body
-                    (function_call_pnc_expr
-                      caller: (variable_expr
-                        (module)
-                        (identifier))
-                      args: (const
-                        (string)))))))))))))
+    body: (parenthesized_expr
+      expression: (anon_fun_expr
+        args: (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        body: (match_expr
+          (variable_expr
+            (identifier))
+          branch: (match_branch
+            pattern: (const_pattern
+              (int))
+            (fat_arrow)
+            expr: (function_call_pnc_expr
+              caller: (variable_expr
+                (module)
+                (identifier))
+              args: (const
+                (string))))
+          branch: (match_branch
+            pattern: (identifier_pattern
+              (identifier))
+            (fat_arrow)
+            expr: (function_call_pnc_expr
+              caller: (variable_expr
+                (module)
+                (identifier))
+              args: (const
+                (string)))))))))
 
 ================================================================================
 function_lambda_simple
@@ -140,24 +130,20 @@ a=| _ | a
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (wildcard_pattern))
-        body: (expr_body
-          (variable_expr
-            (identifier))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (wildcard_pattern))
+      body: (variable_expr
+        (identifier))))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (wildcard_pattern))
-        body: (expr_body
-          (variable_expr
-            (identifier)))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (wildcard_pattern))
+      body: (variable_expr
+        (identifier)))))
 
 ================================================================================
 function_field
@@ -171,16 +157,15 @@ a= a.bb( a, a)
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (function_call_pnc_expr
-        caller: (field_access_expr
-          target: (variable_expr
-            (identifier))
+    body: (function_call_pnc_expr
+      caller: (field_access_expr
+        target: (variable_expr
           (identifier))
-        args: (variable_expr
-          (identifier))
-        args: (variable_expr
-          (identifier))))))
+        (identifier))
+      args: (variable_expr
+        (identifier))
+      args: (variable_expr
+        (identifier)))))
 
 ================================================================================
 function_same_line
@@ -194,12 +179,11 @@ a= html("<div>")
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (function_call_pnc_expr
-        caller: (variable_expr
-          (identifier))
-        args: (const
-          (string))))))
+    body: (function_call_pnc_expr
+      caller: (variable_expr
+        (identifier))
+      args: (const
+        (string)))))
 
 ================================================================================
 function_same_line_long
@@ -213,12 +197,11 @@ myHtml=html(hi)
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (function_call_pnc_expr
-        caller: (variable_expr
-          (identifier))
-        args: (variable_expr
-          (identifier))))))
+    body: (function_call_pnc_expr
+      caller: (variable_expr
+        (identifier))
+      args: (variable_expr
+        (identifier)))))
 
 ================================================================================
 function_block_body
@@ -234,28 +217,25 @@ add = |a, b| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier))
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (bin_op_expr
-                  part: (variable_expr
-                    (identifier))
-                  part: (operator)
-                  part: (variable_expr
-                    (identifier)))))
-            (variable_expr
-              (identifier))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier))
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (bin_op_expr
+            part: (variable_expr
+              (identifier))
+            part: (operator)
+            part: (variable_expr
+              (identifier))))
+        (variable_expr
+          (identifier))))))
 
 ====
 function_effectful
@@ -274,51 +254,49 @@ main! =||{
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        body: (expr_body
-          (body_expression
-            (function_call_pnc_expr
+    body: (anon_fun_expr
+      body: (body_expression
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (module)
+            (identifier))
+          args: (const
+            (string)))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (module)
+            (identifier))
+          args: (const
+            (string)))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (module)
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (module)
+              (identifier))
+            args: (function_call_pnc_expr
               caller: (variable_expr
-                (module)
                 (identifier))
               args: (const
-                (string)))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (module)
-                (identifier))
+                (int))
               args: (const
-                (string)))
-            (function_call_pnc_expr
-              caller: (variable_expr
+                (int)))))
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (function_call_pnc_expr
+            caller: (variable_expr
+              (identifier))
+            args: (tag_expr
+              (tag
                 (module)
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (module)
-                  (identifier))
-                args: (function_call_pnc_expr
-                  caller: (variable_expr
-                    (identifier))
-                  args: (const
-                    (int))
-                  args: (const
-                    (int)))))
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (function_call_pnc_expr
-                caller: (variable_expr
-                  (identifier))
-                args: (tag_expr
-                  (tag
-                    (module)
-                    (identifier)))
-                args: (tag_expr
-                  (tag
-                    (module)
-                    (identifier)))))))))))
+                (identifier)))
+            args: (tag_expr
+              (tag
+                (module)
+                (identifier)))))))))
 
 ===
 function_string_static_dispatch
@@ -334,22 +312,21 @@ a={
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (body_expression
-        (function_call_pnc_expr
+    body: (body_expression
+      (function_call_pnc_expr
+        caller: (field_access_expr
+          target: (variable_expr
+            (identifier))
+          (identifier))
+        args: (const
+          (string)))
+      (function_call_pnc_expr
+        caller: (variable_expr
+          (identifier))
+        args: (function_call_pnc_expr
           caller: (field_access_expr
-            target: (variable_expr
-              (identifier))
+            target: (const
+              (string))
             (identifier))
           args: (const
-            (string)))
-        (function_call_pnc_expr
-          caller: (variable_expr
-            (identifier))
-          args: (function_call_pnc_expr
-            caller: (field_access_expr
-              target: (const
-                (string))
-              (identifier))
-            args: (const
-              (string))))))))
+            (string)))))))

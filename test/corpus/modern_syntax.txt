@@ -24,15 +24,13 @@ main! = || Stdout.line!("Hello")
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        body: (expr_body
-          (function_call_pnc_expr
-            caller: (variable_expr
-              (module)
-              (identifier))
-            args: (const
-              (string))))))))
+    body: (anon_fun_expr
+      body: (function_call_pnc_expr
+        caller: (variable_expr
+          (module)
+          (identifier))
+        args: (const
+          (string))))))
 
 ================================================================================
 modern_match_expression
@@ -49,39 +47,34 @@ color_name = |color| match color {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (match_expr
-            (variable_expr
-              (identifier))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier)))
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string))))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier)))
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string))))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier)))
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (string))))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (match_expr
+        (variable_expr
+          (identifier))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
+              (identifier)))
+          (fat_arrow)
+          expr: (const
+            (string)))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
+              (identifier)))
+          (fat_arrow)
+          expr: (const
+            (string)))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
+              (identifier)))
+          (fat_arrow)
+          expr: (const
+            (string)))))))
 
 ================================================================================
 modern_lambda_syntax
@@ -96,41 +89,35 @@ thunk = || 42
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier))
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (bin_op_expr
-            part: (variable_expr
-              (identifier))
-            part: (operator)
-            part: (variable_expr
-              (identifier)))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier))
+        (identifier_pattern
+          (identifier)))
+      body: (bin_op_expr
+        part: (variable_expr
+          (identifier))
+        part: (operator)
+        part: (variable_expr
+          (identifier)))))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (variable_expr
-            (identifier))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (variable_expr
+        (identifier))))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        body: (expr_body
-          (const
-            (int)))))))
+    body: (anon_fun_expr
+      body: (const
+        (int)))))
 
 ================================================================================
 modern_opaque_type
@@ -167,14 +154,12 @@ Color := [Red, Green, Blue].{
         pattern: (decl_left
           (identifier_pattern
             (identifier)))
-        body: (expr_body
-          (anon_fun_expr
-            args: (argument_patterns
-              (identifier_pattern
-                (identifier)))
-            body: (expr_body
-              (const
-                (string)))))))))
+        body: (anon_fun_expr
+          args: (argument_patterns
+            (identifier_pattern
+              (identifier)))
+          body: (const
+            (string)))))))
 
 ================================================================================
 modern_type_alias
@@ -251,41 +236,37 @@ compute = |x| {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (bin_op_expr
-                  part: (variable_expr
-                    (identifier))
-                  part: (operator)
-                  part: (const
-                    (int)))))
-            (value_declaration
-              pattern: (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (bin_op_expr
-                  part: (variable_expr
-                    (identifier))
-                  part: (operator)
-                  part: (const
-                    (int)))))
-            (bin_op_expr
-              part: (variable_expr
-                (identifier))
-              part: (operator)
-              part: (variable_expr
-                (identifier)))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (bin_op_expr
+            part: (variable_expr
+              (identifier))
+            part: (operator)
+            part: (const
+              (int))))
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (bin_op_expr
+            part: (variable_expr
+              (identifier))
+            part: (operator)
+            part: (const
+              (int))))
+        (bin_op_expr
+          part: (variable_expr
+            (identifier))
+          part: (operator)
+          part: (variable_expr
+            (identifier)))))))
 
 ================================================================================
 modern_match_with_payload
@@ -301,33 +282,29 @@ unwrap = |opt| match opt {
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (match_expr
-            (variable_expr
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (match_expr
+        (variable_expr
+          (identifier))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
               (identifier))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier))
-                args: (identifier_pattern
-                  (identifier)))
-              (fat_arrow)
-              expr: (expr_body
-                (variable_expr
-                  (identifier))))
-            branch: (match_branch
-              pattern: (tag_pattern
-                (tag
-                  (identifier)))
-              (fat_arrow)
-              expr: (expr_body
-                (const
-                  (int))))))))))
+            args: (identifier_pattern
+              (identifier)))
+          (fat_arrow)
+          expr: (variable_expr
+            (identifier)))
+        branch: (match_branch
+          pattern: (tag_pattern
+            (tag
+              (identifier)))
+          (fat_arrow)
+          expr: (const
+            (int)))))))
 
 ================================================================================
 modern_record_update
@@ -340,21 +317,19 @@ update_name = |person| { ..person, name: "New" }
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (record_expr
+        (spread_expr
+          (variable_expr
             (identifier)))
-        body: (expr_body
-          (record_expr
-            (spread_expr
-              (variable_expr
-                (identifier)))
-            (record_field_expr
-              (field_name)
-              (expr_body
-                (const
-                  (string))))))))))
+        (record_field_expr
+          (field_name)
+          (expr_body
+            (const
+              (string))))))))
 
 ================================================================================
 modern_expect
@@ -364,16 +339,15 @@ expect 1 + 1 == 2
 
 (file
   (expect
-    body: (expr_body
-      (bin_op_expr
-        part: (const
-          (int))
-        part: (operator)
-        part: (const
-          (int))
-        part: (operator)
-        part: (const
-          (int))))))
+    body: (bin_op_expr
+      part: (const
+        (int))
+      part: (operator)
+      part: (const
+        (int))
+      part: (operator)
+      part: (const
+        (int)))))
 
 ================================================================================
 nominal constructors and patterns
@@ -390,43 +364,38 @@ qualified = Module.Name.(value)
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (nominal_constructor_expr
-            (tag
-              (identifier))
-            (variable_expr
-              (identifier)))))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (nominal_constructor_pattern
-            (tag
-              (identifier))
-            (identifier_pattern
-              (identifier))))
-        (expr_body
-          (variable_expr
-            (identifier))))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
+    (anon_fun_expr
+      (argument_patterns
+        (identifier_pattern
+          (identifier)))
       (nominal_constructor_expr
         (tag
-          (module)
           (identifier))
         (variable_expr
-          (identifier))))))
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (anon_fun_expr
+      (argument_patterns
+        (nominal_constructor_pattern
+          (tag
+            (identifier))
+          (identifier_pattern
+            (identifier))))
+      (variable_expr
+        (identifier))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (nominal_constructor_expr
+      (tag
+        (module)
+        (identifier))
+      (variable_expr
+        (identifier)))))
 
 ================================================================================
 suffix record builder
@@ -441,14 +410,13 @@ generator = { value: source }.Random
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (record_expr
-        (record_field_expr
-          (field_name)
-          (expr_body
-            (variable_expr
-              (identifier))))
-        (record_builder_suffix)))))
+    (record_expr
+      (record_field_expr
+        (field_name)
+        (expr_body
+          (variable_expr
+            (identifier))))
+      (record_builder_suffix))))
 
 ================================================================================
 crash expression
@@ -461,11 +429,9 @@ required = crash "missing"
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (crash_expr
-        (expr_body
-          (const
-            (string)))))))
+    (crash_expr
+      (const
+        (string)))))
 
 ================================================================================
 while loop and break
@@ -482,23 +448,21 @@ loop = || {
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (expr_body
+    (anon_fun_expr
+      (body_expression
+        (while_expr
+          (variable_expr
+            (identifier))
           (body_expression
-            (while_expr
+            (if_expr
               (variable_expr
                 (identifier))
-              (body_expression
-                (if_expr
-                  (variable_expr
-                    (identifier))
-                  (then
-                    (body_expression
-                      (break_expr)))
-                  (else
-                    (body_expression
-                      (record_expr))))))))))))
+              (then
+                (body_expression
+                  (break_expr)))
+              (else
+                (body_expression
+                  (record_expr))))))))))
 
 ================================================================================
 tuple positional access
@@ -512,25 +476,23 @@ second = record.point.1
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (tuple_access_expr
-        (tuple_expr
-          (variable_expr
-            (identifier))
-          (variable_expr
-            (identifier)))
-        (int))))
+    (tuple_access_expr
+      (tuple_expr
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier)))
+      (int)))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (tuple_access_expr
-        (field_access_expr
-          (variable_expr
-            (identifier))
+    (tuple_access_expr
+      (field_access_expr
+        (variable_expr
           (identifier))
-        (int)))))
+        (identifier))
+      (int))))
 
 ================================================================================
 lowercase Unicode escape
@@ -543,10 +505,9 @@ escape = "\u(001b)"
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (const
-        (string
-          (escape_char))))))
+    (const
+      (string
+        (escape_char)))))
 
 ================================================================================
 nominal record construction
@@ -562,35 +523,33 @@ qualified = Kernel.Plan.{ ready: True }
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (nominal_record_expr
-        (tag
-          (identifier))
-        (record_field_expr
-          (field_name)
-          (expr_body
-            (const
-              (int))))
-        (record_field_expr
-          (field_name)
-          (expr_body
-            (const
-              (int)))))))
+    (nominal_record_expr
+      (tag
+        (identifier))
+      (record_field_expr
+        (field_name)
+        (expr_body
+          (const
+            (int))))
+      (record_field_expr
+        (field_name)
+        (expr_body
+          (const
+            (int))))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (nominal_record_expr
-        (tag
-          (module)
-          (identifier))
-        (record_field_expr
-          (field_name)
-          (expr_body
-            (tag_expr
-              (tag
-                (identifier)))))))))
+    (nominal_record_expr
+      (tag
+        (module)
+        (identifier))
+      (record_field_expr
+        (field_name)
+        (expr_body
+          (tag_expr
+            (tag
+              (identifier))))))))
 
 ================================================================================
 uppercase header exports
@@ -610,9 +569,8 @@ value = 1
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (const
-        (int)))))
+    (const
+      (int))))
 
 ================================================================================
 statement if without else
@@ -628,32 +586,29 @@ guard = |condition| {
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (body_expression
-            (if_expr
-              (variable_expr
-                (identifier))
-              (then
-                (body_expression
-                  (early_return_expr
-                    (expr_body
-                      (function_call_pnc_expr
-                        (tag_expr
-                          (tag
-                            (identifier)))
-                        (tag_expr
-                          (tag
-                            (identifier)))))))))
-            (function_call_pnc_expr
-              (tag_expr
-                (tag
-                  (identifier)))
-              (record_expr))))))))
+    (anon_fun_expr
+      (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      (body_expression
+        (if_expr
+          (variable_expr
+            (identifier))
+          (then
+            (body_expression
+              (early_return_expr
+                (function_call_pnc_expr
+                  (tag_expr
+                    (tag
+                      (identifier)))
+                  (tag_expr
+                    (tag
+                      (identifier))))))))
+        (function_call_pnc_expr
+          (tag_expr
+            (tag
+              (identifier)))
+          (record_expr))))))
 
 ================================================================================
 function type as type argument
@@ -686,18 +641,16 @@ remove_email = |{ email: _, ..rest }| rest
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (record_pattern
-            (record_field_pattern
-              (field_name)
-              (wildcard_pattern))
-            (spread_pattern
-              (identifier))))
-        (expr_body
-          (variable_expr
-            (identifier)))))))
+    (anon_fun_expr
+      (argument_patterns
+        (record_pattern
+          (record_field_pattern
+            (field_name)
+            (wildcard_pattern))
+          (spread_pattern
+            (identifier))))
+      (variable_expr
+        (identifier)))))
 
 ================================================================================
 pipeline before fallback
@@ -710,17 +663,16 @@ masked = bytes |> Str.from_utf8 ?? "****"
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (operator)
-        (variable_expr
-          (module)
-          (identifier))
-        (operator)
-        (const
-          (string))))))
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (operator)
+      (variable_expr
+        (module)
+        (identifier))
+      (operator)
+      (const
+        (string)))))
 
 ================================================================================
 optional defaulted and unset record fields
@@ -756,38 +708,35 @@ nested = outer.?config.value
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (record_expr
-        (record_field_expr
-          (field_name)
-          (unset_record_field))
-        (record_field_expr
-          (field_name)
-          (expr_body
-            (const
-              (int)))))))
+    (record_expr
+      (record_field_expr
+        (field_name)
+        (unset_record_field))
+      (record_field_expr
+        (field_name)
+        (expr_body
+          (const
+            (int))))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
+    (field_access_expr
+      (variable_expr
+        (identifier))
+      (optional_access)
+      (identifier)))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (field_access_expr
       (field_access_expr
         (variable_expr
           (identifier))
         (optional_access)
-        (identifier))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (field_access_expr
-        (field_access_expr
-          (variable_expr
-            (identifier))
-          (optional_access)
-          (identifier))
-        (identifier)))))
+        (identifier))
+      (identifier))))
 
 ================================================================================
 effectful main combines optional fields and fallback
@@ -806,61 +755,57 @@ main! = |_| {
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (wildcard_pattern))
-        (expr_body
-          (body_expression
-            (annotation_type_def
-              (annotation_pre_colon
-                (identifier))
-              (record_type
-                (record_field_type
-                  (field_name)
-                  (optional_field)
+    (anon_fun_expr
+      (argument_patterns
+        (wildcard_pattern))
+      (body_expression
+        (annotation_type_def
+          (annotation_pre_colon
+            (identifier))
+          (record_type
+            (record_field_type
+              (field_name)
+              (optional_field)
+              (apply_type
+                (concrete_type)
+                (apply_type_arg
                   (apply_type
-                    (concrete_type)
-                    (apply_type_arg
-                      (apply_type
-                        (concrete_type)))
-                    (apply_type_arg
-                      (apply_type
-                        (concrete_type)))))))
-            (value_declaration
-              (decl_left
-                (identifier_pattern
-                  (identifier)))
-              (expr_body
-                (record_expr)))
-            (value_declaration
-              (decl_left
-                (identifier_pattern
-                  (identifier)))
-              (expr_body
-                (bin_op_expr
-                  (field_access_expr
-                    (variable_expr
-                      (identifier))
-                    (optional_access)
-                    (identifier))
-                  (operator)
-                  (function_call_pnc_expr
-                    (variable_expr
-                      (module)
-                      (identifier))))))
-            (dbg_expr
-              (expr_body
-                (function_call_pnc_expr
-                  (field_access_expr
-                    (variable_expr
-                      (identifier))
-                    (identifier)))))
+                    (concrete_type)))
+                (apply_type_arg
+                  (apply_type
+                    (concrete_type)))))))
+        (value_declaration
+          (decl_left
+            (identifier_pattern
+              (identifier)))
+          (record_expr))
+        (value_declaration
+          (decl_left
+            (identifier_pattern
+              (identifier)))
+          (bin_op_expr
+            (field_access_expr
+              (variable_expr
+                (identifier))
+              (optional_access)
+              (identifier))
+            (operator)
             (function_call_pnc_expr
-              (tag_expr
-                (tag
-                  (identifier)))
-              (record_expr))))))))
+              (variable_expr
+                (module)
+                (identifier)))))
+        (dbg_expr
+          (expr_body
+            (function_call_pnc_expr
+              (field_access_expr
+                (variable_expr
+                  (identifier))
+                (identifier)))))
+        (function_call_pnc_expr
+          (tag_expr
+            (tag
+              (identifier)))
+          (record_expr))))))
 
 ================================================================================
 nominal record destructuring
@@ -875,17 +820,15 @@ get_x = |Stack.{ x }| x
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (nominal_record_pattern
-            (tag
-              (identifier))
-            (record_field_pattern
-              (field_name))))
-        (expr_body
-          (variable_expr
-            (identifier)))))))
+    (anon_fun_expr
+      (argument_patterns
+        (nominal_record_pattern
+          (tag
+            (identifier))
+          (record_field_pattern
+            (field_name))))
+      (variable_expr
+        (identifier)))))
 
 ================================================================================
 nominal tuple backing constructor
@@ -900,39 +843,36 @@ triple = Triple.(1, "two", True,)
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (nominal_constructor_expr
-        (tag
-          (identifier))
-        (const
-          (int)))))
+    (nominal_constructor_expr
+      (tag
+        (identifier))
+      (const
+        (int))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (nominal_constructor_expr
-        (tag
-          (identifier))
-        (const
-          (int))
-        (const
-          (string)))))
+    (nominal_constructor_expr
+      (tag
+        (identifier))
+      (const
+        (int))
+      (const
+        (string))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (nominal_constructor_expr
+    (nominal_constructor_expr
+      (tag
+        (identifier))
+      (const
+        (int))
+      (const
+        (string))
+      (tag_expr
         (tag
-          (identifier))
-        (const
-          (int))
-        (const
-          (string))
-        (tag_expr
-          (tag
-            (identifier)))))))
+          (identifier))))))
 
 ================================================================================
 spaced try handler and immediate suffix
@@ -949,46 +889,42 @@ plain = operation()?
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (function_call_pnc_expr
-          (variable_expr
+    (bin_op_expr
+      (function_call_pnc_expr
+        (variable_expr
+          (identifier)))
+      (try_operator)
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
             (identifier)))
-        (try_operator)
-        (anon_fun_expr
-          (argument_patterns
-            (identifier_pattern
+        (function_call_pnc_expr
+          (tag_expr
+            (tag
               (identifier)))
-          (expr_body
-            (function_call_pnc_expr
-              (tag_expr
-                (tag
-                  (identifier)))
-              (variable_expr
-                (identifier))))))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (bin_op_expr
-        (function_call_pnc_expr
           (variable_expr
-            (identifier)))
-        (try_operator)
-        (tag_expr
-          (tag
             (identifier))))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (suffix_op_expr
-        (function_call_pnc_expr
-          (variable_expr
-            (identifier)))
-        (try_operator)))))
+    (bin_op_expr
+      (function_call_pnc_expr
+        (variable_expr
+          (identifier)))
+      (try_operator)
+      (tag_expr
+        (tag
+          (identifier)))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (suffix_op_expr
+      (function_call_pnc_expr
+        (variable_expr
+          (identifier)))
+      (try_operator))))
 
 ================================================================================
 fallback expression
@@ -1004,31 +940,28 @@ required = maybe_value ?? crash "missing"
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (function_call_pnc_expr
-          (field_access_expr
-            (variable_expr
-              (identifier))
-            (identifier))
+    (bin_op_expr
+      (function_call_pnc_expr
+        (field_access_expr
           (variable_expr
-            (identifier)))
-        (operator)
-        (const
-          (int)))))
+            (identifier))
+          (identifier))
+        (variable_expr
+          (identifier)))
+      (operator)
+      (const
+        (int))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (operator)
-        (crash_expr
-          (expr_body
-            (const
-              (string))))))))
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (operator)
+      (crash_expr
+        (const
+          (string))))))
 
 ================================================================================
 nullary function type
@@ -1084,9 +1017,8 @@ value = 1
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (const
-        (int)))))
+    (const
+      (int))))
 
 ================================================================================
 inline if with a negative result
@@ -1099,26 +1031,24 @@ sign = |value| if value < 0 -1 else 1
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (if_expr
-            (bin_op_expr
-              (variable_expr
-                (identifier))
-              (operator)
-              (const
-                (int)))
-            (then
-              (const
-                (negative_number
-                  (int))))
-            (else
-              (const
-                (int)))))))))
+    (anon_fun_expr
+      (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      (if_expr
+        (bin_op_expr
+          (variable_expr
+            (identifier))
+          (operator)
+          (const
+            (int)))
+        (then
+          (const
+            (negative_number
+              (int))))
+        (else
+          (const
+            (int)))))))
 
 ================================================================================
 local type binding
@@ -1134,19 +1064,17 @@ encoder_for = |_encoding| {
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (body_expression
-            (local_type_binding
-              (concrete_type)
-              (bound_variable))
-            (tag_expr
-              (tag
-                (identifier)))))))))
+    (anon_fun_expr
+      (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      (body_expression
+        (local_type_binding
+          (concrete_type)
+          (bound_variable))
+        (tag_expr
+          (tag
+            (identifier)))))))
 
 ================================================================================
 multi-parameter function types in record fields
@@ -1246,9 +1174,8 @@ main = 1
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (const
-        (int)))))
+    (const
+      (int))))
 
 ================================================================================
 modern platform header sections
@@ -1325,17 +1252,15 @@ main_for_host! = |args| main!(args)
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (function_call_pnc_expr
-            (variable_expr
-              (identifier))
-            (variable_expr
-              (identifier))))))))
+    (anon_fun_expr
+      (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      (function_call_pnc_expr
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier))))))
 
 ================================================================================
 platform requires for clause
@@ -1384,10 +1309,8 @@ main! = || {}
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (expr_body
-          (record_expr))))))
+    (anon_fun_expr
+      (record_expr))))
 
 ================================================================================
 modern identifier and lambda patterns
@@ -1411,24 +1334,21 @@ step = |var $state, value,| value
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (const
-        (int))))
+    (const
+      (int)))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (mutable_pattern
-            (identifier_pattern
-              (identifier)))
+    (anon_fun_expr
+      (argument_patterns
+        (mutable_pattern
           (identifier_pattern
             (identifier)))
-        (expr_body
-          (variable_expr
-            (identifier)))))))
+        (identifier_pattern
+          (identifier)))
+      (variable_expr
+        (identifier)))))
 
 ================================================================================
 exhaustive assignment and generic as patterns
@@ -1445,27 +1365,24 @@ result = match value { { name } as person => person }
           (identifier))
         (identifier_pattern
           (identifier))))
-    (expr_body
-      (variable_expr
-        (identifier))))
+    (variable_expr
+      (identifier)))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (match_expr
-        (variable_expr
+    (match_expr
+      (variable_expr
+        (identifier))
+      (match_branch
+        (as_pattern
+          (record_pattern
+            (record_field_pattern
+              (field_name)))
           (identifier))
-        (match_branch
-          (as_pattern
-            (record_pattern
-              (record_field_pattern
-                (field_name)))
-            (identifier))
-          (fat_arrow)
-          (expr_body
-            (variable_expr
-              (identifier))))))))
+        (fat_arrow)
+        (variable_expr
+          (identifier))))))
 
 ================================================================================
 typed string and compound fallback
@@ -1479,31 +1396,29 @@ count = counts.get(slot) ?? RouteInternals.zero_count + 1
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (const
-        (typed_string
-          (string)
-          (literal_type_suffix)))))
+    (const
+      (typed_string
+        (string)
+        (literal_type_suffix))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (function_call_pnc_expr
-          (field_access_expr
-            (variable_expr
-              (identifier))
-            (identifier))
+    (bin_op_expr
+      (function_call_pnc_expr
+        (field_access_expr
           (variable_expr
-            (identifier)))
-        (operator)
-        (variable_expr
-          (module)
+            (identifier))
           (identifier))
-        (operator)
-        (const
-          (int))))))
+        (variable_expr
+          (identifier)))
+      (operator)
+      (variable_expr
+        (module)
+        (identifier))
+      (operator)
+      (const
+        (int)))))
 
 ================================================================================
 relative import with lowercase directory
@@ -1521,9 +1436,8 @@ value = 1
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (const
-        (int)))))
+    (const
+      (int))))
 
 ================================================================================
 postfix chains bind before prefix operators
@@ -1538,7 +1452,18 @@ expect !Conformance.claims_for_profile(Standard).static_pdf_a4
 (file
   (doc_comment)
   (expect
-    (expr_body
+    (field_access_expr
+      (function_call_pnc_expr
+        (variable_expr
+          (module)
+          (identifier))
+        (tag_expr
+          (tag
+            (identifier))))
+      (identifier)))
+  (doc_comment)
+  (expect
+    (prefixed_expression
       (field_access_expr
         (function_call_pnc_expr
           (variable_expr
@@ -1547,20 +1472,7 @@ expect !Conformance.claims_for_profile(Standard).static_pdf_a4
           (tag_expr
             (tag
               (identifier))))
-        (identifier))))
-  (doc_comment)
-  (expect
-    (expr_body
-      (prefixed_expression
-        (field_access_expr
-          (function_call_pnc_expr
-            (variable_expr
-              (module)
-              (identifier))
-            (tag_expr
-              (tag
-                (identifier))))
-          (identifier))))))
+        (identifier)))))
 
 ================================================================================
 postfix suffixes in pipelines
@@ -1580,15 +1492,26 @@ field_suffix = a |> f().field?
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (function_call_pnc_expr
-        (variable_expr
-          (identifier)))))
+    (function_call_pnc_expr
+      (variable_expr
+        (identifier))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
+    (suffix_op_expr
+      (function_call_pnc_expr
+        (variable_expr
+          (identifier)))
+      (try_operator)))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (operator)
       (suffix_op_expr
         (function_call_pnc_expr
           (variable_expr
@@ -1598,98 +1521,79 @@ field_suffix = a |> f().field?
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (operator)
+      (suffix_op_expr
         (variable_expr
           (identifier))
-        (operator)
-        (suffix_op_expr
-          (function_call_pnc_expr
-            (variable_expr
-              (identifier)))
-          (try_operator)))))
+        (try_operator))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (operator)
-        (suffix_op_expr
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (operator)
+      (suffix_op_expr
+        (function_call_pnc_expr
           (variable_expr
-            (identifier))
-          (try_operator)))))
+            (identifier)))
+        (try_operator))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (operator)
-        (suffix_op_expr
-          (function_call_pnc_expr
-            (variable_expr
-              (identifier)))
-          (try_operator)))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (operator)
-        (suffix_op_expr
-          (function_call_pnc_expr
-            (variable_expr
-              (identifier)))
-          (try_operator))
-        (operator)
-        (suffix_op_expr
-          (function_call_pnc_expr
-            (variable_expr
-              (identifier)))
-          (try_operator)))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (operator)
-        (suffix_op_expr
-          (function_call_pnc_expr
-            (variable_expr
-              (identifier)))
-          (try_operator))
-        (operator)
-        (suffix_op_expr
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (operator)
+      (suffix_op_expr
+        (function_call_pnc_expr
           (variable_expr
-            (identifier))
-          (try_operator)))))
+            (identifier)))
+        (try_operator))
+      (operator)
+      (suffix_op_expr
+        (function_call_pnc_expr
+          (variable_expr
+            (identifier)))
+        (try_operator))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (operator)
+      (suffix_op_expr
+        (function_call_pnc_expr
+          (variable_expr
+            (identifier)))
+        (try_operator))
+      (operator)
+      (suffix_op_expr
         (variable_expr
           (identifier))
-        (operator)
-        (suffix_op_expr
-          (field_access_expr
-            (function_call_pnc_expr
-              (variable_expr
-                (identifier)))
-            (identifier))
-          (try_operator))))))
+        (try_operator))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (operator)
+      (suffix_op_expr
+        (field_access_expr
+          (function_call_pnc_expr
+            (variable_expr
+              (identifier)))
+          (identifier))
+        (try_operator)))))
 
 ================================================================================
 mixed postfix chain
@@ -1704,57 +1608,54 @@ continued = source()?.value.0(next).?optional?
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
+    (suffix_op_expr
+      (field_access_expr
+        (function_call_pnc_expr
+          (tuple_access_expr
+            (field_access_expr
+              (function_call_pnc_expr
+                (variable_expr
+                  (identifier)))
+              (identifier))
+            (int))
+          (variable_expr
+            (identifier)))
+        (optional_access)
+        (identifier))
+      (try_operator)))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (prefixed_expression
       (suffix_op_expr
         (field_access_expr
           (function_call_pnc_expr
-            (tuple_access_expr
-              (field_access_expr
-                (function_call_pnc_expr
-                  (variable_expr
-                    (identifier)))
-                (identifier))
-              (int))
             (variable_expr
               (identifier)))
-          (optional_access)
           (identifier))
         (try_operator))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (prefixed_expression
-        (suffix_op_expr
-          (field_access_expr
-            (function_call_pnc_expr
-              (variable_expr
-                (identifier)))
-            (identifier))
-          (try_operator)))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    (expr_body
-      (suffix_op_expr
-        (field_access_expr
-          (function_call_pnc_expr
-            (tuple_access_expr
-              (field_access_expr
-                (suffix_op_expr
-                  (function_call_pnc_expr
-                    (variable_expr
-                      (identifier)))
-                  (try_operator))
-                (identifier))
-              (int))
-            (variable_expr
-              (identifier)))
-          (optional_access)
-          (identifier))
-        (try_operator)))))
+    (suffix_op_expr
+      (field_access_expr
+        (function_call_pnc_expr
+          (tuple_access_expr
+            (field_access_expr
+              (suffix_op_expr
+                (function_call_pnc_expr
+                  (variable_expr
+                    (identifier)))
+                (try_operator))
+              (identifier))
+            (int))
+          (variable_expr
+            (identifier)))
+        (optional_access)
+        (identifier))
+      (try_operator))))
 
 ================================================================================
 accessor punctuation permits leading trivia
@@ -1769,30 +1670,27 @@ tuple = pair .0
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (field_access_expr
-        (variable_expr
-          (identifier))
-        (identifier))))
+    (field_access_expr
+      (variable_expr
+        (identifier))
+      (identifier)))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (field_access_expr
-        (variable_expr
-          (identifier))
-        (optional_access)
-        (identifier))))
+    (field_access_expr
+      (variable_expr
+        (identifier))
+      (optional_access)
+      (identifier)))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (tuple_access_expr
-        (variable_expr
-          (identifier))
-        (int)))))
+    (tuple_access_expr
+      (variable_expr
+        (identifier))
+      (int))))
 
 ================================================================================
 accessor punctuation requires an adjacent field or index
@@ -1807,9 +1705,8 @@ bad_tuple = pair. 0
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (variable_expr
-        (identifier))))
+    (variable_expr
+      (identifier)))
   (ERROR)
   (expr_body
     (variable_expr
@@ -1818,9 +1715,8 @@ bad_tuple = pair. 0
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (variable_expr
-        (identifier))))
+    (variable_expr
+      (identifier)))
   (ERROR
     (optional_access))
   (expr_body
@@ -1830,9 +1726,8 @@ bad_tuple = pair. 0
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (variable_expr
-        (identifier))))
+    (variable_expr
+      (identifier)))
   (ERROR)
   (expr_body
     (const
@@ -1850,39 +1745,37 @@ checks = left == 1 and right == 2
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (function_call_pnc_expr
-          (variable_expr
-            (identifier))
-          (function_call_pnc_expr
-            (variable_expr
-              (identifier))
-            (variable_expr
-              (identifier))))
-        (operator)
-        (const
-          (int))
-        (operator)
+    (bin_op_expr
+      (function_call_pnc_expr
+        (variable_expr
+          (identifier))
         (function_call_pnc_expr
           (variable_expr
             (identifier))
           (variable_expr
-            (identifier))))))
+            (identifier))))
+      (operator)
+      (const
+        (int))
+      (operator)
+      (function_call_pnc_expr
+        (variable_expr
+          (identifier))
+        (variable_expr
+          (identifier)))))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (bin_op_expr
-        (variable_expr
-          (identifier))
-        (operator)
-        (const
-          (int))
-        (operator)
-        (variable_expr
-          (identifier))
-        (operator)
-        (const
-          (int))))))
+    (bin_op_expr
+      (variable_expr
+        (identifier))
+      (operator)
+      (const
+        (int))
+      (operator)
+      (variable_expr
+        (identifier))
+      (operator)
+      (const
+        (int)))))

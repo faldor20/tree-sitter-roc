@@ -15,46 +15,41 @@ a=Module.SubModule.variable.function()
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (variable_expr
-        (identifier))))
+    body: (variable_expr
+      (identifier)))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (variable_expr
-        (module)
-        (identifier))))
+    body: (variable_expr
+      (module)
+      (identifier)))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (variable_expr
-        (module)
-        (module)
-        (identifier))))
+    body: (variable_expr
+      (module)
+      (module)
+      (identifier)))
   (value_declaration
     pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (field_access_expr
+    body: (field_access_expr
+      target: (variable_expr
+        (module)
+        (module)
+        (identifier))
+      (identifier)))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (function_call_pnc_expr
+      caller: (field_access_expr
         target: (variable_expr
           (module)
           (module)
           (identifier))
-        (identifier))))
-  (value_declaration
-    pattern: (decl_left
-      (identifier_pattern
-        (identifier)))
-    body: (expr_body
-      (function_call_pnc_expr
-        caller: (field_access_expr
-          target: (variable_expr
-            (module)
-            (module)
-            (identifier))
-          (identifier))))))
+        (identifier)))))
