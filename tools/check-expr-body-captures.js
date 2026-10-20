@@ -9,17 +9,23 @@ const path = require("node:path");
 const { spawnSync } = require("node:child_process");
 const root = path.resolve(__dirname, "..");
 const source = "test/fixtures/expr-body-captures.roc";
-const baselinePath = path.join(__dirname, "expr-body-captures-baseline.json");
+const baselinePath = path.join(__dirname, "expr-body-captures-expanded-baseline.json");
 const names = ["locals", "indents", "textobjects", "rainbows", "highlights", "tags"];
 const cli = path.join(root, "node_modules/.bin/tree-sitter");
 const baseline = JSON.parse(fs.readFileSync(baselinePath, "utf8"));
-const branchScopes = [
-  { name: "local.scope", from: [6, 8], to: [6, 35] },
-  { name: "local.scope", from: [7, 8], to: [7, 28] },
-];
+// New geometric isolation scopes; the approved parent has no match-branch or
+// block scopes at these positions. No other additional captures are permitted.
+const enclosingScopes = [
+  [[6, 8], [6, 35]], [[7, 8], [7, 28]],
+  [[31, 32], [31, 37]], [[31, 43], [31, 48]],
+  [[32, 29], [32, 36]], [[32, 37], [32, 43]],
+  [[53, 28], [53, 37]], [[53, 43], [53, 48]],
+  [[54, 31], [54, 38]], [[54, 39], [54, 49]],
+  [[59, 8], [59, 23]], [[60, 8], [60, 21]],
+].map(([from, to]) => ({ name: "local.scope", from, to }));
 
-function captures(name) {
-  const result = spawnSync(cli, ["query", "-c", `queries/${name}.scm`, source], {
+function captures(name, input = source) {
+  const result = spawnSync(cli, ["query", "-c", `queries/${name}.scm`, input], {
     cwd: root, encoding: "utf8", maxBuffer: 4 * 1024 * 1024,
   });
   assert.equal(result.status, 0, `${name}: ${result.stderr || result.stdout}`);
@@ -101,10 +107,23 @@ const current = Object.fromEntries(names.map((name) => [name, captures(name)]));
 for (const name of names) {
   // Branch isolation is a deliberate new local scope relationship. All other
   // captures, including retained wrappers and duplicate ranges, must be exact.
-  sameCaptures(name, name === "locals" ? [...baseline[name], ...branchScopes] : baseline[name], current[name]);
+  sameCaptures(name, name === "locals" ? [...baseline[name], ...enclosingScopes] : baseline[name], current[name]);
   console.log(`${name}: ${current[name].length} exact captures verified`);
 }
 relationships(current.locals);
+// Require an old expression-body range on every expanded declaration line.
+// Whole-tree equality also checks nested body ranges and their multiplicity.
+for (const line of [
+  26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37,
+  38, 39, 40, 41, 42, 43, 44, 45,
+  48, 49, 50, 51, 52, 53, 54, 55,
+]) {
+  const original = baseline.locals.filter((c) => c.name === "local.scope" && c.from[0] === line);
+  assert.ok(original.length > 0, `fixture line ${line + 1}: no parent scope`);
+  for (const scope of original) exact(current.locals, "local.scope", scope.from, scope.to);
+}
+const sampleLocals = captures("locals", "samples/all-roc-syntax.roc");
+exact(sampleLocals, "local.scope", [13, 9], [13, 22]); // a_f64 = I64.to_f64(a)
 for (const [name, from, to] of [
   ["local.scope", [21, 17], [21, 18]], ["local.scope", [22, 15], [22, 16]],
   ["rainbow.scope", [21, 17], [21, 18]], ["rainbow.scope", [22, 15], [22, 16]],
