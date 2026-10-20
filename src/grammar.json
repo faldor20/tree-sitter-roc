@@ -1060,8 +1060,13 @@
                           "name": "operator"
                         },
                         {
-                          "type": "SYMBOL",
-                          "name": "try_operator"
+                          "type": "ALIAS",
+                          "content": {
+                            "type": "STRING",
+                            "value": "?"
+                          },
+                          "named": true,
+                          "value": "try_operator"
                         }
                       ]
                     },
@@ -5999,10 +6004,6 @@
           "value": "#[^\\n]*"
         }
       }
-    },
-    "try_operator": {
-      "type": "STRING",
-      "value": "?"
     },
     "operator": {
       "type": "ALIAS",

@@ -325,7 +325,7 @@ module.exports = grammar({
             $._atom_expr,
             // Keeping operands atomic lets the enclosing repeat own
             // subsequent operators without reopening the expression tier.
-            prec.right(repeat1(seq(choice($.operator, $.try_operator), $._atom_expr))),
+            prec.right(repeat1(seq(choice($.operator, alias("?", $.try_operator)), $._atom_expr))),
           ),
         ),
       ),
@@ -909,8 +909,6 @@ module.exports = grammar({
 
     doc_comment: ($) => token(prec(-1, /##[^\n]*/)),
     line_comment: ($) => token(prec(-1, /#[^\n]*/)),
-
-    try_operator: ($) => "?",
 
     operator: ($) => alias($.operator_identifier, $.operator),
     _non_pipe_operator: ($) => alias($._non_pipe_operator_identifier, $.operator),
