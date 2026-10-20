@@ -18,7 +18,8 @@ const baseline = JSON.parse(fs.readFileSync(baselinePath, "utf8"));
 // alternatives in sync with the generated expression supertype.
 function checkDeclarationBodySubtypes() {
   const nodeTypes = JSON.parse(fs.readFileSync(path.join(root, "src/node-types.json"), "utf8"));
-  const expression = nodeTypes.Ok.find((node) => node.type === "_expr_inner" && node.subtypes);
+  const expression = (Array.isArray(nodeTypes) ? nodeTypes : nodeTypes.Ok)
+    .find((node) => node.type === "_expr_inner" && node.subtypes);
   assert.ok(expression, "generated expression supertype is missing");
   const query = fs.readFileSync(path.join(root, "queries/locals.scm"), "utf8");
   const match = query.match(/\(value_declaration body: \[([\s\S]*?)\] @local\.scope\)/);
