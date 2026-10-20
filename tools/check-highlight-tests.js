@@ -29,6 +29,12 @@ function verify(output, expected) {
   assert.deepEqual([...seen].sort(), expected, "highlight fixtures not all run");
 }
 
+function verifyResult(result, expected) {
+  assert.ifError(result.error);
+  assert.equal(result.status, 0, `tree-sitter test exited ${result.status}`);
+  verify(result.stdout, expected);
+}
+
 function selfTest() {
   const line = (name) => `    ✓ ${name} (1 assertion)`;
   const complete = `syntax highlighting:\n${fixtures.map(line).join("\n")}\n`;
@@ -39,7 +45,14 @@ function selfTest() {
   assert.throws(() => verify(complete + line("unexpected.roc") + "\n", fixtures), /not all run/);
   assert.throws(() => verify("syntax highlighting:\n", fixtures), /not all run/);
   assert.throws(() => verify(complete.slice(0, -5), fixtures), /unexpected highlight result/);
-  console.log("Highlight completion guard self-test passed (missing, duplicate, unexpected, truncated output).");
+  const success = { error: undefined, status: 0, stdout: complete };
+  verifyResult(success, fixtures);
+  assert.throws(() => verifyResult({ ...success, status: 1 }, fixtures), /tree-sitter test exited 1/);
+  assert.throws(() => verifyResult({ ...success, status: null, signal: "SIGTERM" }, fixtures), /tree-sitter test exited null/);
+  for (const code of ["ETIMEDOUT", "ENOENT"]) {
+    assert.throws(() => verifyResult({ ...success, status: null, error: Object.assign(new Error(code), { code }) }, fixtures), new RegExp(code));
+  }
+  console.log("Highlight completion guard self-test passed (missing, duplicate, unexpected, truncated output, process results).");
 }
 
 try {
@@ -49,9 +62,7 @@ try {
   });
   if (result.stdout) process.stdout.write(result.stdout);
   if (result.stderr) process.stderr.write(result.stderr);
-  assert.ifError(result.error);
-  assert.equal(result.status, 0, `tree-sitter test exited ${result.status}`);
-  verify(result.stdout, fixtures);
+  verifyResult(result, fixtures);
   console.log(`Highlight completion: all ${fixtures.length} fixtures ran.`);
 } catch (error) {
   console.error(`Highlight completion failed: ${error.message}`);
