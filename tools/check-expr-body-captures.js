@@ -13,6 +13,22 @@ const baselinePath = path.join(__dirname, "expr-body-captures-expanded-baseline.
 const names = ["locals", "indents", "textobjects", "rainbows", "highlights", "tags"];
 const cli = path.join(root, "node_modules/.bin/tree-sitter");
 const baseline = JSON.parse(fs.readFileSync(baselinePath, "utf8"));
+// The declaration-body query deliberately excludes lambda and block nodes:
+// they are already captured by the scope patterns above. Keep its explicit
+// alternatives in sync with the generated expression supertype.
+function checkDeclarationBodySubtypes() {
+  const nodeTypes = JSON.parse(fs.readFileSync(path.join(root, "src/node-types.json"), "utf8"));
+  const expression = nodeTypes.Ok.find((node) => node.type === "_expr_inner" && node.subtypes);
+  assert.ok(expression, "generated expression supertype is missing");
+  const query = fs.readFileSync(path.join(root, "queries/locals.scm"), "utf8");
+  const match = query.match(/\(value_declaration body: \[([\s\S]*?)\] @local\.scope\)/);
+  assert.ok(match, "declaration-body scope alternatives are missing");
+  const expected = expression.subtypes.map((node) => node.type)
+    .filter((type) => type !== "anon_fun_expr" && type !== "body_expression").sort();
+  const actual = [...match[1].matchAll(/\(([A-Za-z_][A-Za-z_0-9]*)\)/g)].map((m) => m[1]).sort();
+  assert.deepEqual(actual, expected, "declaration-body scope alternatives differ from expression subtypes");
+}
+checkDeclarationBodySubtypes();
 // New geometric isolation scopes; the approved parent has no match-branch or
 // block scopes at these positions. No other additional captures are permitted.
 const enclosingScopes = [

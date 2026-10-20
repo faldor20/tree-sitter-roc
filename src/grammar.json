@@ -127,17 +127,8 @@
           "type": "FIELD",
           "name": "body",
           "content": {
-            "type": "CHOICE",
-            "members": [
-              {
-                "type": "SYMBOL",
-                "name": "bin_op_expr"
-              },
-              {
-                "type": "SYMBOL",
-                "name": "_atom_expr"
-              }
-            ]
+            "type": "SYMBOL",
+            "name": "_expr_inner"
           }
         }
       ]

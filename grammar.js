@@ -123,7 +123,7 @@ module.exports = grammar({
       seq(
         field("pattern", alias($._assignment_pattern, $.decl_left)),
         "=",
-        field("body", choice($.bin_op_expr, $._atom_expr)),
+        field("body", $._expr_inner),
       ),
 
     _var_declaration: ($) =>

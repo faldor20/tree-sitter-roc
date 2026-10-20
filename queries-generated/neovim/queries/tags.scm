@@ -8,7 +8,7 @@
 ; Function definitions
 (value_declaration
   pattern: (decl_left (identifier_pattern (identifier) ))
-  (anon_fun_expr))
+  body: (anon_fun_expr))
 
 ; Type definitions
 (alias_type_def name: (apply_type (concrete_type) ))
