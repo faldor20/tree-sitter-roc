@@ -116,7 +116,7 @@
 ; TODO: Differentiate between values, functions, and types.
 
 ;; feature: variable-use
-(import_expr exposing: (exposes_list (ident) @font-lock-variable-use-face))
+(import_expr exposing: (exposes_list (ident [(identifier) (module)] @font-lock-variable-use-face)))
 
 (module_header (module_exposes (ident [(identifier) (module)] @font-lock-variable-use-face)))
 

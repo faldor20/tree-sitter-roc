@@ -114,7 +114,7 @@
 ; @string.regexp
 
 ; TODO: Differentiate between values, functions, and types.
-(import_expr exposing: (exposes_list (ident) ))
+(import_expr exposing: (exposes_list (ident [(identifier) (module)] )))
 (module_header (module_exposes (ident [(identifier) (module)] )))
 
 (app_header (packages_list ((platform_ref) )))
