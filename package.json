@@ -26,7 +26,7 @@
     "corpus:check": "node tools/check-corpus-inventory.js --self-test",
     "queries:generate": "node tools/template-queries.js --queries-dir queries",
     "queries:check": "node tools/template-queries.js --queries-dir queries && node tools/check-emacs-query-generator.js && node tools/check-neovim-try-highlight.js --self-test && git diff --exit-code queries-generated",
-    "ci": "npm run ts:generate-check && npm run ts:metrics-check && npm run ts:test && npm run queries:check && node tools/check-expr-body-captures.js --self-test && node tools/check-shared-highlight-parity.js"
+    "ci": "npm run ts:generate-check && npm run ts:metrics-check && npm run ts:test && npm run queries:check && node tools/check-expr-body-captures.js --self-test && node tools/check-shared-highlight-parity.js && node tools/check-operator-trees.js --self-test"
   },
   "dependencies": {
     "node-addon-api": "^7.1.0",
