@@ -1,0 +1,318 @@
+===
+module exposure qualified names aliases and wildcards
+===
+module [value, Type, value as renamed, Type as Renamed, Outer.Inner, Outer.inner, Outer.inner.Deep.value!, Outer.inner as Alias, Type.*, Outer.Inner.*, Outer.value.*, Type .*]
+main = 1
+---
+
+(file
+  (module_header
+    (module_exposes
+      (ident
+        (identifier))
+      (ident
+        (module))
+      (renamed_exposed_item
+        name: (identifier)
+        alias: (identifier))
+      (renamed_exposed_item
+        name: (module)
+        alias: (module))
+      (qualified_exposed_name
+        root: (module)
+        segment: (module))
+      (qualified_exposed_name
+        root: (module)
+        segment: (identifier))
+      (qualified_exposed_name
+        root: (module)
+        segment: (identifier)
+        segment: (module)
+        segment: (identifier))
+      (renamed_exposed_item
+        name: (qualified_exposed_name
+          root: (module)
+          segment: (identifier))
+        alias: (module))
+      (wildcard_exposed_item
+        name: (module))
+      (wildcard_exposed_item
+        name: (qualified_exposed_name
+          root: (module)
+          segment: (module)))
+      (wildcard_exposed_item
+        name: (qualified_exposed_name
+          root: (module)
+          segment: (identifier)))
+      (wildcard_exposed_item
+        name: (module))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (const
+      (int))))
+
+===
+import exposure qualified names aliases and wildcards
+===
+import Foo as Bar exposing [value, Type, value as renamed, Type as Renamed, Outer.Inner, Outer.inner, Outer.inner.Deep.value!, Outer.inner as Alias, Type.*, Outer.Inner.*, Outer.value.*, Type .*]
+main = 1
+---
+
+(file
+  (import_expr
+    (import_ident
+      (module))
+    (module)
+    exposing: (exposes_list
+      (ident
+        (identifier))
+      (ident
+        (module))
+      (renamed_exposed_item
+        name: (identifier)
+        alias: (identifier))
+      (renamed_exposed_item
+        name: (module)
+        alias: (module))
+      (qualified_exposed_name
+        root: (module)
+        segment: (module))
+      (qualified_exposed_name
+        root: (module)
+        segment: (identifier))
+      (qualified_exposed_name
+        root: (module)
+        segment: (identifier)
+        segment: (module)
+        segment: (identifier))
+      (renamed_exposed_item
+        name: (qualified_exposed_name
+          root: (module)
+          segment: (identifier))
+        alias: (module))
+      (wildcard_exposed_item
+        name: (module))
+      (wildcard_exposed_item
+        name: (qualified_exposed_name
+          root: (module)
+          segment: (module)))
+      (wildcard_exposed_item
+        name: (qualified_exposed_name
+          root: (module)
+          segment: (identifier)))
+      (wildcard_exposed_item
+        name: (module))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (const
+      (int))))
+
+===
+module exposure multiline comments trailing comma
+===
+module [
+    # names and aliases
+    Outer.Inner,
+    value as renamed,
+    Type # wildcard may follow trivia
+        .*,
+]
+main = 1
+---
+
+(file
+  (module_header
+    (module_exposes
+      (line_comment)
+      (qualified_exposed_name
+        root: (module)
+        segment: (module))
+      (renamed_exposed_item
+        name: (identifier)
+        alias: (identifier))
+      (wildcard_exposed_item
+        name: (module)
+        (line_comment))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (const
+      (int))))
+
+===
+import exposure multiline comments trailing comma
+===
+import Foo exposing [
+    # names and aliases
+    Outer.Inner,
+    value as renamed,
+    Type # wildcard may follow trivia
+        .*,
+]
+main = 1
+---
+
+(file
+  (import_expr
+    (import_ident
+      (module))
+    exposing: (exposes_list
+      (line_comment)
+      (qualified_exposed_name
+        root: (module)
+        segment: (module))
+      (renamed_exposed_item
+        name: (identifier)
+        alias: (identifier))
+      (wildcard_exposed_item
+        name: (module)
+        (line_comment))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (const
+      (int))))
+
+===
+module exposure rejects standalone wildcard
+:error
+===
+module [*]
+main = 1
+---
+
+
+
+===
+import exposure rejects standalone wildcard
+:error
+===
+import Foo exposing [*]
+main = 1
+---
+
+
+
+===
+module exposure rejects lowercase root qualification
+:error
+===
+module [value.Inner]
+main = 1
+---
+
+
+
+===
+import exposure rejects lowercase root qualification
+:error
+===
+import Foo exposing [value.Inner]
+main = 1
+---
+
+
+
+===
+module exposure rejects lowercase to uppercase alias
+:error
+===
+module [value as Alias]
+main = 1
+---
+
+
+
+===
+import exposure rejects uppercase to lowercase alias
+:error
+===
+import Foo exposing [Type as alias]
+main = 1
+---
+
+
+
+===
+module exposure rejects qualified lowercase alias
+:error
+===
+module [Outer.value as alias]
+main = 1
+---
+
+
+
+===
+import exposure rejects qualified alias target
+:error
+===
+import Foo exposing [Type as Other.Type]
+main = 1
+---
+
+
+
+===
+module exposure rejects wildcard alias
+:error
+===
+module [Type.* as Alias]
+main = 1
+---
+
+
+
+===
+import exposure rejects alias wildcard
+:error
+===
+import Foo exposing [Type as Alias.*]
+main = 1
+---
+
+
+
+===
+module exposure rejects space before qualified dot
+:error
+===
+module [Outer .Inner]
+main = 1
+---
+
+
+
+===
+import exposure rejects space after qualified dot
+:error
+===
+import Foo exposing [Outer. Inner]
+main = 1
+---
+
+
+
+===
+module exposure rejects separated wildcard
+:error
+===
+module [Type. *]
+main = 1
+---
+
+
+
+===
+import exposure rejects lowercase wildcard
+:error
+===
+import Foo exposing [value.*]
+main = 1
+---

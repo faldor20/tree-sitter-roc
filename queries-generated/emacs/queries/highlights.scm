@@ -120,6 +120,16 @@
 
 (module_header (module_exposes (ident [(identifier) (module)] @font-lock-variable-use-face)))
 
+(qualified_exposed_name [(identifier) (module)] @font-lock-variable-use-face)
+
+(renamed_exposed_item [(identifier) (module)] @font-lock-variable-use-face)
+
+(wildcard_exposed_item (module) @font-lock-variable-use-face)
+
+;; feature: operators
+(wildcard_exposed_item ".*" @font-lock-operator-face)
+
+;; feature: variable-use
 (app_header (provides_list ((identifier) @font-lock-variable-use-face)))
 
 ; N/A

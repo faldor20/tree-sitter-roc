@@ -518,7 +518,23 @@ module.exports = grammar({
     package_ref: ($) => seq($.identifier, ":", $.string),
     platform_ref: ($) => seq($.identifier, ":", "platform", alias($.string, $.package_uri)),
 
-    module_exposes: ($) => seq("[", sep_tail($.ident, ","), "]"),
+    module_exposes: ($) => seq("[", sep_tail($._exposed_item, ","), "]"),
+    _exposed_item: ($) => choice($.ident, $.qualified_exposed_name, $.renamed_exposed_item, $.wildcard_exposed_item),
+    qualified_exposed_name: ($) =>
+      seq(
+        field("root", $.module),
+        repeat1(seq(imm("."), field("segment", choice(
+          alias(imm(/[a-z][a-zA-Z0-9_!]*/), $.identifier),
+          alias(imm(/[A-Z][a-zA-Z0-9_!]*/), $.module),
+        )))),
+      ),
+    renamed_exposed_item: ($) =>
+      choice(
+        seq(field("name", $.identifier), "as", field("alias", $.identifier)),
+        seq(field("name", choice($.module, $.qualified_exposed_name)), "as", field("alias", $.module)),
+      ),
+    wildcard_exposed_item: ($) =>
+      seq(field("name", choice($.module, $.qualified_exposed_name)), field("wildcard", ".*")),
     exposes: ($) => seq("exposes", $.exposes_list),
     platform_exposes: ($) => seq("exposes", "[", sep_tail($.platform_exposed_item, ","), "]"),
     platform_exposed_item: ($) =>
@@ -526,7 +542,7 @@ module.exports = grammar({
         choice($.identifier, $.module),
         repeat(seq(imm("."), choice($.identifier, $.module, "*"))),
       ),
-    exposes_list: ($) => seq("exposing", seq("[", sep_tail($.ident, ","), "]")),
+    exposes_list: ($) => seq("exposing", seq("[", sep_tail($._exposed_item, ","), "]")),
     import_ident: ($) => seq(optional(seq($.identifier, ".")), sep1($.module, ".")),
     import_path: ($) =>
       choice(

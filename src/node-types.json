@@ -1078,6 +1078,18 @@
         {
           "type": "ident",
           "named": true
+        },
+        {
+          "type": "qualified_exposed_name",
+          "named": true
+        },
+        {
+          "type": "renamed_exposed_item",
+          "named": true
+        },
+        {
+          "type": "wildcard_exposed_item",
+          "named": true
         }
       ]
     }
@@ -1885,6 +1897,18 @@
         {
           "type": "ident",
           "named": true
+        },
+        {
+          "type": "qualified_exposed_name",
+          "named": true
+        },
+        {
+          "type": "renamed_exposed_item",
+          "named": true
+        },
+        {
+          "type": "wildcard_exposed_item",
+          "named": true
         }
       ]
     }
@@ -2690,6 +2714,36 @@
     }
   },
   {
+    "type": "qualified_exposed_name",
+    "named": true,
+    "fields": {
+      "root": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "module",
+            "named": true
+          }
+        ]
+      },
+      "segment": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "module",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "record_expr",
     "named": true,
     "fields": {
@@ -2884,6 +2938,44 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "renamed_exposed_item",
+    "named": true,
+    "fields": {
+      "alias": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "module",
+            "named": true
+          }
+        ]
+      },
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "module",
+            "named": true
+          },
+          {
+            "type": "qualified_exposed_name",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -3839,6 +3931,36 @@
     }
   },
   {
+    "type": "wildcard_exposed_item",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "module",
+            "named": true
+          },
+          {
+            "type": "qualified_exposed_name",
+            "named": true
+          }
+        ]
+      },
+      "wildcard": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": ".*",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "xint",
     "named": true,
     "fields": {}
@@ -3913,6 +4035,10 @@
   },
   {
     "type": ".(",
+    "named": false
+  },
+  {
+    "type": ".*",
     "named": false
   },
   {

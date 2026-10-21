@@ -1,0 +1,77 @@
+===
+module exposure dotted identifier tokens
+===
+module [Outer.Type!, Outer.foo!bar, Outer.UP!PER, Outer.lower_123]
+main = 1
+---
+
+(file
+  (module_header
+    (module_exposes
+      (qualified_exposed_name
+        root: (module)
+        segment: (module))
+      (qualified_exposed_name
+        root: (module)
+        segment: (identifier))
+      (qualified_exposed_name
+        root: (module)
+        segment: (module))
+      (qualified_exposed_name
+        root: (module)
+        segment: (identifier))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (const
+      (int))))
+
+===
+import exposure dotted identifier tokens
+===
+import Foo exposing [Outer.Type!, Outer.foo!bar, Outer.UP!PER, Outer.lower_123]
+main = 1
+---
+
+(file
+  (import_expr
+    (import_ident
+      (module))
+    exposing: (exposes_list
+      (qualified_exposed_name
+        root: (module)
+        segment: (module))
+      (qualified_exposed_name
+        root: (module)
+        segment: (identifier))
+      (qualified_exposed_name
+        root: (module)
+        segment: (module))
+      (qualified_exposed_name
+        root: (module)
+        segment: (identifier))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (const
+      (int))))
+
+===
+module exposure rejects malformed unicode segment
+:error
+===
+module [Outer.café]
+main = 1
+---
+
+
+
+===
+import exposure rejects malformed dollar segment
+:error
+===
+import Foo exposing [Outer.foo$bar]
+main = 1
+---

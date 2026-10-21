@@ -116,6 +116,10 @@
 ; TODO: Differentiate between values, functions, and types.
 (import_expr exposing: (exposes_list (ident [(identifier) (module)] )))
 (module_header (module_exposes (ident [(identifier) (module)] )))
+(qualified_exposed_name [(identifier) (module)] )
+(renamed_exposed_item [(identifier) (module)] )
+(wildcard_exposed_item (module) )
+(wildcard_exposed_item ".*" @operator)
 
 (app_header (packages_list ((platform_ref) )))
 
