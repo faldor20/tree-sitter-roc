@@ -6443,6 +6443,8 @@
     }
   ],
   "inline": [
+    "_header",
+    "_import_body",
     "_non_atomic_type",
     "field_name",
     "bound_variable",

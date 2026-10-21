@@ -84,6 +84,8 @@ module.exports = grammar({
   word: ($) => $._lower_identifier,
 
   inline: ($) => [
+    $._header,
+    $._import_body,
     //ELI: temporary while we work out if these two can just go
     // $.expr_body,
     // $.expr_body_terminal,
