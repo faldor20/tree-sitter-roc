@@ -256,13 +256,14 @@
 (function_call_pnc_expr caller: (field_access_expr (identifier) @function.roc-special.call .))
 (bin_op_expr (operator "->") (variable_expr (identifier) @function.roc-special.call))
 
-; Emacs checks whether an inferred name is a derive when predicates are omitted.
+; Inferred names have a variable base capture. Editors with predicate support
+; refine recognized derived methods; Emacs refines them in the mode instead.
 (inferred_associated_annotation
   name: (annotation_pre_colon (identifier) @variable.roc-special.inferred-definition))
 
 ; An underscore annotation in an associated block can request a derived method.
-; A matching following definition instead supplies an ordinary value; the
-; higher-priority rule below handles that case (including intervening comments).
+; A matching following definition instead supplies an ordinary value; editors
+; that support predicates use the later rule, including intervening comments.
 ((inferred_associated_annotation
   name: (annotation_pre_colon (identifier) @function.roc-special.derive))
   (#match? @function.roc-special.derive "^(is_eq|to_hash|parser_for|encoder_for|map|map!)$"))

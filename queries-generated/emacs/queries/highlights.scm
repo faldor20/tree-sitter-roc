@@ -275,15 +275,16 @@
 
 (bin_op_expr (operator "->") (variable_expr (identifier) @font-lock-function-call-face))
 
-; Emacs checks whether an inferred name is a derive when predicates are omitted.
+; Inferred names have a variable base capture. Editors with predicate support
+; refine recognized derived methods; Emacs refines them in the mode instead.
 
 ;; feature: definition-names
 (inferred_associated_annotation
-  name: (annotation_pre_colon (identifier) @roc-ts--fontify-inferred-associated-annotation))
+  name: (annotation_pre_colon (identifier) @font-lock-variable-name-face))
 
 ; An underscore annotation in an associated block can request a derived method.
-; A matching following definition instead supplies an ordinary value; the
-; higher-priority rule below handles that case (including intervening comments).
+; A matching following definition instead supplies an ordinary value; editors
+; that support predicates use the later rule, including intervening comments.
 
 (annotation_type_def name: (annotation_pre_colon (identifier) @font-lock-function-name-face)
   (function_type))

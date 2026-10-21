@@ -8,10 +8,16 @@
 ;; Check the returned ERT counts; a successful client exit is not enough.
 
 (require 'ert)
+(require 'cl-lib)
 (require 'treesit)
-(let ((mode-file (or (getenv "ROC_TS_MODE_FILE")
-                     "/home/danknutson/Projects/roc-ts-mode/roc-ts-mode.el")))
-  (load mode-file nil t t))
+
+;; Local faces stand in for the mode's capture identities, not its styling.
+(defface roc-ts-crash-face
+  '((t :inherit font-lock-warning-face))
+  "Face for the Roc crash keyword in generated queries.")
+(defface roc-ts-question-mark-face
+  '((t :inherit font-lock-keyword-face))
+  "Face for the Roc early-return operator in generated queries.")
 
 (defconst roc-query-runtime--query-file
   (expand-file-name "../queries-generated/emacs/queries/highlights.scm"
@@ -36,13 +42,41 @@
           (goto-char end)))
       (nreverse sections))))
 
+(defconst roc-query-runtime--feature-list
+  '((comments doc-comments definition-names)
+    (keywords strings string-escapes types type-variables tag-types)
+    (numbers errors early-return)
+    (record-field-declaration record-field-access tags variable-use
+     function-calls modules operators delimiters brackets arrows
+     lambdas assignments))
+  "Font-lock levels for testing generated queries independently of the mode.")
+
+(defun roc-query-runtime--check-faces (query)
+  "Assert every capture in QUERY names a defined Emacs face."
+  (with-temp-buffer
+    (insert query)
+    (goto-char (point-min))
+    (let ((count 0))
+      (while (re-search-forward "@[[:alnum:]_.-]+" nil t)
+        (unless (save-excursion
+                  (goto-char (match-beginning 0))
+                  (search-backward ";" (line-beginning-position) t))
+          (setq count (1+ count))
+          (should (facep (intern (substring (match-string 0) 1))))))
+      (should (> count 0)))))
+
 (defun roc-query-runtime--settings ()
   "Compile the generated sections as ordered font-lock settings."
-  (let ((sections (roc-query-runtime--sections)))
+  (let* ((sections (roc-query-runtime--sections))
+         (features (mapcar #'car sections))
+         (enabled (apply #'append roc-query-runtime--feature-list)))
     (should (> (length sections) 30))
+    (should (cl-subsetp features enabled))
+    (should (cl-subsetp enabled features))
     (apply #'treesit-font-lock-rules
            (cl-loop for (feature . query) in sections
-                    do (treesit-query-compile 'roc query t)
+                    do (progn (roc-query-runtime--check-faces query)
+                              (treesit-query-compile 'roc query t))
                     append (list :language 'roc :override t
                                  :feature feature query)))))
 
@@ -58,13 +92,7 @@ DISABLED-FEATURES is a list of features to remove independently."
       (should-not (treesit-node-check root 'has-error)))
     (setq-local treesit-font-lock-settings roc-query-runtime--settings)
     (setq-local treesit-font-lock-feature-list
-                (copy-tree
-                 '((comments doc-comments definition-names)
-                   (keywords strings string-escapes types type-variables tag-types)
-                   (numbers errors early-return)
-                   (record-field-declaration record-field-access tags variable-use
-                    function-calls modules operators delimiters brackets arrows
-                    lambdas assignments))))
+                (copy-tree roc-query-runtime--feature-list))
     (setq-local treesit-font-lock-feature-list
                 (mapcar (lambda (features)
                           (cl-set-difference features disabled-features))
@@ -105,22 +133,68 @@ DISABLED-FEATURES is a list of features to remove independently."
                 'font-lock-function-call-face))))
 
 (ert-deftest roc-query-runtime-inferred ()
-  "Derive-only names differ from explicit and unrelated inferred names."
-  (dolist (level '(3 4))
-    (should (eq (roc-query-runtime--face
-                 "Flags := [A].{ is_eq : _ }\n" "is_eq :" level)
-                'font-lock-function-name-face))
-    (should (eq (roc-query-runtime--face
-                 "Flags := [A].{ is_eq : _\n # comment\n ## docs\n is_eq = 42 }\n"
-                 "is_eq :" level)
-                'font-lock-variable-name-face))
-    (should (eq (roc-query-runtime--face
-                 "Flags := [A].{ is_eq : _\n # comment\n other = 42 }\n"
-                 "is_eq :" level)
-                'font-lock-function-name-face))
-    (should (eq (roc-query-runtime--face
-                 "Flags := [A].{ unknown : _ }\n" "unknown :" level)
-                'font-lock-variable-name-face))))
+  "Generated rules capture only inferred identifiers with a variable face."
+  (let* ((sections (roc-query-runtime--sections))
+         (features (mapcar #'car sections))
+         (query (mapconcat #'cdr sections "\n"))
+         (inferred-pattern
+          "(inferred_associated_annotation[[:space:]]+name: (annotation_pre_colon (identifier) @font-lock-variable-name-face))")
+         (inferred-sections
+          (cl-remove-if-not
+           (lambda (section) (string-match inferred-pattern (cdr section)))
+           sections))
+         (inferred-query
+          (progn
+            (should (= (length inferred-sections) 1))
+            (should (eq (caar inferred-sections) 'definition-names))
+            (string-match inferred-pattern (cdar inferred-sections))
+            (match-string 0 (cdar inferred-sections)))))
+    (should (> (cl-count 'definition-names features) 1))
+    (should (< (cl-position 'definition-names features)
+               (cl-position 'function-calls features)))
+    (should (< (cl-position 'function-calls features)
+               (cl-position 'definition-names features :from-end t)))
+    (should-not (string-match-p "@roc-ts--fontify" query))
+    (dolist (source '("Flags := [A].{ is_eq : _ }\n"
+                      "Flags := [A].{ is_eq : _\n # comment\n ## docs\n is_eq = 42 }\n"
+                      "Flags := [A].{ is_eq : _\n # comment\n other = 42 }\n"
+                      "Flags := [A].{ unknown : _ }\n"))
+      (let* ((name (if (string-match-p "unknown" source) "unknown" "is_eq"))
+             (capture (with-temp-buffer
+                     (insert source)
+                     (treesit-parser-create 'roc)
+                     (let* ((root (treesit-buffer-root-node 'roc))
+                            (captures (treesit-query-capture
+                                       root inferred-query)))
+                       (should (= (length captures) 1))
+                       (let ((identifier (cdar captures)))
+                         (should (equal (treesit-node-text identifier) name))
+                         (should (= (treesit-node-start identifier)
+                                    (1+ (string-match (concat name " :") source))))
+                         (should (= (treesit-node-end identifier)
+                                    (+ (treesit-node-start identifier) (length name))))
+                         (should (equal (buffer-substring-no-properties
+                                         (treesit-node-end identifier)
+                                         (+ 2 (treesit-node-end identifier)))
+                                        " :")))))))
+        (dolist (level '(3 4))
+          (should (eq (roc-query-runtime--face source (concat name " :") level)
+                      'font-lock-variable-name-face))
+          (should-not (eq (roc-query-runtime--face
+                           source (concat name " :") level nil '(definition-names))
+                          'font-lock-variable-name-face)))))))
+
+(ert-deftest roc-query-runtime-custom-faces ()
+  "Generated Roc-specific captures apply their locally defined face identities."
+  (let ((source "main = |value| { crash\n value? }\n"))
+    (should (eq (roc-query-runtime--face source "crash" 3)
+                'roc-ts-crash-face))
+    (should (eq (roc-query-runtime--face source "?" 3)
+                'roc-ts-question-mark-face))
+    (should-not (eq (roc-query-runtime--face source "crash" 3 nil '(keywords))
+                    'roc-ts-crash-face))
+    (should-not (eq (roc-query-runtime--face source "?" 3 nil '(early-return))
+                    'roc-ts-question-mark-face))))
 
 (ert-deftest roc-query-runtime-doc-comments ()
   "Doc comments use the comment fallback when their feature is disabled."

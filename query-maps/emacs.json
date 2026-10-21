@@ -75,7 +75,7 @@
     "type.roc-special.inferred": { "capture": "font-lock-type-face", "feature": "types" },
     "variable": { "capture": "font-lock-variable-use-face", "feature": "variable-use" },
     "variable.roc-special.definition": { "capture": "font-lock-variable-name-face", "feature": "definition-names" },
-    "variable.roc-special.inferred-definition": { "capture": "roc-ts--fontify-inferred-associated-annotation", "feature": "definition-names" },
+    "variable.roc-special.inferred-definition": { "capture": "font-lock-variable-name-face", "feature": "definition-names" },
     "variable.builtin": { "capture": "font-lock-variable-use-face", "feature": "variable-use" },
     "variable.other": "",
     "variable.other.member": { "capture": "font-lock-property-use-face", "feature": "record-field-access" },
