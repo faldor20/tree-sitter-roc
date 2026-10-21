@@ -12,15 +12,21 @@ assert.equal(spawnSync("git", ["rev-parse", "HEAD"], { cwd: root, encoding: "utf
 assert.ok(!fs.existsSync(output), "refusing to overwrite baseline");
 const names = ["locals", "indents", "textobjects", "rainbows", "highlights", "tags"];
 const captures = {};
+const cache = fs.mkdtempSync(path.join(require("node:os").tmpdir(), "roc-baseline-lib-"));
+try {
 for (const name of names) {
   const result = spawnSync(path.join(root, "node_modules/.bin/tree-sitter"),
     ["query", "-c", `queries/${name}.scm`, "test/fixtures/expr-body-captures.roc"],
-    { cwd: root, encoding: "utf8", maxBuffer: 8 * 1024 * 1024 });
+    { cwd: root, encoding: "utf8", maxBuffer: 8 * 1024 * 1024,
+      env: { ...process.env, TREE_SITTER_LIBDIR: cache } });
   assert.equal(result.status, 0, `${name}: ${result.stderr || result.stdout}`);
-  captures[name] = [...result.stdout.matchAll(/pattern:\s*\d+, capture:\s*\d+ - ([\w.]+), start: \((\d+), (\d+)\), end: \((\d+), (\d+)\), text: `/g)]
+  captures[name] = [...result.stdout.matchAll(/pattern:\s*\d+, capture:\s*\d+ - ([\w.-]+), start: \((\d+), (\d+)\), end: \((\d+), (\d+)\), text: `/g)]
     .map((m) => ({ name: m[1], from: [+m[2], +m[3]], to: [+m[4], +m[5]] }))
     .sort((a, b) => JSON.stringify(a).localeCompare(JSON.stringify(b)));
   assert.ok(captures[name].length, `${name}: no captures`);
+}
+} finally {
+  fs.rmSync(cache, { recursive: true, force: true });
 }
 fs.writeFileSync(output, JSON.stringify(captures, null, 2) + "\n", { flag: "wx" });
 console.log(`Recorded approved parent: ${names.map((n) => `${n}=${captures[n].length}`).join(" ")}`);

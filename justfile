@@ -1,10 +1,10 @@
 test-gen:
-    ./node_modules/.bin/tree-sitter generate && ./node_modules/.bin/tree-sitter test
+    npm run ts:generate && npm run ts:test
 
 test-gen-filter TEST:
     ./node_modules/.bin/tree-sitter generate && ./node_modules/.bin/tree-sitter test -f {{TEST}}
 test:
-    ./node_modules/.bin/tree-sitter test
+    npm run ts:test
 
 test-update:
     ./node_modules/.bin/tree-sitter test --update
@@ -27,7 +27,7 @@ queries-check:
 
 # run CI checks: generation, parser metrics, tests, and queries
 ci:
-    just generate-check && just parser-metrics-check && node tools/check-highlight-tests.js --self-test && just queries-check && node tools/check-expr-body-captures.js --self-test && node tools/check-shared-highlight-parity.js
+    npm run ci
 
 #generate and build wasm
 build-all:

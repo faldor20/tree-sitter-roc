@@ -27,6 +27,11 @@ function checkDeclarationBodySubtypes() {
     .filter((type) => type !== "anon_fun_expr" && type !== "body_expression").sort();
   const actual = [...match[1].matchAll(/\(([A-Za-z_][A-Za-z_0-9]*)\)/g)].map((m) => m[1]).sort();
   assert.deepEqual(actual, expected, "declaration-body scope alternatives differ from expression subtypes");
+  for (const [owner, field] of [["anon_fun_expr", "body"], ["match_branch", "expr"]]) {
+    const pattern = new RegExp(`\\(${owner} ${field}: \\(([A-Za-z_][A-Za-z_0-9]*)\\) @local\\.scope\\)`, "g");
+    const alternatives = [...query.matchAll(pattern)].map((match) => match[1]).sort();
+    assert.deepEqual(alternatives, expected, `${owner} scope alternatives differ from expression subtypes`);
+  }
 }
 checkDeclarationBodySubtypes();
 // New geometric isolation scopes; the approved parent has no match-branch or
@@ -40,13 +45,19 @@ const enclosingScopes = [
   [[59, 8], [59, 23]], [[60, 8], [60, 21]],
 ].map(([from, to]) => ({ name: "local.scope", from, to }));
 
+function parseCaptures(output) {
+  const found = [...output.matchAll(/pattern:\s*\d+, capture:\s*\d+ - ([\w.-]+), start: \((\d+), (\d+)\), end: \((\d+), (\d+)\), text: `/g)]
+    .map((m) => ({ name: m[1], from: [+m[2], +m[3]], to: [+m[4], +m[5]] }));
+  assert.equal(found.length, [...output.matchAll(/pattern:\s*\d+, capture:/g)].length,
+    "unparsed capture output");
+  return found;
+}
 function captures(name, input = source) {
   const result = spawnSync(cli, ["query", "-c", `queries/${name}.scm`, input], {
     cwd: root, encoding: "utf8", maxBuffer: 4 * 1024 * 1024,
   });
   assert.equal(result.status, 0, `${name}: ${result.stderr || result.stdout}`);
-  const found = [...result.stdout.matchAll(/pattern:\s*\d+, capture:\s*\d+ - ([\w.]+), start: \((\d+), (\d+)\), end: \((\d+), (\d+)\), text: `/g)]
-    .map((m) => ({ name: m[1], from: [+m[2], +m[3]], to: [+m[4], +m[5]] }));
+  const found = parseCaptures(result.stdout);
   assert.ok(found.length > 0, `${name}: no captures parsed`);
   return found;
 }
@@ -101,6 +112,9 @@ function relationships(locals) {
   assert.ok(covers(second, exact(refs, "local.reference", [7, 22], [7, 27])));
 }
 function selfTest() {
+  const output = 'pattern: 1, capture: 2 - function.roc-special.call, start: (1, 0), end: (1, 2), text: `fn`';
+  assert.deepEqual(parseCaptures(output), [{ name: "function.roc-special.call", from: [1, 0], to: [1, 2] }]);
+  assert.throws(() => parseCaptures(output.replace("function.roc-special.call", "unsupported/name")), /unparsed capture/);
   const example = [{ name: "indent", from: [1, 0], to: [1, 2] }];
   for (const [label, changed] of [
     ["removed capture", []],
@@ -140,6 +154,10 @@ for (const name of names) {
       }
       return true;
     });
+  }
+  if (name === "highlights") {
+    const supplemental = require("./expr-body-highlight-expectations")(fs.readFileSync(path.join(root, source), "utf8"));
+    expected = [...expected, ...supplemental];
   }
   sameCaptures(name, expected, current[name]);
   console.log(`${name}: ${current[name].length} exact captures verified`);

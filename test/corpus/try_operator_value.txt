@@ -1,0 +1,7 @@
+==================
+try operator cannot be used as a function value
+:error
+==================
+value = (?)
+
+---

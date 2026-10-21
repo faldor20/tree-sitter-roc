@@ -20,8 +20,9 @@ Ok(payload) = result
 
 Wrapper := I64
 
-Wrapper(wrapped) = boxed
-#       ^^^^^^^ variable.roc-special.definition
+Wrapper.(wrapped) = boxed
+# <- type
+#        ^^^^^^^ variable.roc-special.definition
 
 plain = 1
 # <- variable.roc-special.definition
