@@ -1233,37 +1233,8 @@
       ]
     },
     "tag_expr": {
-      "type": "PREC_LEFT",
-      "value": 0,
-      "content": {
-        "type": "SEQ",
-        "members": [
-          {
-            "type": "SYMBOL",
-            "name": "tag"
-          },
-          {
-            "type": "REPEAT",
-            "content": {
-              "type": "SEQ",
-              "members": [
-                {
-                  "type": "STRING",
-                  "value": "("
-                },
-                {
-                  "type": "SYMBOL",
-                  "name": "_atom_expr"
-                },
-                {
-                  "type": "STRING",
-                  "value": ")"
-                }
-              ]
-            }
-          }
-        ]
-      }
+      "type": "SYMBOL",
+      "name": "tag"
     },
     "anon_fun_expr": {
       "type": "PREC_LEFT",
@@ -1696,12 +1667,8 @@
           "name": "list_pattern"
         },
         {
-          "type": "PREC",
-          "value": 3,
-          "content": {
-            "type": "SYMBOL",
-            "name": "tag_pattern"
-          }
+          "type": "SYMBOL",
+          "name": "tag_pattern"
         },
         {
           "type": "SYMBOL",
@@ -1999,8 +1966,11 @@
                 "type": "SEQ",
                 "members": [
                   {
-                    "type": "STRING",
-                    "value": "("
+                    "type": "IMMEDIATE_TOKEN",
+                    "content": {
+                      "type": "STRING",
+                      "value": "("
+                    }
                   },
                   {
                     "type": "CHOICE",
@@ -2194,12 +2164,8 @@
           "name": "record_pattern"
         },
         {
-          "type": "PREC",
-          "value": 2,
-          "content": {
-            "type": "SYMBOL",
-            "name": "tag_pattern"
-          }
+          "type": "SYMBOL",
+          "name": "tag_pattern"
         },
         {
           "type": "SYMBOL",
@@ -2265,12 +2231,8 @@
           "name": "record_pattern"
         },
         {
-          "type": "PREC",
-          "value": 3,
-          "content": {
-            "type": "SYMBOL",
-            "name": "tag_pattern"
-          }
+          "type": "SYMBOL",
+          "name": "tag_pattern"
         },
         {
           "type": "SYMBOL",
@@ -4537,7 +4499,7 @@
     },
     "concrete_type": {
       "type": "PREC_RIGHT",
-      "value": 2,
+      "value": 0,
       "content": {
         "type": "SEQ",
         "members": [
@@ -6209,6 +6171,10 @@
     [
       "tag_pattern",
       "tag_expr"
+    ],
+    [
+      "concrete_type",
+      "_long_upper_identifier"
     ],
     [
       "nominal_record_expr",
