@@ -1,0 +1,434 @@
+================================================================================
+block_tag_payload_assignments
+================================================================================
+check = |input| {
+    Ok(parsed_nums) = parse_lines(input)
+    Pair(left, right) = input
+    Nested(Some(inner), { field }) = input
+    Empty() = input
+    parsed_nums
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (body_expression
+            (value_declaration
+              (decl_left
+                (tag_pattern
+                  (tag
+                    (identifier))
+                  (identifier_pattern
+                    (identifier))))
+              (expr_body
+                (function_call_pnc_expr
+                  (variable_expr
+                    (identifier))
+                  (variable_expr
+                    (identifier)))))
+            (value_declaration
+              (decl_left
+                (tag_pattern
+                  (tag
+                    (identifier))
+                  (identifier_pattern
+                    (identifier))
+                  (identifier_pattern
+                    (identifier))))
+              (expr_body
+                (variable_expr
+                  (identifier))))
+            (value_declaration
+              (decl_left
+                (tag_pattern
+                  (tag
+                    (identifier))
+                  (tag_pattern
+                    (tag
+                      (identifier))
+                    (identifier_pattern
+                      (identifier)))
+                  (record_pattern
+                    (record_field_pattern
+                      (field_name)))))
+              (expr_body
+                (variable_expr
+                  (identifier))))
+            (value_declaration
+              (decl_left
+                (tag_pattern
+                  (tag
+                    (identifier))))
+              (expr_body
+                (variable_expr
+                  (identifier))))
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+block_tag_calls_and_nominal_patterns
+================================================================================
+check = |input| {
+    called = Ok(input)
+    Prepared.(prepared) = input
+    result = match input { Ok(value) => value, _ => called }
+    prepared
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (body_expression
+            (value_declaration
+              (decl_left
+                (identifier_pattern
+                  (identifier)))
+              (expr_body
+                (function_call_pnc_expr
+                  (tag_expr
+                    (tag
+                      (identifier)))
+                  (variable_expr
+                    (identifier)))))
+            (value_declaration
+              (decl_left
+                (nominal_constructor_pattern
+                  (tag
+                    (identifier))
+                  (identifier_pattern
+                    (identifier))))
+              (expr_body
+                (variable_expr
+                  (identifier))))
+            (value_declaration
+              (decl_left
+                (identifier_pattern
+                  (identifier)))
+              (expr_body
+                (match_expr
+                  (match)
+                  (variable_expr
+                    (identifier))
+                  (match_branch
+                    (tag_pattern
+                      (tag
+                        (identifier))
+                      (identifier_pattern
+                        (identifier)))
+                    (fat_arrow)
+                    (expr_body
+                      (variable_expr
+                        (identifier))))
+                  (match_branch
+                    (wildcard_pattern)
+                    (fat_arrow)
+                    (expr_body
+                      (variable_expr
+                        (identifier)))))))
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+block_tag_assignment_with_comment_and_string
+================================================================================
+check = |input| {
+    Pair("literal ) = text", inner) # a comment before the equals
+        = input
+    inner
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (body_expression
+            (value_declaration
+              (decl_left
+                (tag_pattern
+                  (tag
+                    (identifier))
+                  (const
+                    (string))
+                  (identifier_pattern
+                    (identifier))))
+              (line_comment)
+              (expr_body
+                (variable_expr
+                  (identifier))))
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+block_tag_interpolated_string_and_call
+================================================================================
+check = |input| {
+    Pair("${Some(")")}", inner) = input
+    called = Pair("${Some(")")}", inner)
+    inner
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (body_expression
+            (value_declaration
+              (decl_left
+                (tag_pattern
+                  (tag
+                    (identifier))
+                  (const
+                    (string
+                      (interpolation_char
+                        (function_call_pnc_expr
+                          (tag_expr
+                            (tag
+                              (identifier)))
+                          (const
+                            (string))))))
+                  (identifier_pattern
+                    (identifier))))
+              (expr_body
+                (variable_expr
+                  (identifier))))
+            (value_declaration
+              (decl_left
+                (identifier_pattern
+                  (identifier)))
+              (expr_body
+                (function_call_pnc_expr
+                  (tag_expr
+                    (tag
+                      (identifier)))
+                  (const
+                    (string
+                      (interpolation_char
+                        (function_call_pnc_expr
+                          (tag_expr
+                            (tag
+                              (identifier)))
+                          (const
+                            (string))))))
+                  (variable_expr
+                    (identifier)))))
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+block_break_inside_for
+================================================================================
+check = |items| {
+    for item in items {
+        if item == 0 { break } else { item }
+    }
+    items
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (body_expression
+            (for_expr
+              (identifier_pattern
+                (identifier))
+              (variable_expr
+                (identifier))
+              (body_expression
+                (if_expr
+                  (bin_op_expr
+                    (variable_expr
+                      (identifier))
+                    (operator)
+                    (const
+                      (int)))
+                  (then
+                    (body_expression
+                      (break_expr)))
+                  (else
+                    (body_expression
+                      (variable_expr
+                        (identifier)))))))
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+block_expect_followed_by_sibling
+================================================================================
+check = |sum| {
+    expect sum == 15
+    sum
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (body_expression
+            (expect
+              (expr_body
+                (bin_op_expr
+                  (variable_expr
+                    (identifier))
+                  (operator)
+                  (const
+                    (int)))))
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+block_multiple_and_nested_expects
+================================================================================
+check = |sum| {
+    expect sum == 15
+    expect sum > 0
+    nested = { expect sum != 0 sum }
+    nested
+}
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (body_expression
+            (expect
+              (expr_body
+                (bin_op_expr
+                  (variable_expr
+                    (identifier))
+                  (operator)
+                  (const
+                    (int)))))
+            (expect
+              (expr_body
+                (bin_op_expr
+                  (variable_expr
+                    (identifier))
+                  (operator)
+                  (const
+                    (int)))))
+            (value_declaration
+              (decl_left
+                (identifier_pattern
+                  (identifier)))
+              (expr_body
+                (body_expression
+                  (expect
+                    (expr_body
+                      (bin_op_expr
+                        (variable_expr
+                          (identifier))
+                        (operator)
+                        (const
+                          (int)))))
+                  (variable_expr
+                    (identifier)))))
+            (variable_expr
+              (identifier))))))))
+
+================================================================================
+block_expect_adjacent_to_declaration
+================================================================================
+check = |sum| {
+    expect sum == 15
+    result = sum
+    result
+}
+expect 1 == 1
+--------------------------------------------------------------------------------
+
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (anon_fun_expr
+        (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        (expr_body
+          (body_expression
+            (expect
+              (expr_body
+                (bin_op_expr
+                  (variable_expr
+                    (identifier))
+                  (operator)
+                  (const
+                    (int)))))
+            (value_declaration
+              (decl_left
+                (identifier_pattern
+                  (identifier)))
+              (expr_body
+                (variable_expr
+                  (identifier))))
+            (variable_expr
+              (identifier)))))))
+  (expect
+    (expr_body
+      (bin_op_expr
+        (const
+          (int))
+        (operator)
+        (const
+          (int))))))
