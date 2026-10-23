@@ -108,3 +108,153 @@ answer = 42
         (identifier)))
     body: (const
       (int))))
+
+===
+where alias header with one parameter
+===
+a.Encodable(fmt) : where [a.encode : a, fmt -> fmt]
+---
+
+(file
+  (alias_type_def
+    name: (where_alias_name
+      (bound_variable)
+      (concrete_type)
+      type_args: (apply_type_arg
+        (bound_variable)))
+    body: (static_dispatch_list
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          param: (bound_variable)
+          (arrow)
+          (bound_variable))))))
+
+===
+where alias header with two parameters and trailing comma
+===
+a.Convertible(input, output,) : where [a.convert : a, input -> output]
+---
+
+(file
+  (alias_type_def
+    name: (where_alias_name
+      (bound_variable)
+      (concrete_type)
+      type_args: (apply_type_arg
+        (bound_variable))
+      type_args: (apply_type_arg
+        (bound_variable)))
+    body: (static_dispatch_list
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          param: (bound_variable)
+          (arrow)
+          (bound_variable))))))
+
+===
+where alias parameterized header with multiline body
+===
+a.Enc(err) :
+    where [
+        a.enc : a -> Try(Str, err),
+    ]
+---
+
+(file
+  (alias_type_def
+    name: (where_alias_name
+      (bound_variable)
+      (concrete_type)
+      type_args: (apply_type_arg
+        (bound_variable)))
+    body: (static_dispatch_list
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          (arrow)
+          (apply_type
+            (concrete_type)
+            type_args: (apply_type_arg
+              (apply_type
+                (concrete_type)))
+            type_args: (apply_type_arg
+              (bound_variable))))))))
+
+===
+where alias parameterized header in nominal methods
+===
+Encoder := [Encoder].{
+    a.Encodable(err) :
+        where [
+            a.encode : a -> Try(Str, err),
+        ]
+}
+---
+
+(file
+  (nominal_type_def
+    name: (apply_type
+      (concrete_type))
+    (colon_equals)
+    (tags_type
+      (tag_type
+        name: (tag_name)))
+    (nominal_methods
+      (alias_type_def
+        name: (where_alias_name
+          (bound_variable)
+          (concrete_type)
+          type_args: (apply_type_arg
+            (bound_variable)))
+        body: (static_dispatch_list
+          (static_dispatch
+            (static_dispatch_target
+              (bound_variable)
+              (identifier))
+            (function_type
+              param: (bound_variable)
+              (arrow)
+              (apply_type
+                (concrete_type)
+                type_args: (apply_type_arg
+                  (apply_type
+                    (concrete_type)))
+                type_args: (apply_type_arg
+                  (bound_variable))))))))))
+
+===
+where alias header with underscore parameters
+===
+a.Encodable(_, _err) : where [a.encode : a -> Str]
+---
+
+(file
+  (alias_type_def
+    name: (where_alias_name
+      (bound_variable)
+      (concrete_type)
+      type_args: (apply_type_arg
+        (inferred))
+      type_args: (apply_type_arg
+        (bound_variable)))
+    body: (static_dispatch_list
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          (arrow)
+          (apply_type
+            (concrete_type)))))))

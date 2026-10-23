@@ -4435,6 +4435,18 @@
           },
           "named": true,
           "value": "concrete_type"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "_apply_type_args"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
         }
       ]
     },

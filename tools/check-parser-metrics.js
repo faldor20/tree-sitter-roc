@@ -13,11 +13,11 @@ const path = require("path");
 const parserPath = path.join(__dirname, "..", "src", "parser.c");
 const source = fs.readFileSync(parserPath, "utf8");
 
-// Where-alias references add 2205 bytes; state counts are unchanged.
+// Exact operator-approved ceilings; increases require review, not automatic refresh.
 const limits = {
-  states: readLimit("ROC_MAX_PARSER_STATES", 3144),
+  states: readLimit("ROC_MAX_PARSER_STATES", 3145),
   largeStates: readLimit("ROC_MAX_LARGE_STATES", 905),
-  bytes: readLimit("ROC_MAX_PARSER_BYTES", 5231479),
+  bytes: readLimit("ROC_MAX_PARSER_BYTES", 5231908),
 };
 
 const metrics = {

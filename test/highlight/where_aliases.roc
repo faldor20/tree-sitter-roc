@@ -1,3 +1,7 @@
+a.Encodable(fmt, _err) : where [a.encode : a, fmt -> Str]
+#           ^^^ type.parameter
+#                ^^^^ type.parameter
+
 # The same constraints should have identical captures inline and in where aliases.
 # Inline control first: its assertions must pass before the alias assertions.
 powerset : List(item) -> Iter(Set(item))

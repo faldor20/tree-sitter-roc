@@ -719,6 +719,7 @@ module.exports = grammar({
         alias($._lower_identifier, $.bound_variable),
         token.immediate("."),
         alias(token.immediate(/[\p{Lu}][\p{XID_Continue}]*/), $.concrete_type),
+        optional($._apply_type_args),
       ),
 
     // Static dispatch constraints: `Type where [a.to_str : a -> b]`.
