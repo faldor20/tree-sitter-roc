@@ -743,6 +743,7 @@ module.exports = grammar({
         $.bound_variable,
         ".",
         alias(token.immediate(/[\p{Lu}][\p{XID_Continue}]*/), $.concrete_type),
+        optional($._apply_type_args),
       ),
 
     static_dispatch: ($) => seq($.static_dispatch_target, ":", $.function_type),

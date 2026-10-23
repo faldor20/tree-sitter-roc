@@ -9,3 +9,13 @@ powerset : List(item) -> Iter(Set(item))
     where [item.Eq, item.Hash]
 #               ^^ type
 #                        ^^^^ type.builtin
+
+encode : a -> Str where [a.Encodable(err)]
+#                         ^^^^^^^^ type
+#                                  ^^^ type.parameter
+
+parse : Str -> Try(a, errs) where [a.Parseable([InvalidJson(Str), ..errs])]
+#                                   ^^^^^^^^^ type
+#                                              ^^^^^^^^^^^ type.enum.variant.roc-special.builtin
+#                                                          ^^^ type.builtin
+#                                                                 ^^^^ type.parameter

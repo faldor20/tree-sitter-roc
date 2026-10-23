@@ -3931,7 +3931,30 @@
   {
     "type": "where_alias_ref",
     "named": true,
-    "fields": {},
+    "fields": {
+      "type_args": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "apply_type_arg",
+            "named": true
+          }
+        ]
+      }
+    },
     "children": {
       "multiple": true,
       "required": true,

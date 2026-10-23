@@ -230,3 +230,481 @@ answer = 42
   (value_declaration
     pattern: (decl_left (identifier_pattern (identifier)))
     body: (const (int))))
+
+===
+parameterized references with empty union and bound variable
+===
+to_str : a -> Str where [a.Encodable([])]
+encode : a -> Str where [a.Encodable(err)]
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          type_args: (apply_type_arg
+            (tags_type))))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          type_args: (apply_type_arg
+            (bound_variable)))))))
+
+===
+parameterized references with open unions and own-line where
+===
+parse : Str -> Try(a, errs)
+    where [a.Parseable([InvalidJson(Str), ..errs])]
+header : Str -> Try(a, errs) where [a.Parseable([BadHeader, ..errs])]
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          type_args: (apply_type_arg
+            (bound_variable))
+          type_args: (apply_type_arg
+            (bound_variable))))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          type_args: (apply_type_arg
+            (tags_type
+              (tag_type
+                name: (tag_name)
+                type_args: (apply_type_arg
+                  (apply_type
+                    (concrete_type))))
+              (spread_type
+                (type_variable
+                  (bound_variable)))))))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (apply_type
+          (concrete_type))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          type_args: (apply_type_arg
+            (bound_variable))
+          type_args: (apply_type_arg
+            (bound_variable))))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          type_args: (apply_type_arg
+            (tags_type
+              (tag_type
+                name: (tag_name))
+              (spread_type
+                (type_variable
+                  (bound_variable))))))))))
+
+===
+parameterized references mixed with inline constraints in both orders
+===
+render : a -> Str where [a.Encodable(err), a.show : a -> Str]
+encode : a -> Str where [a.show : a -> Str, a.Encodable(err)]
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          type_args: (apply_type_arg
+            (bound_variable)))
+        (static_dispatch
+          (static_dispatch_target
+            (bound_variable)
+            (identifier))
+          (function_type
+            param: (bound_variable)
+            (arrow)
+            (apply_type
+              (concrete_type)))))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (static_dispatch
+          (static_dispatch_target
+            (bound_variable)
+            (identifier))
+          (function_type
+            param: (bound_variable)
+            (arrow)
+            (apply_type
+              (concrete_type))))
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          type_args: (apply_type_arg
+            (bound_variable)))))))
+
+===
+parameterized reference multiple arguments and trailing comma
+===
+render : a -> Str where [a.Render(err, List(Str),)]
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          type_args: (apply_type_arg
+            (bound_variable))
+          type_args: (apply_type_arg
+            (apply_type
+              (concrete_type)
+              type_args: (apply_type_arg
+                (apply_type
+                  (concrete_type))))))))))
+
+===
+reference arguments must immediately follow name
+===
+render : a -> Str where [a.Render (err)]
+answer = 42
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type))
+        (MISSING "]"))))
+  (expr_body
+    (parenthesized_expr
+      expression: (variable_expr
+        (identifier))))
+  (ERROR)
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (const
+      (int))))
+
+===
+reference argument list cannot be empty
+===
+render : a -> Str where [a.Render()]
+answer = 42
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          type_args: (apply_type_arg
+            (MISSING "*"))))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (const
+      (int))))
+
+===
+upstream where_alias_parameterized at 6de96ed
+===
+a.Encodable(fmt) : where [a.encode : a, fmt -> fmt]
+
+encode_twice : a, fmt -> fmt where [a.Encodable(fmt)]
+encode_twice = |value, fmt| value.encode(value.encode(fmt))
+---
+
+(file
+  (alias_type_def
+    name: (where_alias_name
+      (bound_variable)
+      (concrete_type)
+      type_args: (apply_type_arg
+        (bound_variable)))
+    body: (static_dispatch_list
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          param: (bound_variable)
+          (arrow)
+          (bound_variable)))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        param: (bound_variable)
+        (arrow)
+        (bound_variable))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          type_args: (apply_type_arg
+            (bound_variable))))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier))
+        (identifier_pattern
+          (identifier)))
+      body: (function_call_pnc_expr
+        caller: (field_access_expr
+          target: (variable_expr
+            (identifier))
+          (identifier))
+        args: (function_call_pnc_expr
+          caller: (field_access_expr
+            target: (variable_expr
+              (identifier))
+            (identifier))
+          args: (variable_expr
+            (identifier)))))))
+
+===
+upstream where_alias_argument_introduces_var at 6de96ed
+===
+a.Encodable(fmt) : where [a.encode : a, fmt -> fmt]
+
+render : a, fmt -> Str where [a.Encodable(fmt), fmt.finish : fmt -> Str]
+render = |value, fmt| value.encode(fmt).finish()
+---
+
+(file
+  (alias_type_def
+    name: (where_alias_name
+      (bound_variable)
+      (concrete_type)
+      type_args: (apply_type_arg
+        (bound_variable)))
+    body: (static_dispatch_list
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          param: (bound_variable)
+          (arrow)
+          (bound_variable)))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          type_args: (apply_type_arg
+            (bound_variable)))
+        (static_dispatch
+          (static_dispatch_target
+            (bound_variable)
+            (identifier))
+          (function_type
+            param: (bound_variable)
+            (arrow)
+            (apply_type
+              (concrete_type)))))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier))
+        (identifier_pattern
+          (identifier)))
+      body: (function_call_pnc_expr
+        caller: (field_access_expr
+          target: (function_call_pnc_expr
+            caller: (field_access_expr
+              target: (variable_expr
+                (identifier))
+              (identifier))
+            args: (variable_expr
+              (identifier)))
+          (identifier))))))
+
+===
+upstream where_alias_parameter_constraint at 6de96ed
+===
+a.EncodableTo(fmt) : where [
+	a.encode : a, fmt -> fmt,
+	fmt.finish : fmt -> Str,
+]
+---
+
+(file
+  (alias_type_def
+    name: (where_alias_name
+      (bound_variable)
+      (concrete_type)
+      type_args: (apply_type_arg
+        (bound_variable)))
+    body: (static_dispatch_list
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          param: (bound_variable)
+          (arrow)
+          (bound_variable)))
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          (arrow)
+          (apply_type
+            (concrete_type)))))))
+
+===
+upstream where_alias_arity_mismatch at 6de96ed
+===
+a.Encodable(fmt) : where [a.encode : fmt -> fmt]
+
+encode_once : a -> Str where [a.Encodable]
+encode_once = |value| value.encode("")
+---
+
+(file
+  (alias_type_def
+    name: (where_alias_name
+      (bound_variable)
+      (concrete_type)
+      type_args: (apply_type_arg
+        (bound_variable)))
+    body: (static_dispatch_list
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          (arrow)
+          (bound_variable)))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (function_call_pnc_expr
+        caller: (field_access_expr
+          target: (variable_expr
+            (identifier))
+          (identifier))
+        args: (const
+          (string))))))

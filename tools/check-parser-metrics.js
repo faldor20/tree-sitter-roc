@@ -15,9 +15,9 @@ const source = fs.readFileSync(parserPath, "utf8");
 
 // Exact operator-approved ceilings; increases require review, not automatic refresh.
 const limits = {
-  states: readLimit("ROC_MAX_PARSER_STATES", 3145),
+  states: readLimit("ROC_MAX_PARSER_STATES", 3146),
   largeStates: readLimit("ROC_MAX_LARGE_STATES", 905),
-  bytes: readLimit("ROC_MAX_PARSER_BYTES", 5231908),
+  bytes: readLimit("ROC_MAX_PARSER_BYTES", 5232408),
 };
 
 const metrics = {
