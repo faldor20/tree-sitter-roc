@@ -4567,20 +4567,28 @@
           "name": "bound_variable"
         },
         {
-          "type": "STRING",
-          "value": "."
-        },
-        {
-          "type": "ALIAS",
+          "type": "REPEAT1",
           "content": {
-            "type": "IMMEDIATE_TOKEN",
-            "content": {
-              "type": "PATTERN",
-              "value": "[\\p{Lu}][\\p{XID_Continue}]*"
-            }
-          },
-          "named": true,
-          "value": "concrete_type"
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "."
+              },
+              {
+                "type": "ALIAS",
+                "content": {
+                  "type": "IMMEDIATE_TOKEN",
+                  "content": {
+                    "type": "PATTERN",
+                    "value": "[\\p{Lu}][\\p{XID_Continue}]*"
+                  }
+                },
+                "named": true,
+                "value": "concrete_type"
+              }
+            ]
+          }
         },
         {
           "type": "CHOICE",

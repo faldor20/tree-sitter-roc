@@ -738,11 +738,11 @@ module.exports = grammar({
     // Keep recursive constraints out of each surrounding type context.
     _static_dispatch_entries: ($) => sep1_tail(choice($.static_dispatch, $.where_alias_ref), ","),
 
+    // Constraint dots must touch uppercase segments; generic concrete_type permits after-dot trivia.
     where_alias_ref: ($) =>
       seq(
         $.bound_variable,
-        ".",
-        alias(token.immediate(/[\p{Lu}][\p{XID_Continue}]*/), $.concrete_type),
+        repeat1(seq(".", alias(token.immediate(/[\p{Lu}][\p{XID_Continue}]*/), $.concrete_type))),
         optional($._apply_type_args),
       ),
 

@@ -1,5 +1,8 @@
 * text eol=lf
 
+# Preserve intentional mixed line endings in qualified constraint-reference tests.
+test/corpus/constraint_alias_qualified_references.txt -text
+
 src/*.json linguist-generated
 src/parser.c linguist-generated
 src/tree_sitter/* linguist-generated

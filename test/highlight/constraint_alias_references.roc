@@ -19,3 +19,8 @@ parse : Str -> Try(a, errs) where [a.Parseable([InvalidJson(Str), ..errs])]
 #                                              ^^^^^^^^^^^ type.enum.variant.roc-special.builtin
 #                                                          ^^^ type.builtin
 #                                                                 ^^^^ type.parameter
+
+show : a -> Str where [a.Holder.Show(err)]
+#                        ^^^^^^ type
+#                               ^^^^ type
+#                                    ^^^ type.parameter
