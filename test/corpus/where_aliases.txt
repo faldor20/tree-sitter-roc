@@ -1,0 +1,110 @@
+===
+where aliases preserve constraint function types
+===
+item.Eq : where [item.is_eq : item, item -> Bool]
+item.Hash : where [item.to_hash : item, Hasher -> Hasher]
+---
+
+(file
+  (alias_type_def
+    name: (where_alias_name
+      (bound_variable)
+      (concrete_type))
+    body: (static_dispatch_list
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          param: (bound_variable)
+          (arrow)
+          (apply_type
+            (concrete_type))))))
+  (alias_type_def
+    name: (where_alias_name
+      (bound_variable)
+      (concrete_type))
+    body: (static_dispatch_list
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          param: (apply_type
+            (concrete_type))
+          (arrow)
+          (apply_type
+            (concrete_type)))))))
+
+===
+ordinary alias retains inline where constraints
+===
+T : M(a) where [a.is_eq : a, a -> Bool]
+---
+
+(file
+  (alias_type_def
+    name: (apply_type
+      (concrete_type))
+    body: (where_implements
+      type: (apply_type
+        (concrete_type)
+        type_args: (apply_type_arg
+          (bound_variable)))
+      implements: (static_dispatch_list
+        (static_dispatch
+          (static_dispatch_target
+            (bound_variable)
+            (identifier))
+          (function_type
+            param: (bound_variable)
+            param: (bound_variable)
+            (arrow)
+            (apply_type
+              (concrete_type))))))))
+
+===
+where alias multiline list and following declaration
+===
+item.Both : where [
+    item.is_eq : item, item -> Bool,
+    item.to_hash : item, Hasher -> Hasher,
+]
+answer = 42
+---
+
+(file
+  (alias_type_def
+    name: (where_alias_name
+      (bound_variable)
+      (concrete_type))
+    body: (static_dispatch_list
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          param: (bound_variable)
+          (arrow)
+          (apply_type
+            (concrete_type))))
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          param: (apply_type
+            (concrete_type))
+          (arrow)
+          (apply_type
+            (concrete_type))))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (const
+      (int))))

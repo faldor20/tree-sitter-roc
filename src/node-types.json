@@ -280,6 +280,10 @@
             "named": true
           },
           {
+            "type": "static_dispatch_list",
+            "named": true
+          },
+          {
             "type": "where_implements",
             "named": true
           }
@@ -291,6 +295,10 @@
         "types": [
           {
             "type": "apply_type",
+            "named": true
+          },
+          {
+            "type": "where_alias_name",
             "named": true
           }
         ]
@@ -3869,6 +3877,25 @@
         },
         {
           "type": "module",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "where_alias_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bound_variable",
+          "named": true
+        },
+        {
+          "type": "concrete_type",
           "named": true
         }
       ]

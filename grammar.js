@@ -78,7 +78,7 @@ module.exports = grammar({
     // These forms are distinguished only after their shared string or comma
     // prefixes have already been consumed.
     [$.string, $._string_pattern_char],
-    [$.function_type, $.record_function_type],
+    [$._function_type_params, $.record_function_type],
   ],
   words: ($) => /\s+/,
   word: ($) => $._lower_identifier,
@@ -637,7 +637,11 @@ module.exports = grammar({
     //####-------###
 
     annotation_type_def: ($) => seq(field("name", $.annotation_pre_colon), ":", $._type_annotation),
-    alias_type_def: ($) => seq(field("name", $.apply_type), ":", field("body", $._type_annotation)),
+    alias_type_def: ($) =>
+      choice(
+        seq(field("name", $.apply_type), ":", field("body", $._type_annotation)),
+        seq(field("name", $.where_alias_name), ":", "where", field("body", $.static_dispatch_list)),
+      ),
 
     opaque_type_def: ($) =>
       seq(
@@ -692,9 +696,12 @@ module.exports = grammar({
 
     function_type: ($) =>
       seq(
-        choice(seq("(", ")"), sep1(field("param", $._atomic_type), ",")),
+        $._function_type_params,
         $._function_type_result,
       ),
+
+    _function_type_params: ($) =>
+      choice(seq("(", ")"), sep1(field("param", $._atomic_type), ",")),
 
     // Both function forms share the arrow and result after their parameter lists diverge.
     _function_type_result: ($) => seq(choice($.arrow, $.fat_arrow), $._atomic_type),
@@ -706,12 +713,20 @@ module.exports = grammar({
     _tuple_type_body: ($) =>
       seq($._type_annotation, ",", sep1_tail($._type_annotation, ",")),
 
+    // Constraint aliases have no underlying type: `a.Eq : where [a.is_eq : a, a -> Bool]`.
+    where_alias_name: ($) =>
+      seq(
+        alias($._lower_identifier, $.bound_variable),
+        token.immediate("."),
+        alias(token.immediate(/[\p{Lu}][\p{XID_Continue}]*/), $.concrete_type),
+      ),
+
     // Static dispatch constraints: `Type where [a.to_str : a -> b]`.
     // This attaches a constraint list to any type annotation or function type.
     where_implements: ($) =>
       prec.right(
         seq(
-          field("type", choice($._atomic_type, $.function_type)),
+          field("type", $._non_atomic_type),
           "where",
           field("implements", $.static_dispatch_list),
         ),
