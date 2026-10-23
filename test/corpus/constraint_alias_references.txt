@@ -1,0 +1,232 @@
+===
+constraint references in function annotation
+===
+powerset : List(item) -> Iter(Set(item)) where [item.Eq, item.Hash]
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (apply_type
+          (concrete_type)
+          type_args: (apply_type_arg
+            (bound_variable)))
+        (arrow)
+        (apply_type
+          (concrete_type)
+          type_args: (apply_type_arg
+            (apply_type
+              (concrete_type)
+              type_args: (apply_type_arg
+                (bound_variable))))))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type))
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type))))))
+
+===
+mixed references and inline constraints in both orders
+===
+check : a -> Bool where [a.Eq, a.check : a, a -> Bool, a.Hash, a.show : a => Str,]
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type))
+        (static_dispatch
+          (static_dispatch_target
+            (bound_variable)
+            (identifier))
+          (function_type
+            param: (bound_variable)
+            param: (bound_variable)
+            (arrow)
+            (apply_type
+              (concrete_type))))
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type))
+        (static_dispatch
+          (static_dispatch_target
+            (bound_variable)
+            (identifier))
+          (function_type
+            param: (bound_variable)
+            (fat_arrow)
+            (apply_type
+              (concrete_type))))))))
+
+===
+alias composition with multiline references and comments
+===
+a.Both : where [
+    a.Eq, # equality
+    a.hash : a -> U64,
+    a.Hash,
+]
+answer = 42
+---
+
+(file
+  (alias_type_def
+    name: (where_alias_name
+      (bound_variable)
+      (concrete_type))
+    body: (static_dispatch_list
+      (where_alias_ref
+        (bound_variable)
+        (concrete_type))
+      (line_comment)
+      (static_dispatch
+        (static_dispatch_target
+          (bound_variable)
+          (identifier))
+        (function_type
+          param: (bound_variable)
+          (arrow)
+          (apply_type
+            (concrete_type))))
+      (where_alias_ref
+        (bound_variable)
+        (concrete_type))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (const
+      (int))))
+
+===
+references in ordinary aliases and nested annotations
+===
+T : List(a) where [a.Eq]
+f : (a -> Bool where [a.Eq]) -> Bool where [a.Hash]
+---
+
+(file
+  (alias_type_def
+    name: (apply_type
+      (concrete_type))
+    body: (where_implements
+      type: (apply_type
+        (concrete_type)
+        type_args: (apply_type_arg
+          (bound_variable)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (parenthesized_type
+          (where_implements
+            type: (function_type
+              param: (bound_variable)
+              (arrow)
+              (apply_type
+                (concrete_type)))
+            implements: (static_dispatch_list
+              (where_alias_ref
+                (bound_variable)
+                (concrete_type)))))
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type))))))
+
+===
+missing comma between references recovers following declaration
+===
+f : a -> Bool where [a.Eq a.Hash]
+answer = 42
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon (identifier))
+    (where_implements
+      type: (function_type param: (bound_variable) (arrow) (apply_type (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref (bound_variable) (concrete_type))
+        (MISSING "]"))))
+  (ERROR (where_alias_name (bound_variable) (concrete_type)))
+  (value_declaration
+    pattern: (decl_left (identifier_pattern (identifier)))
+    body: (const (int))))
+
+===
+lowercase reference without signature is malformed
+===
+f : a -> Bool where [a.eq]
+answer = 42
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon (identifier))
+    (where_implements
+      type: (function_type param: (bound_variable) (arrow) (apply_type (concrete_type)))
+      implements: (static_dispatch_list
+        (ERROR (static_dispatch_target (bound_variable) (identifier))))))
+  (value_declaration
+    pattern: (decl_left (identifier_pattern (identifier)))
+    body: (const (int))))
+
+===
+reference name must immediately follow dot
+===
+f : a -> Bool where [a. Eq]
+answer = 42
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon (identifier))
+    (where_implements
+      type: (function_type param: (bound_variable) (arrow) (apply_type (concrete_type)))
+      implements: (static_dispatch_list (ERROR (bound_variable)))))
+  (value_declaration
+    pattern: (decl_left (identifier_pattern (identifier)))
+    body: (const (int))))
+
+===
+reference cannot have inline signature
+===
+f : a -> Bool where [a.Eq : a -> Bool]
+answer = 42
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon (identifier))
+    (where_implements
+      type: (function_type param: (bound_variable) (arrow) (apply_type (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref (bound_variable) (concrete_type))
+        (ERROR))))
+  (value_declaration
+    pattern: (decl_left (identifier_pattern (identifier)))
+    body: (const (int))))

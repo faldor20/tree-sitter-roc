@@ -3145,6 +3145,10 @@
         {
           "type": "static_dispatch",
           "named": true
+        },
+        {
+          "type": "where_alias_ref",
+          "named": true
         }
       ]
     }
@@ -3884,6 +3888,25 @@
   },
   {
     "type": "where_alias_name",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "bound_variable",
+          "named": true
+        },
+        {
+          "type": "concrete_type",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "where_alias_ref",
     "named": true,
     "fields": {},
     "children": {

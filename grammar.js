@@ -735,7 +735,14 @@ module.exports = grammar({
     static_dispatch_list: ($) => seq("[", optional($._static_dispatch_entries), "]"),
 
     // Keep recursive constraints out of each surrounding type context.
-    _static_dispatch_entries: ($) => sep1_tail($.static_dispatch, ","),
+    _static_dispatch_entries: ($) => sep1_tail(choice($.static_dispatch, $.where_alias_ref), ","),
+
+    where_alias_ref: ($) =>
+      seq(
+        $.bound_variable,
+        ".",
+        alias(token.immediate(/[\p{Lu}][\p{XID_Continue}]*/), $.concrete_type),
+      ),
 
     static_dispatch: ($) => seq($.static_dispatch_target, ":", $.function_type),
 

@@ -13,11 +13,11 @@ const path = require("path");
 const parserPath = path.join(__dirname, "..", "src", "parser.c");
 const source = fs.readFileSync(parserPath, "utf8");
 
-// Ceilings approved for where-alias syntax.
+// Where-alias references add 2205 bytes; state counts are unchanged.
 const limits = {
   states: readLimit("ROC_MAX_PARSER_STATES", 3144),
   largeStates: readLimit("ROC_MAX_LARGE_STATES", 905),
-  bytes: readLimit("ROC_MAX_PARSER_BYTES", 5229274),
+  bytes: readLimit("ROC_MAX_PARSER_BYTES", 5231479),
 };
 
 const metrics = {
