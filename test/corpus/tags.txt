@@ -71,3 +71,74 @@ a=
           expr: (expr_body
             (variable_expr
               (identifier))))))))
+
+===
+whitespace before tag parentheses ends the tag expression
+===
+main! = |_args| {
+    f = |n| n
+    called = Ok (f)(1)
+    spaced = Ok (f) (1)
+    Ok({})
+}
+---
+(file
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (expr_body
+      (anon_fun_expr
+        args: (argument_patterns
+          (identifier_pattern
+            (identifier)))
+        body: (expr_body
+          (body_expression
+            (value_declaration
+              (decl_left
+                (identifier_pattern
+                  (identifier)))
+              body: (expr_body
+                (anon_fun_expr
+                  args: (argument_patterns
+                    (identifier_pattern
+                      (identifier)))
+                  body: (expr_body
+                    (variable_expr
+                      (identifier))))))
+            (value_declaration
+              (decl_left
+                (identifier_pattern
+                  (identifier)))
+              body: (expr_body
+                (tag_expr
+                  (tag
+                    (identifier)))))
+            (function_call_pnc_expr
+              caller: (parenthesized_expr
+                expression: (expr_body
+                  (variable_expr
+                    (identifier))))
+              args: (const
+                (int)))
+            (value_declaration
+              (decl_left
+                (identifier_pattern
+                  (identifier)))
+              body: (expr_body
+                (tag_expr
+                  (tag
+                    (identifier)))))
+            (parenthesized_expr
+              expression: (expr_body
+                (variable_expr
+                  (identifier))))
+            (parenthesized_expr
+              expression: (expr_body
+                (const
+                  (int))))
+            (function_call_pnc_expr
+              caller: (tag_expr
+                (tag
+                  (identifier)))
+              args: (record_expr))))))))

@@ -1345,21 +1345,6 @@
     }
   },
   {
-    "type": "exposes_list",
-    "named": true,
-    "fields": {},
-    "children": {
-      "multiple": true,
-      "required": false,
-      "types": [
-        {
-          "type": "ident",
-          "named": true
-        }
-      ]
-    }
-  },
-  {
     "type": "exposing",
     "named": true,
     "fields": {},
@@ -2731,6 +2716,25 @@
     }
   },
   {
+    "type": "inferred_associated_annotation",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "annotation_pre_colon",
+          "named": true
+        },
+        {
+          "type": "inferred",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "interpolation_char",
     "named": true,
     "fields": {},
@@ -3291,6 +3295,21 @@
     "fields": {}
   },
   {
+    "type": "module_exposes",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "ident",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "module_header",
     "named": true,
     "fields": {},
@@ -3299,7 +3318,7 @@
       "required": true,
       "types": [
         {
-          "type": "exposes_list",
+          "type": "module_exposes",
           "named": true
         }
       ]
@@ -3635,6 +3654,10 @@
         },
         {
           "type": "import_file_expr",
+          "named": true
+        },
+        {
+          "type": "inferred_associated_annotation",
           "named": true
         },
         {
@@ -5157,115 +5180,11 @@
     "named": true,
     "fields": {},
     "children": {
-      "multiple": true,
+      "multiple": false,
       "required": true,
       "types": [
         {
-          "type": "anon_fun_expr",
-          "named": true
-        },
-        {
-          "type": "body_expression",
-          "named": true
-        },
-        {
-          "type": "break_expr",
-          "named": true
-        },
-        {
-          "type": "const",
-          "named": true
-        },
-        {
-          "type": "crash_expr",
-          "named": true
-        },
-        {
-          "type": "dbg_expr",
-          "named": true
-        },
-        {
-          "type": "early_return_expr",
-          "named": true
-        },
-        {
-          "type": "field_access_expr",
-          "named": true
-        },
-        {
-          "type": "for_expr",
-          "named": true
-        },
-        {
-          "type": "function_call_pnc_expr",
-          "named": true
-        },
-        {
-          "type": "if_expr",
-          "named": true
-        },
-        {
-          "type": "list_expr",
-          "named": true
-        },
-        {
-          "type": "match_expr",
-          "named": true
-        },
-        {
-          "type": "nominal_constructor_expr",
-          "named": true
-        },
-        {
-          "type": "nominal_record_expr",
-          "named": true
-        },
-        {
-          "type": "operator_as_function_expr",
-          "named": true
-        },
-        {
-          "type": "parenthesized_expr",
-          "named": true
-        },
-        {
-          "type": "prefixed_expression",
-          "named": true
-        },
-        {
-          "type": "record_expr",
-          "named": true
-        },
-        {
-          "type": "suffix_op_expr",
-          "named": true
-        },
-        {
           "type": "tag",
-          "named": true
-        },
-        {
-          "type": "tag_expr",
-          "named": true
-        },
-        {
-          "type": "todo_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_access_expr",
-          "named": true
-        },
-        {
-          "type": "tuple_expr",
-          "named": true
-        },
-        {
-          "type": "variable_expr",
-          "named": true
-        },
-        {
-          "type": "while_expr",
           "named": true
         }
       ]
