@@ -1,4 +1,5 @@
 {
+  "outline": { "item": "item", "name": "name" },
   "highlights": {
     "_definition": "_definition",
     "attribute": "attribute",

@@ -1,3 +1,25 @@
+set dotenv-load
+
+# Copy only committed compiler source and record its identity.
+fixture-builtin:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    : "${ROC_COMPILER_DIR:?ROC_COMPILER_DIR must be set to a Roc checkout}"
+    source_path=src/build/roc/Builtin.roc
+    git -C "$ROC_COMPILER_DIR" ls-files --error-unmatch "$source_path" >/dev/null
+    if [[ -n "$(git -C "$ROC_COMPILER_DIR" status --porcelain -- "$source_path")" ]]; then
+        echo "Builtin.roc has uncommitted changes in the compiler checkout" >&2
+        exit 1
+    fi
+    mkdir -p test/fixtures
+    cp "$ROC_COMPILER_DIR/$source_path" test/fixtures/Builtin.roc
+    branch=$(git -C "$ROC_COMPILER_DIR" symbolic-ref --quiet --short HEAD || printf 'DETACHED')
+    { printf 'revision %s\n' "$(git -C "$ROC_COMPILER_DIR" rev-parse HEAD)"; printf 'branch %s\n' "$branch"; printf 'blob %s\n' "$(git hash-object test/fixtures/Builtin.roc)"; } > test/fixtures/Builtin.roc.source
+
+# Check the Zed outline; Z01 intentionally fails on missing nested entries outside CI.
+outline-check:
+    npm run outline:check
+
 test-gen:
     npm run ts:generate && npm run ts:test
 

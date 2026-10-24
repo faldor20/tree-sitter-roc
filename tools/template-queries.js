@@ -358,6 +358,7 @@ async function main() {
         mappingRoot && typeof mappingRoot === "object" ? mappingRoot[fileKey] : null;
       // A map with only highlights deliberately does not generate unrelated
       // query families. Existing editors still require complete coverage.
+      if (mappingForFile === false) continue;
       if (editorName === "emacs" && !mappingForFile) continue;
       const captures = editorName === "emacs"
         ? new Set(scanQuery(content).flatMap((pattern) => pattern.captures.map(({ name }) => name)))
