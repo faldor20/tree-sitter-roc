@@ -52,7 +52,18 @@ function parseMatches(output, source, sourcePath) {
     assert.ok(contains(items[0], names[0]), "@name must be inside @item");
     const name = textAt(byteLines, names[0]);
     assert.ok(name && !/[\r\n]/.test(name), "Outline name must be nonempty and single-line");
-    return { ...items[0], name };
+    // Zed consumes name/context captures in query order and inserts one space
+    // for a source gap. Helper captures do not contribute to the label.
+    let label = "";
+    let lastEnd;
+    for (const capture of captures.filter((c) => ["name", "context"].includes(c.capture))) {
+      assert.ok(contains(items[0], capture), "Label capture must be inside @item");
+      if (lastEnd) assert.ok(compare(lastEnd, capture.start) <= 0, "Label captures must be in source order");
+      if (label && compare(lastEnd, capture.start) < 0) label += " ";
+      label += textAt(byteLines, capture);
+      lastEnd = capture.end;
+    }
+    return { ...items[0], name, label };
   });
 }
 
@@ -73,7 +84,7 @@ function outline(entries) {
       stack.pop();
     }
     paths.add([...stack.map((parent) => parent.name), entry.name].join(" > "));
-    lines.push(`${"  ".repeat(stack.length)}${entry.name} L${entry.start[0] + 1}-L${entry.end[0] + 1}`);
+    lines.push(`${"  ".repeat(stack.length)}${entry.label ?? entry.name} L${entry.start[0] + 1}-L${entry.end[0] + 1}`);
     stack.push(entry);
   }
   return { rendered: `${lines.join("\n")}\n`, paths };
@@ -124,6 +135,13 @@ function selfTest() {
     assert.throws(() => parse(output.replace(/capture: \d+ - name,.*\n/, "")), /exactly one @name/);
     assert.throws(() => parse(output.replace(/capture: (?:\d+ - )?item,.*\n/, "")), /exactly one @item/);
     const captureLine = output.split("\n").find((line) => line.includes(" - name,"));
+    const withContext = output.replace(captureLine, `${captureLine}\n    capture: 99 - context, start: (0, 6), end: (0, 8), text: \`::\``);
+    assert.equal(parse(withContext)[0].label, "Outer ::", "Source gap adds one space");
+    const touchingSource = "Outer:: []\n";
+    const touchingOutput = `${sourcePath}\n  pattern: 0\n    capture: 0 - item, start: (0, 0), end: (0, 10)\n    capture: 1 - name, start: (0, 0), end: (0, 5)\n    capture: 2 - context, start: (0, 5), end: (0, 7)\n`;
+    assert.equal(parseMatches(touchingOutput, touchingSource, sourcePath)[0].label, "Outer::", "Touching captures add no separator");
+    const reversedContext = output.replace(captureLine, `    capture: 99 - context, start: (0, 6), end: (0, 8)\n${captureLine}`);
+    assert.throws(() => parse(reversedContext), /source order/);
     assert.throws(() => parse(output.replace(captureLine, `${captureLine}\n${captureLine}`)), /exactly one @name/);
     assert.throws(() => parse("  pattern: 0\n capture: nonsense\n"), /Cannot parse capture/);
     assert.throws(() => outline([{ name: "a", start: [0, 0], end: [2, 0] }, { name: "b", start: [1, 0], end: [3, 0] }]), /Crossing/);
@@ -142,11 +160,45 @@ function selfTest() {
     assert.deepEqual(productionEntries.map(({ name, start, end }) => ({ name, start, end })), [
       { name: "Alias", start: [0, 0], end: [0, 11] },
       { name: "Opaque", start: [1, 0], end: [5, 1] },
+      { name: "Nested", start: [2, 2], end: [2, 14] },
+      { name: "method", start: [3, 2], end: [3, 14] },
       { name: "Nominal", start: [6, 0], end: [6, 13] },
       { name: "signature", start: [7, 0], end: [7, 15] },
       { name: "value", start: [8, 0], end: [13, 1] },
     ]);
-    assert.equal(outline(productionEntries).rendered, "Alias L1-L1\nOpaque L2-L6\nNominal L7-L7\nsignature L8-L8\nvalue L9-L14\n");
+    assert.equal(outline(productionEntries).rendered, "Alias : L1-L1\nOpaque :: L2-L6\n  Nested : L3-L3\n  method : L4-L4\nNominal := L7-L7\nsignature : L8-L8\nvalue L9-L14\n");
+
+    const pairingSource = "# first\n## documentation\nfirst = 0\nsame : U64\nsame = 1\nother : U64\ndifferent = 2\ncommented : U64\n# one\n## two\ncommented = 3\nunsigned = 4\nOwner := [].{\n  inferred : _\n  inferred = 5\n  signature_only : _\n  other : U64\n  # comment\n  different = 6\n  unsigned = 7\n  Nested :: [].{\n    leaf = 8\n  }\n  function = |arg| {\n    Local : a\n    local : U64\n    local = arg\n    local\n  }\n}\na.Eq : where [a.is_eq : a, a -> Bool]\n";
+    const pairingPath = path.join(dir, "pairing.roc");
+    fs.writeFileSync(pairingPath, pairingSource);
+    execFileSync(cli, ["parse", "--quiet", pairingPath], { cwd: root, stdio: ["ignore", "pipe", "pipe"] });
+    const paired = parseMatches(query(path.join(root, "queries-generated/zed/queries/outline.scm"), pairingPath), pairingSource, pairingPath);
+    assert.deepEqual(paired.map(({ name }) => name), ["first", "same", "other", "different", "commented", "unsigned", "Owner", "inferred", "signature_only", "other", "different", "unsigned", "Nested", "leaf", "function"]);
+    assert.deepEqual(paired.map(({ label }) => label), ["first", "same :", "other :", "different", "commented :", "unsigned", "Owner :=", "inferred :", "signature_only :", "other :", "different", "unsigned", "Nested ::", "leaf", "function"]);
+    requirePaths(outline(paired).paths, ["Owner > Nested > leaf", "Owner > function", "Owner > inferred", "Owner > unsigned"]);
+    assert.equal(paired.find(({ name }) => name === "same").start[0], 3, "Prefer signature range");
+    const interruptedSource = "sig : U64\nexpect 1 == 1\nsig = 1\nOwner := [].{\n  sig : U64\n  expect 1 == 1\n  sig = 2\n}\n";
+    fs.writeFileSync(pairingPath, interruptedSource);
+    execFileSync(cli, ["parse", "--quiet", pairingPath], { cwd: root, stdio: ["ignore", "pipe", "pipe"] });
+    const interrupted = parseMatches(query(path.join(root, "queries-generated/zed/queries/outline.scm"), pairingPath), interruptedSource, pairingPath);
+    assert.deepEqual(interrupted.map(({ name, label }) => [name, label]), [["sig", "sig :"], ["sig", "sig"], ["Owner", "Owner :="], ["sig", "sig :"], ["sig", "sig"]], "An intervening expect ends signature/definition pairing in both scopes");
+
+    // This fixture intentionally fails parsing: the recovered ERROR sibling
+    // must not hide the following unsigned definition or later declarations.
+    const errorSource = "first = 1\n)\nunsigned_after_error = 2\nlater = 3\n";
+    fs.writeFileSync(pairingPath, errorSource);
+    const errorParse = spawnSync(cli, ["parse", pairingPath], { cwd: root, encoding: "utf8" });
+    assert.equal(errorParse.status, 1, "Recovery fixture must produce a parse error");
+    assert.match(errorParse.stdout, /\(ERROR /, "Recovery fixture must contain an ERROR node");
+    const afterError = parseMatches(query(path.join(root, "queries-generated/zed/queries/outline.scm"), pairingPath), errorSource, pairingPath);
+    assert.deepEqual(afterError.map(({ name }) => name), ["first", "unsigned_after_error", "later"]);
+
+    // Local nominal definitions are unsupported syntax, but recovery must not
+    // leak their members into the outline either.
+    const recoverySource = "Owner := [].{\n  function = || {\n    Local := [].{\n      leaked = 1\n      Nested := [].{ deeper = 2 }\n    }\n    0\n  }\n}\n";
+    fs.writeFileSync(pairingPath, recoverySource);
+    const recovered = parseMatches(query(path.join(root, "queries-generated/zed/queries/outline.scm"), pairingPath), recoverySource, pairingPath);
+    assert.deepEqual(recovered.map(({ name }) => name), ["Owner", "function"]);
     const sameStart = outline([{ name: "inner", start: [0, 0], end: [1, 0] }, { name: "outer", start: [0, 0], end: [2, 0] }]);
     requirePaths(sameStart.paths, ["outer > inner"]);
     const file = path.join(dir, "snapshot.txt");

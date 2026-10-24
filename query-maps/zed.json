@@ -1,5 +1,5 @@
 {
-  "outline": { "item": "item", "name": "name" },
+  "outline": { "item": "item", "name": "name", "context": "context", "_signature": "_signature", "_previous": "_previous" },
   "highlights": {
     "_definition": "_definition",
     "attribute": "attribute",

@@ -137,8 +137,8 @@ Common tasks are available via [justfile](justfile):
 - `just queries-generate` generates editor query outputs.
 - `just queries-check` verifies generated queries are clean.
 - `just fixture-builtin` copies committed compiler source from `ROC_COMPILER_DIR` (set in a gitignored `.env`; see `.env.example`) and records its revision, branch, and blob. It rejects uncommitted source changes.
-- `just outline-check` runs outline self-tests and checks the copied fixture. During Z01 it intentionally fails on missing nested entries and stays outside CI; Z02 adds the nested query and snapshot.
-- `just ci` runs generate-check, tests, and queries-check.
+- `just outline-check` checks nested Zed outline captures, required Builtin paths, and the reviewed full snapshot. Signatures take precedence over matching definitions; unsigned definitions remain. Type punctuation is included in labels, and function locals are excluded. The check models captures and containment without launching Zed.
+- `just ci` runs generated-artifact checks, parser/highlight and query regressions, and the outline check.
 
 ### CI helpers
 
