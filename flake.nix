@@ -10,14 +10,11 @@
       inherit inputs;
       packages.default =
         pkgs:
-        pkgs.callPackage
-          (flakelight.inputs.nixpkgs + "/pkgs/development/tools/parsing/tree-sitter/build-grammar.nix")
-          { }
-          {
-            language = "roc";
-            src = ./.;
-            inherit (pkgs.tree-sitter) version;
-          };
+        pkgs.tree-sitter.buildGrammar {
+          language = "roc";
+          src = ./.;
+          inherit (pkgs.tree-sitter) version;
+        };
 
       withOverlays = [
         (final: prev: { tree-sitter-web = prev.tree-sitter.override { webUISupport = true; }; })
