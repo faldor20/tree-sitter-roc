@@ -147,4 +147,67 @@ The following npm scripts are designed for CI:
 - `npm run ts:generate-check` ensures parser generation is clean.
 - `npm run ts:test` runs parser tests.
 - `npm run queries:check` validates query templating output.
-- `npm run ci` runs all checks.
+- `npm run ci` runs all checks, beginning with pinned-syntax self-tests and ending with the pinned whole-file check.
+
+### Pinned upstream syntax acceptance
+
+`npm run pinned-syntax:check` parses the complete, unchanged upstream
+`test/echo/all_syntax_test.roc` as one file with the project-local Tree-sitter
+0.25.10 CLI and production parser. `npm run pinned-syntax:self-test` independently
+checks input integrity, actual CLI recovery output, reporting and runner failures.
+Both are offline after normal npm dependencies and native C/C++ build prerequisites
+are installed. Every parse uses `--cst --rebuild --time` from the repository root,
+with `NO_COLOR=1`; rebuilding compiles only the parser cache, not grammar outputs.
+The runner has a 60-second process timeout and a 16 MiB output bound. The current
+13,007-byte fixture produces approximately 180 KiB of CST output.
+
+The frozen source is Roc commit `3c0fffe7bdb0b7dacb655aef8584b37decd98952`,
+selected by [nightly-2026-10-26-3c0fffe](https://github.com/roc-lang/nightlies/releases/tag/nightly-2026-10-26-3c0fffe)
+(release ID 424513578). Full provenance, immutable source URL, byte count and local
+SHA-256 are in `test/fixtures/pinned-syntax/source.json`. The vendored fixture and
+copyright notice are upstream Roc software under **UPL-1.0**, not this repository's
+ISC license; the complete upstream notice is copied alongside it as `LICENSE`.
+Copyright © 2019 Richard Feldman and subsequent Roc authors <roc-lang.org/authors>.
+Verification checks fixture and license hashes and metadata without downloading
+or rewriting anything. `.gitattributes` preserves the fixture's working-tree bytes.
+
+Acceptance requires a complete tree, a final timing summary, consistent process
+status/error marking, and no recovery. Exit 0 means acceptance; exit 1 means
+syntax discrepancies; exit 2 means input/infrastructure failure (including missing
+inputs/CLI, changed checksum, launch/signal/timeout/overflow, unusable output or
+contradictory evidence). Reports use zero-based rows and byte columns; zero-width
+ranges are insertion points. Recovery reports retain raw CLI output and excerpts.
+Anonymous missing tokens are visible in CST even when XML omits them. Named missing
+leaves can only be described as `zero-width error-marked node`, not confidently
+as MISSING. Actual CLI self-tests demonstrate a named missing leaf with exit zero;
+this contradictory result is rejected as infrastructure failure. An error-marked
+subtree without a visible recovery is also rejected, never silently accepted.
+The no-visible-recovery fallback is tested with controlled output. Actual CLI tests
+cover multiline ERROR leaves for both quoted and triple-quoted input. Multiline
+text continuation rows are validated against the owning node's source bytes;
+reports use that node's actual range, not the CLI's continuation display columns.
+The documentation-comment case contains separate single-line leaves. No clean
+multiline named leaf has been demonstrated with the production grammar; a genuine
+multiline leaf is tested with controlled clean output, including truncated and
+corrupted continuation rejection. The renderer assumptions follow CLI 0.25.10
+[`cst_render_node` and `write_node_text`](https://github.com/tree-sitter/tree-sitter/blob/v0.25.10/cli/src/parse.rs),
+including its optional extra display space for error-free nodes in error traversal.
+Separate forced
+rebuild invocations avoid ambiguous multi-file output and unverified shared caches.
+
+This establishes **Tree-sitter acceptance only**: no compiler build/execution,
+fixture execution, import resolution or structural comparison occurs. The fixture's
+`../../README.md` import is deliberately unresolved. There are zero exceptions,
+no automatic baseline recording and no suppression mechanism. A failing fixture
+requires individual user decisions before grammar fixes or expected differences;
+passing self-tests alone do not make a rejected fixture or CI green.
+
+To update the pin, obtain explicit review approval for a selected release and full
+source commit, download the complete unchanged file and applicable license notice
+from immutable commit URLs, compute their SHA-256 values locally, update provenance,
+and review the byte/provenance diff. The checker freezes the exact full commit and
+release identity: review and update its `loadPin` constants together with metadata,
+including the pin-integrity regression for a different full commit sharing the
+same release abbreviation. Run both dedicated commands and full CI
+separately. Never advance to latest automatically or change grammar, queries or
+existing baselines to hide a discrepancy.
