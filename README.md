@@ -154,7 +154,8 @@ The following npm scripts are designed for CI:
 `npm run pinned-syntax:check` parses the complete, unchanged upstream
 `test/echo/all_syntax_test.roc` as one file with the project-local Tree-sitter
 0.25.10 CLI and production parser. `npm run pinned-syntax:self-test` independently
-checks input integrity, actual CLI recovery output, reporting and runner failures.
+checks input integrity, actual CLI recovery output, reporting, runner failures, and
+read-only pinned-fixture CLI invocation.
 Both are offline after normal npm dependencies and native C/C++ build prerequisites
 are installed. Every parse uses `--cst --rebuild --time` from the repository root,
 with `NO_COLOR=1`; rebuilding compiles only the parser cache, not grammar outputs.

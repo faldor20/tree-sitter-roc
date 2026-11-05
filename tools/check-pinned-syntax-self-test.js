@@ -164,9 +164,13 @@ try {
   test("read-only-verification", () => {
     const names = ["source.json", "LICENSE", "all_syntax_test.roc"];
     const before = names.map((name) => guard.hash(fs.readFileSync(path.join(guard.directory, name))));
-    guard.loadPin();
+    const entries = fs.readdirSync(guard.directory).sort();
+    const pinned = guard.loadPin();
+    const cliResult = guard.invoke(pinned.input);
+    assert.ok([0, 1].includes(cliResult.status) && cliResult.stdout.includes(`${pinned.input}\tParse:`));
     assert.deepEqual(analyze(clean).findings, []);
     rejects(() => analyze({ ...clean, status: 1 }), /status contradicts/);
+    assert.deepEqual(fs.readdirSync(guard.directory).sort(), entries);
     assert.deepEqual(names.map((name) => guard.hash(fs.readFileSync(path.join(guard.directory, name)))), before);
   });
   console.log(`Pinned syntax self-tests passed (${count} groups).`);
