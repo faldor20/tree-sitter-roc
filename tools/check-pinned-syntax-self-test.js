@@ -78,6 +78,16 @@ try {
     assert.deepEqual(guard.analyze(result, bytes, input).findings, []);
     rejects(() => guard.analyze({ ...result, stdout: result.stdout.replace("`cd`", "`wrong`") }, bytes, input), /leaf continuation/);
     rejects(() => guard.analyze({ ...result, stdout: result.stdout.replace("1:0 - 1:2       `cd`\n", "") }, bytes, input), /incomplete leaf/);
+    for (const row of [
+      "2:0 - 2:2       `cd`",
+      "1:0 - 2:2       `cd`",
+      "1:0 - 1:2      `cd`",
+      "1:0 - 1:2        `cd`",
+    ]) rejects(() => guard.analyze({ ...result, stdout: result.stdout.replace("1:0 - 1:2       `cd`", row) }, bytes, input), /invalid leaf continuation/);
+    const errorBytes = Buffer.from("ab\ncd\n!\n");
+    const errorTree = { ...clean, status: 1, stdout: `0:0 - 3:0   •file\n0:0 - 1:2      doc_comment \n0:0 - 0:3       \`ab\\n\`\n1:0 - 1:2       \`cd\`\n2:0 - 2:1     •ERROR \`!\`\n${input}\tParse: 0.1 ms 60 bytes/ms\t(ERROR [2, 0] - [2, 1])\n` };
+    assert.deepEqual(guard.analyze(errorTree, errorBytes, input).findings.map((f) => f.kind), ["ERROR"]);
+    rejects(() => guard.analyze({ ...errorTree, stdout: errorTree.stdout.replace("1:0 - 1:2       `cd`", "1:0 - 1:2        `cd`") }, errorBytes, input), /invalid leaf continuation/);
   });
   test("uncertain-recovery-and-contradictions", () => {
     const result = { ...clean, status: 1, stdout: `0:0 - 1:0   •file\n0:0 - 0:5     •value_declaration\n\n${input}\tParse: 0.1 ms 60 bytes/ms\t(ERROR [0, 0] - [0, 5])\n` };

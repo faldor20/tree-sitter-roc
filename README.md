@@ -188,12 +188,14 @@ text continuation rows are validated against the owning node's source bytes;
 reports use that node's actual range, not the CLI's continuation display columns.
 The documentation-comment case contains separate single-line leaves. No clean
 multiline named leaf has been demonstrated with the production grammar; a genuine
-multiline leaf is tested with controlled clean output, including truncated and
-corrupted continuation rejection. The renderer assumptions follow CLI 0.25.10
+multiline leaf is tested with controlled clean and error-marked output, including
+rejection of truncated or corrupted continuations, incorrect row order, multi-row
+continuation spans, and incorrect indentation (including extra error-tree display
+padding). The renderer assumptions follow CLI 0.25.10
 [`cst_render_node` and `write_node_text`](https://github.com/tree-sitter/tree-sitter/blob/v0.25.10/cli/src/parse.rs),
 including its optional extra display space for error-free nodes in error traversal.
-Separate forced
-rebuild invocations avoid ambiguous multi-file output and unverified shared caches.
+Separate forced rebuild invocations avoid ambiguous multi-file output and unverified
+shared caches.
 
 This establishes **Tree-sitter acceptance only**: no compiler build/execution,
 fixture execution, import resolution or structural comparison occurs. The fixture's
