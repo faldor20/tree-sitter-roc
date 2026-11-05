@@ -145,7 +145,10 @@ try {
       assert.match(child.stdout, new RegExp(label));
       if (status === 1) { assert.match(child.stdout, /MISSING.*0:6/); assert.match(child.stdout, /Raw CLI diagnostics/); }
     }
-    const integrity = spawnSync(process.execPath, ["-e", `const g = require(process.argv[1]); process.exitCode = g.run([], {loadPin: () => g.loadPin(process.argv[2])});`, check, directory], { encoding: "utf8" });
+    const badPin = path.join(directory, "bad-pin");
+    fs.mkdirSync(badPin);
+    fs.writeFileSync(path.join(badPin, "source.json"), "{}");
+    const integrity = spawnSync(process.execPath, ["-e", `const g = require(process.argv[1]); process.exitCode = g.run([], {loadPin: () => g.loadPin(process.argv[2])});`, check, badPin], { encoding: "utf8" });
     assert.equal(integrity.status, 2); assert.match(integrity.stderr, /invalid provenance metadata/);
   });
   test("read-only-verification", () => {
