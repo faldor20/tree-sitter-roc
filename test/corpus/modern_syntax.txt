@@ -938,6 +938,7 @@ spaced try handler and immediate suffix
 ================================================================================
 # From basic-cli examples.
 result = operation() ? |err| Wrapped(err)
+tagged = operation() ? NoFirstError
 plain = operation()?
 --------------------------------------------------------------------------------
 
@@ -964,6 +965,19 @@ plain = operation()?
                   (identifier)))
               (variable_expr
                 (identifier))))))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    (expr_body
+      (bin_op_expr
+        (function_call_pnc_expr
+          (variable_expr
+            (identifier)))
+        (operator)
+        (tag_expr
+          (tag
+            (identifier))))))
   (value_declaration
     (decl_left
       (identifier_pattern

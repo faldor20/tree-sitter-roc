@@ -118,6 +118,7 @@
 
 ; TODO: Differentiate between values, functions, and types.
 (import_expr (exposing ((ident) @special.roc-special.exposed)))
+(module_header (module_exposes (ident [(identifier) (module)] @special.roc-special.exposed)))
 
 (app_header (packages_list ((platform_ref) @special.roc-special.package)))
 
@@ -259,8 +260,18 @@
 (function_call_pnc_expr caller: (variable_expr     (identifier) @function))
 (function_call_pnc_expr caller: (field_access_expr (identifier) @function .))
 (bin_op_expr (operator "->") (variable_expr        (identifier) @function))
+
+; An underscore annotation in an associated block can request a derived method.
+; A matching following definition instead supplies an ordinary value; the
+; higher-priority rule below handles that case (including intervening comments).
+((inferred_associated_annotation
+  (annotation_pre_colon (identifier) @function))
+  (#match? @function "^(is_eq|to_hash|parser_for|encoder_for|map|map!)$"))
+
 (annotation_type_def (annotation_pre_colon         (identifier) @function)
   (function_type))
+(annotation_type_def (annotation_pre_colon         (identifier) @function)
+  (where_implements type: (function_type)))
 
 
 
@@ -378,3 +389,12 @@
 ;; However, some text editors encourage a standard set in their themes.
 ;; For consistency and quality, these queries assign the highlight names that Helix uses:
 ;; see https://docs.helix-editor.com/themes.html#scopes
+
+; Inferred annotations with an explicit body do not request derivation.
+((nominal_methods
+  (inferred_associated_annotation
+    (annotation_pre_colon (identifier) @variable))
+  . [(line_comment) (doc_comment)]*
+  . (value_declaration
+      (decl_left (identifier_pattern (identifier) @_definition))))
+  (#eq? @variable @_definition))

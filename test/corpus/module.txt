@@ -64,3 +64,71 @@ a:Mod.Sub.List(a)
       (concrete_type)
       type_args: (apply_type_arg
         (bound_variable)))))
+
+===
+module_header_empty
+===
+module []
+
+a = 1
+---
+
+(file
+  (module_header
+    (module_exposes))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (expr_body
+      (const
+        (int)))))
+
+===
+module_header_values_and_types
+===
+module [a, B]
+
+a = 1
+---
+
+(file
+  (module_header
+    (module_exposes
+      (ident
+        (identifier))
+      (ident
+        (module))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (expr_body
+      (const
+        (int)))))
+
+===
+module_header_trailing_comma_multiline
+===
+module [
+    a,
+    B,
+]
+
+a = 1
+---
+
+(file
+  (module_header
+    (module_exposes
+      (ident
+        (identifier))
+      (ident
+        (module))))
+  (value_declaration
+    (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (expr_body
+      (const
+        (int)))))

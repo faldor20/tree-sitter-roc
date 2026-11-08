@@ -61,6 +61,8 @@ module.exports = grammar({
     [$._atomic_pattern, $._primary_expr],
     [$._pattern, $._primary_expr],
     [$.tag_pattern, $.tag_expr],
+    // `Name(` starts both a type header and a tag pattern; `:` or `=` decides.
+    [$.concrete_type, $._long_upper_identifier],
     [$.nominal_record_expr, $.nominal_record_pattern],
     [$.identifier_pattern, $.long_identifier],
     [$.list_pattern, $.list_expr],
@@ -351,7 +353,7 @@ module.exports = grammar({
         field("expr", $.expr_body),
         optional(","),
       ),
-    tag_expr: ($) => prec.left(seq($.tag, repeat(seq("(", $._atom_expr, ")")))),
+    tag_expr: ($) => $.tag,
     anon_fun_expr: ($) =>
       prec.left(
         seq("|", field("args", optional($.argument_patterns)), "|", field("body", $.expr_body)),
@@ -408,7 +410,7 @@ module.exports = grammar({
         $.cons_pattern,
         $.paren_pattern,
         $.list_pattern,
-        prec(3, $.tag_pattern),
+        $.tag_pattern,
         $.nominal_constructor_pattern,
         $.nominal_record_pattern,
         $.record_pattern,
@@ -438,7 +440,7 @@ module.exports = grammar({
       prec.left(
         seq(
           $.tag,
-          optional(seq("(", optional(field("args", $._pattern_args)), ")")),
+          optional(seq(imm("("), optional(field("args", $._pattern_args)), ")")),
         ),
       ),
     tuple_pattern: ($) => seq("(", $._tuple_pattern_body, ")"),
@@ -460,7 +462,7 @@ module.exports = grammar({
         $.list_pattern,
         $.tuple_pattern,
         $.record_pattern,
-        prec(2, $.tag_pattern),
+        $.tag_pattern,
         $.nominal_constructor_pattern,
         $.nominal_record_pattern,
         $.mutable_pattern,
@@ -478,7 +480,7 @@ module.exports = grammar({
         $.list_pattern,
         $.tuple_pattern,
         $.record_pattern,
-        prec(3, $.tag_pattern),
+        $.tag_pattern,
         $.nominal_constructor_pattern,
         $.nominal_record_pattern,
       ),
@@ -512,7 +514,7 @@ module.exports = grammar({
         optional($.targets),
       ),
 
-    module_header: ($) => seq("module", $.exposes_list),
+    module_header: ($) => seq("module", $.module_exposes),
 
     //TODO: should this actually be a record_pattern?
     packages: ($) => seq("packages", $.record_pattern),
@@ -522,7 +524,7 @@ module.exports = grammar({
     package_ref: ($) => seq($.identifier, ":", $.string),
     platform_ref: ($) => seq($.identifier, ":", "platform", alias($.string, $.package_uri)),
 
-    exposed_list: ($) => seq("{", sep_tail($.ident, ","), "}"),
+    module_exposes: ($) => seq("[", sep_tail($.ident, ","), "]"),
     exposes: ($) => seq("exposes", $.exposes_list),
     platform_exposes: ($) => seq("exposes", "[", sep_tail($.platform_exposed_item, ","), "]"),
     platform_exposed_item: ($) =>
@@ -647,7 +649,18 @@ module.exports = grammar({
     // Nominal method blocks: `.{ ... }`
     // Allow any top-level items (defs, types, expects, expressions) inside.
     // Keep the grammar tight to avoid conflicts with module paths like `Type.Module`.
-    nominal_methods: ($) => seq(token.immediate(".{"), repeat($._module_elem), "}"),
+    nominal_methods: ($) =>
+      seq(
+        token.immediate(".{"),
+        repeat(choice($.inferred_associated_annotation, $._module_elem)),
+        "}",
+      ),
+
+    // A derive candidate, not necessarily a derive: a following same-named
+    // definition supplies an ordinary value. Consumers must check that sibling
+    // before treating this annotation as a compiler-generated method.
+    inferred_associated_annotation: ($) =>
+      prec(1, seq($.annotation_pre_colon, ":", $.inferred)),
 
     _type_annotation: ($) => prec.left(choice($.where_implements, $._non_atomic_type)),
     _non_atomic_type: ($) => choice($.function_type, $._atomic_type),
@@ -719,7 +732,6 @@ module.exports = grammar({
     //GOOD
     concrete_type: ($) =>
       prec.right(
-        PREC.TYPEALIAS,
         seq($._upper_identifier, repeat(prec(PREC.TYPEALIAS, seq(".", $._upper_identifier)))),
       ),
 
