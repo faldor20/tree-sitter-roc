@@ -1,0 +1,93 @@
+{
+  "notes": {
+    "68f4054::nums.txt::Old immediate suffix format still works": "The merge-base case uses legacy 123u8/456i32/789dec literals. Current upstream Roc syntax uses dot suffixes (123.Foo); the mapped test preserves numeric-suffix coverage but does not assert legacy spelling support."
+  },
+  "sources": {
+    "68f4054": {
+      "examples.txt": ["all_syntax_example", "all_syntax_example_nums", "all_syntax_example_main"],
+      "function.txt": ["function_call", "function_nested", "function_with_match", "function_lambda_simple", "function_field", "function_same_line", "function_same_line_long", "function_block_body", "function_effectful", "function_string_static_dispatch"],
+      "indent.txt": ["ident_module"],
+      "lambda.txt": ["lambda_simple", "lambda_multiple_args", "lambda_with_block", "lambda_no_args", "lambda_effectful", "lambda_with_pattern", "lambda_nested"],
+      "match.txt": ["match_simple", "match_with_wildcard", "match_list_patterns", "match_string_literal", "match_complex", "match_with_comma"],
+      "modern_syntax.txt": ["modern_app_header", "modern_match_expression", "modern_lambda_syntax", "modern_opaque_type", "modern_type_alias", "modern_effectful_types", "modern_paren_generics", "modern_block_body", "modern_match_with_payload", "modern_record_update", "modern_expect"],
+      "module.txt": ["module_long", "module_long_type"],
+      "nums.txt": ["Dot-suffix unsigned integers", "Dot-suffix signed integers", "Dot-suffix decimal", "Dot-suffix negative numbers", "Dot-suffix binary numbers", "Dot-suffix hex numbers", "Old immediate suffix format still works", "nums_literals"],
+      "operators.txt": ["ops_pipe"],
+      "patterns.txt": ["pattern_tag", "pattern_range", "pattern_range_many", "pattern_destructuring"],
+      "record.txt": ["record_basic", "record_expr", "record_update", "record pattern"],
+      "string.txt": ["string_basic", "string_multiline", "string_multiline_with_string", "string_multiline_wierd", "string_wierd", "string_comment", "string_interpolation", "string_interpolation_expr", "string_unicode_escape", "line_string_simple", "line_string_with_interpolation"],
+      "structures.txt": ["structures_if", "structures_for", "structures_todo", "structures_early_return", "structures_if odd"],
+      "tags.txt": ["tags_usage", "tag_pattern"],
+      "types.txt": ["type_annotation", "internal", "types_nominal_simple", "types_nominal_with_methods", "types_nominal_empty_methods", "types_functions", "types_alias", "types_nested_func", "types_tuples", "types_args", "types_paren_generic", "types_paren_generic_multi", "types_effectful_simple", "types_effectful_with_return", "types_effectful_multi_arg", "types_static_basic", "types_static_complex", "types_tag_union_extensible", "types_static_basic", "types_static_complex"],
+      "value.txt": ["value_decl", "value_decl_nested", "value_decl_typed", "value_record", "value_field", "value_ignore", "value_var", "value_var_$", "value_tuple"]
+    },
+    "backup/fork-master-5f66b59": {
+      "loops.txt": ["while_loop", "break_in_for_loop", "crash_with_message"],
+      "modern_syntax.txt": ["modern_expect_statement", "modern_if_statement", "modern_if_else_if_no_else", "modern_pipe_operator", "modern_default_operator", "modern_question_error_map_tag", "modern_question_error_map_lambda", "modern_range_exclusive", "modern_range_inclusive", "modern_tag_destructure", "modern_nominal_destructure_pattern", "modern_nominal_expr", "modern_record_rest_pattern", "modern_tuple_index_access", "modern_optional_field_access", "modern_optional_and_default_field_types"]
+    }
+  },
+  "evidence": {
+    "68f4054": {
+      "nums.txt": {
+        "Old immediate suffix format still works": "123.Foo"
+      }
+    },
+    "backup/fork-master-5f66b59": {
+      "loops.txt": {
+        "while_loop": "while condition {",
+        "break_in_for_loop": "for item in items {",
+        "crash_with_message": "crash \"missing\""
+      },
+      "modern_syntax.txt": {
+        "modern_expect_statement": "expect sum == 15",
+        "modern_if_statement": "if condition { return Err(BadCondition) }",
+        "modern_if_else_if_no_else": "else if",
+        "modern_pipe_operator": "|> List.from_iter",
+        "modern_default_operator": "?? 0",
+        "modern_question_error_map_tag": "? NoFirstError",
+        "modern_question_error_map_lambda": "? |err| Wrapped(err)",
+        "modern_range_exclusive": "0..<limit",
+        "modern_range_inclusive": "1..=100",
+        "modern_tag_destructure": "Ok(parsed_nums) = parse_lines(input)",
+        "modern_nominal_destructure_pattern": "Stack.{ x }",
+        "modern_nominal_expr": "Point.{ x: 1",
+        "modern_record_rest_pattern": "..rest",
+        "modern_tuple_index_access": "(left, right).0",
+        "modern_optional_field_access": "config.?name",
+        "modern_optional_and_default_field_types": "count : U8 ?? 10"
+      }
+    }
+  },
+  "equivalents": {
+    "68f4054": {
+      "nums.txt": {
+        "Old immediate suffix format still works": "nums.txt::Modern generic numeric suffixes and numeric cores"
+      }
+    },
+    "backup/fork-master-5f66b59": {
+      "loops.txt": {
+        "while_loop": "modern_syntax.txt::while loop and break",
+        "break_in_for_loop": "block_statements.txt::block_break_inside_for",
+        "crash_with_message": "modern_syntax.txt::crash expression"
+      },
+      "modern_syntax.txt": {
+        "modern_expect_statement": "block_statements.txt::block_expect_followed_by_sibling",
+        "modern_if_statement": "modern_syntax.txt::statement if without else",
+        "modern_if_else_if_no_else": "structures.txt::structures_if",
+        "modern_pipe_operator": "operators.txt::modern ranges and pipelines",
+        "modern_default_operator": "modern_syntax.txt::fallback expression",
+        "modern_question_error_map_tag": "modern_syntax.txt::spaced try handler and immediate suffix",
+        "modern_question_error_map_lambda": "modern_syntax.txt::spaced try handler and immediate suffix",
+        "modern_range_exclusive": "operators.txt::modern ranges and pipelines",
+        "modern_range_inclusive": "operators.txt::modern ranges and pipelines",
+        "modern_tag_destructure": "block_statements.txt::block_tag_payload_assignments",
+        "modern_nominal_destructure_pattern": "modern_syntax.txt::nominal record destructuring",
+        "modern_nominal_expr": "modern_syntax.txt::nominal record construction",
+        "modern_record_rest_pattern": "modern_syntax.txt::direct record rest pattern",
+        "modern_tuple_index_access": "modern_syntax.txt::tuple positional access",
+        "modern_optional_field_access": "modern_syntax.txt::optional defaulted and unset record fields",
+        "modern_optional_and_default_field_types": "modern_syntax.txt::optional defaulted and unset record fields"
+      }
+    }
+  }
+}

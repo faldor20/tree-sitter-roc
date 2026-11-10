@@ -22,7 +22,8 @@
     "ts:generate": "tree-sitter generate",
     "ts:generate-check": "tree-sitter generate && git diff --exit-code src/parser.c src/grammar.json src/node-types.json",
     "ts:metrics-check": "node tools/check-parser-metrics.js",
-    "ts:test": "tree-sitter test",
+    "ts:test": "npm run corpus:check && tree-sitter test",
+    "corpus:check": "node tools/check-corpus-inventory.js --self-test",
     "queries:generate": "node tools/template-queries.js --queries-dir queries",
     "queries:check": "node tools/template-queries.js --queries-dir queries && git diff --exit-code queries-generated",
     "ci": "npm run ts:generate-check && npm run ts:metrics-check && npm run ts:test && npm run queries:check"
