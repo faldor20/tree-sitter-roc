@@ -12,7 +12,7 @@ constrained = |value| value.to_str()
 # <- function
 
 (left, right) = pair
-# ^^^^ variable.roc-special.definition
+#^^^^ variable.roc-special.definition
 #      ^^^^^ variable.roc-special.definition
 
 Ok(payload) = result

@@ -11,14 +11,14 @@ powerset : List(item) -> Iter(Set(item))
 #                        ^^^^ type.builtin
 
 encode : a -> Str where [a.Encodable(err)]
-#                         ^^^^^^^^ type
-#                                  ^^^ type.parameter
+#                          ^^^^^^^^^ type
+#                                    ^^^ type.parameter
 
 parse : Str -> Try(a, errs) where [a.Parseable([InvalidJson(Str), ..errs])]
-#                                   ^^^^^^^^^ type
-#                                              ^^^^^^^^^^^ type.enum.variant.roc-special.builtin
-#                                                          ^^^ type.builtin
-#                                                                 ^^^^ type.parameter
+#                                    ^^^^^^^^^ type
+#                                               ^^^^^^^^^^^ type.enum.variant.roc-special.builtin
+#                                                           ^^^ type.builtin
+#                                                                   ^^^^ type.parameter
 
 show : a -> Str where [a.Holder.Show(err)]
 #                        ^^^^^^ type
