@@ -1,4 +1,6 @@
 ;; feature: strings
+; Broad string captures precede identifiers so interpolated names keep their
+; variable face when later captures override strings.
 (string) @font-lock-string-face
 
 (multiline_string) @font-lock-string-face
@@ -16,13 +18,11 @@
 ;; feature: modules
 (module) @font-lock-constant-face
 
-
-
+;; feature: variable-use
 ;;
 ;; Lower-priorty queries
 ;;
 
-;; feature: variable-use
 (argument_patterns                (identifier_pattern (identifier) @font-lock-variable-use-face))
 
 (argument_patterns (_             (identifier_pattern (identifier) @font-lock-variable-use-face)))
@@ -46,41 +46,40 @@
 ; Identifier patterns introduce bindings. Plain value declarations are
 ; overridden back to variables below; function declarations are overridden by
 ; the later, higher-priority function rule.
-
 (identifier_pattern (identifier) @font-lock-variable-use-face)
 
 (value_declaration
   pattern: (decl_left (identifier_pattern (identifier) @font-lock-variable-use-face)))
 
+;; feature: record-field-declaration
 ; `ident` represents names in exposing/provides lists, not free variables.
 ; Declaration bindings are refined below after the general parameter captures.
 
 ; N/A
 ; @variable.other.member.private
 
-;; feature: record-field-declaration
 (field_name)                         @font-lock-property-name-face
-; Note: This query matches the second identifier and all subsequent ones.
 
 ;; feature: record-field-access
+; Note: This query matches the second identifier and all subsequent ones.
 (field_access_expr      (identifier) @font-lock-property-use-face)
+
 ; Note: This query highlights module members as records instead of free variables,
 ;       which avoids highlighting them as out-of-scope vars.
-
 (variable_expr (module) (identifier) @font-lock-property-use-face)
 
+;; feature: variable-use
 ; N/A
 ; @variable.other
 
 ; N/A
 ; @variable.builtin
 
-;; feature: variable-use
 (record_field_pattern (_ (identifier) @font-lock-variable-use-face))
 
+;; feature: types
 ; Note: See the lower-priority queries below for a `@variable` query.
 
-;; feature: types
 (inferred) @font-lock-type-face
 
 ;; feature: type-variables
@@ -89,18 +88,26 @@
 ;; feature: tag-types
 (tag_type name: (tag_name) @font-lock-builtin-face)
 
+;; feature: types
 ; N/A
 ; @type.enum
 
 ; Opinion: Type defs cross into documentation
 ;          and should be highlighted differently from normal code.
-
-;; feature: types
 (opaque_type_def name: (apply_type (concrete_type) @font-lock-type-face))
 
 ;; feature: strings
+; Note: See the lower-priority queries below for a `@type` query.
+
+; N/A
+; @tag.builtin
+
+; N/A (We use `@constructor` and `@type.enum.variant` for "tags".)
+; @tag
+
 (package_uri) @font-lock-string-face
 
+;; feature: variable-use
 ; N/A
 ; @string.special.symbol
 
@@ -114,8 +121,6 @@
 ; @string.regexp
 
 ; TODO: Differentiate between values, functions, and types.
-
-;; feature: variable-use
 (import_expr exposing: (exposes_list (ident [(identifier) (module)] @font-lock-variable-use-face)))
 
 (module_header (module_exposes (ident [(identifier) (module)] @font-lock-variable-use-face)))
@@ -130,12 +135,13 @@
 (wildcard_exposed_item ".*" @font-lock-operator-face)
 
 ;; feature: variable-use
+; TODO: Differentiate between values, functions, and types.
 (app_header (provides_list ((identifier) @font-lock-variable-use-face)))
 
+;; feature: delimiters
 ; N/A
 ; @special
 
-;; feature: delimiters
 [
   ","
   ":"
@@ -155,10 +161,10 @@
   "|"
 ] @font-lock-bracket-face
 
+;; feature: operators
 ; N/A
 ; @punctuation
 
-;; feature: operators
 [
   "="
   "."
@@ -180,12 +186,9 @@
 ;; feature: variable-use
 (wildcard_pattern) @font-lock-variable-use-face
 
-
-
+;; feature: keywords
 ; N/A
 ; @label
-
-
 
 ; TODO: Implement this for `var`.
 ; @keyword.storage.type
@@ -199,7 +202,6 @@
 ; N/A
 ; @keyword.directive
 
-;; feature: keywords
 "return" @font-lock-keyword-face
 
 ;; feature: early-return
@@ -253,10 +255,9 @@
   "dbg"
 ] @font-lock-keyword-face
 
+;; feature: definition-names
 ; Definition bindings override general variable and parameter captures.
 ; Function-specific patterns follow, so callable definitions keep @function.
-
-;; feature: definition-names
 (annotation_type_def name: (annotation_pre_colon (identifier) @font-lock-variable-name-face))
 
 (value_declaration pattern: (decl_left (identifier_pattern (identifier) @font-lock-variable-name-face)))
@@ -285,16 +286,11 @@
 
 (bin_op_expr (operator "->") (variable_expr (identifier) @font-lock-function-call-face))
 
+;; feature: definition-names
 ; Inferred names have a variable base capture. Editors with predicate support
 ; refine recognized derived methods; Emacs refines them in the mode instead.
-
-;; feature: definition-names
 (inferred_associated_annotation
   name: (annotation_pre_colon (identifier) @font-lock-variable-name-face))
-
-; An underscore annotation in an associated block can request a derived method.
-; A matching following definition instead supplies an ordinary value; editors
-; that support predicates use the later rule, including intervening comments.
 
 (annotation_type_def name: (annotation_pre_colon (identifier) @font-lock-function-name-face)
   (function_type))
@@ -305,9 +301,8 @@
 ;; feature: tags
 (tag (identifier)@font-lock-builtin-face)
 
-; Constructor names have a type face only in nominal constructor syntax.
-
 ;; feature: types
+; Constructor names have a type face only in nominal constructor syntax.
 (nominal_constructor_expr (tag (identifier) @font-lock-type-face))
 
 (nominal_constructor_pattern (tag (identifier) @font-lock-type-face))
@@ -325,6 +320,9 @@
 ] @font-lock-number-face
 
 ;; feature: string-escapes
+; N/A
+; @constant.numeric
+
 (escape_char) @font-lock-escape-face
 
 ;; feature: types
@@ -334,6 +332,12 @@
 ] @font-lock-type-face
 
 ;; feature: comments
+; N/A
+; @constant.builtin
+
+; N/A
+; @constant
+
 (line_comment) @font-lock-comment-face
 
 (doc_comment) @font-lock-comment-face
@@ -341,18 +345,16 @@
 ;; feature: doc-comments
 (doc_comment) @font-lock-doc-face
 
+;; feature: record-field-declaration
 ; N/A
 ; @comment.block
 
 ; N/A
 ; @comment
 
-
-
 ; N/A
 ; @attribute
 
-;; feature: record-field-declaration
 (record_field_type (field_name) @font-lock-property-name-face)
 
 ;; feature: delimiters
@@ -376,6 +378,12 @@
 (identifier)@font-lock-function-call-face)
 
 ;; feature: string-escapes
+; TODO(bugfix): `Set` yields an ERROR in `expect Set.from_list(paths_as_str) == Set.from_list(["nested-dir/a", "nested-dir/child"])`
+
+;;
+;; Higher-priorty queries
+;;
+
 (interpolation_char
   "${" @font-lock-escape-face
   "}" @font-lock-escape-face)
@@ -403,15 +411,6 @@
 (string_pattern_capture
   "${" @font-lock-escape-face
   "}" @font-lock-escape-face)
-
-
-
-;; Highlight names (like `@comment.block.documentation`) are arbitrary.
-;; However, some text editors encourage a standard set in their themes.
-;; For consistency and quality, these queries assign the highlight names that Helix uses:
-;; see https://docs.helix-editor.com/themes.html#scopes
-
-; An explicit same-name definition wins over a possible derived method.
 
 ;; feature: lambdas
 (anon_fun_expr "|" @font-lock-misc-punctuation-face)

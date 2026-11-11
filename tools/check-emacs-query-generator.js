@@ -42,6 +42,39 @@ assert.match(filtered, /; #eq\? @removed/);
 assert.equal(scanQuery('((identifier) @one (#eq? @one @removed))')[0]
   .captures.filter(({ predicate }) => predicate).length, 2);
 
+// Comments belong to the pattern they precede. A comment on the same line as a
+// pattern's last token stays with that pattern. Comments before the first
+// pattern belong to it. Comments after the last pattern describe no pattern.
+const commented = '; preamble\n\n' +
+  '(identifier) @one ; inline one\n' +
+  '\n' +
+  '; about two\n' +
+  '\n\n' +
+  '; still about two\n' +
+  '["a" "b"] @two\n' +
+  '; about predicate rule\n' +
+  '((identifier) @one (#eq? @one "x"))\n' +
+  '; about removed\n' +
+  '(identifier) @removed\n' +
+  '; about one after omission\n' +
+  '(identifier) @one\n' +
+  '; trailing file comment\n';
+assert.deepEqual(scanQuery(commented).map(({ text }) => text), [
+  '; preamble\n\n(identifier) @one ; inline one',
+  '; about two\n\n\n; still about two\n["a" "b"] @two',
+  '; about predicate rule\n((identifier) @one (#eq? @one "x"))',
+  '; about removed\n(identifier) @removed',
+  '; about one after omission\n(identifier) @one',
+]);
+assert.equal(sectionedContent(commented, mapping, { omitPredicates: true }),
+  ';; feature: one\n; preamble\n\n(identifier) @font-lock-one-face ; inline one\n\n' +
+  ';; feature: two\n; about two\n\n; still about two\n["a" "b"] @font-lock-two-face\n\n' +
+  ';; feature: one\n; about one after omission\n(identifier) @font-lock-one-face\n');
+// Top-level trailing captures and quantifiers end the pattern, not comments.
+const trailing = scanQuery('[(a) (b)]* @one\n; next\n"x" @two ; tail\n');
+assert.deepEqual(trailing.map(({ text }) => text), ['[(a) (b)]* @one', '; next\n"x" @two ; tail']);
+assert.deepEqual(trailing.map(({ captures }) => captures.map(({ name }) => name)), [["one"], ["two"]]);
+
 // Check the shipped query contract, not only the synthetic lexer fixture.
 const root = path.join(__dirname, "..");
 const config = JSON.parse(fs.readFileSync(path.join(root, "query-maps/emacs.json"), "utf8"));

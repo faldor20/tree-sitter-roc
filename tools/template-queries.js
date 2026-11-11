@@ -184,20 +184,45 @@ function assertMappingComplete(mapping, captures, contextLabel) {
 
 // Return top-level query patterns and their capture locations. Strings and
 // comments are opaque so punctuation and @ signs inside them are not syntax.
+//
+// Each pattern's `text` begins at `start` and covers, in order:
+// - Its leading comment lines: every whole comment line after the previous
+//   pattern's end. Comments before the first pattern belong to it.
+// - The pattern itself, including top-level trailing captures and quantifiers.
+// - A comment on the same line as the pattern's last token, which is the
+//   pattern's inline trailing comment.
+// Comments after the last pattern describe no pattern and are not returned.
 function scanQuery(content) {
   const patterns = [];
   let start = -1;
+  // Offset just past the previous pattern's text; leading comments start here.
+  let owned = 0;
+  // Offset just past the current pattern's last non-comment token.
+  let end = -1;
   const stack = [];
   let captures = [];
   let inString = false;
   let inComment = false;
+  const finish = () => {
+    // Extend over an inline comment that shares the pattern's last line.
+    let stop = end;
+    const inline = /^[ \t]*;[^\r\n]*/.exec(content.slice(end));
+    if (inline) stop = end + inline[0].length;
+    // Leading comments start at the beginning of the first non-blank line.
+    let lead = owned;
+    while (lead < start && /\s/.test(content[lead])) lead += 1;
+    if (lead < start) lead = Math.max(owned, content.lastIndexOf("\n", lead) + 1);
+    else lead = start;
+    patterns.push({ start: lead, code: start, text: content.slice(lead, stop).trimEnd(), captures });
+    owned = stop;
+    start = -1;
+    captures = [];
+  };
   for (let i = 0; i < content.length; i += 1) {
     const ch = content[i];
     if (start >= 0 && stack.length === 0 && !inString && !inComment &&
         (ch === "(" || ch === "[" || ch === '"')) {
-      patterns.push({ start, text: content.slice(start, i).trimEnd(), captures });
-      start = -1;
-      captures = [];
+      finish();
     }
     if (inComment) {
       if (ch === "\n") inComment = false;
@@ -205,9 +230,10 @@ function scanQuery(content) {
     }
     if (inString) {
       if (ch === "\\") i += 1;
-      else if (ch === '"') inString = false;
+      else if (ch === '"') { inString = false; end = i + 1; }
       continue;
     }
+    if (start >= 0 && !/\s/.test(ch) && ch !== ";") end = i + 1;
     if (ch === ";") {
       inComment = true;
     } else if (ch === '"') {
@@ -225,11 +251,12 @@ function scanQuery(content) {
         captures.push({ start: i, end: i + match[0].length, name: match[1],
           predicate: stack.at(-1)?.predicate || false });
         i += match[0].length - 1;
+        end = i + 1;
       }
     }
   }
   if (stack.length || inString) throw new Error("Incomplete query pattern");
-  if (start >= 0) patterns.push({ start, text: content.slice(start).trimEnd(), captures });
+  if (start >= 0) finish();
   return patterns;
 }
 
@@ -296,6 +323,10 @@ function sectionedContent(content, mapping, options) {
           text.slice(match.index + match[0].length);
       }
     }
+    // Leading comments hold only comments and whitespace, so the edits above
+    // never change their length. Collapse their blank-line runs to one line.
+    const lead = pattern.code - pattern.start;
+    text = text.slice(0, lead).replace(/\n(?:[ \t]*\n)+/g, "\n\n") + text.slice(lead);
     if (!sections.length || sections[sections.length - 1].feature !== feature) {
       sections.push({ feature, patterns: [] });
     }
