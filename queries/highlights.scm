@@ -1,10 +1,15 @@
+; Broad string captures precede identifiers so interpolated names keep their
+; variable face when later captures override strings.
+(string) @string
+(multiline_string) @string
+(const_pattern (string_pattern_capture)) @string
+(char) @constant.character
+
 (identifier) @variable
 
 
 
-[
-  (concrete_type)
-  (tag_type)] @type
+(concrete_type) @type
 
 
 
@@ -35,12 +40,15 @@
 ; the later, higher-priority function rule.
 (identifier_pattern (identifier) @variable.parameter)
 (value_declaration
-  (decl_left (identifier_pattern (identifier) @variable)))
+  pattern: (decl_left (identifier_pattern (identifier) @variable)))
+
+; `ident` represents names in exposing/provides lists, not free variables.
+; Declaration bindings are refined below after the general parameter captures.
 
 ; N/A
 ; @variable.other.member.private
 
-(field_name)                         @variable.other.member
+(field_name)                         @variable.other.member.roc-special.declaration
 ; Note: This query matches the second identifier and all subsequent ones.
 (field_access_expr      (identifier) @variable.other.member)
 ; Note: This query highlights module members as records instead of free variables,
@@ -63,14 +71,14 @@
 
 (bound_variable) @type.parameter
 
-(tag_type) @type.enum.variant
+(tag_type name: (tag_name) @type.enum.variant.roc-special.builtin)
 
 ; N/A
 ; @type.enum
 
 ; Opinion: Type defs cross into documentation
 ;          and should be highlighted differently from normal code.
-(opaque_type_def (_ (concrete_type) @type.definition))
+(opaque_type_def name: (apply_type (concrete_type) @type.definition))
 
 ((concrete_type) @type.builtin
   (#match? @type.builtin "^(Dec|F(32|64))"))
@@ -91,12 +99,7 @@
 
 
 
-(app_header (packages_list (platform_ref ((package_uri) @string.special.url))))
-
-
-
-
-(app_header (packages_list (platform_ref ((package_uri) @string.special.url))))
+(package_uri) @string.special.url
 
 ; N/A
 ; @string.special.symbol
@@ -110,15 +113,13 @@
 ; N/A
 ; @string.regexp
 
-(string) @string
-(multiline_string) @string
-(const_pattern (string_pattern_capture)) @string
-
-
-
 ; TODO: Differentiate between values, functions, and types.
-(import_expr (exposing ((ident) @special.roc-special.exposed)))
+(import_expr exposing: (exposes_list (ident [(identifier) (module)] @special.roc-special.exposed)))
 (module_header (module_exposes (ident [(identifier) (module)] @special.roc-special.exposed)))
+(qualified_exposed_name [(identifier) (module)] @special.roc-special.exposed)
+(renamed_exposed_item [(identifier) (module)] @special.roc-special.exposed)
+(wildcard_exposed_item (module) @special.roc-special.exposed)
+(wildcard_exposed_item ".*" @operator)
 
 (app_header (packages_list ((platform_ref) @special.roc-special.package)))
 
@@ -133,8 +134,9 @@
 [
   ","
   ":"
-  (arrow)
-] @punctuation.delimiter
+] @punctuation.delimiter.roc-special.ordinary
+
+(arrow) @punctuation.delimiter
 
 [
   "("
@@ -143,7 +145,7 @@
   "}"
   "["
   "]"
-  "|" ; TODO: This conflicts with the `"|" @operator` query, so improve both.
+  "|"
 ] @punctuation.bracket
 
 ; N/A
@@ -155,16 +157,16 @@
   "="
   "."
   "&"
-  ; "|" ; TODO: This conflicts with the `"|" @punctuation.bracket` query, so improve both.
-  "->"
   ".."
   "!"
   "*"
   "-"
   "^"
-  (fat_arrow)
   (operator)
 ] @operator
+
+(fat_arrow) @operator.roc-special.fat-arrow
+(bin_op_expr (operator "->") @operator.roc-special.arrow)
 
 (wildcard_pattern) @variable.builtin
 
@@ -181,19 +183,14 @@
 ; N/A
 ; @keyword.storage.modifier
 
-; TODO: Implement this for `and`, `or`, and any others.
-[
-   (suffix_operator)
-  ] @keyword.operator
-
 ; N/A
 ; @keyword.function
 
 ; N/A
 ; @keyword.directive
 
-; TODO: Also implement this for `return`.
-[(suffix_operator ) "return"]@keyword.control.return
+"return" @keyword.control.return
+(try_operator) @keyword.control.return.roc-special.try
 
 [
   "for"
@@ -204,24 +201,22 @@
   "import"
 ] @keyword.control.import
 
-; N/A
-; @keyword.control.exception
+"crash" @keyword.control.exception
 
 [
   "else"
   "if"
 
-  (match)
+  "match"
 ] @keyword.control.conditional
 
 [
   "app"
-  (as)
   "as"
   (break_expr)
-  "crash"
   "expect"
   "exposing"
+  "exposes"
   "hosted"
   "in"
   "module"
@@ -231,9 +226,9 @@
   "provides"
   "requires"
   "targets"
-  (to)
+  "to"
   "var"
-  (where)
+  "where"
 ] @keyword.control
 
 ; N/A
@@ -246,39 +241,54 @@
   "dbg"
 ] @function.builtin
 
-(value_declaration (decl_left (identifier_pattern  (identifier) @function))
-  (expr_body (anon_fun_expr)))
-(value_declaration (decl_left (identifier_pattern  (identifier) @function))
-  (expr_body
-    (function_call_pnc_expr
-      caller: (anon_fun_expr))))
-(value_declaration (decl_left (identifier_pattern  (identifier) @function))
-  (expr_body
-    (bin_op_expr
-      part: (function_call_pnc_expr
-        caller: (anon_fun_expr)))))
-(function_call_pnc_expr caller: (variable_expr     (identifier) @function))
-(function_call_pnc_expr caller: (field_access_expr (identifier) @function .))
-(bin_op_expr (operator "->") (variable_expr        (identifier) @function))
+; Definition bindings override general variable and parameter captures.
+; Function-specific patterns follow, so callable definitions keep @function.
+(annotation_type_def name: (annotation_pre_colon (identifier) @variable.roc-special.definition))
+(value_declaration pattern: (decl_left (identifier_pattern (identifier) @variable.roc-special.definition)))
+(value_declaration pattern: (decl_left (tuple_pattern (identifier_pattern (identifier) @variable.roc-special.definition))))
+(value_declaration pattern: (decl_left (tag_pattern args: (identifier_pattern (identifier) @variable.roc-special.definition))))
+(value_declaration pattern: (decl_left (nominal_constructor_pattern (identifier_pattern (identifier) @variable.roc-special.definition))))
+(var_declaration name: (identifier) @variable.roc-special.definition)
+
+(value_declaration pattern: (decl_left (identifier_pattern (identifier) @function))
+  body: (anon_fun_expr))
+(value_declaration pattern: (decl_left (identifier_pattern (identifier) @function))
+  body: (function_call_pnc_expr caller: (anon_fun_expr)))
+(value_declaration pattern: (decl_left (identifier_pattern (identifier) @function))
+  body: (bin_op_expr part: (function_call_pnc_expr caller: (anon_fun_expr))))
+(function_call_pnc_expr caller: (variable_expr (identifier) @function.roc-special.call))
+(function_call_pnc_expr caller: (field_access_expr (identifier) @function.roc-special.call .))
+(bin_op_expr (operator "->") (variable_expr (identifier) @function.roc-special.call))
+
+; Inferred names have a variable base capture. Editors with predicate support
+; refine recognized derived methods; Emacs refines them in the mode instead.
+(inferred_associated_annotation
+  name: (annotation_pre_colon (identifier) @variable.roc-special.inferred-definition))
 
 ; An underscore annotation in an associated block can request a derived method.
-; A matching following definition instead supplies an ordinary value; the
-; higher-priority rule below handles that case (including intervening comments).
+; A matching following definition instead supplies an ordinary value; editors
+; that support predicates use the later rule, including intervening comments.
 ((inferred_associated_annotation
-  (annotation_pre_colon (identifier) @function))
-  (#match? @function "^(is_eq|to_hash|parser_for|encoder_for|map|map!)$"))
+  name: (annotation_pre_colon (identifier) @function.roc-special.derive))
+  (#match? @function.roc-special.derive "^(is_eq|to_hash|parser_for|encoder_for|map|map!)$"))
 
-(annotation_type_def (annotation_pre_colon         (identifier) @function)
+(annotation_type_def name: (annotation_pre_colon (identifier) @function)
   (function_type))
-(annotation_type_def (annotation_pre_colon         (identifier) @function)
+(annotation_type_def name: (annotation_pre_colon (identifier) @function)
   (where_implements type: (function_type)))
 
 
 
   (tag (identifier)@constructor)
 
+; Constructor names have a type face only in nominal constructor syntax.
+(nominal_constructor_expr (tag (identifier) @type))
+(nominal_constructor_pattern (tag (identifier) @type))
 
 
+
+
+(number_with_suffix) @constant.numeric
 
 [
   (float)
@@ -300,8 +310,6 @@
 
 (escape_char) @constant.character.escape
 
-(char) @constant.character
-
 [
   (literal_type_suffix)
   (record_builder_suffix)
@@ -322,6 +330,7 @@
 
 (line_comment) @comment.line
 
+(doc_comment) @comment.line
 (doc_comment) @comment.block.documentation
 
 ; N/A
@@ -370,15 +379,12 @@
   ".{" @punctuation.bracket
   "}" @punctuation.bracket)
 
-(alias_type_def
-  (apply_type (concrete_type) @type)
-  ":" @operator)
-(opaque_type_def
-  (apply_type (concrete_type) @type)
-  (double_colon) @operator)
-(nominal_type_def
-  (apply_type (concrete_type) @type)
-  (colon_equals) @operator)
+(alias_type_def name: (apply_type (concrete_type) @type))
+(opaque_type_def name: (apply_type (concrete_type) @type))
+(nominal_type_def name: (apply_type (concrete_type) @type))
+(alias_type_def ":" @operator.roc-special.in-typedef)
+(opaque_type_def (double_colon) @operator.roc-special.in-typedef)
+(nominal_type_def (colon_equals) @operator.roc-special.in-typedef)
 (string_pattern_capture
   "${" @punctuation.special
   "}" @punctuation.special)
@@ -390,11 +396,16 @@
 ;; For consistency and quality, these queries assign the highlight names that Helix uses:
 ;; see https://docs.helix-editor.com/themes.html#scopes
 
-; Inferred annotations with an explicit body do not request derivation.
+; An explicit same-name definition wins over a possible derived method.
 ((nominal_methods
   (inferred_associated_annotation
-    (annotation_pre_colon (identifier) @variable))
+    name: (annotation_pre_colon (identifier) @variable.roc-special.inferred-definition))
   . [(line_comment) (doc_comment)]*
   . (value_declaration
-      (decl_left (identifier_pattern (identifier) @_definition))))
-  (#eq? @variable @_definition))
+      pattern: (decl_left (identifier_pattern (identifier) @_definition))))
+  (#eq? @variable.roc-special.inferred-definition @_definition))
+
+(anon_fun_expr "|" @punctuation.bracket.roc-special.lambda)
+(value_declaration "=" @operator.roc-special.assignment)
+
+(ERROR) @roc-special.error

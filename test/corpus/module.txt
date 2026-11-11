@@ -8,39 +8,36 @@ a=Mod.Sub.Tag(a)
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (variable_expr
+    body: (variable_expr
+      (module)
+      (module)
+      (identifier)))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (function_call_pnc_expr
+      caller: (variable_expr
         (module)
         (module)
+        (identifier))
+      args: (variable_expr
         (identifier))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (function_call_pnc_expr
-        caller: (variable_expr
+    body: (function_call_pnc_expr
+      caller: (tag_expr
+        (tag
           (module)
           (module)
-          (identifier))
-        args: (variable_expr
-          (identifier)))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    body: (expr_body
-      (function_call_pnc_expr
-        caller: (tag_expr
-          (tag
-            (module)
-            (module)
-            (identifier)))
-        args: (variable_expr
-          (identifier))))))
+          (identifier)))
+      args: (variable_expr
+        (identifier)))))
 
 ===
 module_long_type
@@ -51,14 +48,14 @@ a:Mod.Sub.List(a)
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (apply_type
       (concrete_type)
       type_args: (apply_type_arg
         (bound_variable))))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (apply_type
       (concrete_type)
@@ -77,12 +74,11 @@ a = 1
   (module_header
     (module_exposes))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (const
-        (int)))))
+    body: (const
+      (int))))
 
 ===
 module_header_values_and_types
@@ -100,12 +96,11 @@ a = 1
       (ident
         (module))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (const
-        (int)))))
+    body: (const
+      (int))))
 
 ===
 module_header_trailing_comma_multiline
@@ -126,9 +121,8 @@ a = 1
       (ident
         (module))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (const
-        (int)))))
+    body: (const
+      (int))))

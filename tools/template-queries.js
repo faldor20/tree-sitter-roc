@@ -132,13 +132,15 @@ function applyMappingToContent(content, mapping) {
       if (trimmed.startsWith(";")) {
         return line;
       }
-      return line.replace(captureRegex, (match, name) => {
-        const mapped = mapping[name];
-        if (mapped === null || mapped === "" || mapped === false) {
-          return "";
-        }
-        return normalizeCaptureName(mapped);
-      });
+      return line
+        .replace(captureRegex, (match, name) => {
+          const mapped = mapping[name];
+          if (mapped === null || mapped === "" || mapped === false) {
+            return "";
+          }
+          return normalizeCaptureName(mapped);
+        })
+        .trimEnd();
     })
     .join("\n");
 }
@@ -178,6 +180,175 @@ function assertMappingComplete(mapping, captures, contextLabel) {
     missing.sort();
     throw new Error(`Missing mappings for ${contextLabel}: ${missing.join(", ")}`);
   }
+}
+
+// Return the predicate or directive name that begins a parenthesized group,
+// given the offset just past its "(", or null when the group is not one.
+// Tree-sitter skips whitespace and ";" comments between "(" and "#", so
+// "( #eq? ...)" and "(\n  #set! ...)" are predicates too. Predicate names
+// end in "?" and directive names end in "!". Both count here: Emacs treesit
+// rejects every name except eq?, match? and pred?, so directives such as
+// #set! must be omitted from Emacs output along with predicates.
+function predicateNameAfter(content, offset) {
+  // A comment must run to its line end so backtracking cannot stop inside it.
+  const match = /^(?:\s|;[^\n]*(?:\n|$))*(#[A-Za-z-]+[?!])/.exec(content.slice(offset));
+  return match ? match[1] : null;
+}
+
+// Return top-level query patterns and their capture locations. Strings and
+// comments are opaque so punctuation and @ signs inside them are not syntax.
+//
+// Each pattern's `text` begins at `start` and covers, in order:
+// - Its leading comment lines: every whole comment line after the previous
+//   pattern's end. Comments before the first pattern belong to it.
+// - The pattern itself, including top-level trailing captures and quantifiers.
+// - A comment on the same line as the pattern's last token, which is the
+//   pattern's inline trailing comment.
+// Comments after the last pattern describe no pattern and are not returned.
+function scanQuery(content) {
+  const patterns = [];
+  let start = -1;
+  // Offset just past the previous pattern's text; leading comments start here.
+  let owned = 0;
+  // Offset just past the current pattern's last non-comment token.
+  let end = -1;
+  const stack = [];
+  let captures = [];
+  let inString = false;
+  let inComment = false;
+  const finish = () => {
+    // Extend over an inline comment that shares the pattern's last line.
+    let stop = end;
+    const inline = /^[ \t]*;[^\r\n]*/.exec(content.slice(end));
+    if (inline) stop = end + inline[0].length;
+    // Leading comments start at the beginning of the first non-blank line.
+    let lead = owned;
+    while (lead < start && /\s/.test(content[lead])) lead += 1;
+    if (lead < start) lead = Math.max(owned, content.lastIndexOf("\n", lead) + 1);
+    else lead = start;
+    patterns.push({ start: lead, code: start, text: content.slice(lead, stop).trimEnd(), captures });
+    owned = stop;
+    start = -1;
+    captures = [];
+  };
+  for (let i = 0; i < content.length; i += 1) {
+    const ch = content[i];
+    if (start >= 0 && stack.length === 0 && !inString && !inComment &&
+        (ch === "(" || ch === "[" || ch === '"')) {
+      finish();
+    }
+    if (inComment) {
+      if (ch === "\n") inComment = false;
+      continue;
+    }
+    if (inString) {
+      if (ch === "\\") i += 1;
+      else if (ch === '"') { inString = false; end = i + 1; }
+      continue;
+    }
+    if (start >= 0 && !/\s/.test(ch) && ch !== ";") end = i + 1;
+    if (ch === ";") {
+      inComment = true;
+    } else if (ch === '"') {
+      if (start < 0) start = i;
+      inString = true;
+    } else if (ch === "(" || ch === "[") {
+      if (start < 0) start = i;
+      stack.push({ close: ch === "(" ? ")" : "]",
+        predicate: ch === "(" && predicateNameAfter(content, i + 1) !== null });
+    } else if (ch === ")" || ch === "]") {
+      if (stack.pop()?.close !== ch) throw new Error(`Unbalanced query near offset ${i}`);
+    } else if (ch === "@" && start >= 0) {
+      const match = /^@([A-Za-z0-9_.-]+)/.exec(content.slice(i));
+      if (match) {
+        captures.push({ start: i, end: i + match[0].length, name: match[1],
+          predicate: stack.at(-1)?.predicate || false });
+        i += match[0].length - 1;
+        end = i + 1;
+      }
+    }
+  }
+  if (stack.length || inString) throw new Error("Incomplete query pattern");
+  if (start >= 0) finish();
+  return patterns;
+}
+
+function sectionedContent(content, mapping, options) {
+  const patterns = scanQuery(content);
+  const seen = new Set(patterns.flatMap((pattern) => pattern.captures.map((capture) => capture.name)));
+  assertMappingComplete(mapping, seen, "sectioned query");
+  const sections = [];
+  for (const pattern of patterns) {
+    // Predicate capture references do not determine the feature, but still
+    // need their names rewritten along with the defining capture.
+    const features = new Set();
+    let retained = false;
+    for (const { name } of pattern.captures) {
+      const value = mapping[name];
+      if (value !== null && value !== false && value !== "") {
+        retained = true;
+        if (!value || typeof value !== "object" ||
+            typeof value.capture !== "string" || typeof value.feature !== "string" ||
+            !value.capture || !value.feature) {
+          throw new Error(`Expected capture and feature for @${name}`);
+        }
+        features.add(value.feature);
+      }
+    }
+    if (!retained) continue;
+    // Inspect every operand of each predicate, not only its first capture.
+    // scanQuery has already excluded quoted strings and semicolon comments.
+    const predicateCaptures = pattern.captures.filter(({ predicate }) => predicate);
+    if (predicateCaptures.some(({ name }) =>
+      mapping[name] === "" || mapping[name] === null || mapping[name] === false)) continue;
+    if (options.omitPredicates && predicateCaptures.length) continue;
+    if (features.size !== 1) {
+      throw new Error(`Mixed features in pattern: ${pattern.text}`);
+    }
+    const feature = [...features][0];
+    let text = pattern.text;
+    for (const capture of [...pattern.captures].reverse()) {
+      const value = mapping[capture.name];
+      const replacement = value === null || value === false || value === ""
+        ? "" : normalizeCaptureName(value.capture);
+      text = text.slice(0, capture.start - pattern.start) + replacement +
+        text.slice(capture.end - pattern.start);
+    }
+    if (options.predicates) {
+      // Rewrite only predicate tokens, never matching text in strings/comments.
+      const masked = Array.from(text);
+      let quoted = false;
+      let commented = false;
+      for (let i = 0; i < text.length; i += 1) {
+        if (commented) { if (text[i] === "\n") commented = false; masked[i] = " "; }
+        else if (quoted) {
+          masked[i] = " ";
+          if (text[i] === "\\") { i += 1; masked[i] = " "; }
+          else if (text[i] === '"') quoted = false;
+        } else if (text[i] === ";") { commented = true; masked[i] = " "; }
+        else if (text[i] === '"') { quoted = true; masked[i] = " "; }
+      }
+      // Masking turns comments into spaces, so the "(" check below accepts the
+      // same whitespace and comment gaps that predicateNameAfter does.
+      const edits = [...masked.join("").matchAll(/#[A-Za-z-]+[?!]/g)]
+        .filter((match) => options.predicates[match[0]] &&
+          /^\(\s*$/.test("(" + masked.slice(0, match.index).join("").split("(").at(-1)));
+      for (const match of edits.reverse()) {
+        text = text.slice(0, match.index) + options.predicates[match[0]] +
+          text.slice(match.index + match[0].length);
+      }
+    }
+    // Leading comments hold only comments and whitespace, so the edits above
+    // never change their length. Collapse their blank-line runs to one line.
+    const lead = pattern.code - pattern.start;
+    text = text.slice(0, lead).replace(/\n(?:[ \t]*\n)+/g, "\n\n") + text.slice(lead);
+    if (!sections.length || sections[sections.length - 1].feature !== feature) {
+      sections.push({ feature, patterns: [] });
+    }
+    sections[sections.length - 1].patterns.push(text.trimEnd());
+  }
+  return sections.map(({ feature, patterns }) =>
+    `;; feature: ${feature}\n${patterns.join("\n\n")}`).join("\n\n") + "\n";
 }
 
 async function ensureDir(dirPath) {
@@ -231,10 +402,19 @@ async function main() {
       const fileKey = path.basename(scmPath, ".scm");
       const mappingForFile =
         mappingRoot && typeof mappingRoot === "object" ? mappingRoot[fileKey] : null;
-      const captures = collectCaptures(content);
+      // A map with only highlights deliberately does not generate unrelated
+      // query families. Existing editors still require complete coverage.
+      if (mappingForFile === false) continue;
+      if (editorName === "emacs" && !mappingForFile) continue;
+      const captures = editorName === "emacs"
+        ? new Set(scanQuery(content).flatMap((pattern) => pattern.captures.map(({ name }) => name)))
+        : collectCaptures(content);
       const contextLabel = `${editorName}/${fileKey}`;
       assertMappingComplete(mappingForFile, captures, contextLabel);
-      const output = applyMappingToContent(content, mappingForFile);
+      const options = mappingRoot.$emacs || {};
+      const output = options.featureSections
+        ? sectionedContent(content, mappingForFile, options)
+        : applyMappingToContent(content, mappingForFile);
 
       const relativePath = path.relative(rootDir, scmPath);
       const outputPath = path.join(outDir, editorName, relativePath);
@@ -247,7 +427,11 @@ async function main() {
   console.log(`Generated queries for: ${editorList}`);
 }
 
-main().catch((error) => {
-  console.error(error instanceof Error ? error.message : error);
-  process.exit(1);
-});
+if (require.main === module) {
+  main().catch((error) => {
+    console.error(error instanceof Error ? error.message : error);
+    process.exit(1);
+  });
+}
+
+module.exports = { scanQuery, sectionedContent, applyMappingToContent };

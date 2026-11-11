@@ -112,15 +112,14 @@ This writes output to queries-generated/<editor>/...
 Once you've made a change, to test it, run:
 
 ```bash
-tree-sitter generate
-tree-sitter test
+just test-gen
 ```
 
 if you add a new feature you should add a test to one of the test files in `test/corpus/*.txt`
 once you are happy with you changes run
 
 ```bash
-tree-sitter test --update
+just test-update
 ```
 
 and it will update the test files with your new parsed tree
@@ -137,7 +136,9 @@ Common tasks are available via [justfile](justfile):
 - `just generate-check` ensures generated parser files are up-to-date.
 - `just queries-generate` generates editor query outputs.
 - `just queries-check` verifies generated queries are clean.
-- `just ci` runs generate-check, tests, and queries-check.
+- `just fixture-builtin [RELEASE]` downloads the files in [Roc compiler fixtures](#roc-compiler-fixtures) from the Roc commit a nightly was built from. `RELEASE` is a nightly tag such as `nightly-2026-11-10-f7d1f19`, or `latest` (the default).
+- `just outline-check` checks nested Zed outline captures, required Builtin paths, and the reviewed full snapshot. Signatures take precedence over matching definitions; unsigned definitions remain. Type punctuation is included in labels, and function locals are excluded. The check models captures and containment without launching Zed.
+- `just ci` runs generated-artifact checks, parser/highlight and query regressions, and the outline check.
 
 ### CI helpers
 
@@ -146,4 +147,87 @@ The following npm scripts are designed for CI:
 - `npm run ts:generate-check` ensures parser generation is clean.
 - `npm run ts:test` runs parser tests.
 - `npm run queries:check` validates query templating output.
-- `npm run ci` runs all checks.
+- `npm run ci` runs all checks, beginning with pinned-syntax self-tests and ending with the pinned whole-file check.
+
+### Roc compiler fixtures
+
+`test/fixtures/roc-compiler/` holds files copied unchanged from the Roc compiler
+repository:
+
+- `Builtin.roc`, from `src/build/roc/Builtin.roc`, is the input for `npm run outline:check`.
+  `Builtin.zed-outline.txt` is that check's reviewed snapshot.
+- `all_syntax_test.roc`, from `test/echo/all_syntax_test.roc`, is the input for `npm run pinned-syntax:check`.
+- `LICENSE` is the Roc license that covers both files.
+
+The copied files are Roc software under **UPL-1.0**, not this repository's ISC
+license. Copyright © 2019 Richard Feldman and subsequent Roc authors <roc-lang.org/authors>.
+
+`source.json` records the [Roc nightly](https://github.com/roc-lang/nightlies/releases)
+the files come from, the full Roc commit that nightly was built from, and each file's
+upstream path, download URL, byte count and SHA-256. Both checks verify every file
+against `source.json` before running, so an edited fixture fails CI. Checks never
+download or rewrite the fixtures; `.gitattributes` keeps their exact bytes.
+
+To update the fixtures, run `just fixture-builtin` for the latest nightly, or
+`just fixture-builtin nightly-YYYY-MM-DD-<commit>` for a specific one. It downloads
+from GitHub and replaces the files and `source.json` only after every download
+succeeds. Set `GITHUB_TOKEN` if GitHub API rate limits block it. A new `Builtin.roc`
+usually changes the outline, so review the difference and re-record the snapshot
+with `node tools/check-zed-outline.js --record --force`.
+
+### Pinned upstream syntax acceptance
+
+`npm run pinned-syntax:check` parses the complete, unchanged upstream
+`test/echo/all_syntax_test.roc` as one file with the project-local Tree-sitter
+0.25.10 CLI and production parser. `npm run pinned-syntax:self-test` independently
+checks input integrity, actual CLI recovery output, reporting, runner failures, and
+read-only pinned-fixture CLI invocation.
+Both are offline after normal npm dependencies and native C/C++ build prerequisites
+are installed. Every parse uses `--cst --rebuild --time` from the repository root,
+with `NO_COLOR=1`; rebuilding compiles only the parser cache, not grammar outputs.
+The runner has a 60-second process timeout and a 16 MiB output bound. The
+fixture is about 13 KB and produces about 180 KiB of CST output. Its source and
+license are described in [Roc compiler fixtures](#roc-compiler-fixtures).
+
+Acceptance requires a complete tree, a final timing summary, consistent process
+status/error marking, and no recovery. Exit 0 means acceptance; exit 1 means
+syntax discrepancies; exit 2 means input/infrastructure failure (including missing
+inputs/CLI, changed checksum, launch/signal/timeout/overflow, unusable output or
+contradictory evidence). Reports use zero-based rows and byte columns; zero-width
+ranges are insertion points. Recovery reports retain raw CLI output and excerpts.
+Anonymous missing tokens are visible in CST even when XML omits them. Named missing
+leaves can only be described as `zero-width error-marked node`, not confidently
+as MISSING. Actual CLI self-tests demonstrate a named missing leaf with exit zero;
+this contradictory result is rejected as infrastructure failure. An error-marked
+subtree without a visible recovery is also rejected, never silently accepted.
+The no-visible-recovery fallback is tested with controlled output. Actual CLI tests
+cover multiline ERROR leaves for both quoted and triple-quoted input. Multiline
+text continuation rows are validated against the owning node's source bytes;
+reports use that node's actual range, not the CLI's continuation display columns.
+The documentation-comment case contains separate single-line leaves. No clean
+multiline named leaf has been demonstrated with the production grammar; a genuine
+multiline leaf is tested with controlled clean and error-marked output, including
+rejection of truncated or corrupted continuations, incorrect row order, multi-row
+continuation spans, and incorrect indentation (including extra error-tree display
+padding). The renderer assumptions follow CLI 0.25.10
+[`cst_render_node` and `write_node_text`](https://github.com/tree-sitter/tree-sitter/blob/v0.25.10/cli/src/parse.rs),
+including its optional extra display space for error-free nodes in error traversal.
+Separate forced rebuild invocations avoid ambiguous multi-file output and unverified
+shared caches.
+
+This establishes **Tree-sitter acceptance only**: no compiler build/execution,
+fixture execution, import resolution or structural comparison occurs. The fixture's
+`../../README.md` import is deliberately unresolved. There are zero exceptions,
+no automatic baseline recording and no suppression mechanism. A failing fixture
+requires individual user decisions before grammar fixes or expected differences;
+passing self-tests alone do not make a rejected fixture or CI green.
+
+To update the pin, obtain explicit review approval for a selected release and full
+source commit, download the complete unchanged file and applicable license notice
+from immutable commit URLs, compute their SHA-256 values locally, update provenance,
+and review the byte/provenance diff. The checker freezes the exact full commit and
+release identity: review and update its `loadPin` constants together with metadata,
+including the pin-integrity regression for a different full commit sharing the
+same release abbreviation. Run both dedicated commands and full CI
+separately. Never advance to latest automatically or change grammar, queries or
+existing baselines to hide a discrepancy.

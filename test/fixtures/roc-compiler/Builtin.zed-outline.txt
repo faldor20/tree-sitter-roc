@@ -1,0 +1,2889 @@
+Builtin :: L1-L23702
+  Encoding :: L65-L2231
+    FieldName :: L72-L82
+      FieldNames :: L73-L79
+        rename_fields : L74-L74
+        shortest_name : L75-L75
+        longest_name : L76-L76
+        iter : L77-L77
+        for_size : L78-L78
+      name : L81-L81
+    ParseTagUnionSpec :: L84-L100
+      parse : L90-L99
+    JsonState :: L102-L102
+    JsonEncodeState :: L103-L103
+    JsonContainerEncodeState :: L104-L104
+    Json :: L106-L1493
+      parse_str : L107-L107
+      parse_bool : L110-L110
+      parse_u8 : L113-L113
+      parse_i8 : L116-L116
+      parse_u16 : L119-L119
+      parse_i16 : L122-L122
+      parse_u32 : L125-L125
+      parse_i32 : L128-L128
+      parse_u64 : L131-L131
+      parse_i64 : L134-L134
+      parse_u128 : L137-L137
+      parse_i128 : L140-L140
+      parse_dec : L143-L143
+      parse_f32 : L146-L146
+      parse_f64 : L149-L149
+      parse_null : L152-L152
+      parse_list_start : L155-L155
+      parse_list_next : L158-L158
+      parse_list_after_item : L161-L161
+      parse_tuple_start : L164-L164
+      parse_tuple_next : L167-L167
+      parse_tuple_end : L170-L170
+      encode_str : L173-L173
+      encode_bool : L176-L176
+      encode_u8 : L179-L179
+      encode_i8 : L182-L182
+      encode_u16 : L185-L185
+      encode_i16 : L188-L188
+      encode_u32 : L191-L191
+      encode_i32 : L194-L194
+      encode_u64 : L197-L197
+      encode_i64 : L200-L200
+      encode_u128 : L203-L203
+      encode_i128 : L206-L206
+      encode_dec : L209-L209
+      encode_f32 : L212-L212
+      encode_f64 : L215-L215
+      encode_null : L218-L218
+      encode_tag : L222-L222
+      encode_record : L225-L225
+      encode_tuple : L228-L228
+      encode_list : L231-L231
+      encode_dict : L234-L234
+      to_str : L253-L253
+      to_str_try : L266-L266
+      parse : L275-L276
+      parse_trailing_commas : L292-L293
+      parser_camel : L309-L310
+      invalid_json : L329-L329
+      parse_json_bool : L332-L332
+      parse_json_null : L346-L346
+      parse_list_start_from_json : L360-L360
+      parse_list_next_from_json : L371-L371
+      parse_list_after_item_from_json : L382-L382
+      parse_tuple_start_from_json : L408-L408
+      parse_tuple_next_from_json : L431-L431
+      parse_tuple_end_from_json : L442-L442
+      parse_json_number_prefix : L470-L470
+      parse_json_number : L500-L500
+      dec_from_json_number : L515-L515
+      split_json_number_exponent : L522-L522
+      dec_from_json_exponent_parts : L533-L533
+      json_dec_digits_are_zero : L579-L579
+      trim_json_dec_leading_zeros : L590-L590
+      normalize_json_dec_digits : L606-L606
+      take_json_key : L638-L638
+      parse_json_key_unsigned_int : L651-L651
+      parse_json_key_signed_int : L665-L665
+      parse_json_key_number : L679-L679
+      encode_json_number : L693-L693
+      write_record_field : L701-L701
+      write_dict_entry : L719-L719
+      write_sequence_item : L737-L737
+      append_json_string_bytes : L754-L754
+      append_json_quoted_string : L768-L768
+      append_json_string_byte : L786-L786
+      append_json_unicode_escape : L808-L808
+      hex_digit_byte : L831-L831
+      parse_record_start_from_json : L839-L839
+      parse_record_field_from_json : L852-L861
+      parse_record_after_field_from_json : L874-L874
+      parse_json_object_key : L901-L901
+      snake_to_camel : L920-L920
+      upper_first_ascii : L929-L929
+      skip_json_value : L955-L955
+      skip_json_object : L979-L979
+      skip_json_array : L1036-L1036
+      parse_tag_union_from_json : L1081-L1081
+      start_string_tag_payloads : L1154-L1154
+      next_string_tag_payload : L1158-L1158
+      finish_string_tag_payloads : L1161-L1161
+      start_object_tag_payloads : L1169-L1169
+      next_object_tag_payload : L1184-L1184
+      finish_object_tag_payloads : L1192-L1192
+      finish_tag_payload : L1200-L1200
+      consume_empty_json_object : L1225-L1225
+      is_json_scalar : L1242-L1242
+      is_json_number : L1254-L1254
+      is_json_u64_literal : L1363-L1363
+      is_json_unsigned_int_literal : L1366-L1366
+      is_json_signed_int_literal : L1399-L1399
+      is_json_digit : L1408-L1408
+      is_json_digit_one_to_nine : L1416-L1416
+      is_json_exponent_marker : L1424-L1424
+      is_json_sign : L1432-L1432
+      split_json_string_tail : L1445-L1445
+      split_json_scalar_tail : L1458-L1458
+    JsonEncoding :: L1495-L2062
+      rename_field : L1496-L1496
+      allows_trailing_commas : L1504-L1504
+      parse_str : L1512-L1512
+      parse_bool : L1527-L1527
+      parse_u8 : L1533-L1533
+      parse_i8 : L1539-L1539
+      parse_u16 : L1545-L1545
+      parse_i16 : L1551-L1551
+      parse_u32 : L1557-L1557
+      parse_i32 : L1563-L1563
+      parse_u64 : L1569-L1569
+      parse_i64 : L1575-L1575
+      parse_u128 : L1581-L1581
+      parse_i128 : L1587-L1587
+      parse_dec : L1593-L1593
+      parse_f32 : L1599-L1599
+      parse_f64 : L1605-L1605
+      parse_null : L1611-L1611
+      parse_list_start : L1617-L1617
+      parse_list_next : L1623-L1623
+      parse_list_after_item : L1629-L1629
+      parse_tuple_start : L1635-L1635
+      parse_tuple_next : L1641-L1641
+      parse_tuple_end : L1647-L1647
+      parse_record_start : L1656-L1656
+      parse_record_field : L1662-L1673
+      parse_record_after_field : L1679-L1679
+      parse_dict_start : L1687-L1687
+      parse_dict_next : L1693-L1693
+      parse_dict_after_key : L1707-L1707
+      parse_dict_after_entry : L1721-L1721
+      skip_record_field : L1727-L1727
+      invalid_value : L1730-L1730
+      missing_field : L1733-L1733
+      parse_tag_union : L1736-L1736
+      encode_tag : L1742-L1742
+      encode_record : L1771-L1771
+      encode_tuple : L1778-L1778
+      encode_list : L1785-L1785
+      encode_dict : L1790-L1790
+      encode_str : L1797-L1797
+      encode_bool : L1805-L1805
+      encode_u8 : L1813-L1813
+      encode_i8 : L1816-L1816
+      encode_u16 : L1819-L1819
+      encode_i16 : L1822-L1822
+      encode_u32 : L1825-L1825
+      encode_i32 : L1828-L1828
+      encode_u64 : L1831-L1831
+      encode_i64 : L1839-L1839
+      encode_u128 : L1842-L1842
+      encode_i128 : L1845-L1845
+      encode_dec : L1848-L1848
+      encode_f32 : L1851-L1851
+      encode_f64 : L1866-L1866
+      encode_null : L1881-L1881
+      parse_key_str : L1891-L1891
+      parse_key_bool : L1897-L1897
+      parse_key_u8 : L1913-L1913
+      parse_key_i8 : L1919-L1919
+      parse_key_u16 : L1925-L1925
+      parse_key_i16 : L1931-L1931
+      parse_key_u32 : L1937-L1937
+      parse_key_i32 : L1943-L1943
+      parse_key_u64 : L1949-L1949
+      parse_key_i64 : L1955-L1955
+      parse_key_u128 : L1961-L1961
+      parse_key_i128 : L1967-L1967
+      parse_key_dec : L1973-L1973
+      parse_key_f32 : L1979-L1979
+      parse_key_f64 : L1985-L1985
+      encode_key_str : L1993-L1993
+      encode_key_bool : L1996-L1996
+      encode_key_u8 : L1999-L1999
+      encode_key_i8 : L2002-L2002
+      encode_key_u16 : L2005-L2005
+      encode_key_i16 : L2008-L2008
+      encode_key_u32 : L2011-L2011
+      encode_key_i32 : L2014-L2014
+      encode_key_u64 : L2017-L2017
+      encode_key_i64 : L2020-L2020
+      encode_key_u128 : L2023-L2023
+      encode_key_i128 : L2026-L2026
+      encode_key_dec : L2029-L2029
+      encode_key_f32 : L2032-L2032
+      encode_key_f64 : L2047-L2047
+    HttpHeaderState :: L2064-L2064
+    HttpHeaderEncoding :: L2066-L2121
+      rename_field : L2067-L2067
+      missing_field : L2070-L2070
+      parse_str : L2073-L2073
+      parse_u64 : L2079-L2079
+      parse_record_start : L2092-L2092
+      parse_record_field : L2095-L2106
+      parse_record_after_field : L2112-L2112
+      skip_record_field : L2115-L2115
+    HttpHeader :: L2123-L2230
+      parser_for : L2133-L2134
+      parse : L2145-L2146
+      parse_str : L2156-L2156
+      parse_u64 : L2159-L2159
+      parse_record_field_from_headers : L2162-L2172
+      take_header_value : L2215-L2215
+      underscores_to_dashes : L2222-L2222
+  Str :: L2233-L2969
+    parser_for : L2234-L2234
+    encoder_for : L2235-L2235
+    Utf8Problem := L2237-L2246
+      is_eq : L2245-L2245
+    Utf16Problem := L2248-L2250
+      is_eq : L2249-L2249
+    Utf32Problem := L2252-L2254
+      is_eq : L2253-L2253
+    len : L2270-L2270
+    is_empty : L2273-L2273
+    concat : L2282-L2282
+    contains : L2290-L2290
+    trim : L2297-L2297
+    trim_start : L2303-L2303
+    trim_end : L2309-L2309
+    caseless_ascii_equals : L2342-L2342
+    with_ascii_lowercased : L2366-L2366
+    with_ascii_uppercased : L2392-L2392
+    starts_with : L2399-L2399
+    ends_with : L2406-L2406
+    repeat : L2418-L2418
+    with_prefix : L2424-L2424
+    drop_prefix : L2434-L2434
+    drop_prefix_caseless_ascii : L2447-L2447
+    drop_suffix : L2465-L2465
+    split_first : L2476-L2476
+    split_last : L2496-L2496
+    replace_each : L2513-L2513
+    replace_first : L2523-L2523
+    replace_last : L2540-L2540
+    count_utf8_bytes : L2555-L2555
+    iter_utf8 : L2559-L2559
+    drop_first_bytes : L2581-L2581
+    drop_last_bytes : L2595-L2595
+    with_capacity : L2646-L2646
+    reserve : L2711-L2711
+    release_excess_capacity : L2715-L2715
+    to_utf8 : L2726-L2726
+    to_str : L2729-L2729
+    from_utf8_lossy : L2748-L2748
+    from_utf8 : L2761-L2761
+    from_utf16_le : L2774-L2774
+    from_utf16_le_lossy : L2784-L2784
+    from_utf16_be : L2794-L2794
+    from_utf16_be_lossy : L2804-L2804
+    from_utf16_bom : L2815-L2815
+    from_utf16_bom_lossy : L2827-L2827
+    from_utf32_le : L2840-L2840
+    from_utf32_le_lossy : L2850-L2850
+    from_utf32_be : L2860-L2860
+    from_utf32_be_lossy : L2870-L2870
+    from_utf32_bom : L2881-L2881
+    from_utf32_bom_lossy : L2893-L2893
+    from_quote : L2906-L2906
+    from_interpolation : L2918-L2918
+    split_on : L2935-L2935
+    join_with : L2943-L2943
+    is_eq : L2946-L2946
+    to_hash : L2949-L2949
+    inspect : L2953-L2953
+    encode : L2956-L2957
+    decode : L2963-L2964
+  Hasher :: L2971-L3022
+    write_bool : L2974-L2974
+    write_u8 : L2977-L2977
+    write_u16 : L2980-L2980
+    write_u32 : L2983-L2983
+    write_u64 : L2986-L2986
+    write_u128 : L2989-L2989
+    write_i8 : L2992-L2992
+    write_i16 : L2995-L2995
+    write_i32 : L2998-L2998
+    write_i64 : L3001-L3001
+    write_i128 : L3004-L3004
+    write_f32 : L3008-L3008
+    write_f64 : L3012-L3012
+    write_dec : L3015-L3015
+    write_bytes : L3018-L3018
+    write_str : L3021-L3021
+  Crypto :: L3043-L3213
+    DigestBytesErr := L3044-L3044
+    DigestHexErr := L3045-L3048
+    SHA256 :: L3054-L3130
+      Digest :: L3057-L3095
+        to_bytes : L3060-L3060
+        to_hex : L3064-L3064
+        from_bytes : L3068-L3068
+        from_hex : L3077-L3077
+        is_eq : L3085-L3085
+        to_hash : L3089-L3089
+        to_inspect : L3093-L3093
+      Hasher :: L3098-L3112
+        empty : L3101-L3101
+        write : L3105-L3105
+        finish : L3110-L3110
+      hash : L3120-L3120
+      hash_chunks : L3128-L3128
+    BLAKE3 :: L3136-L3212
+      Digest :: L3139-L3177
+        to_bytes : L3142-L3142
+        to_hex : L3146-L3146
+        from_bytes : L3150-L3150
+        from_hex : L3159-L3159
+        is_eq : L3167-L3167
+        to_hash : L3171-L3171
+        to_inspect : L3175-L3175
+      Hasher :: L3180-L3194
+        empty : L3183-L3183
+        write : L3187-L3187
+        finish : L3192-L3192
+      hash : L3202-L3202
+      hash_chunks : L3210-L3210
+  Iter :: L3215-L3638
+    custom : L3224-L3224
+    iter : L3251-L3251
+    single : L3258-L3258
+    prepended : L3286-L3286
+    concat : L3301-L3301
+    append : L3345-L3345
+    next : L3377-L3377
+    map : L3380-L3380
+    with_index : L3403-L3403
+    keep_if : L3406-L3406
+    drop_if : L3423-L3423
+    fold : L3440-L3440
+    sum : L3466-L3467
+    product : L3491-L3492
+    min : L3507-L3508
+    max : L3523-L3524
+    len_if_known : L3534-L3534
+    collect : L3540-L3541
+    stream : L3550-L3550
+    take_first : L3560-L3560
+    drop_first : L3599-L3599
+    step_by : L3636-L3636
+  Stream :: L3645-L3899
+    from_iter : L3653-L3653
+    custom : L3675-L3675
+    map : L3703-L3703
+    map! : L3719-L3719
+    with_index : L3725-L3725
+    keep_if : L3730-L3730
+    drop_if : L3749-L3749
+    take_first : L3768-L3768
+    drop_first : L3801-L3801
+    stream : L3831-L3831
+    fold! : L3835-L3835
+    for_each! : L3845-L3845
+    next! : L3852-L3852
+    len_if_known : L3858-L3858
+    collect! : L3865-L3865
+  List :: L3907-L5648
+    parser_for : L3908-L3908
+    len : L3914-L3914
+    capacity : L3920-L3920
+    is_empty : L3928-L3928
+    iter : L3932-L3932
+    iter_rev : L3960-L3960
+    from_iter : L3981-L3981
+    concat : L4024-L4024
+    join : L4036-L4036
+    join_map : L4063-L4063
+    intersperse : L4072-L4072
+    with_capacity : L4120-L4120
+    reserve : L4190-L4190
+    release_excess_capacity : L4194-L4194
+    sort : L4198-L4199
+    sort_by : L4204-L4205
+    sort_with : L4213-L4213
+    sort_reversed : L4217-L4218
+    sort_by_reversed : L4223-L4224
+    sort_with_reversed : L4232-L4232
+    is_eq : L4237-L4238
+    to_hash : L4258-L4259
+    append : L4275-L4275
+    append_if_ok : L4288-L4288
+    append_range_within : L4313-L4313
+    copy_range_within : L4338-L4338
+    append_sublist : L4364-L4364
+    prepend_if_ok : L4379-L4379
+    prepend : L4399-L4399
+    first : L4406-L4406
+    get : L4420-L4420
+    prefetched : L4445-L4445
+    subscript : L4456-L4456
+    get_wrap : L4469-L4469
+    set : L4485-L4485
+    replace : L4499-L4499
+    update : L4513-L4513
+    swap : L4535-L4535
+    insert : L4552-L4552
+    rev : L4580-L4580
+    for_each! : L4587-L4587
+    map : L4599-L4599
+    map_with_index : L4629-L4629
+    map2 : L4646-L4646
+    map3 : L4670-L4670
+    map4 : L4694-L4694
+    keep_if : L4734-L4734
+    drop_if : L4792-L4792
+    keep_until : L4813-L4813
+    keep_while : L4837-L4837
+    keep_oks : L4846-L4846
+    keep_errs : L4873-L4873
+    count_if : L4900-L4900
+    map_try : L4920-L4920
+    map_try! : L4934-L4934
+    keep_if_try : L4949-L4949
+    keep_if_try! : L4965-L4965
+    fold_try : L4981-L4981
+    fold_try! : L4995-L4995
+    fold : L5032-L5032
+    fold_with_index : L5044-L5044
+    fold_until : L5068-L5068
+    fold_with_index_until : L5088-L5088
+    fold_rev : L5128-L5128
+    starts_with : L5148-L5148
+    ends_with : L5158-L5158
+    any : L5169-L5169
+    contains : L5185-L5185
+    all : L5197-L5197
+    last : L5212-L5212
+    single : L5224-L5224
+    drop_at : L5234-L5234
+    drop_swap : L5244-L5244
+    sublist : L5263-L5263
+    chunks_of : L5273-L5273
+    take_first : L5300-L5300
+    clear : L5309-L5309
+    take_last : L5326-L5326
+    drop_first : L5340-L5340
+    drop_last : L5353-L5353
+    find_first : L5364-L5364
+    find_last : L5376-L5376
+    find_first_index : L5388-L5388
+    find_last_index : L5404-L5404
+    split_at : L5422-L5422
+    split_on : L5441-L5441
+    split_if : L5451-L5451
+    split_on_list : L5471-L5472
+    split_first : L5506-L5507
+    split_last : L5521-L5522
+    repeat : L5538-L5538
+    sum : L5563-L5564
+    min : L5569-L5570
+    max : L5588-L5589
+    encoder_for : L5606-L5610
+    decode : L5637-L5641
+  Bool := L5650-L5694
+    parser_for : L5651-L5651
+    encoder_for : L5652-L5652
+    not : L5661-L5661
+    is_eq : L5664-L5664
+    to_hash : L5677-L5677
+    encode : L5681-L5682
+    decode : L5688-L5689
+  Box :: L5696-L5707
+    parser_for : L5697-L5697
+    encoder_for : L5698-L5698
+    box : L5703-L5703
+    unbox : L5706-L5706
+  Try := L5709-L5995
+    parser_for : L5710-L5710
+    encoder_for : L5711-L5711
+    is_ok : L5717-L5717
+    is_err : L5727-L5727
+    ok_or : L5744-L5744
+    err_or : L5757-L5757
+    map_ok : L5776-L5776
+    map_ok! : L5788-L5788
+    map_err : L5802-L5802
+    map_err! : L5815-L5815
+    map_both : L5838-L5838
+    map_both! : L5849-L5849
+    map2 : L5867-L5867
+    map2! : L5879-L5879
+    on_err : L5904-L5904
+    on_err! : L5915-L5915
+    catch : L5934-L5934
+    catch! : L5945-L5945
+    collapse : L5958-L5958
+    is_eq : L5965-L5969
+    to_hash : L5986-L5990
+  Dict :: L5997-L6669
+    parser_for : L6000-L6000
+    encoder_for : L6001-L6001
+    DictBucket : L6003-L6003
+    DictData : L6038-L6043
+    DictMetadata : L6045-L6049
+    is_eq : L6053-L6058
+    to_hash : L6086-L6090
+    to_inspect : L6112-L6112
+    empty : L6119-L6119
+    with_capacity : L6123-L6123
+    capacity : L6135-L6135
+    reserve : L6145-L6146
+    release_excess_capacity : L6158-L6159
+    clear : L6170-L6170
+    single : L6186-L6187
+    len : L6198-L6198
+    is_empty : L6209-L6209
+    get : L6222-L6223
+    subscript : L6244-L6245
+    contains : L6252-L6253
+    insert : L6268-L6269
+    remove : L6300-L6301
+    to_list : L6315-L6315
+    iter : L6326-L6326
+    iter_rev : L6339-L6339
+    from_list : L6350-L6351
+    from_iter : L6361-L6362
+    keys : L6392-L6392
+    values : L6409-L6409
+    fold : L6430-L6430
+    fold_until : L6452-L6452
+    keep_if : L6482-L6483
+    drop_if : L6510-L6511
+    map : L6527-L6527
+    join_map : L6543-L6544
+    insert_all : L6565-L6566
+    keep_shared : L6588-L6593
+    remove_all : L6619-L6620
+    update : L6650-L6651
+  Set :: L6671-L6899
+    parser_for : L6672-L6672
+    encoder_for : L6673-L6673
+    is_eq : L6676-L6677
+    to_hash : L6681-L6682
+    to_inspect : L6701-L6701
+    empty : L6705-L6705
+    single : L6712-L6713
+    len : L6720-L6720
+    is_empty : L6724-L6724
+    contains : L6728-L6729
+    insert : L6733-L6734
+    remove : L6744-L6745
+    to_list : L6749-L6749
+    fold : L6761-L6761
+    iter : L6767-L6767
+    iter_rev : L6771-L6771
+    from_list : L6775-L6776
+    keep_if : L6784-L6785
+    drop_if : L6793-L6794
+    union : L6807-L6808
+    intersection : L6821-L6822
+    difference : L6834-L6835
+    map : L6847-L6848
+    with_capacity : L6852-L6852
+    capacity : L6856-L6856
+    reserve : L6860-L6861
+    release_excess_capacity : L6865-L6866
+    clear : L6870-L6870
+    subscript : L6874-L6875
+    from_iter : L6880-L6881
+    fold_until : L6892-L6892
+    join_map : L6896-L6897
+  Num :: L6901-L23700
+    RawOrder := L6907-L6907
+    Range :: L6915-L6991
+      custom : L6926-L6933
+      len_if_known : L6945-L6945
+      step_by : L6950-L6951
+      iter : L6963-L6964
+      iter_rev : L6972-L6980
+    Numeral :: L6993-L7035
+      is_negative : L7015-L7015
+      digits_before_pt : L7021-L7021
+      digits_after_pt : L7026-L7026
+      digits_after_pt_count : L7031-L7031
+    U8 :: L7037-L7767
+      parser_for : L7038-L7038
+      encoder_for : L7039-L7039
+      default : L7046-L7046
+      highest : L7053-L7053
+      lowest : L7060-L7060
+      to_str : L7067-L7067
+      is_zero : L7075-L7075
+      is_eq : L7084-L7084
+      to_hash : L7087-L7087
+      is_gt : L7097-L7097
+      is_gte : L7105-L7105
+      is_lt : L7113-L7113
+      is_lte : L7121-L7121
+      order_relative_to : L7131-L7131
+      is_even : L7140-L7140
+      is_odd : L7149-L7149
+      is_multiple_of : L7161-L7161
+      max : L7168-L7168
+      min : L7179-L7179
+      plus : L7190-L7190
+      plus_wrap : L7196-L7196
+      plus_overflows : L7199-L7199
+      plus_try : L7203-L7203
+      range_len_if_known : L7206-L7206
+      range_iter : L7214-L7214
+      range_exclusive_to : L7217-L7217
+      range_inclusive_to : L7220-L7220
+      range_exclusive_from : L7223-L7223
+      range_inclusive_from : L7226-L7226
+      plus_saturated : L7235-L7235
+      minus : L7242-L7242
+      minus_wrap : L7248-L7248
+      minus_overflows : L7251-L7251
+      minus_try : L7255-L7255
+      minus_saturated : L7264-L7264
+      times : L7271-L7271
+      times_wrap : L7277-L7277
+      times_overflows : L7280-L7280
+      times_try : L7284-L7284
+      times_saturated : L7293-L7293
+      pow : L7303-L7303
+      pow_try : L7319-L7319
+      div_by : L7328-L7328
+      div_try : L7332-L7332
+      div_ceil_by : L7342-L7342
+      div_ceil_try : L7358-L7358
+      div_floor_by : L7366-L7366
+      div_trunc_by : L7374-L7374
+      rem_by : L7380-L7380
+      mod_by : L7389-L7389
+      abs_diff : L7397-L7397
+      shl_wrap : L7412-L7412
+      shr_wrap : L7428-L7428
+      shr_zf_wrap : L7442-L7442
+      bitwise_and : L7452-L7452
+      bitwise_or : L7462-L7462
+      bitwise_xor : L7472-L7472
+      bitwise_not : L7481-L7481
+      count_leading_zero_bits : L7493-L7493
+      count_trailing_zero_bits : L7505-L7505
+      count_one_bits : L7517-L7517
+      from_int_digits : L7526-L7526
+      from_numeral : L7532-L7532
+      from_str : L7543-L7543
+      from_str_prefix : L7568-L7568
+      from_utf8_prefix : L7593-L7593
+      to : L7616-L7616
+      until : L7652-L7652
+      to_i8_wrap : L7682-L7682
+      to_i8_try : L7692-L7692
+      to_i16 : L7697-L7697
+      to_i32 : L7701-L7701
+      to_i64 : L7705-L7705
+      to_i128 : L7709-L7709
+      to_u8 : L7712-L7712
+      to_u8_try : L7716-L7716
+      to_u8_wrap : L7720-L7720
+      to_u16 : L7726-L7726
+      to_u32 : L7730-L7730
+      to_u64 : L7734-L7734
+      to_u128 : L7738-L7738
+      to_f32 : L7743-L7743
+      to_f64 : L7747-L7747
+      to_dec : L7751-L7751
+      encode : L7754-L7755
+      decode : L7761-L7762
+    I8 :: L7769-L8688
+      parser_for : L7770-L7770
+      encoder_for : L7771-L7771
+      default : L7778-L7778
+      highest : L7785-L7785
+      lowest : L7792-L7792
+      to_str : L7801-L7801
+      is_zero : L7809-L7809
+      is_negative : L7818-L7818
+      is_positive : L7827-L7827
+      is_eq : L7836-L7836
+      to_hash : L7839-L7839
+      is_gt : L7848-L7848
+      is_gte : L7856-L7856
+      is_lt : L7864-L7864
+      is_lte : L7872-L7872
+      order_relative_to : L7882-L7882
+      is_even : L7891-L7891
+      is_odd : L7900-L7900
+      is_multiple_of : L7914-L7914
+      max : L7923-L7923
+      min : L7936-L7936
+      negate : L7949-L7949
+      abs : L7958-L7958
+      plus : L7964-L7964
+      plus_wrap : L7970-L7970
+      plus_overflows : L7973-L7973
+      plus_try : L7977-L7977
+      range_len_if_known : L7980-L7980
+      range_iter : L7988-L7988
+      range_exclusive_to : L7991-L7991
+      range_inclusive_to : L7994-L7994
+      range_exclusive_from : L7997-L7997
+      range_inclusive_from : L8000-L8000
+      plus_saturated : L8011-L8011
+      minus : L8025-L8025
+      minus_wrap : L8031-L8031
+      minus_overflows : L8034-L8034
+      minus_try : L8038-L8038
+      minus_saturated : L8049-L8049
+      times : L8056-L8056
+      times_wrap : L8062-L8062
+      times_overflows : L8065-L8065
+      times_try : L8069-L8069
+      times_saturated : L8080-L8080
+      pow : L8090-L8090
+      pow_try : L8113-L8113
+      div_by : L8122-L8122
+      div_try : L8126-L8126
+      div_ceil_by : L8140-L8140
+      div_ceil_try : L8161-L8161
+      div_floor_by : L8174-L8174
+      div_trunc_by : L8191-L8191
+      rem_by : L8200-L8200
+      mod_by : L8212-L8212
+      abs_diff : L8222-L8222
+      shl_wrap : L8236-L8236
+      shr_wrap : L8256-L8256
+      shr_zf_wrap : L8273-L8273
+      bitwise_and : L8288-L8288
+      bitwise_or : L8303-L8303
+      bitwise_xor : L8318-L8318
+      bitwise_not : L8328-L8328
+      count_leading_zero_bits : L8340-L8340
+      count_trailing_zero_bits : L8352-L8352
+      count_one_bits : L8364-L8364
+      to : L8376-L8376
+      until : L8412-L8412
+      from_int_digits : L8441-L8441
+      from_numeral : L8447-L8447
+      from_str : L8460-L8460
+      from_str_prefix : L8487-L8487
+      from_utf8_prefix : L8510-L8510
+      to_i8 : L8524-L8524
+      to_i8_try : L8528-L8528
+      to_i8_wrap : L8532-L8532
+      to_i16 : L8538-L8538
+      to_i32 : L8542-L8542
+      to_i64 : L8546-L8546
+      to_i128 : L8550-L8550
+      to_u8_wrap : L8562-L8562
+      to_u8_try : L8572-L8572
+      to_u16_wrap : L8584-L8584
+      to_u16_try : L8594-L8594
+      to_u32_wrap : L8606-L8606
+      to_u32_try : L8616-L8616
+      to_u64_wrap : L8628-L8628
+      to_u64_try : L8638-L8638
+      to_u128_wrap : L8648-L8648
+      to_u128_try : L8658-L8658
+      to_f32 : L8664-L8664
+      to_f64 : L8668-L8668
+      to_dec : L8672-L8672
+      encode : L8675-L8676
+      decode : L8682-L8683
+    U16 :: L8690-L9477
+      parser_for : L8691-L8691
+      encoder_for : L8692-L8692
+      default : L8699-L8699
+      highest : L8706-L8706
+      lowest : L8713-L8713
+      to_str : L8720-L8720
+      is_zero : L8728-L8728
+      is_eq : L8737-L8737
+      to_hash : L8740-L8740
+      is_gt : L8749-L8749
+      is_gte : L8757-L8757
+      is_lt : L8765-L8765
+      is_lte : L8773-L8773
+      order_relative_to : L8783-L8783
+      is_even : L8792-L8792
+      is_odd : L8801-L8801
+      is_multiple_of : L8813-L8813
+      max : L8820-L8820
+      min : L8831-L8831
+      plus : L8842-L8842
+      plus_wrap : L8848-L8848
+      plus_overflows : L8851-L8851
+      plus_try : L8855-L8855
+      range_len_if_known : L8858-L8858
+      range_iter : L8866-L8866
+      range_exclusive_to : L8869-L8869
+      range_inclusive_to : L8872-L8872
+      range_exclusive_from : L8875-L8875
+      range_inclusive_from : L8878-L8878
+      plus_saturated : L8887-L8887
+      minus : L8894-L8894
+      minus_wrap : L8900-L8900
+      minus_overflows : L8903-L8903
+      minus_try : L8907-L8907
+      minus_saturated : L8916-L8916
+      times : L8923-L8923
+      times_wrap : L8929-L8929
+      times_overflows : L8932-L8932
+      times_try : L8936-L8936
+      times_saturated : L8945-L8945
+      pow : L8955-L8955
+      pow_try : L8971-L8971
+      div_by : L8980-L8980
+      div_try : L8984-L8984
+      div_ceil_by : L8994-L8994
+      div_ceil_try : L9010-L9010
+      div_floor_by : L9018-L9018
+      div_trunc_by : L9026-L9026
+      rem_by : L9032-L9032
+      mod_by : L9041-L9041
+      abs_diff : L9049-L9049
+      shl_wrap : L9064-L9064
+      shr_wrap : L9080-L9080
+      shr_zf_wrap : L9094-L9094
+      bitwise_and : L9104-L9104
+      bitwise_or : L9114-L9114
+      bitwise_xor : L9124-L9124
+      bitwise_not : L9133-L9133
+      count_leading_zero_bits : L9145-L9145
+      count_trailing_zero_bits : L9157-L9157
+      count_one_bits : L9169-L9169
+      from_le_bytes : L9179-L9179
+      to : L9204-L9204
+      until : L9240-L9240
+      from_int_digits : L9267-L9267
+      from_numeral : L9273-L9273
+      from_str : L9284-L9284
+      from_str_prefix : L9311-L9311
+      from_utf8_prefix : L9334-L9334
+      to_i8_wrap : L9357-L9357
+      to_i8_try : L9367-L9367
+      to_i16_wrap : L9379-L9379
+      to_i16_try : L9389-L9389
+      to_i32 : L9394-L9394
+      to_i64 : L9398-L9398
+      to_i128 : L9402-L9402
+      to_u8_wrap : L9414-L9414
+      to_u8_try : L9424-L9424
+      to_u16 : L9428-L9428
+      to_u16_try : L9432-L9432
+      to_u16_wrap : L9436-L9436
+      to_u32 : L9441-L9441
+      to_u64 : L9445-L9445
+      to_u128 : L9449-L9449
+      to_f32 : L9454-L9454
+      to_f64 : L9458-L9458
+      to_dec : L9462-L9462
+      encode : L9465-L9466
+      decode : L9471-L9472
+    I16 :: L9479-L10437
+      parser_for : L9480-L9480
+      encoder_for : L9481-L9481
+      default : L9488-L9488
+      highest : L9495-L9495
+      lowest : L9502-L9502
+      to_str : L9511-L9511
+      is_zero : L9519-L9519
+      is_negative : L9528-L9528
+      is_positive : L9537-L9537
+      is_eq : L9546-L9546
+      to_hash : L9549-L9549
+      is_gt : L9558-L9558
+      is_gte : L9566-L9566
+      is_lt : L9574-L9574
+      is_lte : L9582-L9582
+      order_relative_to : L9592-L9592
+      is_even : L9601-L9601
+      is_odd : L9610-L9610
+      is_multiple_of : L9624-L9624
+      max : L9633-L9633
+      min : L9646-L9646
+      negate : L9659-L9659
+      abs : L9668-L9668
+      plus : L9674-L9674
+      plus_wrap : L9680-L9680
+      plus_overflows : L9683-L9683
+      plus_try : L9687-L9687
+      range_len_if_known : L9690-L9690
+      range_iter : L9698-L9698
+      range_exclusive_to : L9701-L9701
+      range_inclusive_to : L9704-L9704
+      range_exclusive_from : L9707-L9707
+      range_inclusive_from : L9710-L9710
+      plus_saturated : L9721-L9721
+      minus : L9735-L9735
+      minus_wrap : L9741-L9741
+      minus_overflows : L9744-L9744
+      minus_try : L9748-L9748
+      minus_saturated : L9759-L9759
+      times : L9766-L9766
+      times_wrap : L9772-L9772
+      times_overflows : L9775-L9775
+      times_try : L9779-L9779
+      times_saturated : L9790-L9790
+      pow : L9800-L9800
+      pow_try : L9823-L9823
+      div_by : L9832-L9832
+      div_try : L9836-L9836
+      div_ceil_by : L9850-L9850
+      div_ceil_try : L9871-L9871
+      div_floor_by : L9884-L9884
+      div_trunc_by : L9901-L9901
+      rem_by : L9910-L9910
+      mod_by : L9922-L9922
+      abs_diff : L9932-L9932
+      shl_wrap : L9946-L9946
+      shr_wrap : L9966-L9966
+      shr_zf_wrap : L9983-L9983
+      bitwise_and : L9998-L9998
+      bitwise_or : L10013-L10013
+      bitwise_xor : L10028-L10028
+      bitwise_not : L10038-L10038
+      count_leading_zero_bits : L10050-L10050
+      count_trailing_zero_bits : L10062-L10062
+      count_one_bits : L10074-L10074
+      from_le_bytes : L10084-L10084
+      to : L10109-L10109
+      until : L10145-L10145
+      from_int_digits : L10174-L10174
+      from_numeral : L10180-L10180
+      from_str : L10193-L10193
+      from_str_prefix : L10220-L10220
+      from_utf8_prefix : L10243-L10243
+      to_i8_wrap : L10266-L10266
+      to_i8_try : L10276-L10276
+      to_i16 : L10280-L10280
+      to_i16_try : L10284-L10284
+      to_i16_wrap : L10288-L10288
+      to_i32 : L10293-L10293
+      to_i64 : L10297-L10297
+      to_i128 : L10301-L10301
+      to_u8_wrap : L10313-L10313
+      to_u8_try : L10323-L10323
+      to_u16_wrap : L10334-L10334
+      to_u16_try : L10344-L10344
+      to_u32_wrap : L10356-L10356
+      to_u32_try : L10366-L10366
+      to_u64_wrap : L10378-L10378
+      to_u64_try : L10388-L10388
+      to_u128_wrap : L10398-L10398
+      to_u128_try : L10408-L10408
+      to_f32 : L10414-L10414
+      to_f64 : L10418-L10418
+      to_dec : L10422-L10422
+      encode : L10425-L10426
+      decode : L10431-L10432
+    U32 :: L10439-L11260
+      parser_for : L10440-L10440
+      encoder_for : L10441-L10441
+      default : L10448-L10448
+      highest : L10455-L10455
+      lowest : L10462-L10462
+      to_str : L10469-L10469
+      is_zero : L10477-L10477
+      is_eq : L10486-L10486
+      to_hash : L10489-L10489
+      is_gt : L10498-L10498
+      is_gte : L10506-L10506
+      is_lt : L10514-L10514
+      is_lte : L10522-L10522
+      order_relative_to : L10532-L10532
+      is_even : L10541-L10541
+      is_odd : L10550-L10550
+      is_multiple_of : L10562-L10562
+      max : L10569-L10569
+      min : L10580-L10580
+      plus : L10591-L10591
+      plus_wrap : L10597-L10597
+      plus_overflows : L10600-L10600
+      plus_try : L10604-L10604
+      range_len_if_known : L10607-L10607
+      range_iter : L10615-L10615
+      range_exclusive_to : L10618-L10618
+      range_inclusive_to : L10621-L10621
+      range_exclusive_from : L10624-L10624
+      range_inclusive_from : L10627-L10627
+      plus_saturated : L10636-L10636
+      minus : L10643-L10643
+      minus_wrap : L10649-L10649
+      minus_overflows : L10652-L10652
+      minus_try : L10656-L10656
+      minus_saturated : L10665-L10665
+      times : L10672-L10672
+      times_wrap : L10678-L10678
+      times_overflows : L10681-L10681
+      times_try : L10685-L10685
+      times_saturated : L10694-L10694
+      pow : L10704-L10704
+      pow_try : L10720-L10720
+      div_by : L10729-L10729
+      div_try : L10733-L10733
+      div_ceil_by : L10743-L10743
+      div_ceil_try : L10759-L10759
+      div_floor_by : L10767-L10767
+      div_trunc_by : L10775-L10775
+      rem_by : L10781-L10781
+      mod_by : L10790-L10790
+      abs_diff : L10798-L10798
+      shl_wrap : L10813-L10813
+      shr_wrap : L10829-L10829
+      shr_zf_wrap : L10843-L10843
+      bitwise_and : L10853-L10853
+      bitwise_or : L10863-L10863
+      bitwise_xor : L10873-L10873
+      bitwise_not : L10882-L10882
+      count_leading_zero_bits : L10894-L10894
+      count_trailing_zero_bits : L10906-L10906
+      count_one_bits : L10918-L10918
+      from_le_bytes : L10928-L10928
+      to : L10953-L10953
+      until : L10989-L10989
+      from_int_digits : L11016-L11016
+      from_numeral : L11022-L11022
+      from_str : L11033-L11033
+      from_str_prefix : L11060-L11060
+      from_utf8_prefix : L11083-L11083
+      to_i8_wrap : L11106-L11106
+      to_i8_try : L11116-L11116
+      to_i16_wrap : L11127-L11127
+      to_i16_try : L11137-L11137
+      to_i32_wrap : L11149-L11149
+      to_i32_try : L11159-L11159
+      to_i64 : L11164-L11164
+      to_i128 : L11168-L11168
+      to_u8_wrap : L11180-L11180
+      to_u8_try : L11190-L11190
+      to_u16_wrap : L11201-L11201
+      to_u16_try : L11211-L11211
+      to_u32 : L11215-L11215
+      to_u32_try : L11219-L11219
+      to_u32_wrap : L11223-L11223
+      to_u64 : L11228-L11228
+      to_u128 : L11232-L11232
+      to_f32 : L11237-L11237
+      to_f64 : L11241-L11241
+      to_dec : L11245-L11245
+      encode : L11248-L11249
+      decode : L11254-L11255
+    I32 :: L11262-L12237
+      parser_for : L11263-L11263
+      encoder_for : L11264-L11264
+      default : L11271-L11271
+      highest : L11278-L11278
+      lowest : L11285-L11285
+      to_str : L11294-L11294
+      is_zero : L11302-L11302
+      is_negative : L11311-L11311
+      is_positive : L11320-L11320
+      is_eq : L11329-L11329
+      to_hash : L11332-L11332
+      is_gt : L11341-L11341
+      is_gte : L11349-L11349
+      is_lt : L11357-L11357
+      is_lte : L11365-L11365
+      order_relative_to : L11375-L11375
+      is_even : L11384-L11384
+      is_odd : L11393-L11393
+      is_multiple_of : L11407-L11407
+      max : L11416-L11416
+      min : L11429-L11429
+      negate : L11442-L11442
+      abs : L11451-L11451
+      plus : L11457-L11457
+      plus_wrap : L11463-L11463
+      plus_overflows : L11466-L11466
+      plus_try : L11470-L11470
+      range_len_if_known : L11473-L11473
+      range_iter : L11481-L11481
+      range_exclusive_to : L11484-L11484
+      range_inclusive_to : L11487-L11487
+      range_exclusive_from : L11490-L11490
+      range_inclusive_from : L11493-L11493
+      plus_saturated : L11504-L11504
+      minus : L11518-L11518
+      minus_wrap : L11524-L11524
+      minus_overflows : L11527-L11527
+      minus_try : L11531-L11531
+      minus_saturated : L11542-L11542
+      times : L11549-L11549
+      times_wrap : L11555-L11555
+      times_overflows : L11558-L11558
+      times_try : L11562-L11562
+      times_saturated : L11573-L11573
+      pow : L11583-L11583
+      pow_try : L11606-L11606
+      div_by : L11615-L11615
+      div_try : L11619-L11619
+      div_ceil_by : L11633-L11633
+      div_ceil_try : L11654-L11654
+      div_floor_by : L11667-L11667
+      div_trunc_by : L11684-L11684
+      rem_by : L11693-L11693
+      mod_by : L11705-L11705
+      abs_diff : L11715-L11715
+      shl_wrap : L11729-L11729
+      shr_wrap : L11749-L11749
+      shr_zf_wrap : L11766-L11766
+      bitwise_and : L11781-L11781
+      bitwise_or : L11796-L11796
+      bitwise_xor : L11811-L11811
+      bitwise_not : L11821-L11821
+      count_leading_zero_bits : L11833-L11833
+      count_trailing_zero_bits : L11845-L11845
+      count_one_bits : L11857-L11857
+      from_le_bytes : L11867-L11867
+      to : L11892-L11892
+      until : L11928-L11928
+      from_int_digits : L11957-L11957
+      from_numeral : L11963-L11963
+      from_str : L11976-L11976
+      from_str_prefix : L12003-L12003
+      from_utf8_prefix : L12026-L12026
+      to_i8_wrap : L12049-L12049
+      to_i8_try : L12059-L12059
+      to_i16_wrap : L12070-L12070
+      to_i16_try : L12080-L12080
+      to_i32 : L12084-L12084
+      to_i32_try : L12088-L12088
+      to_i32_wrap : L12092-L12092
+      to_i64 : L12097-L12097
+      to_i128 : L12101-L12101
+      to_u8_wrap : L12113-L12113
+      to_u8_try : L12123-L12123
+      to_u16_wrap : L12134-L12134
+      to_u16_try : L12144-L12144
+      to_u32_wrap : L12155-L12155
+      to_u32_try : L12165-L12165
+      to_u64_wrap : L12177-L12177
+      to_u64_try : L12187-L12187
+      to_u128_wrap : L12197-L12197
+      to_u128_try : L12207-L12207
+      to_f32 : L12213-L12213
+      to_f64 : L12217-L12217
+      to_dec : L12221-L12221
+      encode : L12224-L12225
+      decode : L12231-L12232
+    U64 :: L12239-L13123
+      parser_for : L12240-L12240
+      encoder_for : L12241-L12241
+      default : L12248-L12248
+      highest : L12256-L12256
+      lowest : L12263-L12263
+      to_str : L12270-L12270
+      is_zero : L12278-L12278
+      is_eq : L12287-L12287
+      to_hash : L12290-L12290
+      is_gt : L12299-L12299
+      is_gte : L12307-L12307
+      is_lt : L12315-L12315
+      is_lte : L12323-L12323
+      order_relative_to : L12333-L12333
+      is_even : L12342-L12342
+      is_odd : L12351-L12351
+      is_multiple_of : L12363-L12363
+      max : L12370-L12370
+      min : L12381-L12381
+      plus : L12392-L12392
+      plus_wrap : L12398-L12398
+      plus_overflows : L12401-L12401
+      plus_try : L12405-L12405
+      range_len_if_known : L12408-L12408
+      range_iter : L12416-L12416
+      range_exclusive_to : L12419-L12419
+      range_inclusive_to : L12422-L12422
+      range_exclusive_from : L12425-L12425
+      range_inclusive_from : L12428-L12428
+      plus_saturated : L12437-L12437
+      minus : L12444-L12444
+      minus_wrap : L12450-L12450
+      minus_overflows : L12453-L12453
+      minus_try : L12457-L12457
+      minus_saturated : L12466-L12466
+      times : L12473-L12473
+      times_wrap : L12479-L12479
+      times_overflows : L12482-L12482
+      times_try : L12486-L12486
+      times_saturated : L12495-L12495
+      pow : L12505-L12505
+      pow_try : L12521-L12521
+      div_by : L12530-L12530
+      div_try : L12534-L12534
+      div_ceil_by : L12544-L12544
+      div_ceil_try : L12560-L12560
+      div_floor_by : L12568-L12568
+      div_trunc_by : L12576-L12576
+      rem_by : L12582-L12582
+      mod_by : L12591-L12591
+      abs_diff : L12599-L12599
+      shl_wrap : L12614-L12614
+      shr_wrap : L12630-L12630
+      shr_zf_wrap : L12644-L12644
+      bitwise_and : L12654-L12654
+      bitwise_or : L12664-L12664
+      bitwise_xor : L12674-L12674
+      bitwise_not : L12683-L12683
+      count_leading_zero_bits : L12695-L12695
+      count_trailing_zero_bits : L12707-L12707
+      count_one_bits : L12719-L12719
+      from_le_bytes : L12729-L12729
+      append_le_bytes_to : L12759-L12759
+      to : L12778-L12778
+      until : L12817-L12817
+      from_int_digits : L12844-L12844
+      from_numeral : L12850-L12850
+      from_str : L12861-L12861
+      from_str_prefix : L12888-L12888
+      from_utf8_prefix : L12911-L12911
+      to_i8_wrap : L12934-L12934
+      to_i8_try : L12944-L12944
+      to_i16_wrap : L12955-L12955
+      to_i16_try : L12965-L12965
+      to_i32_wrap : L12976-L12976
+      to_i32_try : L12986-L12986
+      to_i64_wrap : L12999-L12999
+      to_i64_try : L13009-L13009
+      to_i128 : L13014-L13014
+      to_u8_wrap : L13026-L13026
+      to_u8_try : L13036-L13036
+      to_u16_wrap : L13047-L13047
+      to_u16_try : L13057-L13057
+      to_u32_wrap : L13068-L13068
+      to_u32_try : L13078-L13078
+      to_u64 : L13082-L13082
+      to_u64_try : L13086-L13086
+      to_u64_wrap : L13090-L13090
+      to_u128 : L13095-L13095
+      to_f32 : L13100-L13100
+      to_f64 : L13104-L13104
+      to_dec : L13108-L13108
+      encode : L13111-L13112
+      decode : L13117-L13118
+    I64 :: L13125-L14126
+      parser_for : L13126-L13126
+      encoder_for : L13127-L13127
+      default : L13134-L13134
+      highest : L13142-L13142
+      lowest : L13150-L13150
+      to_str : L13159-L13159
+      is_zero : L13167-L13167
+      is_negative : L13176-L13176
+      is_positive : L13185-L13185
+      is_eq : L13194-L13194
+      to_hash : L13197-L13197
+      is_gt : L13206-L13206
+      is_gte : L13214-L13214
+      is_lt : L13222-L13222
+      is_lte : L13230-L13230
+      order_relative_to : L13240-L13240
+      is_even : L13249-L13249
+      is_odd : L13258-L13258
+      is_multiple_of : L13272-L13272
+      max : L13281-L13281
+      min : L13294-L13294
+      negate : L13308-L13308
+      abs : L13317-L13317
+      plus : L13323-L13323
+      plus_wrap : L13329-L13329
+      plus_overflows : L13332-L13332
+      plus_try : L13336-L13336
+      range_len_if_known : L13339-L13339
+      range_iter : L13347-L13347
+      range_exclusive_to : L13350-L13350
+      range_inclusive_to : L13353-L13353
+      range_exclusive_from : L13356-L13356
+      range_inclusive_from : L13359-L13359
+      plus_saturated : L13370-L13370
+      minus : L13384-L13384
+      minus_wrap : L13390-L13390
+      minus_overflows : L13393-L13393
+      minus_try : L13397-L13397
+      minus_saturated : L13408-L13408
+      times : L13415-L13415
+      times_wrap : L13421-L13421
+      times_overflows : L13424-L13424
+      times_try : L13428-L13428
+      times_saturated : L13439-L13439
+      pow : L13449-L13449
+      pow_try : L13472-L13472
+      div_by : L13481-L13481
+      div_try : L13485-L13485
+      div_ceil_by : L13499-L13499
+      div_ceil_try : L13520-L13520
+      div_floor_by : L13533-L13533
+      div_trunc_by : L13550-L13550
+      rem_by : L13559-L13559
+      mod_by : L13571-L13571
+      abs_diff : L13581-L13581
+      shl_wrap : L13595-L13595
+      shr_wrap : L13615-L13615
+      shr_zf_wrap : L13632-L13632
+      bitwise_and : L13647-L13647
+      bitwise_or : L13662-L13662
+      bitwise_xor : L13677-L13677
+      bitwise_not : L13687-L13687
+      count_leading_zero_bits : L13699-L13699
+      count_trailing_zero_bits : L13711-L13711
+      count_one_bits : L13723-L13723
+      from_le_bytes : L13733-L13733
+      to : L13758-L13758
+      until : L13800-L13800
+      from_int_digits : L13832-L13832
+      from_numeral : L13838-L13838
+      from_str : L13849-L13849
+      from_str_prefix : L13876-L13876
+      from_utf8_prefix : L13899-L13899
+      to_i8_wrap : L13922-L13922
+      to_i8_try : L13932-L13932
+      to_i16_wrap : L13943-L13943
+      to_i16_try : L13953-L13953
+      to_i32_wrap : L13965-L13965
+      to_i32_try : L13975-L13975
+      to_i64 : L13979-L13979
+      to_i64_try : L13983-L13983
+      to_i64_wrap : L13987-L13987
+      to_i128 : L13992-L13992
+      to_u8_wrap : L14004-L14004
+      to_u8_try : L14014-L14014
+      to_u16_wrap : L14025-L14025
+      to_u16_try : L14035-L14035
+      to_u32_wrap : L14046-L14046
+      to_u32_try : L14056-L14056
+      to_u64_wrap : L14067-L14067
+      to_u64_try : L14077-L14077
+      to_u128_wrap : L14087-L14087
+      to_u128_try : L14097-L14097
+      to_f32 : L14103-L14103
+      to_f64 : L14107-L14107
+      to_dec : L14111-L14111
+      encode : L14114-L14115
+      decode : L14120-L14121
+    U128 :: L14128-L15027
+      parser_for : L14129-L14129
+      encoder_for : L14130-L14130
+      default : L14137-L14137
+      highest : L14145-L14145
+      lowest : L14152-L14152
+      to_str : L14159-L14159
+      is_zero : L14167-L14167
+      is_eq : L14176-L14176
+      to_hash : L14179-L14179
+      is_gt : L14188-L14188
+      is_gte : L14196-L14196
+      is_lt : L14204-L14204
+      is_lte : L14212-L14212
+      order_relative_to : L14222-L14222
+      is_even : L14231-L14231
+      is_odd : L14240-L14240
+      is_multiple_of : L14252-L14252
+      max : L14259-L14259
+      min : L14270-L14270
+      plus : L14281-L14281
+      plus_wrap : L14287-L14287
+      plus_overflows : L14290-L14290
+      plus_try : L14294-L14294
+      range_len_if_known : L14297-L14297
+      range_iter : L14305-L14305
+      range_exclusive_to : L14308-L14308
+      range_inclusive_to : L14311-L14311
+      range_exclusive_from : L14314-L14314
+      range_inclusive_from : L14317-L14317
+      plus_saturated : L14326-L14326
+      minus : L14333-L14333
+      minus_wrap : L14339-L14339
+      minus_overflows : L14342-L14342
+      minus_try : L14346-L14346
+      minus_saturated : L14355-L14355
+      times : L14362-L14362
+      times_wrap : L14368-L14368
+      times_overflows : L14371-L14371
+      times_try : L14375-L14375
+      times_saturated : L14384-L14384
+      pow : L14394-L14394
+      pow_try : L14410-L14410
+      div_by : L14419-L14419
+      div_try : L14423-L14423
+      div_ceil_by : L14433-L14433
+      div_ceil_try : L14449-L14449
+      div_floor_by : L14457-L14457
+      div_trunc_by : L14465-L14465
+      rem_by : L14471-L14471
+      mod_by : L14480-L14480
+      abs_diff : L14488-L14488
+      shl_wrap : L14503-L14503
+      shr_wrap : L14519-L14519
+      shr_zf_wrap : L14533-L14533
+      bitwise_and : L14543-L14543
+      bitwise_or : L14553-L14553
+      bitwise_xor : L14563-L14563
+      bitwise_not : L14572-L14572
+      count_leading_zero_bits : L14584-L14584
+      count_trailing_zero_bits : L14596-L14596
+      count_one_bits : L14608-L14608
+      from_le_bytes : L14618-L14618
+      to : L14643-L14643
+      until : L14685-L14685
+      from_int_digits : L14716-L14716
+      from_numeral : L14722-L14722
+      from_str : L14733-L14733
+      from_str_prefix : L14760-L14760
+      from_utf8_prefix : L14783-L14783
+      to_i8_wrap : L14806-L14806
+      to_i8_try : L14816-L14816
+      to_i16_wrap : L14827-L14827
+      to_i16_try : L14837-L14837
+      to_i32_wrap : L14848-L14848
+      to_i32_try : L14858-L14858
+      to_i64_wrap : L14870-L14870
+      to_i64_try : L14880-L14880
+      to_i128_wrap : L14892-L14892
+      to_i128_try : L14902-L14902
+      to_u8_wrap : L14915-L14915
+      to_u8_try : L14925-L14925
+      to_u16_wrap : L14936-L14936
+      to_u16_try : L14946-L14946
+      to_u32_wrap : L14957-L14957
+      to_u32_try : L14967-L14967
+      to_u64_wrap : L14976-L14976
+      to_u64_try : L14984-L14984
+      to_u128 : L14988-L14988
+      to_u128_try : L14992-L14992
+      to_u128_wrap : L14996-L14996
+      to_f32 : L15002-L15002
+      to_f64 : L15006-L15006
+      to_dec_try : L15011-L15011
+      encode : L15015-L15016
+      decode : L15021-L15022
+    I128 :: L15029-L16060
+      parser_for : L15030-L15030
+      encoder_for : L15031-L15031
+      default : L15038-L15038
+      highest : L15046-L15046
+      lowest : L15054-L15054
+      to_str : L15063-L15063
+      is_zero : L15071-L15071
+      is_negative : L15080-L15080
+      is_positive : L15089-L15089
+      is_eq : L15098-L15098
+      to_hash : L15101-L15101
+      is_gt : L15110-L15110
+      is_gte : L15118-L15118
+      is_lt : L15126-L15126
+      is_lte : L15134-L15134
+      order_relative_to : L15144-L15144
+      is_even : L15153-L15153
+      is_odd : L15162-L15162
+      is_multiple_of : L15176-L15176
+      max : L15185-L15185
+      min : L15198-L15198
+      negate : L15212-L15212
+      abs : L15222-L15222
+      plus : L15228-L15228
+      plus_wrap : L15234-L15234
+      plus_overflows : L15237-L15237
+      plus_try : L15241-L15241
+      range_len_if_known : L15244-L15244
+      range_iter : L15252-L15252
+      range_exclusive_to : L15255-L15255
+      range_inclusive_to : L15258-L15258
+      range_exclusive_from : L15261-L15261
+      range_inclusive_from : L15264-L15264
+      plus_saturated : L15275-L15275
+      minus : L15289-L15289
+      minus_wrap : L15295-L15295
+      minus_overflows : L15298-L15298
+      minus_try : L15302-L15302
+      minus_saturated : L15313-L15313
+      times : L15320-L15320
+      times_wrap : L15326-L15326
+      times_overflows : L15329-L15329
+      times_try : L15333-L15333
+      times_saturated : L15344-L15344
+      pow : L15354-L15354
+      pow_try : L15377-L15377
+      div_by : L15386-L15386
+      div_try : L15390-L15390
+      div_ceil_by : L15404-L15404
+      div_ceil_try : L15425-L15425
+      div_floor_by : L15438-L15438
+      div_trunc_by : L15455-L15455
+      rem_by : L15464-L15464
+      mod_by : L15476-L15476
+      abs_diff : L15487-L15487
+      shl_wrap : L15501-L15501
+      shr_wrap : L15521-L15521
+      shr_zf_wrap : L15538-L15538
+      bitwise_and : L15553-L15553
+      bitwise_or : L15568-L15568
+      bitwise_xor : L15583-L15583
+      bitwise_not : L15593-L15593
+      count_leading_zero_bits : L15605-L15605
+      count_trailing_zero_bits : L15617-L15617
+      count_one_bits : L15629-L15629
+      from_le_bytes : L15639-L15639
+      to : L15664-L15664
+      until : L15709-L15709
+      from_int_digits : L15745-L15745
+      from_numeral : L15751-L15751
+      from_str : L15763-L15763
+      from_str_prefix : L15790-L15790
+      from_utf8_prefix : L15813-L15813
+      to_i8_wrap : L15836-L15836
+      to_i8_try : L15846-L15846
+      to_i16_wrap : L15857-L15857
+      to_i16_try : L15867-L15867
+      to_i32_wrap : L15879-L15879
+      to_i32_try : L15889-L15889
+      to_i64_wrap : L15899-L15899
+      to_i64_try : L15907-L15907
+      to_i128 : L15911-L15911
+      to_i128_try : L15915-L15915
+      to_i128_wrap : L15919-L15919
+      to_u8_wrap : L15932-L15932
+      to_u8_try : L15942-L15942
+      to_u16_wrap : L15953-L15953
+      to_u16_try : L15963-L15963
+      to_u32_wrap : L15974-L15974
+      to_u32_try : L15984-L15984
+      to_u64_wrap : L15996-L15996
+      to_u64_try : L16006-L16006
+      to_u128_wrap : L16017-L16017
+      to_u128_try : L16027-L16027
+      to_f32 : L16033-L16033
+      to_f64 : L16037-L16037
+      to_dec_try : L16043-L16043
+      encode : L16047-L16048
+      decode : L16054-L16055
+    Dec :: L16062-L17310
+      parser_for : L16063-L16063
+      encoder_for : L16064-L16064
+      default : L16072-L16072
+      highest : L16081-L16081
+      lowest : L16090-L16090
+      e : L16095-L16095
+      pi : L16100-L16100
+      tau : L16105-L16105
+      to_attos : L16116-L16116
+      from_attos : L16126-L16126
+      to_str : L16134-L16134
+      is_zero : L16142-L16142
+      is_negative : L16151-L16151
+      is_positive : L16160-L16160
+      is_eq : L16169-L16169
+      to_hash : L16172-L16172
+      is_gt : L16181-L16181
+      is_gte : L16189-L16189
+      is_lt : L16197-L16197
+      is_lte : L16205-L16205
+      order_relative_to : L16215-L16215
+      max : L16224-L16224
+      min : L16237-L16237
+      is_approx_eq : L16265-L16265
+      negate : L16295-L16295
+      abs : L16304-L16304
+      plus : L16310-L16310
+      plus_try : L16314-L16314
+      range_len_if_known : L16326-L16326
+      range_iter : L16329-L16329
+      range_exclusive_to : L16332-L16332
+      range_inclusive_to : L16335-L16335
+      range_exclusive_from : L16338-L16338
+      range_inclusive_from : L16341-L16341
+      plus_saturated : L16352-L16352
+      minus : L16372-L16372
+      minus_try : L16377-L16377
+      minus_saturated : L16397-L16397
+      times : L16418-L16418
+      times_saturated : L16428-L16428
+      pow : L16436-L16436
+      sqrt : L16442-L16442
+      sqrt_try : L16454-L16454
+      sin : L16464-L16464
+      cos : L16469-L16469
+      tan : L16475-L16475
+      asin : L16480-L16480
+      acos : L16485-L16485
+      atan : L16490-L16490
+      atan2 : L16496-L16496
+      div_by : L16505-L16505
+      div_trunc_by : L16514-L16514
+      div_floor_by : L16522-L16522
+      rem_by : L16532-L16532
+      abs_diff : L16540-L16540
+      round : L16555-L16555
+      round_try : L16571-L16571
+      floor : L16583-L16583
+      floor_try : L16599-L16599
+      ceiling : L16611-L16611
+      ceiling_try : L16627-L16627
+      trunc : L16637-L16637
+      round_to : L16659-L16659
+      round_to_try : L16676-L16676
+      round_to_i8_try : L16689-L16689
+      round_to_i16_try : L16696-L16696
+      round_to_i32_try : L16703-L16703
+      round_to_i64_try : L16710-L16710
+      round_to_i128 : L16717-L16717
+      round_to_u8_try : L16724-L16724
+      round_to_u16_try : L16731-L16731
+      round_to_u32_try : L16738-L16738
+      round_to_u64_try : L16745-L16745
+      round_to_u128_try : L16752-L16752
+      floor_to_i8_try : L16759-L16759
+      floor_to_i16_try : L16766-L16766
+      floor_to_i32_try : L16773-L16773
+      floor_to_i64_try : L16780-L16780
+      floor_to_i128 : L16787-L16787
+      floor_to_u8_try : L16794-L16794
+      floor_to_u16_try : L16801-L16801
+      floor_to_u32_try : L16808-L16808
+      floor_to_u64_try : L16815-L16815
+      floor_to_u128_try : L16822-L16822
+      ceiling_to_i8_try : L16829-L16829
+      ceiling_to_i16_try : L16836-L16836
+      ceiling_to_i32_try : L16843-L16843
+      ceiling_to_i64_try : L16850-L16850
+      ceiling_to_i128 : L16857-L16857
+      ceiling_to_u8_try : L16864-L16864
+      ceiling_to_u16_try : L16871-L16871
+      ceiling_to_u32_try : L16878-L16878
+      ceiling_to_u64_try : L16885-L16885
+      ceiling_to_u128_try : L16892-L16892
+      from_int_digits : L16903-L16903
+      from_dec_digits : L16916-L16916
+      from_numeral : L16922-L16922
+      from_str : L16935-L16935
+      from_str_prefix : L16956-L16956
+      from_utf8_prefix : L16979-L16979
+      to_i8_wrap : L17004-L17004
+      to_i8_try : L17015-L17015
+      to_i16_wrap : L17028-L17028
+      to_i16_try : L17039-L17039
+      to_i32_wrap : L17052-L17052
+      to_i32_try : L17063-L17063
+      to_i64_wrap : L17074-L17074
+      to_i64_try : L17082-L17082
+      to_i128 : L17092-L17092
+      to_u8_wrap : L17106-L17106
+      to_u8_try : L17117-L17117
+      to_u16_wrap : L17130-L17130
+      to_u16_try : L17141-L17141
+      to_u32_wrap : L17154-L17154
+      to_u32_try : L17165-L17165
+      to_u64_wrap : L17178-L17178
+      to_u64_try : L17188-L17188
+      to_u128_wrap : L17198-L17198
+      to_u128_try : L17207-L17207
+      to_f32_wrap : L17214-L17214
+      to_f32_try : L17219-L17219
+      to_f64 : L17225-L17225
+      to_dec : L17228-L17228
+      to_dec_try : L17232-L17232
+      to : L17246-L17246
+      until : L17280-L17280
+      encode : L17297-L17298
+      decode : L17304-L17305
+    F32 :: L17312-L18325
+      parser_for : L17313-L17313
+      encoder_for : L17314-L17314
+      default : L17322-L17322
+      highest : L17330-L17330
+      lowest : L17338-L17338
+      nan : L17345-L17345
+      infinity : L17354-L17354
+      e : L17361-L17361
+      pi : L17368-L17368
+      tau : L17375-L17375
+      to_str : L17385-L17385
+      to_bits : L17395-L17395
+      from_bits : L17405-L17405
+      is_nan : L17413-L17413
+      is_infinite : L17424-L17424
+      is_finite : L17440-L17440
+      is_zero : L17455-L17455
+      is_float_eq : L17469-L17469
+      is_approx_eq : L17492-L17492
+      is_eq : L17507-L17507
+      to_hash : L17510-L17510
+      is_negative : L17519-L17519
+      is_positive : L17528-L17528
+      is_gt : L17538-L17538
+      is_gte : L17547-L17547
+      is_lt : L17556-L17556
+      is_lte : L17565-L17565
+      max : L17573-L17573
+      min : L17586-L17586
+      negate : L17600-L17600
+      abs : L17609-L17609
+      sqrt : L17620-L17620
+      sqrt_try : L17637-L17637
+      pow : L17653-L17653
+      sin : L17661-L17661
+      cos : L17669-L17669
+      tan : L17678-L17678
+      asin : L17686-L17686
+      acos : L17694-L17694
+      atan : L17702-L17702
+      atan2 : L17710-L17710
+      plus : L17718-L17718
+      minus : L17725-L17725
+      times : L17732-L17732
+      div_by : L17740-L17740
+      div_trunc_by : L17749-L17749
+      div_floor_by : L17757-L17757
+      rem_by : L17767-L17767
+      abs_diff : L17775-L17775
+      round_to_i8_try : L17781-L17781
+      round_to_i16_try : L17788-L17788
+      round_to_i32_try : L17795-L17795
+      round_to_i64_try : L17802-L17802
+      round_to_i128_try : L17809-L17809
+      round_to_u8_try : L17816-L17816
+      round_to_u16_try : L17823-L17823
+      round_to_u32_try : L17830-L17830
+      round_to_u64_try : L17837-L17837
+      round_to_u128_try : L17844-L17844
+      floor_to_i8_try : L17851-L17851
+      floor_to_i16_try : L17858-L17858
+      floor_to_i32_try : L17865-L17865
+      floor_to_i64_try : L17872-L17872
+      floor_to_i128_try : L17879-L17879
+      floor_to_u8_try : L17886-L17886
+      floor_to_u16_try : L17893-L17893
+      floor_to_u32_try : L17900-L17900
+      floor_to_u64_try : L17907-L17907
+      floor_to_u128_try : L17914-L17914
+      ceiling_to_i8_try : L17921-L17921
+      ceiling_to_i16_try : L17928-L17928
+      ceiling_to_i32_try : L17935-L17935
+      ceiling_to_i64_try : L17942-L17942
+      ceiling_to_i128_try : L17949-L17949
+      ceiling_to_u8_try : L17956-L17956
+      ceiling_to_u16_try : L17963-L17963
+      ceiling_to_u32_try : L17970-L17970
+      ceiling_to_u64_try : L17977-L17977
+      ceiling_to_u128_try : L17984-L17984
+      from_int_digits : L17996-L17996
+      from_dec_digits : L18009-L18009
+      from_numeral : L18015-L18015
+      range_len_if_known : L18018-L18018
+      range_iter : L18022-L18022
+      range_exclusive_to : L18025-L18025
+      range_inclusive_to : L18028-L18028
+      from_str : L18041-L18041
+      from_str_prefix : L18062-L18062
+      from_utf8_prefix : L18085-L18085
+      to_i8_wrap : L18108-L18108
+      to_i8_try : L18120-L18120
+      to_i16_wrap : L18131-L18131
+      to_i16_try : L18143-L18143
+      to_i32_wrap : L18152-L18152
+      to_i32_try : L18160-L18160
+      to_i64_wrap : L18169-L18169
+      to_i64_try : L18177-L18177
+      to_i128_wrap : L18186-L18186
+      to_i128_try : L18194-L18194
+      to_u8_wrap : L18205-L18205
+      to_u8_try : L18216-L18216
+      to_u16_wrap : L18225-L18225
+      to_u16_try : L18234-L18234
+      to_u32_wrap : L18243-L18243
+      to_u32_try : L18252-L18252
+      to_u64_wrap : L18261-L18261
+      to_u64_try : L18270-L18270
+      to_u128_wrap : L18279-L18279
+      to_u128_try : L18288-L18288
+      to_f32 : L18292-L18292
+      to_f32_wrap : L18296-L18296
+      to_f32_try : L18300-L18300
+      to_f64 : L18309-L18309
+      encode : L18312-L18313
+      decode : L18319-L18320
+    F64 :: L18327-L19352
+      parser_for : L18328-L18328
+      encoder_for : L18329-L18329
+      default : L18337-L18337
+      highest : L18345-L18345
+      lowest : L18353-L18353
+      nan : L18360-L18360
+      infinity : L18369-L18369
+      e : L18376-L18376
+      pi : L18383-L18383
+      tau : L18390-L18390
+      to_str : L18400-L18400
+      to_bits : L18410-L18410
+      from_bits : L18420-L18420
+      is_nan : L18428-L18428
+      is_infinite : L18439-L18439
+      is_finite : L18455-L18455
+      is_zero : L18470-L18470
+      is_float_eq : L18484-L18484
+      is_approx_eq : L18507-L18507
+      is_eq : L18522-L18522
+      to_hash : L18525-L18525
+      is_negative : L18534-L18534
+      is_positive : L18543-L18543
+      is_gt : L18553-L18553
+      is_gte : L18562-L18562
+      is_lt : L18571-L18571
+      is_lte : L18580-L18580
+      max : L18588-L18588
+      min : L18601-L18601
+      negate : L18615-L18615
+      abs : L18624-L18624
+      sqrt : L18635-L18635
+      sqrt_try : L18652-L18652
+      pow : L18668-L18668
+      sin : L18676-L18676
+      cos : L18684-L18684
+      tan : L18693-L18693
+      asin : L18701-L18701
+      acos : L18709-L18709
+      atan : L18717-L18717
+      atan2 : L18725-L18725
+      plus : L18733-L18733
+      minus : L18740-L18740
+      times : L18747-L18747
+      div_by : L18755-L18755
+      div_trunc_by : L18764-L18764
+      div_floor_by : L18772-L18772
+      rem_by : L18782-L18782
+      abs_diff : L18790-L18790
+      round_to_i8_try : L18796-L18796
+      round_to_i16_try : L18803-L18803
+      round_to_i32_try : L18810-L18810
+      round_to_i64_try : L18817-L18817
+      round_to_i128_try : L18824-L18824
+      round_to_u8_try : L18831-L18831
+      round_to_u16_try : L18838-L18838
+      round_to_u32_try : L18845-L18845
+      round_to_u64_try : L18852-L18852
+      round_to_u128_try : L18859-L18859
+      floor_to_i8_try : L18866-L18866
+      floor_to_i16_try : L18873-L18873
+      floor_to_i32_try : L18880-L18880
+      floor_to_i64_try : L18887-L18887
+      floor_to_i128_try : L18894-L18894
+      floor_to_u8_try : L18901-L18901
+      floor_to_u16_try : L18908-L18908
+      floor_to_u32_try : L18915-L18915
+      floor_to_u64_try : L18922-L18922
+      floor_to_u128_try : L18929-L18929
+      ceiling_to_i8_try : L18936-L18936
+      ceiling_to_i16_try : L18943-L18943
+      ceiling_to_i32_try : L18950-L18950
+      ceiling_to_i64_try : L18957-L18957
+      ceiling_to_i128_try : L18964-L18964
+      ceiling_to_u8_try : L18971-L18971
+      ceiling_to_u16_try : L18978-L18978
+      ceiling_to_u32_try : L18985-L18985
+      ceiling_to_u64_try : L18992-L18992
+      ceiling_to_u128_try : L18999-L18999
+      from_int_digits : L19011-L19011
+      from_dec_digits : L19024-L19024
+      from_numeral : L19030-L19030
+      range_len_if_known : L19033-L19033
+      range_iter : L19037-L19037
+      range_exclusive_to : L19040-L19040
+      range_inclusive_to : L19043-L19043
+      from_str : L19056-L19056
+      from_str_prefix : L19077-L19077
+      from_utf8_prefix : L19100-L19100
+      to_i8_wrap : L19123-L19123
+      to_i8_try : L19135-L19135
+      to_i16_wrap : L19146-L19146
+      to_i16_try : L19158-L19158
+      to_i32_wrap : L19167-L19167
+      to_i32_try : L19175-L19175
+      to_i64_wrap : L19184-L19184
+      to_i64_try : L19192-L19192
+      to_i128_wrap : L19201-L19201
+      to_i128_try : L19209-L19209
+      to_u8_wrap : L19220-L19220
+      to_u8_try : L19231-L19231
+      to_u16_wrap : L19240-L19240
+      to_u16_try : L19249-L19249
+      to_u32_wrap : L19258-L19258
+      to_u32_try : L19267-L19267
+      to_u64_wrap : L19276-L19276
+      to_u64_try : L19285-L19285
+      to_u128_wrap : L19294-L19294
+      to_u128_try : L19303-L19303
+      to_f32_wrap : L19313-L19313
+      to_f32_try : L19323-L19323
+      to_f64 : L19327-L19327
+      to_f64_wrap : L19331-L19331
+      to_f64_try : L19335-L19335
+      encode : L19339-L19340
+      decode : L19346-L19347
+    U8x16 :: L19362-L19960
+      default : L19368-L19368
+      splat : L19378-L19378
+      from_list : L19382-L19382
+      to_list : L19400-L19400
+      is_eq : L19416-L19416
+      to_hash : L19420-L19420
+      to_inspect : L19424-L19424
+      to_u128_bits : L19439-L19439
+      from_u128_bits : L19443-L19443
+      to_i8x16_bits : L19446-L19446
+      to_u16x8_bits : L19450-L19450
+      to_i16x8_bits : L19454-L19454
+      to_u32x4_bits : L19458-L19458
+      to_i32x4_bits : L19462-L19462
+      to_u64x2_bits : L19466-L19466
+      to_i64x2_bits : L19470-L19470
+      plus_wrap : L19480-L19480
+      minus_wrap : L19486-L19486
+      plus_saturated : L19495-L19495
+      minus_saturated : L19501-L19501
+      min : L19507-L19507
+      max : L19513-L19513
+      abs_diff : L19522-L19522
+      avg_rounded : L19532-L19532
+      bitwise_and : L19544-L19544
+      bitwise_or : L19556-L19556
+      bitwise_xor : L19568-L19568
+      bitwise_not : L19579-L19579
+      bit_select : L19595-L19595
+      eq_lanes : L19602-L19602
+      gt_lanes : L19610-L19610
+      lt_lanes : L19615-L19615
+      gte_lanes : L19623-L19623
+      lte_lanes : L19628-L19628
+      to_bitmask : L19648-L19648
+      any_lanes_set : L19652-L19652
+      all_lanes_set : L19657-L19657
+      shl_wrap : L19676-L19676
+      shr_wrap : L19689-L19689
+      shr_zf_wrap : L19708-L19708
+      get_lane : L19716-L19716
+      with_lane : L19729-L19729
+      broadcast_lane : L19743-L19743
+      interleave_lo : L19753-L19753
+      interleave_hi : L19760-L19760
+      even_lanes : L19768-L19768
+      odd_lanes : L19775-L19775
+      reverse_lanes : L19781-L19781
+      concat_shift_bytes : L19794-L19794
+      table_lookup : L19815-L19815
+      to_u16x8_lo : L19823-L19823
+      to_u16x8_hi : L19830-L19830
+      pairwise_plus_to_u16x8 : L19838-L19838
+      times_wide_lo : L19846-L19846
+      times_wide_hi : L19853-L19853
+      dot_pairs_saturated : L19867-L19867
+      sums_of_abs_diffs : L19880-L19880
+      sum_lanes : L19886-L19886
+      load : L19894-L19894
+      store : L19916-L19916
+      append_to : L19932-L19932
+      iter_list : L19938-L19938
+    I8x16 :: L19970-L20524
+      default : L19976-L19976
+      splat : L19986-L19986
+      from_list : L19990-L19990
+      to_list : L20008-L20008
+      is_eq : L20024-L20024
+      to_hash : L20028-L20028
+      to_inspect : L20032-L20032
+      to_u128_bits : L20047-L20047
+      from_u128_bits : L20051-L20051
+      to_u8x16_bits : L20054-L20054
+      to_u16x8_bits : L20058-L20058
+      to_i16x8_bits : L20062-L20062
+      to_u32x4_bits : L20066-L20066
+      to_i32x4_bits : L20070-L20070
+      to_u64x2_bits : L20074-L20074
+      to_i64x2_bits : L20078-L20078
+      plus_wrap : L20088-L20088
+      minus_wrap : L20094-L20094
+      plus_saturated : L20104-L20104
+      minus_saturated : L20111-L20111
+      negate_wrap : L20121-L20121
+      abs_wrap : L20131-L20131
+      min : L20140-L20140
+      max : L20146-L20146
+      bitwise_and : L20163-L20163
+      bitwise_or : L20180-L20180
+      bitwise_xor : L20197-L20197
+      bitwise_not : L20208-L20208
+      bit_select : L20224-L20224
+      eq_lanes : L20231-L20231
+      gt_lanes : L20241-L20241
+      lt_lanes : L20246-L20246
+      gte_lanes : L20254-L20254
+      lte_lanes : L20259-L20259
+      to_bitmask : L20279-L20279
+      any_lanes_set : L20283-L20283
+      all_lanes_set : L20288-L20288
+      shl_wrap : L20307-L20307
+      shr_zf_wrap : L20330-L20330
+      shr_wrap : L20353-L20353
+      get_lane : L20361-L20361
+      with_lane : L20374-L20374
+      broadcast_lane : L20388-L20388
+      interleave_lo : L20398-L20398
+      interleave_hi : L20405-L20405
+      even_lanes : L20413-L20413
+      odd_lanes : L20420-L20420
+      reverse_lanes : L20426-L20426
+      to_i16x8_lo : L20434-L20434
+      to_i16x8_hi : L20441-L20441
+      pairwise_plus_to_i16x8 : L20450-L20450
+      times_wide_lo : L20458-L20458
+      times_wide_hi : L20466-L20466
+      sum_lanes : L20476-L20476
+      load : L20484-L20484
+      store : L20506-L20506
+      append_to : L20522-L20522
+    U16x8 :: L20535-L21094
+      default : L20541-L20541
+      splat : L20551-L20551
+      from_list : L20555-L20555
+      to_list : L20573-L20573
+      is_eq : L20589-L20589
+      to_hash : L20593-L20593
+      to_inspect : L20597-L20597
+      to_u128_bits : L20612-L20612
+      from_u128_bits : L20616-L20616
+      to_u8x16_bits : L20619-L20619
+      to_i8x16_bits : L20623-L20623
+      to_i16x8_bits : L20627-L20627
+      to_u32x4_bits : L20631-L20631
+      to_i32x4_bits : L20635-L20635
+      to_u64x2_bits : L20639-L20639
+      to_i64x2_bits : L20643-L20643
+      plus_wrap : L20653-L20653
+      minus_wrap : L20659-L20659
+      plus_saturated : L20668-L20668
+      minus_saturated : L20674-L20674
+      min : L20680-L20680
+      max : L20686-L20686
+      abs_diff : L20693-L20693
+      avg_rounded : L20702-L20702
+      times_wrap : L20711-L20711
+      times_high : L20721-L20721
+      bitwise_and : L20733-L20733
+      bitwise_or : L20745-L20745
+      bitwise_xor : L20757-L20757
+      bitwise_not : L20768-L20768
+      bit_select : L20784-L20784
+      eq_lanes : L20791-L20791
+      gt_lanes : L20799-L20799
+      lt_lanes : L20804-L20804
+      gte_lanes : L20812-L20812
+      lte_lanes : L20817-L20817
+      to_bitmask : L20837-L20837
+      any_lanes_set : L20841-L20841
+      all_lanes_set : L20846-L20846
+      shl_wrap : L20864-L20864
+      shr_wrap : L20877-L20877
+      shr_zf_wrap : L20895-L20895
+      get_lane : L20903-L20903
+      with_lane : L20916-L20916
+      broadcast_lane : L20930-L20930
+      interleave_lo : L20940-L20940
+      interleave_hi : L20947-L20947
+      even_lanes : L20955-L20955
+      odd_lanes : L20962-L20962
+      reverse_lanes : L20968-L20968
+      to_u32x4_lo : L20976-L20976
+      to_u32x4_hi : L20983-L20983
+      pairwise_plus_to_u32x4 : L20992-L20992
+      times_wide_lo : L21000-L21000
+      times_wide_hi : L21008-L21008
+      narrow_to_u8x16_wrap : L21017-L21017
+      narrow_to_u8x16_saturated : L21026-L21026
+      sum_lanes : L21032-L21032
+      load : L21040-L21040
+      load_units : L21058-L21058
+      store : L21075-L21075
+      append_to : L21092-L21092
+    I16x8 :: L21105-L21722
+      default : L21111-L21111
+      splat : L21121-L21121
+      from_list : L21125-L21125
+      to_list : L21143-L21143
+      is_eq : L21159-L21159
+      to_hash : L21163-L21163
+      to_inspect : L21167-L21167
+      to_u128_bits : L21182-L21182
+      from_u128_bits : L21186-L21186
+      to_u8x16_bits : L21189-L21189
+      to_i8x16_bits : L21193-L21193
+      to_u16x8_bits : L21197-L21197
+      to_u32x4_bits : L21201-L21201
+      to_i32x4_bits : L21205-L21205
+      to_u64x2_bits : L21209-L21209
+      to_i64x2_bits : L21213-L21213
+      plus_wrap : L21221-L21221
+      minus_wrap : L21228-L21228
+      plus_saturated : L21238-L21238
+      minus_saturated : L21245-L21245
+      negate_wrap : L21255-L21255
+      abs_wrap : L21266-L21266
+      min : L21272-L21272
+      max : L21278-L21278
+      times_wrap : L21286-L21286
+      times_high : L21294-L21294
+      times_fixed_q15_saturated : L21308-L21308
+      dot_pairs : L21320-L21320
+      bitwise_and : L21337-L21337
+      bitwise_or : L21354-L21354
+      bitwise_xor : L21371-L21371
+      bitwise_not : L21382-L21382
+      bit_select : L21398-L21398
+      eq_lanes : L21405-L21405
+      gt_lanes : L21412-L21412
+      lt_lanes : L21417-L21417
+      gte_lanes : L21425-L21425
+      lte_lanes : L21430-L21430
+      to_bitmask : L21451-L21451
+      any_lanes_set : L21455-L21455
+      all_lanes_set : L21460-L21460
+      shl_wrap : L21478-L21478
+      shr_wrap : L21500-L21500
+      shr_zf_wrap : L21522-L21522
+      shift_right_rounded_by : L21537-L21537
+      narrow_to_i8x16_saturated : L21545-L21545
+      narrow_to_u8x16_saturated : L21554-L21554
+      to_i32x4_lo : L21562-L21562
+      to_i32x4_hi : L21569-L21569
+      pairwise_plus_to_i32x4 : L21577-L21577
+      times_wide_lo : L21585-L21585
+      times_wide_hi : L21593-L21593
+      sum_lanes : L21600-L21600
+      get_lane : L21608-L21608
+      with_lane : L21621-L21621
+      broadcast_lane : L21635-L21635
+      interleave_lo : L21645-L21645
+      interleave_hi : L21652-L21652
+      even_lanes : L21660-L21660
+      odd_lanes : L21667-L21667
+      reverse_lanes : L21673-L21673
+      load : L21681-L21681
+      store : L21703-L21703
+      append_to : L21720-L21720
+    U32x4 :: L21732-L22241
+      default : L21738-L21738
+      splat : L21748-L21748
+      from_list : L21752-L21752
+      to_list : L21770-L21770
+      is_eq : L21786-L21786
+      to_hash : L21790-L21790
+      to_inspect : L21794-L21794
+      to_u128_bits : L21814-L21814
+      from_u128_bits : L21818-L21818
+      to_u8x16_bits : L21821-L21821
+      to_i8x16_bits : L21825-L21825
+      to_u16x8_bits : L21829-L21829
+      to_i16x8_bits : L21833-L21833
+      to_i32x4_bits : L21837-L21837
+      to_u64x2_bits : L21841-L21841
+      to_i64x2_bits : L21845-L21845
+      plus_wrap : L21855-L21855
+      minus_wrap : L21864-L21864
+      min : L21870-L21870
+      max : L21876-L21876
+      times_wrap : L21885-L21885
+      times_wide_lo : L21892-L21892
+      times_wide_hi : L21899-L21899
+      bitwise_and : L21911-L21911
+      bitwise_or : L21923-L21923
+      bitwise_xor : L21935-L21935
+      bitwise_not : L21946-L21946
+      bit_select : L21962-L21962
+      eq_lanes : L21969-L21969
+      gt_lanes : L21976-L21976
+      lt_lanes : L21981-L21981
+      gte_lanes : L21990-L21990
+      lte_lanes : L21995-L21995
+      to_bitmask : L22015-L22015
+      any_lanes_set : L22019-L22019
+      all_lanes_set : L22024-L22024
+      shl_wrap : L22042-L22042
+      shr_wrap : L22055-L22055
+      shr_zf_wrap : L22073-L22073
+      get_lane : L22081-L22081
+      with_lane : L22094-L22094
+      broadcast_lane : L22108-L22108
+      interleave_lo : L22117-L22117
+      interleave_hi : L22124-L22124
+      even_lanes : L22132-L22132
+      odd_lanes : L22139-L22139
+      reverse_lanes : L22145-L22145
+      to_u64x2_lo : L22153-L22153
+      to_u64x2_hi : L22159-L22159
+      narrow_to_u16x8_wrap : L22166-L22166
+      narrow_to_u16x8_saturated : L22173-L22173
+      sum_lanes : L22180-L22180
+      load : L22188-L22188
+      load_units : L22206-L22206
+      store : L22223-L22223
+      append_to : L22239-L22239
+    I32x4 :: L22252-L22802
+      default : L22258-L22258
+      splat : L22268-L22268
+      from_list : L22272-L22272
+      to_list : L22290-L22290
+      is_eq : L22306-L22306
+      to_hash : L22310-L22310
+      to_inspect : L22314-L22314
+      to_u128_bits : L22334-L22334
+      from_u128_bits : L22338-L22338
+      to_u8x16_bits : L22341-L22341
+      to_i8x16_bits : L22345-L22345
+      to_u16x8_bits : L22349-L22349
+      to_i16x8_bits : L22353-L22353
+      to_u32x4_bits : L22357-L22357
+      to_u64x2_bits : L22361-L22361
+      to_i64x2_bits : L22365-L22365
+      plus_wrap : L22372-L22372
+      minus_wrap : L22378-L22378
+      negate_wrap : L22388-L22388
+      abs_wrap : L22399-L22399
+      min : L22408-L22408
+      max : L22414-L22414
+      times_wrap : L22420-L22420
+      times_wide_lo : L22427-L22427
+      times_wide_hi : L22434-L22434
+      bitwise_and : L22451-L22451
+      bitwise_or : L22468-L22468
+      bitwise_xor : L22485-L22485
+      bitwise_not : L22496-L22496
+      bit_select : L22512-L22512
+      eq_lanes : L22519-L22519
+      gt_lanes : L22526-L22526
+      lt_lanes : L22531-L22531
+      gte_lanes : L22539-L22539
+      lte_lanes : L22544-L22544
+      to_bitmask : L22564-L22564
+      any_lanes_set : L22568-L22568
+      all_lanes_set : L22573-L22573
+      shl_wrap : L22591-L22591
+      shr_wrap : L22613-L22613
+      shr_zf_wrap : L22635-L22635
+      shift_right_rounded_by : L22646-L22646
+      narrow_to_i16x8_saturated : L22653-L22653
+      narrow_to_u16x8_saturated : L22661-L22661
+      to_i64x2_lo : L22669-L22669
+      to_i64x2_hi : L22675-L22675
+      sum_lanes : L22682-L22682
+      get_lane : L22690-L22690
+      with_lane : L22703-L22703
+      broadcast_lane : L22717-L22717
+      interleave_lo : L22726-L22726
+      interleave_hi : L22733-L22733
+      even_lanes : L22741-L22741
+      odd_lanes : L22748-L22748
+      reverse_lanes : L22754-L22754
+      load : L22762-L22762
+      store : L22784-L22784
+      append_to : L22800-L22800
+    U64x2 :: L22812-L23238
+      default : L22818-L22818
+      splat : L22828-L22828
+      from_list : L22832-L22832
+      to_list : L22850-L22850
+      is_eq : L22866-L22866
+      to_hash : L22870-L22870
+      to_inspect : L22874-L22874
+      to_u128_bits : L22888-L22888
+      from_u128_bits : L22892-L22892
+      to_u8x16_bits : L22895-L22895
+      to_i8x16_bits : L22899-L22899
+      to_u16x8_bits : L22903-L22903
+      to_i16x8_bits : L22907-L22907
+      to_u32x4_bits : L22911-L22911
+      to_i32x4_bits : L22915-L22915
+      to_i64x2_bits : L22919-L22919
+      plus_wrap : L22931-L22931
+      minus_wrap : L22939-L22939
+      bitwise_and : L22951-L22951
+      bitwise_or : L22963-L22963
+      bitwise_xor : L22975-L22975
+      bitwise_not : L22986-L22986
+      bit_select : L23002-L23002
+      eq_lanes : L23009-L23009
+      to_bitmask : L23027-L23027
+      any_lanes_set : L23031-L23031
+      all_lanes_set : L23036-L23036
+      shl_wrap : L23054-L23054
+      shr_wrap : L23067-L23067
+      shr_zf_wrap : L23085-L23085
+      get_lane : L23093-L23093
+      with_lane : L23106-L23106
+      broadcast_lane : L23119-L23119
+      interleave_lo : L23128-L23128
+      interleave_hi : L23135-L23135
+      reverse_lanes : L23141-L23141
+      narrow_to_u32x4_wrap : L23149-L23149
+      sum_lanes_wrap : L23160-L23160
+      carryless_times_lo : L23175-L23175
+      carryless_times_hi : L23190-L23190
+      load : L23198-L23198
+      store : L23220-L23220
+      append_to : L23236-L23236
+    I64x2 :: L23248-L23699
+      default : L23254-L23254
+      splat : L23264-L23264
+      from_list : L23268-L23268
+      to_list : L23286-L23286
+      is_eq : L23302-L23302
+      to_hash : L23306-L23306
+      to_inspect : L23310-L23310
+      to_u128_bits : L23324-L23324
+      from_u128_bits : L23328-L23328
+      to_u8x16_bits : L23331-L23331
+      to_i8x16_bits : L23335-L23335
+      to_u16x8_bits : L23339-L23339
+      to_i16x8_bits : L23343-L23343
+      to_u32x4_bits : L23347-L23347
+      to_i32x4_bits : L23351-L23351
+      to_u64x2_bits : L23355-L23355
+      plus_wrap : L23364-L23364
+      minus_wrap : L23372-L23372
+      negate_wrap : L23383-L23383
+      bitwise_and : L23400-L23400
+      bitwise_or : L23417-L23417
+      bitwise_xor : L23434-L23434
+      bitwise_not : L23445-L23445
+      bit_select : L23461-L23461
+      eq_lanes : L23468-L23468
+      gt_lanes : L23475-L23475
+      lt_lanes : L23480-L23480
+      gte_lanes : L23488-L23488
+      lte_lanes : L23493-L23493
+      to_bitmask : L23512-L23512
+      any_lanes_set : L23516-L23516
+      all_lanes_set : L23521-L23521
+      shl_wrap : L23539-L23539
+      shr_wrap : L23562-L23562
+      shr_zf_wrap : L23584-L23584
+      get_lane : L23592-L23592
+      with_lane : L23605-L23605
+      broadcast_lane : L23618-L23618
+      interleave_lo : L23627-L23627
+      interleave_hi : L23634-L23634
+      reverse_lanes : L23640-L23640
+      sum_lanes_wrap : L23651-L23651
+      load : L23659-L23659
+      store : L23681-L23681
+      append_to : L23697-L23697
+hasher_start : L23704-L23704
+hasher_finish : L23707-L23707
+dict_pseudo_seed : L23709-L23709
+crypto_sha256_hash_bytes : L23711-L23711
+crypto_sha256_hasher_empty : L23713-L23713
+crypto_sha256_hasher_write : L23715-L23715
+crypto_sha256_hasher_finish : L23717-L23717
+crypto_blake3_hash_bytes : L23719-L23719
+crypto_blake3_hasher_empty : L23721-L23721
+crypto_blake3_hasher_write : L23723-L23723
+crypto_blake3_hasher_finish : L23725-L23725
+dict_seed : L23727-L23727
+combine_unordered_hashes : L23730-L23730
+dict_empty_bucket : L23733-L23733
+dict_dist_inc : L23736-L23736
+dict_fingerprint_mask : L23739-L23739
+dict_initial_shifts : L23742-L23742
+dict_runtime_seed_bit : L23745-L23745
+dict_shifts_mask : L23748-L23748
+dict_min_shifts : L23751-L23751
+dict_max_bucket_count : L23754-L23754
+dict_max_entry_count : L23757-L23757
+dict_actual_shifts : L23760-L23760
+dict_shifts_for_current_seed : L23763-L23763
+dict_seed_for_shifts : L23771-L23771
+dict_bucket_count_for_shifts : L23778-L23778
+dict_max_entries_for_bucket_count : L23781-L23781
+dict_shifts_for_capacity : L23791-L23791
+dict_allocate_buckets_for_capacity : L23805-L23805
+dict_add_capacity : L23820-L23820
+dict_hash_key : L23828-L23829
+dict_entry_index_from_u64 : L23832-L23832
+dict_bucket_index_from_hash : L23840-L23840
+dict_dist_and_fingerprint_from_hash : L23843-L23843
+dict_increment_dist : L23849-L23849
+dict_decrement_dist : L23852-L23852
+dict_next_bucket_index : L23855-L23855
+dict_ensure_capacity : L23863-L23864
+dict_prepare_for_insert : L23878-L23879
+dict_insert_missing_data : L23894-L23895
+dict_insert_absent_data : L23910-L23911
+dict_find : L23926-L23927
+dict_find_for_insert : L23955-L23956
+dict_find_for_insert_from : L23986-L23987
+dict_find_from : L24005-L24006
+dict_insert_new_data : L24024-L24024
+dict_remove_bucket_data : L24037-L24038
+dict_remove_bucket_from_probe : L24078-L24078
+dict_scan_for_entry_index : L24093-L24093
+dict_fill_buckets_from_entries : L24105-L24106
+dict_next_while_less : L24119-L24120
+dict_next_while_less_from : L24126-L24126
+dict_place_and_shift_up : L24136-L24136
+u8_from_str : L24159-L24159
+u8_from_str_raw : L24162-L24162
+i8_from_str : L24164-L24164
+i8_from_str_raw : L24167-L24167
+u16_from_str : L24169-L24169
+u16_from_str_raw : L24172-L24172
+i16_from_str : L24174-L24174
+i16_from_str_raw : L24177-L24177
+u32_from_str : L24179-L24179
+u32_from_str_raw : L24182-L24182
+i32_from_str : L24184-L24184
+i32_from_str_raw : L24187-L24187
+u64_from_str : L24189-L24189
+u64_from_str_raw : L24192-L24192
+i64_from_str : L24194-L24194
+i64_from_str_raw : L24197-L24197
+u128_from_str : L24199-L24199
+u128_from_str_raw : L24202-L24202
+i128_from_str : L24204-L24204
+i128_from_str_raw : L24207-L24207
+dec_from_str : L24209-L24209
+dec_from_str_raw : L24212-L24212
+f32_from_str : L24214-L24214
+f32_from_str_raw : L24217-L24217
+f64_from_str : L24219-L24219
+f64_from_str_raw : L24222-L24222
+u8_from_str_prefix_raw : L24224-L24224
+u8_from_utf8_prefix_raw : L24226-L24226
+i8_from_str_prefix_raw : L24228-L24228
+i8_from_utf8_prefix_raw : L24230-L24230
+u16_from_str_prefix_raw : L24232-L24232
+u16_from_utf8_prefix_raw : L24234-L24234
+i16_from_str_prefix_raw : L24236-L24236
+i16_from_utf8_prefix_raw : L24238-L24238
+u32_from_str_prefix_raw : L24240-L24240
+u32_from_utf8_prefix_raw : L24242-L24242
+i32_from_str_prefix_raw : L24244-L24244
+i32_from_utf8_prefix_raw : L24246-L24246
+u64_from_str_prefix_raw : L24248-L24248
+u64_from_utf8_prefix_raw : L24250-L24250
+i64_from_str_prefix_raw : L24252-L24252
+i64_from_utf8_prefix_raw : L24254-L24254
+u128_from_str_prefix_raw : L24256-L24256
+u128_from_utf8_prefix_raw : L24258-L24258
+i128_from_str_prefix_raw : L24260-L24260
+i128_from_utf8_prefix_raw : L24262-L24262
+dec_from_str_prefix_raw : L24264-L24264
+dec_from_utf8_prefix_raw : L24266-L24266
+f32_from_str_prefix_raw : L24268-L24268
+f32_from_utf8_prefix_raw : L24270-L24270
+f64_from_str_prefix_raw : L24272-L24272
+f64_from_utf8_prefix_raw : L24274-L24274
+u8_from_int_digits : L24276-L24276
+i8_from_int_digits : L24279-L24279
+u16_from_int_digits : L24282-L24282
+i16_from_int_digits : L24285-L24285
+u32_from_int_digits : L24288-L24288
+i32_from_int_digits : L24291-L24291
+u64_from_int_digits : L24294-L24294
+i64_from_int_digits : L24297-L24297
+u128_from_int_digits : L24300-L24300
+i128_from_int_digits : L24303-L24303
+dec_from_int_digits : L24306-L24306
+dec_from_dec_digits : L24309-L24309
+f32_from_int_digits : L24312-L24312
+f32_from_dec_digits : L24315-L24315
+f64_from_int_digits : L24318-L24318
+f64_from_dec_digits : L24321-L24321
+json_u8_to_str : L24324-L24324
+json_i8_to_str : L24327-L24327
+json_u16_to_str : L24330-L24330
+json_i16_to_str : L24333-L24333
+json_u32_to_str : L24336-L24336
+json_i32_to_str : L24339-L24339
+json_u64_to_str : L24342-L24342
+json_i64_to_str : L24345-L24345
+json_u128_to_str : L24348-L24348
+json_i128_to_str : L24351-L24351
+json_dec_to_str : L24354-L24354
+json_f32_to_str : L24357-L24357
+json_f32_is_nan : L24360-L24360
+json_f32_is_infinite : L24363-L24363
+json_f32_is_negative : L24366-L24366
+json_f64_to_str : L24369-L24369
+json_f64_is_nan : L24372-L24372
+json_f64_is_infinite : L24375-L24375
+json_f64_is_negative : L24378-L24378
+from_numeral_with : L24381-L24381
+numeral_to_str : L24392-L24392
+base256_to_decimal_digits : L24427-L24427
+decimal_digits_mul_add : L24441-L24441
+decimal_append_carry_reversed : L24458-L24458
+trim_leading_zero_digits : L24471-L24471
+decimal_digits_to_bytes : L24483-L24483
+u8_single : L24497-L24497
+u8_repeat : L24500-L24500
+u8_append : L24513-L24513
+u8_concat : L24516-L24516
+u8_rev : L24530-L24530
+u8_drop_first : L24544-L24544
+crypto_digest_byte_len : L24558-L24558
+crypto_digest_hex_len : L24561-L24561
+crypto_digest_from_bytes : L24564-L24564
+crypto_hex_digit : L24574-L24574
+crypto_digest_to_hex_bytes : L24582-L24582
+crypto_digest_to_hex : L24597-L24597
+hex_digit_value : L24607-L24607
+crypto_hex_nibble : L24619-L24619
+crypto_digest_from_hex : L24623-L24623
+u8_list_len : L24644-L24644
+u8_list_with_capacity : L24646-L24646
+u8_list_get_unsafe : L24648-L24648
+u16_from_le_bytes_unchecked : L24653-L24653
+i16_from_le_bytes_unchecked : L24655-L24655
+u32_from_le_bytes_unchecked : L24657-L24657
+i32_from_le_bytes_unchecked : L24659-L24659
+u64_from_le_bytes_unchecked : L24661-L24661
+i64_from_le_bytes_unchecked : L24663-L24663
+u128_from_le_bytes_unchecked : L24665-L24665
+i128_from_le_bytes_unchecked : L24667-L24667
+u8_list_append_unsafe : L24669-L24669
+u8_list_reserve : L24671-L24671
+u8_list_reserve_for_append : L24673-L24673
+dec_sqrt_unsafe : L24675-L24675
+dec_pow_unsafe : L24677-L24677
+dec_sin_unsafe : L24679-L24679
+dec_cos_unsafe : L24681-L24681
+dec_tan_unsafe : L24683-L24683
+dec_asin_unsafe : L24685-L24685
+dec_acos_unsafe : L24687-L24687
+dec_atan_unsafe : L24689-L24689
+dec_atan2_unsafe : L24691-L24691
+out_of_range_try : L24693-L24693
+dec_attos_per_whole : L24701-L24701
+dec_round_to_i128 : L24704-L24704
+dec_floor_to_i128 : L24718-L24718
+dec_ceiling_to_i128 : L24721-L24721
+dec_attos_multiple_try : L24725-L24725
+dec_round_to_multiple_try : L24735-L24735
+dec_floor_to_whole : L24761-L24761
+f32_round_to_whole : L24771-L24771
+f64_round_to_whole : L24780-L24780
+digits_to_bytes : L24789-L24789
+int_from_digits : L24801-L24801
+dec_from_digits : L24812-L24812
+digits_to_str : L24836-L24836
+bytes_to_str : L24843-L24843
+reverse_order : L24850-L24850
+sort_scratchless_len : L24896-L24896
+sort_quadsort_len : L24900-L24900
+flux_out : L24904-L24904
+quad_cache : L24909-L24909
+sort_impl : L24912-L24912
+sort_direct : L24940-L24940
+sort_wide : L24958-L24958
+sort_apply_order : L24973-L24973
+sort_insertion : L25000-L25000
+sort_after : L25035-L25035
+sort_after_across : L25040-L25040
+sort_copy : L25045-L25045
+sort_copy_range : L25050-L25050
+sort_copy_range_within : L25063-L25063
+sort_swap_if_after : L25085-L25085
+swap_middle_pair : L25095-L25095
+sort_merge_head : L25114-L25114
+sort_merge_tail : L25128-L25128
+parity_merge : L25143-L25143
+cross_merge : L25190-L25190
+sort_merge_tail_across : L25305-L25305
+sort_merge_head_across : L25320-L25320
+tiny_sort : L25333-L25333
+parity_swap_four : L25354-L25354
+parity_swap_five : L25370-L25370
+parity_swap_six : L25390-L25390
+parity_swap_seven : L25415-L25415
+tail_swap : L25444-L25444
+quad_reversal : L25473-L25473
+quad_swap_merge : L25492-L25492
+quad_swap_pairs : L25502-L25502
+quad_swap : L25518-L25518
+quad_merge : L25684-L25684
+quad_merge_block : L25712-L25712
+tail_merge : L25741-L25741
+partial_backwards_merge : L25764-L25764
+partial_forward_merge : L25892-L25892
+rotate_merge : L25956-L25956
+rotate_merge_block : L25981-L25981
+monobound_binary_first : L26036-L26036
+trinity_rotation : L26057-L26057
+rotate_in_place : L26141-L26141
+quadsort_swap : L26158-L26158
+quadsort : L26172-L26172
+flux_sort : L26187-L26187
+flux_partition : L26513-L26513
+flux_default_partition : L26586-L26586
+flux_reverse_partition : L26651-L26651
+median_of_nine_pivot : L26679-L26679
+sort_trim_four : L26695-L26695
+sort_median_of_three : L26720-L26720
+median_of_cube_root : L26742-L26742
+sort_within : L26778-L26778
+merge_runs_within : L26804-L26804
+unsigned_plus_try : L26825-L26826
+unsigned_minus_try : L26834-L26835
+unsigned_times_try : L26843-L26844
+unsigned_div_try : L26852-L26853
+signed_plus_try : L26861-L26862
+signed_minus_try : L26870-L26871
+signed_times_try : L26879-L26880
+signed_times_try_rescaled : L26888-L26896
+signed_div_try : L26938-L26939
+unsigned_pow_try : L26953-L26962
+unsigned_pow_try_step : L26966-L26975
+signed_pow_try : L27002-L27014
+signed_pow_try_step : L27032-L27044
+unsigned_div_ceil_try : L27075-L27081
+signed_div_ceil_try : L27093-L27102
+list_append_if_ok : L27133-L27133
+list_prepend_if_ok : L27140-L27140
+unsigned_plus_saturated : L27147-L27148
+unsigned_minus_saturated : L27156-L27157
+signed_minus_saturated : L27165-L27166
+unsigned_times_saturated : L27178-L27179
+signed_times_saturated : L27187-L27192
+signed_times_saturated_rescaled : L27204-L27212
+integer_is_even : L27230-L27231
+integer_is_odd : L27234-L27235
+unsigned_is_multiple_of : L27238-L27239
+signed_is_multiple_of : L27247-L27248
+range_with_step : L27258-L27259
+range_len_u64 : L27270-L27270
+range_len_u128 : L27284-L27284
+range_len_dec : L27302-L27302
+range_nonnegative_rem : L27333-L27339
+range_standard_last : L27356-L27368
+range_iter_standard : L27403-L27415
+range_iter_float : L27472-L27479
+iter_from_step : L27509-L27509
+stream_from_step : L27518-L27518
+range_done : L27524-L27524
+iter_with_index : L27534-L27534
+stream_with_index : L27548-L27548
+iter_step_by : L27567-L27567
+ScannedJsonString : L27603-L27603
+scan_json_string_tail : L27607-L27607
+skip_json_string_tail : L27655-L27655
+decode_json_string_body : L27667-L27667
+parse_json_escaped_code_point : L27711-L27711
+decode_json_hex4 : L27779-L27779
+decode_json_hex_digit : L27788-L27788
+is_json_whitespace : L27795-L27795
+json_trim_start : L27806-L27806
+is_json_scalar_delimiter : L27827-L27827
+append_utf8_code_point : L27836-L27836
+list_get_unsafe : L27858-L27858
+bool_likely : L27862-L27862
+list_prefetched : L27867-L27867
+list_append_unsafe : L27870-L27870
+list_set_unsafe : L27873-L27873
+list_replace_unsafe : L27877-L27877
+list_swap_unsafe : L27880-L27880
+str_split_first_raw : L27883-L27883
+str_split_last_raw : L27885-L27885
+str_drop_prefix_caseless_ascii_raw : L27889-L27889
+str_get_utf8_byte_unsafe : L27892-L27892
+str_substring_unsafe : L27896-L27896
+str_drop_first_bytes_unsafe : L27902-L27902
+list_map_prepare_reuse : L27914-L27914
+list_map_can_reuse : L27922-L27922
+list_map_cast_unsafe : L27927-L27927
+list_map_extract_unsafe : L27934-L27934
+list_map_write_unsafe : L27939-L27939
+list_move_out_unsafe : L27945-L27945
+list_move_in_unsafe : L27950-L27950
+list_owned_unique : L27956-L27956
+list_item_size_at_most : L27961-L27961
+plus_infallible : L27968-L27968
+minus_infallible : L27972-L27972
+list_reserve : L27975-L27975
+list_reserve_for_append : L27980-L27980
+list_append_range_within : L27985-L27985
+list_copy_range_within : L27990-L27990
+list_append_sublist : L27994-L27994
+list_append_le_bytes : L27998-L27998
+list_release_excess_capacity : L28001-L28001
+list_clear : L28005-L28005
+u128_to_dec_try_unsafe : L28010-L28010
+i128_to_dec_try_unsafe : L28012-L28012
+dec_to_i8_try_unsafe : L28014-L28014
+dec_to_i16_try_unsafe : L28016-L28016
+dec_to_i32_try_unsafe : L28018-L28018
+dec_to_i64_try_unsafe : L28020-L28020
+dec_to_u8_try_unsafe : L28022-L28022
+dec_to_u16_try_unsafe : L28024-L28024
+dec_to_u32_try_unsafe : L28026-L28026
+dec_to_u64_try_unsafe : L28028-L28028
+dec_to_u128_try_unsafe : L28030-L28030
+dec_to_f32_try_unsafe : L28032-L28032
+f32_to_i8_try_unsafe : L28034-L28034
+f32_to_i16_try_unsafe : L28036-L28036
+f32_to_i32_try_unsafe : L28038-L28038
+f32_to_i64_try_unsafe : L28040-L28040
+f32_to_i128_try_unsafe : L28042-L28042
+f32_to_u8_try_unsafe : L28044-L28044
+f32_to_u16_try_unsafe : L28046-L28046
+f32_to_u32_try_unsafe : L28048-L28048
+f32_to_u64_try_unsafe : L28050-L28050
+f32_to_u128_try_unsafe : L28052-L28052
+f32_floor_unsafe : L28054-L28054
+f32_ceiling_unsafe : L28056-L28056
+f32_sqrt_unsafe : L28058-L28058
+f32_pow_unsafe : L28060-L28060
+f32_sin_unsafe : L28062-L28062
+f32_cos_unsafe : L28064-L28064
+f32_tan_unsafe : L28066-L28066
+f32_asin_unsafe : L28068-L28068
+f32_acos_unsafe : L28070-L28070
+f32_atan_unsafe : L28072-L28072
+f32_atan2_unsafe : L28074-L28074
+f64_to_i8_try_unsafe : L28076-L28076
+f64_to_i16_try_unsafe : L28078-L28078
+f64_to_i32_try_unsafe : L28080-L28080
+f64_to_i64_try_unsafe : L28082-L28082
+f64_to_i128_try_unsafe : L28084-L28084
+f64_to_u8_try_unsafe : L28086-L28086
+f64_to_u16_try_unsafe : L28088-L28088
+f64_to_u32_try_unsafe : L28090-L28090
+f64_to_u64_try_unsafe : L28092-L28092
+f64_to_u128_try_unsafe : L28094-L28094
+f64_to_f32_try_unsafe : L28096-L28096
+f64_floor_unsafe : L28098-L28098
+f64_ceiling_unsafe : L28100-L28100
+f64_sqrt_unsafe : L28102-L28102
+f64_pow_unsafe : L28104-L28104
+f64_sin_unsafe : L28106-L28106
+f64_cos_unsafe : L28108-L28108
+f64_tan_unsafe : L28110-L28110
+f64_asin_unsafe : L28112-L28112
+f64_acos_unsafe : L28114-L28114
+f64_atan_unsafe : L28116-L28116
+f64_atan2_unsafe : L28118-L28118
+simd_u8x16_get_lane_unchecked : L28122-L28122
+simd_u8x16_with_lane_unchecked : L28124-L28124
+simd_u8x16_load_16_unchecked : L28126-L28126
+simd_u8x16_store_16_unchecked : L28128-L28128
+simd_u8x16_concat_shift_bytes_unchecked : L28130-L28130
+simd_i8x16_get_lane_unchecked : L28132-L28132
+simd_i8x16_with_lane_unchecked : L28134-L28134
+simd_i8x16_load_16_unchecked : L28136-L28136
+simd_i8x16_store_16_unchecked : L28138-L28138
+simd_u16x8_get_lane_unchecked : L28140-L28140
+simd_u16x8_with_lane_unchecked : L28142-L28142
+simd_u16x8_load_16_unchecked : L28144-L28144
+simd_u16x8_load_units_unchecked : L28146-L28146
+simd_u16x8_store_16_unchecked : L28148-L28148
+simd_i16x8_get_lane_unchecked : L28150-L28150
+simd_i16x8_with_lane_unchecked : L28152-L28152
+simd_i16x8_load_16_unchecked : L28154-L28154
+simd_i16x8_store_16_unchecked : L28156-L28156
+simd_u32x4_get_lane_unchecked : L28158-L28158
+simd_u32x4_with_lane_unchecked : L28160-L28160
+simd_u32x4_load_16_unchecked : L28162-L28162
+simd_u32x4_load_units_unchecked : L28164-L28164
+simd_u32x4_store_16_unchecked : L28166-L28166
+simd_i32x4_get_lane_unchecked : L28168-L28168
+simd_i32x4_with_lane_unchecked : L28170-L28170
+simd_i32x4_load_16_unchecked : L28172-L28172
+simd_i32x4_store_16_unchecked : L28174-L28174
+simd_u64x2_get_lane_unchecked : L28176-L28176
+simd_u64x2_with_lane_unchecked : L28178-L28178
+simd_u64x2_load_16_unchecked : L28180-L28180
+simd_u64x2_store_16_unchecked : L28182-L28182
+simd_i64x2_get_lane_unchecked : L28184-L28184
+simd_i64x2_with_lane_unchecked : L28186-L28186
+simd_i64x2_load_16_unchecked : L28188-L28188
+simd_i64x2_store_16_unchecked : L28190-L28190
+wide_utf_short_max_bytes : L28194-L28194
+utf8_width : L28197-L28197
+utf16_result : L28209-L28209
+utf16_byte_order : L28220-L28220
+utf16_read : L28235-L28235
+utf16_load : L28245-L28245
+utf16_ascii_chunk : L28255-L28255
+utf16_step : L28262-L28262
+decode_utf16 : L28284-L28284
+str_from_utf16_le_short : L28328-L28328
+str_from_utf16_be_short : L28330-L28330
+utf32_result : L28332-L28332
+utf32_byte_order : L28343-L28343
+utf32_read : L28358-L28358
+utf32_load : L28368-L28368
+utf32_ascii_chunk : L28378-L28378
+utf32_step : L28387-L28387
+decode_utf32 : L28403-L28403
+str_from_utf32_le_short : L28449-L28449
+str_from_utf32_be_short : L28451-L28451
+str_from_utf8_validated : L28454-L28454
+u8_order_raw : L28461-L28461
+i8_order_raw : L28463-L28463
+u16_order_raw : L28465-L28465
+i16_order_raw : L28467-L28467
+u32_order_raw : L28469-L28469
+i32_order_raw : L28471-L28471
+u64_order_raw : L28473-L28473
+i64_order_raw : L28475-L28475
+u128_order_raw : L28477-L28477
+i128_order_raw : L28479-L28479
+dec_order_raw : L28481-L28481
+order_from_raw : L28483-L28483
+bad_num_str : L28490-L28490
+out_of_range : L28496-L28496
+str_from_utf8_raw : L28502-L28502
+u8_to_i8_try_raw : L28504-L28504
+i8_to_u8_try_raw : L28506-L28506
+i8_to_u16_try_raw : L28508-L28508
+i8_to_u32_try_raw : L28510-L28510
+i8_to_u64_try_raw : L28512-L28512
+i8_to_u128_try_raw : L28514-L28514
+u16_to_i8_try_raw : L28516-L28516
+u16_to_i16_try_raw : L28518-L28518
+u16_to_u8_try_raw : L28520-L28520
+i16_to_i8_try_raw : L28522-L28522
+i16_to_u8_try_raw : L28524-L28524
+i16_to_u16_try_raw : L28526-L28526
+i16_to_u32_try_raw : L28528-L28528
+i16_to_u64_try_raw : L28530-L28530
+i16_to_u128_try_raw : L28532-L28532
+u32_to_i8_try_raw : L28534-L28534
+u32_to_i16_try_raw : L28536-L28536
+u32_to_i32_try_raw : L28538-L28538
+u32_to_u8_try_raw : L28540-L28540
+u32_to_u16_try_raw : L28542-L28542
+i32_to_i8_try_raw : L28544-L28544
+i32_to_i16_try_raw : L28546-L28546
+i32_to_u8_try_raw : L28548-L28548
+i32_to_u16_try_raw : L28550-L28550
+i32_to_u32_try_raw : L28552-L28552
+i32_to_u64_try_raw : L28554-L28554
+i32_to_u128_try_raw : L28556-L28556
+u64_to_i8_try_raw : L28558-L28558
+u64_to_i16_try_raw : L28560-L28560
+u64_to_i32_try_raw : L28562-L28562
+u64_to_i64_try_raw : L28564-L28564
+u64_to_u8_try_raw : L28566-L28566
+u64_to_u16_try_raw : L28568-L28568
+u64_to_u32_try_raw : L28570-L28570
+i64_to_i8_try_raw : L28572-L28572
+i64_to_i16_try_raw : L28574-L28574
+i64_to_i32_try_raw : L28576-L28576
+i64_to_u8_try_raw : L28578-L28578
+i64_to_u16_try_raw : L28580-L28580
+i64_to_u32_try_raw : L28582-L28582
+i64_to_u64_try_raw : L28584-L28584
+i64_to_u128_try_raw : L28586-L28586
+u128_to_i8_try_raw : L28588-L28588
+u128_to_i16_try_raw : L28590-L28590
+u128_to_i32_try_raw : L28592-L28592
+u128_to_i64_try_raw : L28594-L28594
+u128_to_i128_try_raw : L28596-L28596
+u128_to_u8_try_raw : L28598-L28598
+u128_to_u16_try_raw : L28600-L28600
+u128_to_u32_try_raw : L28602-L28602
+u128_to_u64_try_raw : L28604-L28604
+i128_to_i8_try_raw : L28606-L28606
+i128_to_i16_try_raw : L28608-L28608
+i128_to_i32_try_raw : L28610-L28610
+i128_to_i64_try_raw : L28612-L28612
+i128_to_u8_try_raw : L28614-L28614
+i128_to_u16_try_raw : L28616-L28616
+i128_to_u32_try_raw : L28618-L28618
+i128_to_u64_try_raw : L28620-L28620
+i128_to_u128_try_raw : L28622-L28622

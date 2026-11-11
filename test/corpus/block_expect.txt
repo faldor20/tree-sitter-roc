@@ -12,23 +12,20 @@ check = |sum| {
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (body_expression
-            (expect
-              (expr_body
-                (bin_op_expr
-                  (variable_expr
-                    (identifier))
-                  (operator)
-                  (const
-                    (int)))))
+    (anon_fun_expr
+      (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      (body_expression
+        (expect
+          (bin_op_expr
             (variable_expr
-              (identifier))))))))
+              (identifier))
+            (operator)
+            (const
+              (int))))
+        (variable_expr
+          (identifier))))))
 
 ================================================================================
 block_multiple_and_nested_expects
@@ -46,47 +43,41 @@ check = |sum| {
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        (expr_body
+    (anon_fun_expr
+      (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      (body_expression
+        (expect
+          (bin_op_expr
+            (variable_expr
+              (identifier))
+            (operator)
+            (const
+              (int))))
+        (expect
+          (bin_op_expr
+            (variable_expr
+              (identifier))
+            (operator)
+            (const
+              (int))))
+        (value_declaration
+          (decl_left
+            (identifier_pattern
+              (identifier)))
           (body_expression
             (expect
-              (expr_body
-                (bin_op_expr
-                  (variable_expr
-                    (identifier))
-                  (operator)
-                  (const
-                    (int)))))
-            (expect
-              (expr_body
-                (bin_op_expr
-                  (variable_expr
-                    (identifier))
-                  (operator)
-                  (const
-                    (int)))))
-            (value_declaration
-              (decl_left
-                (identifier_pattern
-                  (identifier)))
-              (expr_body
-                (body_expression
-                  (expect
-                    (expr_body
-                      (bin_op_expr
-                        (variable_expr
-                          (identifier))
-                        (operator)
-                        (const
-                          (int)))))
-                  (variable_expr
-                    (identifier)))))
+              (bin_op_expr
+                (variable_expr
+                  (identifier))
+                (operator)
+                (const
+                  (int))))
             (variable_expr
-              (identifier))))))))
+              (identifier))))
+        (variable_expr
+          (identifier))))))
 
 ================================================================================
 block_expect_adjacent_to_declaration
@@ -104,38 +95,33 @@ expect 1 == 1
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (body_expression
-            (expect
-              (expr_body
-                (bin_op_expr
-                  (variable_expr
-                    (identifier))
-                  (operator)
-                  (const
-                    (int)))))
-            (value_declaration
-              (decl_left
-                (identifier_pattern
-                  (identifier)))
-              (expr_body
-                (variable_expr
-                  (identifier))))
+    (anon_fun_expr
+      (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      (body_expression
+        (expect
+          (bin_op_expr
             (variable_expr
-              (identifier)))))))
+              (identifier))
+            (operator)
+            (const
+              (int))))
+        (value_declaration
+          (decl_left
+            (identifier_pattern
+              (identifier)))
+          (variable_expr
+            (identifier)))
+        (variable_expr
+          (identifier)))))
   (expect
-    (expr_body
-      (bin_op_expr
-        (const
-          (int))
-        (operator)
-        (const
-          (int))))))
+    (bin_op_expr
+      (const
+        (int))
+      (operator)
+      (const
+        (int)))))
 
 ================================================================================
 block_identifier_with_expect_prefix
@@ -151,22 +137,19 @@ check = |sum| {
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (identifier_pattern
+    (anon_fun_expr
+      (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      (body_expression
+        (value_declaration
+          (decl_left
+            (identifier_pattern
+              (identifier)))
+          (variable_expr
             (identifier)))
-        (expr_body
-          (body_expression
-            (value_declaration
-              (decl_left
-                (identifier_pattern
-                  (identifier)))
-              (expr_body
-                (variable_expr
-                  (identifier))))
-            (variable_expr
-              (identifier))))))))
+        (variable_expr
+          (identifier))))))
 
 ================================================================================
 block_expect_condition_on_next_line
@@ -183,23 +166,20 @@ check = |sum| {
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (body_expression
-            (expect
-              (expr_body
-                (bin_op_expr
-                  (variable_expr
-                    (identifier))
-                  (operator)
-                  (const
-                    (int)))))
+    (anon_fun_expr
+      (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      (body_expression
+        (expect
+          (bin_op_expr
             (variable_expr
-              (identifier))))))))
+              (identifier))
+            (operator)
+            (const
+              (int))))
+        (variable_expr
+          (identifier))))))
 
 ================================================================================
 block_expect_condition_continues_with_pipe
@@ -216,20 +196,17 @@ check = |sum| {
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        (expr_body
-          (body_expression
-            (expect
-              (expr_body
-                (bin_op_expr
-                  (variable_expr
-                    (identifier))
-                  (operator)
-                  (variable_expr
-                    (identifier)))))
+    (anon_fun_expr
+      (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      (body_expression
+        (expect
+          (bin_op_expr
             (variable_expr
-              (identifier))))))))
+              (identifier))
+            (operator)
+            (variable_expr
+              (identifier))))
+        (variable_expr
+          (identifier))))))

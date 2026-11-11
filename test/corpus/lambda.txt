@@ -6,17 +6,15 @@ a = |x| x
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (variable_expr
-            (identifier)))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (variable_expr
+        (identifier)))))
 
 ================================================================================
 lambda_multiple_args
@@ -26,23 +24,21 @@ add = |a, b| a + b
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier))
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (bin_op_expr
-            part: (variable_expr
-              (identifier))
-            part: (operator)
-            part: (variable_expr
-              (identifier))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier))
+        (identifier_pattern
+          (identifier)))
+      body: (bin_op_expr
+        part: (variable_expr
+          (identifier))
+        part: (operator)
+        part: (variable_expr
+          (identifier))))))
 
 ================================================================================
 lambda_with_block
@@ -55,29 +51,26 @@ foo = |x| {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (body_expression
-            (value_declaration
-              (decl_left
-                (identifier_pattern
-                  (identifier)))
-              body: (expr_body
-                (bin_op_expr
-                  part: (variable_expr
-                    (identifier))
-                  part: (operator)
-                  part: (const
-                    (int)))))
-            (variable_expr
-              (identifier))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (body_expression
+        (value_declaration
+          pattern: (decl_left
+            (identifier_pattern
+              (identifier)))
+          body: (bin_op_expr
+            part: (variable_expr
+              (identifier))
+            part: (operator)
+            part: (const
+              (int))))
+        (variable_expr
+          (identifier))))))
 
 ================================================================================
 lambda_no_args
@@ -87,14 +80,12 @@ thunk = || 42
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        body: (expr_body
-          (const
-            (int)))))))
+    body: (anon_fun_expr
+      body: (const
+        (int)))))
 
 ================================================================================
 lambda_effectful
@@ -106,18 +97,16 @@ main! = || {
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        body: (expr_body
-          (body_expression
-            (function_call_pnc_expr
-              caller: (variable_expr
-                (identifier))
-              args: (const
-                (string)))))))))
+    body: (anon_fun_expr
+      body: (body_expression
+        (function_call_pnc_expr
+          caller: (variable_expr
+            (identifier))
+          args: (const
+            (string)))))))
 
 ================================================================================
 lambda_with_pattern
@@ -127,20 +116,18 @@ getX = |{x, y}| x
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (record_pattern
-            (record_field_pattern
-              (field_name))
-            (record_field_pattern
-              (field_name))))
-        body: (expr_body
-          (variable_expr
-            (identifier)))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (record_pattern
+          (record_field_pattern
+            (field_name))
+          (record_field_pattern
+            (field_name))))
+      body: (variable_expr
+        (identifier)))))
 
 ================================================================================
 lambda_nested
@@ -150,23 +137,20 @@ curry = |a| |b| a + b
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (anon_fun_expr
         args: (argument_patterns
           (identifier_pattern
             (identifier)))
-        body: (expr_body
-          (anon_fun_expr
-            args: (argument_patterns
-              (identifier_pattern
-                (identifier)))
-            body: (expr_body
-              (bin_op_expr
-                part: (variable_expr
-                  (identifier))
-                part: (operator)
-                part: (variable_expr
-                  (identifier))))))))))
+        body: (bin_op_expr
+          part: (variable_expr
+            (identifier))
+          part: (operator)
+          part: (variable_expr
+            (identifier)))))))

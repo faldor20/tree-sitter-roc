@@ -18,8 +18,10 @@ Flags := [A, B].{
       (concrete_type))
     (colon_equals)
     (tags_type
-      (tag_type)
-      (tag_type))
+      (tag_type
+        (tag_name))
+      (tag_type
+        (tag_name)))
     (nominal_methods
       (inferred_associated_annotation
         (annotation_pre_colon
@@ -67,8 +69,10 @@ Flags := [A, B].{
       (concrete_type))
     (colon_equals)
     (tags_type
-      (tag_type)
-      (tag_type))
+      (tag_type
+        (tag_name))
+      (tag_type
+        (tag_name)))
     (nominal_methods
       (inferred_associated_annotation
         (annotation_pre_colon
@@ -79,9 +83,8 @@ Flags := [A, B].{
         (decl_left
           (identifier_pattern
             (identifier)))
-        (expr_body
-          (const
-            (int))))
+        (const
+          (int)))
       (inferred_associated_annotation
         (annotation_pre_colon
           (identifier))
@@ -90,9 +93,8 @@ Flags := [A, B].{
         (decl_left
           (identifier_pattern
             (identifier)))
-        (expr_body
-          (const
-            (int))))
+        (const
+          (int)))
       (inferred_associated_annotation
         (annotation_pre_colon
           (identifier))
@@ -101,9 +103,8 @@ Flags := [A, B].{
         (decl_left
           (identifier_pattern
             (identifier)))
-        (expr_body
-          (const
-            (int)))))))
+        (const
+          (int))))))
 
 ==================
 module and local inferred annotation controls
@@ -127,30 +128,26 @@ main = || {
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (const
-        (int))))
+    (const
+      (int)))
   (value_declaration
     (decl_left
       (identifier_pattern
         (identifier)))
-    (expr_body
-      (anon_fun_expr
-        (expr_body
-          (body_expression
-            (value_declaration
-              (annotation_type_def
-                (annotation_pre_colon
-                  (identifier))
-                (inferred))
-              (decl_left
-                (identifier_pattern
-                  (identifier)))
-              (expr_body
-                (const
-                  (int))))
-            (variable_expr
-              (identifier))))))))
+    (anon_fun_expr
+      (body_expression
+        (annotation_type_def
+          (annotation_pre_colon
+            (identifier))
+          (inferred))
+        (value_declaration
+          (decl_left
+            (identifier_pattern
+              (identifier)))
+          (const
+            (int)))
+        (variable_expr
+          (identifier))))))
 
 ==================
 nested associated inferred annotations
@@ -168,14 +165,16 @@ Outer := [A].{
       (concrete_type))
     (colon_equals)
     (tags_type
-      (tag_type))
+      (tag_type
+        (tag_name)))
     (nominal_methods
       (nominal_type_def
         (apply_type
           (concrete_type))
         (colon_equals)
         (tags_type
-          (tag_type))
+          (tag_type
+            (tag_name)))
         (nominal_methods
           (inferred_associated_annotation
             (annotation_pre_colon
@@ -204,8 +203,10 @@ Flags := [A, B].{
       (concrete_type))
     (colon_equals)
     (tags_type
-      (tag_type)
-      (tag_type))
+      (tag_type
+        (tag_name))
+      (tag_type
+        (tag_name)))
     (nominal_methods
       (annotation_type_def
         (annotation_pre_colon
@@ -220,18 +221,16 @@ Flags := [A, B].{
         (decl_left
           (identifier_pattern
             (identifier)))
-        (expr_body
-          (anon_fun_expr
-            (argument_patterns
-              (identifier_pattern
-                (identifier))
-              (identifier_pattern
-                (identifier)))
-            (expr_body
-              (tag_expr
-                (tag
-                  (module)
-                  (identifier)))))))
+        (anon_fun_expr
+          (argument_patterns
+            (identifier_pattern
+              (identifier))
+            (identifier_pattern
+              (identifier)))
+          (tag_expr
+            (tag
+              (module)
+              (identifier)))))
       (annotation_type_def
         (annotation_pre_colon
           (identifier))
@@ -242,9 +241,8 @@ Flags := [A, B].{
         (decl_left
           (identifier_pattern
             (identifier)))
-        (expr_body
-          (tuple_expr
-            (const
-              (int))
-            (const
-              (int))))))))
+        (tuple_expr
+          (const
+            (int))
+          (const
+            (int)))))))

@@ -6,12 +6,11 @@ x = a
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (variable_expr
-        (identifier)))))
+    body: (variable_expr
+      (identifier))))
 
 ================================================================================
 value_decl_nested
@@ -26,27 +25,24 @@ x =
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (variable_expr
-        (identifier))))
+    body: (variable_expr
+      (identifier)))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (body_expression
-        (value_declaration
-          (decl_left
-            (identifier_pattern
-              (identifier)))
-          body: (expr_body
-            (const
-              (int))))
-        (variable_expr
-          (identifier))))))
+    body: (body_expression
+      (value_declaration
+        pattern: (decl_left
+          (identifier_pattern
+            (identifier)))
+        body: (const
+          (int)))
+      (variable_expr
+        (identifier)))))
 
 ================================================================================
 value_decl_typed
@@ -70,57 +66,52 @@ x =
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (apply_type
       (concrete_type)))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
+    body: (variable_expr
+      (identifier)))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (body_expression
+      (annotation_type_def
+        name: (annotation_pre_colon
+          (identifier))
+        (apply_type
+          (concrete_type)))
+      (value_declaration
+        pattern: (decl_left
+          (identifier_pattern
+            (identifier)))
+        body: (const
+          (int)))
       (variable_expr
         (identifier))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (body_expression
-        (value_declaration
-          (annotation_type_def
-            (annotation_pre_colon
-              (identifier))
-            (apply_type
-              (concrete_type)))
-          (decl_left
-            (identifier_pattern
-              (identifier)))
-          body: (expr_body
-            (const
-              (int))))
-        (variable_expr
-          (identifier)))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    body: (expr_body
-      (body_expression
-        (value_declaration
-          (annotation_type_def
-            (annotation_pre_colon
-              (identifier))
-            (apply_type
-              (concrete_type)))
-          (decl_left
-            (identifier_pattern
-              (identifier)))
-          body: (expr_body
-            (const
-              (int))))
-        (variable_expr
-          (identifier))))))
+    body: (body_expression
+      (annotation_type_def
+        name: (annotation_pre_colon
+          (identifier))
+        (apply_type
+          (concrete_type)))
+      (value_declaration
+        pattern: (decl_left
+          (identifier_pattern
+            (identifier)))
+        body: (const
+          (int)))
+      (variable_expr
+        (identifier)))))
 
 ================================================================================
 value_record
@@ -131,7 +122,7 @@ value_record
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (record_pattern
         (record_field_pattern
           (field_name)
@@ -141,12 +132,11 @@ value_record
           (field_name)
           (identifier_pattern
             (identifier)))))
-    body: (expr_body
-      (function_call_pnc_expr
-        caller: (variable_expr
-          (identifier))
-        args: (variable_expr
-          (identifier))))))
+    body: (function_call_pnc_expr
+      caller: (variable_expr
+        (identifier))
+      args: (variable_expr
+        (identifier)))))
 
 ================================================================================
 value_field
@@ -159,50 +149,45 @@ a= a.field.b.c.d
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (variable_expr
-        (module)
-        (identifier))))
+    body: (variable_expr
+      (module)
+      (identifier)))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (field_access_expr
-        target: (body_expression
+    body: (field_access_expr
+      target: (body_expression
+        (variable_expr
+          (identifier)))
+      (identifier)))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (field_access_expr
+      target: (parenthesized_expr
+        expression: (body_expression
           (variable_expr
-            (identifier)))
-        (identifier))))
+            (identifier))))
+      (identifier)))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (field_access_expr
-        target: (parenthesized_expr
-          expression: (expr_body
-            (body_expression
-              (variable_expr
-                (identifier)))))
-        (identifier))))
-  (value_declaration
-    (decl_left
-      (identifier_pattern
-        (identifier)))
-    body: (expr_body
-      (field_access_expr
+    body: (field_access_expr
+      target: (field_access_expr
         target: (field_access_expr
           target: (field_access_expr
-            target: (field_access_expr
-              target: (variable_expr
-                (identifier))
+            target: (variable_expr
               (identifier))
             (identifier))
           (identifier))
-        (identifier)))))
+        (identifier))
+      (identifier))))
 
 ================================================================================
 value_ignore
@@ -213,18 +198,16 @@ _a= a
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (wildcard_pattern))
-    body: (expr_body
-      (variable_expr
-        (identifier))))
+    body: (variable_expr
+      (identifier)))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (variable_expr
-        (identifier)))))
+    body: (variable_expr
+      (identifier))))
 
 ================================================================================
 value_var
@@ -235,15 +218,14 @@ var a= ""
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (apply_type
       (concrete_type)))
   (var_declaration
     name: (identifier)
-    body: (expr_body
-      (const
-        (string)))))
+    body: (const
+      (string))))
 
 ================================================================================
 value_var_$
@@ -254,15 +236,14 @@ var $a= ""
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (apply_type
       (concrete_type)))
   (var_declaration
     name: (identifier)
-    body: (expr_body
-      (const
-        (string)))))
+    body: (const
+      (string))))
 
 ====
 value_tuple
@@ -272,12 +253,11 @@ tup = ("Roc", 1)
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (tuple_expr
-        expr: (const
-          (string))
-        expr: (const
-          (int))))))
+    body: (tuple_expr
+      expr: (const
+        (string))
+      expr: (const
+        (int)))))

@@ -11,7 +11,7 @@ main =
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (apply_type
       (concrete_type)
@@ -20,20 +20,18 @@ main =
       type_args: (apply_type_arg
         (tags_type))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (body_expression
-        (value_declaration
-          (decl_left
-            (identifier_pattern
-              (identifier)))
-          body: (expr_body
-            (variable_expr
-              (identifier))))
-        (variable_expr
-          (identifier))))))
+    body: (body_expression
+      (value_declaration
+        pattern: (decl_left
+          (identifier_pattern
+            (identifier)))
+        body: (variable_expr
+          (identifier)))
+      (variable_expr
+        (identifier)))))
 
 ================================================================================
 internal
@@ -48,25 +46,23 @@ main=
 
 (file
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (body_expression
-        (value_declaration
-          (annotation_type_def
-            (annotation_pre_colon
-              (identifier))
-            (apply_type
-              (concrete_type)))
-          (decl_left
-            (identifier_pattern
-              (identifier)))
-          body: (expr_body
-            (const
-              (int))))
-        (variable_expr
-          (identifier))))))
+    body: (body_expression
+      (annotation_type_def
+        name: (annotation_pre_colon
+          (identifier))
+        (apply_type
+          (concrete_type)))
+      (value_declaration
+        pattern: (decl_left
+          (identifier_pattern
+            (identifier)))
+        body: (const
+          (int)))
+      (variable_expr
+        (identifier)))))
 
 ================================================================================
 types_nominal_simple
@@ -93,16 +89,19 @@ Color := [Red, Green, Blue].{
 
 (file
   (nominal_type_def
-    (apply_type
+    name: (apply_type
       (concrete_type))
     (colon_equals)
     (tags_type
-      (tag_type)
-      (tag_type)
-      (tag_type))
+      (tag_type
+        name: (tag_name))
+      (tag_type
+        name: (tag_name))
+      (tag_type
+        name: (tag_name)))
     (nominal_methods
       (annotation_type_def
-        (annotation_pre_colon
+        name: (annotation_pre_colon
           (identifier))
         (function_type
           param: (apply_type
@@ -111,17 +110,15 @@ Color := [Red, Green, Blue].{
           (apply_type
             (concrete_type))))
       (value_declaration
-        (decl_left
+        pattern: (decl_left
           (identifier_pattern
             (identifier)))
-        body: (expr_body
-          (anon_fun_expr
-            args: (argument_patterns
-              (identifier_pattern
-                (identifier)))
-            body: (expr_body
-              (variable_expr
-                (identifier)))))))))
+        body: (anon_fun_expr
+          args: (argument_patterns
+            (identifier_pattern
+              (identifier)))
+          body: (variable_expr
+            (identifier)))))))
 
 ================================================================================
 types_nominal_empty_methods
@@ -149,7 +146,7 @@ A: R,(B(a)
 
 (file
   (alias_type_def
-    (apply_type
+    name: (apply_type
       (concrete_type))
     body: (function_type
       param: (apply_type
@@ -177,7 +174,7 @@ a=|a| b
 
 (file
   (alias_type_def
-    (apply_type
+    name: (apply_type
       (concrete_type))
     body: (apply_type
       (concrete_type)))
@@ -185,7 +182,7 @@ a=|a| b
     (variable_expr
       (identifier)))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -194,17 +191,15 @@ a=|a| b
       (apply_type
         (concrete_type))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (variable_expr
-            (identifier)))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (variable_expr
+        (identifier)))))
 
 ================================================================================
 types_nested_func
@@ -221,7 +216,7 @@ fun:  a,
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (bound_variable)
@@ -252,7 +247,7 @@ a:(Num(a),Num(b))
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (tuple_type
       (apply_type
@@ -312,7 +307,7 @@ foo : List(a) -> List(a)
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -333,7 +328,7 @@ foo : Result(Ok, Err) -> Bool
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -356,7 +351,7 @@ print! : Str => {}
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -372,7 +367,7 @@ main! : List(Str) => Try({}, [Exit(I32)])
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -388,6 +383,7 @@ main! : List(Str) => Try({}, [Exit(I32)])
         type_args: (apply_type_arg
           (tags_type
             (tag_type
+              name: (tag_name)
               type_args: (apply_type_arg
                 (apply_type
                   (concrete_type))))))))))
@@ -400,7 +396,7 @@ write! : Str, Str => Try({}, Str)
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (function_type
       param: (apply_type
@@ -425,14 +421,13 @@ helper1 = |x| x.to_str()
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (where_implements
       type: (function_type
         param: (bound_variable)
         (arrow)
         (bound_variable))
-      (where)
       implements: (static_dispatch_list
         (static_dispatch
           (static_dispatch_target
@@ -443,20 +438,18 @@ helper1 = |x| x.to_str()
             (arrow)
             (bound_variable))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (function_call_pnc_expr
-            caller: (field_access_expr
-              target: (variable_expr
-                (identifier))
-              (identifier))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (function_call_pnc_expr
+        caller: (field_access_expr
+          target: (variable_expr
+            (identifier))
+          (identifier))))))
 
 ===
 types_static_complex
@@ -470,7 +463,7 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (where_implements
       type: (function_type
@@ -484,7 +477,6 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
               (concrete_type))))
         (arrow)
         (bound_variable))
-      (where)
       implements: (static_dispatch_list
         (static_dispatch
           (static_dispatch_target
@@ -502,33 +494,30 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
             (arrow)
             (bound_variable))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier))
+        (identifier_pattern
+          (identifier)))
+      body: (function_call_pnc_expr
+        caller: (field_access_expr
+          target: (variable_expr
             (identifier))
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (function_call_pnc_expr
-            caller: (field_access_expr
-              target: (variable_expr
-                (identifier))
-              (identifier))
-            args: (variable_expr
-              (identifier)))))))
+          (identifier))
+        args: (variable_expr
+          (identifier)))))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (where_implements
       type: (function_type
         param: (bound_variable)
         (arrow)
         (bound_variable))
-      (where)
       implements: (static_dispatch_list
         (static_dispatch
           (static_dispatch_target
@@ -560,13 +549,15 @@ Letters(others) : [A, B, ..others]
 (file
   (line_comment)
   (alias_type_def
-    (apply_type
+    name: (apply_type
       (concrete_type)
       type_args: (apply_type_arg
         (bound_variable)))
     body: (tags_type
-      (tag_type)
-      (tag_type)
+      (tag_type
+        name: (tag_name))
+      (tag_type
+        name: (tag_name))
       (spread_type
         (type_variable
           (bound_variable))))))
@@ -580,14 +571,13 @@ helper1 = |x| x.to_str()
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (where_implements
       type: (function_type
         param: (bound_variable)
         (arrow)
         (bound_variable))
-      (where)
       implements: (static_dispatch_list
         (static_dispatch
           (static_dispatch_target
@@ -598,20 +588,18 @@ helper1 = |x| x.to_str()
             (arrow)
             (bound_variable))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (function_call_pnc_expr
-            caller: (field_access_expr
-              target: (variable_expr
-                (identifier))
-              (identifier))))))))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (function_call_pnc_expr
+        caller: (field_access_expr
+          target: (variable_expr
+            (identifier))
+          (identifier))))))
 
 ===
 types_static_complex
@@ -624,7 +612,7 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
 
 (file
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (where_implements
       type: (function_type
@@ -638,7 +626,6 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
               (concrete_type))))
         (arrow)
         (bound_variable))
-      (where)
       implements: (static_dispatch_list
         (static_dispatch
           (static_dispatch_target
@@ -656,33 +643,30 @@ multi_fun: b -> c where [b.b_thing : b, d -> c, b.str_thing : b, Str -> d]
             (arrow)
             (bound_variable))))))
   (value_declaration
-    (decl_left
+    pattern: (decl_left
       (identifier_pattern
         (identifier)))
-    body: (expr_body
-      (anon_fun_expr
-        args: (argument_patterns
-          (identifier_pattern
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier))
+        (identifier_pattern
+          (identifier)))
+      body: (function_call_pnc_expr
+        caller: (field_access_expr
+          target: (variable_expr
             (identifier))
-          (identifier_pattern
-            (identifier)))
-        body: (expr_body
-          (function_call_pnc_expr
-            caller: (field_access_expr
-              target: (variable_expr
-                (identifier))
-              (identifier))
-            args: (variable_expr
-              (identifier)))))))
+          (identifier))
+        args: (variable_expr
+          (identifier)))))
   (annotation_type_def
-    (annotation_pre_colon
+    name: (annotation_pre_colon
       (identifier))
     (where_implements
       type: (function_type
         param: (bound_variable)
         (arrow)
         (bound_variable))
-      (where)
       implements: (static_dispatch_list
         (static_dispatch
           (static_dispatch_target

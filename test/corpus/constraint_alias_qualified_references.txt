@@ -1,0 +1,661 @@
+===
+W03 upstream qualified local type
+===
+Holder := {}.{
+	a.Show : where [a.to_str : a -> Str]
+}
+
+describe : a -> Str where [a.Holder.Show]
+describe = |value| value.to_str()
+---
+
+(file
+  (nominal_type_def
+    name: (apply_type
+      (concrete_type))
+    (colon_equals)
+    (record_type)
+    (nominal_methods
+      (alias_type_def
+        name: (where_alias_name
+          (bound_variable)
+          (concrete_type))
+        body: (static_dispatch_list
+          (static_dispatch
+            (static_dispatch_target
+              (bound_variable)
+              (identifier))
+            (function_type
+              param: (bound_variable)
+              (arrow)
+              (apply_type
+                (concrete_type))))))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          (concrete_type)))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (function_call_pnc_expr
+        caller: (field_access_expr
+          target: (variable_expr
+            (identifier))
+          (identifier))))))
+
+===
+W03 upstream qualified builtin nested type
+===
+describe : a -> Str where [a.Str.Utf8Problem]
+describe = |value| value.to_str()
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          (concrete_type)))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (function_call_pnc_expr
+        caller: (field_access_expr
+          target: (variable_expr
+            (identifier))
+          (identifier))))))
+
+===
+W03 upstream qualified spaced segments
+===
+Holder := {}.{
+	a.Show : where [a.to_str : a -> Str]
+}
+
+describe : a -> Str where [a .Holder .Show]
+describe = |value| value.to_str()
+---
+
+(file
+  (nominal_type_def
+    name: (apply_type
+      (concrete_type))
+    (colon_equals)
+    (record_type)
+    (nominal_methods
+      (alias_type_def
+        name: (where_alias_name
+          (bound_variable)
+          (concrete_type))
+        body: (static_dispatch_list
+          (static_dispatch
+            (static_dispatch_target
+              (bound_variable)
+              (identifier))
+            (function_type
+              param: (bound_variable)
+              (arrow)
+              (apply_type
+                (concrete_type))))))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          (concrete_type)))))
+  (value_declaration
+    pattern: (decl_left
+      (identifier_pattern
+        (identifier)))
+    body: (anon_fun_expr
+      args: (argument_patterns
+        (identifier_pattern
+          (identifier)))
+      body: (function_call_pnc_expr
+        caller: (field_access_expr
+          target: (variable_expr
+            (identifier))
+          (identifier))))))
+
+===
+W03 qualified arguments and inline method constraints
+===
+f : a -> Str where [a.Holder.Show(err, [Bad, ..errs],), a.show : a -> Str]
+g : a -> Str where [a.show : a -> Str, a.One.Two.Three([])]
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          (concrete_type)
+          type_args: (apply_type_arg
+            (bound_variable))
+          type_args: (apply_type_arg
+            (tags_type
+              (tag_type
+                name: (tag_name))
+              (spread_type
+                (type_variable
+                  (bound_variable))))))
+        (static_dispatch
+          (static_dispatch_target
+            (bound_variable)
+            (identifier))
+          (function_type
+            param: (bound_variable)
+            (arrow)
+            (apply_type
+              (concrete_type)))))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (static_dispatch
+          (static_dispatch_target
+            (bound_variable)
+            (identifier))
+          (function_type
+            param: (bound_variable)
+            (arrow)
+            (apply_type
+              (concrete_type))))
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          (concrete_type)
+          (concrete_type)
+          type_args: (apply_type_arg
+            (tags_type)))))))
+
+===
+W03 trivia before first and later dots
+===
+space : a -> Str where [a .Holder .Show]
+tab : a -> Str where [a	.Holder	.Show]
+lf : a -> Str where [a
+.Holder
+.Show]
+crlf : a -> Str where [a
+.Holder
+.Show]
+comment : a -> Str where [a # receiver
+.Holder # segment
+.Show]
+---
+
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          (concrete_type)))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          (concrete_type)))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          (concrete_type)))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          (concrete_type)))))
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (line_comment)
+          (concrete_type)
+          (line_comment)
+          (concrete_type))))))
+
+===
+W03 reject space after first dot
+===
+f : a -> Str where [a. Holder.Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (ERROR
+          (bound_variable)
+          (module))))))
+
+===
+W03 reject tab after first dot
+===
+f : a -> Str where [a.	Holder.Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (ERROR
+          (bound_variable)
+          (module))))))
+
+===
+W03 reject LF after first dot
+===
+f : a -> Str where [a.
+Holder.Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (ERROR
+          (bound_variable)
+          (module))))))
+
+===
+W03 reject CRLF after first dot
+===
+f : a -> Str where [a.
+Holder.Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (ERROR
+          (bound_variable)
+          (module))))))
+
+===
+W03 reject comment after first dot
+===
+f : a -> Str where [a.# bad
+Holder.Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (ERROR
+          (bound_variable)
+          (line_comment)
+          (module))))))
+
+===
+W03 reject space after later dot
+===
+f : a -> Str where [a.Holder. Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type))
+        (ERROR)))))
+
+===
+W03 reject tab after later dot
+===
+f : a -> Str where [a.Holder.	Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type))
+        (ERROR)))))
+
+===
+W03 reject LF after later dot
+===
+f : a -> Str where [a.Holder.
+Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type))
+        (ERROR)))))
+
+===
+W03 reject CRLF after later dot
+===
+f : a -> Str where [a.Holder.
+Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type))
+        (ERROR)))))
+
+===
+W03 reject comment after later dot
+===
+f : a -> Str where [a.Holder.# bad
+Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type))
+        (ERROR
+          (line_comment))))))
+
+===
+W03 reject uppercase receiver
+===
+f : a -> Str where [A.Holder.Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (MISSING "]"))))
+  (expr_body
+    (tag_expr
+      (tag
+        (module)
+        (module)
+        (identifier))))
+  (ERROR))
+
+===
+W03 reject lowercase first segment without method colon
+===
+f : a -> Str where [a.holder.Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (ERROR
+          (static_dispatch_target
+            (bound_variable)
+            (identifier))
+          (module))))))
+
+===
+W03 reject lowercase later segment
+===
+f : a -> Str where [a.Holder.show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type))
+        (ERROR)))))
+
+===
+W03 reject missing first dot
+===
+f : a -> Str where [a Holder.Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (ERROR
+          (bound_variable)
+          (module))))))
+
+===
+W03 reject missing later dot
+===
+f : a -> Str where [a.Holder Show]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type))
+        (ERROR)))))
+
+===
+W03 reject spaced arguments
+===
+f : a -> Str where [a.Holder.Show (err)]
+---
+(file
+  (annotation_type_def
+    name: (annotation_pre_colon
+      (identifier))
+    (where_implements
+      type: (function_type
+        param: (bound_variable)
+        (arrow)
+        (apply_type
+          (concrete_type)))
+      implements: (static_dispatch_list
+        (where_alias_ref
+          (bound_variable)
+          (concrete_type)
+          (concrete_type))
+        (MISSING "]"))))
+  (expr_body
+    (parenthesized_expr
+      expression: (variable_expr
+        (identifier))))
+  (ERROR))

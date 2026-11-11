@@ -1,17 +1,27 @@
-test-gen: 
-    tree-sitter generate && tree-sitter test 
+# Download Builtin.roc, all_syntax_test.roc, and LICENSE from the Roc commit a
+# nightly was built from, and record them in test/fixtures/roc-compiler/source.json.
+# RELEASE is a nightly tag such as nightly-2026-11-10-f7d1f19, or "latest".
+fixture-builtin RELEASE="latest":
+    node tools/roc-fixtures.js {{RELEASE}}
+
+# Check the Zed outline against the Builtin.roc snapshot.
+outline-check:
+    npm run outline:check
+
+test-gen:
+    npm run ts:generate && npm run ts:test
 
 test-gen-filter TEST:
-    tree-sitter generate && tree-sitter test -f {{TEST}}
+    ./node_modules/.bin/tree-sitter generate && ./node_modules/.bin/tree-sitter test -f {{TEST}}
 test:
-    tree-sitter test
+    npm run ts:test
 
 test-update:
-    tree-sitter test --update
+    ./node_modules/.bin/tree-sitter test --update
 
-# run tree-sitter generate and verify generated files are clean
+# run the pinned generator and verify generated files are clean and well-formed
 generate-check:
-    tree-sitter generate && git diff --exit-code src/parser.c src/grammar.json src/node-types.json
+    ./node_modules/.bin/tree-sitter generate && node tools/check-node-types.js --self-test && git diff --exit-code src/parser.c src/grammar.json src/node-types.json
 
 # fail when generated parser complexity exceeds the reviewed budget
 parser-metrics-check:
@@ -23,12 +33,12 @@ queries-generate:
 
 # generate queries and verify output is clean
 queries-check:
-    node tools/template-queries.js --queries-dir queries && git diff --exit-code queries-generated
+    node tools/template-queries.js --queries-dir queries && node tools/check-emacs-query-generator.js && node tools/check-neovim-try-highlight.js --self-test && git diff --exit-code queries-generated
 
 # run CI checks: generation, parser metrics, tests, and queries
 ci:
-    just generate-check && just parser-metrics-check && tree-sitter test && just queries-check
+    npm run ci
 
 #generate and build wasm
 build-all:
-    tree-sitter generate && tree-sitter wasm
+    ./node_modules/.bin/tree-sitter generate && ./node_modules/.bin/tree-sitter wasm
