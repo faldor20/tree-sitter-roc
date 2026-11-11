@@ -136,7 +136,7 @@ Common tasks are available via [justfile](justfile):
 - `just generate-check` ensures generated parser files are up-to-date.
 - `just queries-generate` generates editor query outputs.
 - `just queries-check` verifies generated queries are clean.
-- `just fixture-builtin` copies committed compiler source from `ROC_COMPILER_DIR` (set in a gitignored `.env`; see `.env.example`) and records its revision, branch, and blob. It rejects uncommitted source changes.
+- `just fixture-builtin [RELEASE]` downloads the files in [Roc compiler fixtures](#roc-compiler-fixtures) from the Roc commit a nightly was built from. `RELEASE` is a nightly tag such as `nightly-2026-11-10-f7d1f19`, or `latest` (the default).
 - `just outline-check` checks nested Zed outline captures, required Builtin paths, and the reviewed full snapshot. Signatures take precedence over matching definitions; unsigned definitions remain. Type punctuation is included in labels, and function locals are excluded. The check models captures and containment without launching Zed.
 - `just ci` runs generated-artifact checks, parser/highlight and query regressions, and the outline check.
 
@@ -149,6 +149,32 @@ The following npm scripts are designed for CI:
 - `npm run queries:check` validates query templating output.
 - `npm run ci` runs all checks, beginning with pinned-syntax self-tests and ending with the pinned whole-file check.
 
+### Roc compiler fixtures
+
+`test/fixtures/roc-compiler/` holds files copied unchanged from the Roc compiler
+repository:
+
+- `Builtin.roc`, from `src/build/roc/Builtin.roc`, is the input for `npm run outline:check`.
+  `Builtin.zed-outline.txt` is that check's reviewed snapshot.
+- `all_syntax_test.roc`, from `test/echo/all_syntax_test.roc`, is the input for `npm run pinned-syntax:check`.
+- `LICENSE` is the Roc license that covers both files.
+
+The copied files are Roc software under **UPL-1.0**, not this repository's ISC
+license. Copyright © 2019 Richard Feldman and subsequent Roc authors <roc-lang.org/authors>.
+
+`source.json` records the [Roc nightly](https://github.com/roc-lang/nightlies/releases)
+the files come from, the full Roc commit that nightly was built from, and each file's
+upstream path, download URL, byte count and SHA-256. Both checks verify every file
+against `source.json` before running, so an edited fixture fails CI. Checks never
+download or rewrite the fixtures; `.gitattributes` keeps their exact bytes.
+
+To update the fixtures, run `just fixture-builtin` for the latest nightly, or
+`just fixture-builtin nightly-YYYY-MM-DD-<commit>` for a specific one. It downloads
+from GitHub and replaces the files and `source.json` only after every download
+succeeds. Set `GITHUB_TOKEN` if GitHub API rate limits block it. A new `Builtin.roc`
+usually changes the outline, so review the difference and re-record the snapshot
+with `node tools/check-zed-outline.js --record --force`.
+
 ### Pinned upstream syntax acceptance
 
 `npm run pinned-syntax:check` parses the complete, unchanged upstream
@@ -159,18 +185,9 @@ read-only pinned-fixture CLI invocation.
 Both are offline after normal npm dependencies and native C/C++ build prerequisites
 are installed. Every parse uses `--cst --rebuild --time` from the repository root,
 with `NO_COLOR=1`; rebuilding compiles only the parser cache, not grammar outputs.
-The runner has a 60-second process timeout and a 16 MiB output bound. The current
-13,007-byte fixture produces approximately 180 KiB of CST output.
-
-The frozen source is Roc commit `3c0fffe7bdb0b7dacb655aef8584b37decd98952`,
-selected by [nightly-2026-10-26-3c0fffe](https://github.com/roc-lang/nightlies/releases/tag/nightly-2026-10-26-3c0fffe)
-(release ID 424513578). Full provenance, immutable source URL, byte count and local
-SHA-256 are in `test/fixtures/pinned-syntax/source.json`. The vendored fixture and
-copyright notice are upstream Roc software under **UPL-1.0**, not this repository's
-ISC license; the complete upstream notice is copied alongside it as `LICENSE`.
-Copyright © 2019 Richard Feldman and subsequent Roc authors <roc-lang.org/authors>.
-Verification checks fixture and license hashes and metadata without downloading
-or rewriting anything. `.gitattributes` preserves the fixture's working-tree bytes.
+The runner has a 60-second process timeout and a 16 MiB output bound. The
+fixture is about 13 KB and produces about 180 KiB of CST output. Its source and
+license are described in [Roc compiler fixtures](#roc-compiler-fixtures).
 
 Acceptance requires a complete tree, a final timing summary, consistent process
 status/error marking, and no recovery. Exit 0 means acceptance; exit 1 means

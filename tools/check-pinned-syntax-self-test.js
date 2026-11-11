@@ -6,6 +6,7 @@ const os = require("node:os");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
 const guard = require("./check-pinned-syntax");
+const fixtures = require("./roc-fixtures");
 const directory = fs.mkdtempSync(path.join(os.tmpdir(), "roc-pinned-syntax-"));
 let count = 0;
 function test(name, run) { run(); count++; console.log(`PASS ${name}`); }
@@ -19,30 +20,59 @@ const analyze = (result) => guard.analyze(result, source, input);
 try {
   test("pin-integrity", () => {
     const original = guard.loadPin();
-    for (const name of ["source.json", "LICENSE", "all_syntax_test.roc"]) fs.copyFileSync(path.join(guard.directory, name), path.join(directory, name));
+    const names = ["source.json", ...Object.keys(fixtures.files)];
+    const restore = () => { for (const name of names) fs.copyFileSync(path.join(guard.directory, name), path.join(directory, name)); };
+    const writePin = (pin) => fs.writeFileSync(path.join(directory, "source.json"), JSON.stringify(pin));
+    restore();
     assert.equal(guard.loadPin(directory).pin.sha256, original.pin.sha256);
-    const fixturePath = path.join(directory, "all_syntax_test.roc");
-    const changed = Buffer.from(original.source); changed[0] ^= 1;
-    fs.writeFileSync(fixturePath, changed);
-    rejects(() => guard.loadPin(directory), /checksum/);
-    fs.writeFileSync(fixturePath, original.source);
-    fs.appendFileSync(path.join(directory, "LICENSE"), "corrupt");
-    rejects(() => guard.loadPin(directory), /license checksum/);
-    fs.copyFileSync(path.join(guard.directory, "LICENSE"), path.join(directory, "LICENSE"));
-    const alteredPin = { ...original.pin, commit: original.pin.commit.slice(0, -1) + "3" };
-    alteredPin.sourceUrl = alteredPin.sourceUrl.replace(original.pin.commit, alteredPin.commit);
-    alteredPin.licenseUrl = alteredPin.licenseUrl.replace(original.pin.commit, alteredPin.commit);
-    fs.writeFileSync(path.join(directory, "source.json"), JSON.stringify(alteredPin));
-    rejects(() => guard.loadPin(directory), /metadata/);
-    fs.copyFileSync(path.join(guard.directory, "source.json"), path.join(directory, "source.json"));
-    fs.appendFileSync(path.join(directory, "all_syntax_test.roc"), "\n");
-    rejects(() => guard.loadPin(directory), /checksum/);
+    // Every fixture is checked, not only the one this guard parses.
+    for (const name of Object.keys(fixtures.files)) {
+      const bytes = fs.readFileSync(path.join(directory, name));
+      bytes[0] ^= 1;
+      fs.writeFileSync(path.join(directory, name), bytes);
+      rejects(() => guard.loadPin(directory), new RegExp(`${name} checksum`));
+      restore();
+      fs.appendFileSync(path.join(directory, name), "\n");
+      rejects(() => guard.loadPin(directory), new RegExp(`${name} checksum`));
+      restore();
+    }
+    // Metadata must stay self-consistent: commit, release tag, and URLs agree.
+    const pin = JSON.parse(fs.readFileSync(path.join(directory, "source.json"), "utf8"));
+    const otherCommit = pin.commit.slice(0, -1) + (pin.commit.endsWith("0") ? "1" : "0");
+    for (const [label, alter] of [
+      ["commit without matching URLs", (p) => { p.commit = otherCommit; }],
+      ["release from another commit", (p) => { p.release = "nightly-2026-01-01-0000000"; p.releaseUrl = `https://github.com/roc-lang/nightlies/releases/tag/${p.release}`; }],
+      ["release URL", (p) => { p.releaseUrl += "x"; }],
+      ["release ID", (p) => { p.releaseId = 0; }],
+      ["file URL", (p) => { p.files["LICENSE"].url = p.files["LICENSE"].url.replace(p.commit, otherCommit); }],
+      ["upstream path", (p) => { p.files["Builtin.roc"].upstreamPath = "Builtin.roc"; }],
+      ["missing file entry", (p) => { delete p.files["Builtin.roc"]; }],
+      ["extra file entry", (p) => { p.files["extra.roc"] = p.files["LICENSE"]; }],
+      ["license", (p) => { p.license = "MIT"; }],
+    ]) {
+      const altered = structuredClone(pin);
+      alter(altered);
+      writePin(altered);
+      assert.throws(() => guard.loadPin(directory), (error) => error instanceof guard.InfrastructureError && /metadata/.test(error.message), label);
+    }
+    restore();
     fs.unlinkSync(path.join(directory, "all_syntax_test.roc"));
-    rejects(() => guard.loadPin(directory), /cannot load pinned input/);
+    rejects(() => guard.loadPin(directory), /cannot load Roc fixtures/);
     fs.unlinkSync(path.join(directory, "source.json"));
-    rejects(() => guard.loadPin(directory), /cannot load pinned input/);
+    rejects(() => guard.loadPin(directory), /cannot load Roc fixtures/);
     fs.writeFileSync(path.join(directory, "source.json"), "{}");
     rejects(() => guard.loadPin(directory), /metadata/);
+  });
+  test("fixture-description", () => {
+    // The recipe writes source.json through describe(); checkPin must accept it.
+    const pin = guard.loadPin().pin;
+    const contents = Object.fromEntries(Object.keys(fixtures.files).map((name) => [name, fs.readFileSync(path.join(guard.directory, name))]));
+    const described = fixtures.describe(pin.release, pin.releaseId, pin.commit, contents);
+    fixtures.checkPin(described);
+    const recorded = JSON.parse(fs.readFileSync(path.join(guard.directory, "source.json"), "utf8"));
+    assert.deepEqual(described, recorded);
+    const safe = fixtures.describe(`${pin.release}-safe`, pin.releaseId, pin.commit, contents);
+    fixtures.checkPin(safe);
   });
   test("full-file-invocation", () => {
     guard.invoke(input, (executable, args, options) => {
@@ -160,9 +190,11 @@ try {
     fs.writeFileSync(path.join(badPin, "source.json"), "{}");
     const integrity = spawnSync(process.execPath, ["-e", `const g = require(process.argv[1]); process.exitCode = g.run([], {loadPin: () => g.loadPin(process.argv[2])});`, check, badPin], { encoding: "utf8" });
     assert.equal(integrity.status, 2); assert.match(integrity.stderr, /invalid provenance metadata/);
+    const usageFixtures = spawnSync(process.execPath, [path.join(guard.root, "tools/roc-fixtures.js")], { encoding: "utf8" });
+    assert.equal(usageFixtures.status, 2); assert.match(usageFixtures.stderr, /Usage:.*nightly-tag \| latest/);
   });
   test("read-only-verification", () => {
-    const names = ["source.json", "LICENSE", "all_syntax_test.roc"];
+    const names = ["source.json", ...Object.keys(fixtures.files)];
     const before = names.map((name) => guard.hash(fs.readFileSync(path.join(guard.directory, name))));
     const entries = fs.readdirSync(guard.directory).sort();
     const pinned = guard.loadPin();

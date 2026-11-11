@@ -6,9 +6,10 @@ const { execFileSync, spawnSync } = require("node:child_process");
 const fs = require("node:fs");
 const os = require("node:os");
 const path = require("node:path");
+const fixtures = require("./roc-fixtures");
 const root = path.join(__dirname, "..");
 const cli = path.join(root, "node_modules/.bin/tree-sitter");
-const snapshot = path.join(root, "test/fixtures/Builtin.zed-outline.txt");
+const snapshot = path.join(fixtures.directory, "Builtin.zed-outline.txt");
 const required = [
   "Builtin > Str > is_empty", "Builtin > Str > concat", "Builtin > Str > trim",
   "Builtin > List > len", "Builtin > List > map",
@@ -237,8 +238,10 @@ function main() {
   for (const arg of args) assert.ok(["--self-test", "--record", "--force"].includes(arg), `Unknown argument: ${arg}`);
   assert.ok(!args.has("--force") || args.has("--record"), "--force requires --record");
   if (args.has("--self-test")) selfTest();
-  const sourcePath = path.join(root, "test/fixtures/Builtin.roc");
-  const source = fs.readFileSync(sourcePath, "utf8");
+  // Loading checks Builtin.roc against source.json before it is used.
+  const builtin = fixtures.load();
+  const sourcePath = builtin.path("Builtin.roc");
+  const source = builtin.contents["Builtin.roc"].toString("utf8");
   const result = outline(parseMatches(query(path.join(root, "queries-generated/zed/queries/outline.scm"), sourcePath), source, sourcePath));
   requirePaths(result.paths, required);
   checkSnapshot(snapshot, result.rendered, args.has("--record"), args.has("--force"));

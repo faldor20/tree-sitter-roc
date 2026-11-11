@@ -1,38 +1,23 @@
 #!/usr/bin/env node
 "use strict";
 
-const fs = require("node:fs");
 const path = require("node:path");
-const crypto = require("node:crypto");
 const { spawnSync } = require("node:child_process");
-const root = path.resolve(__dirname, "..");
-const directory = path.join(root, "test/fixtures/pinned-syntax");
+const fixtures = require("./roc-fixtures");
+const { root, directory, hash } = fixtures;
 const cli = path.join(root, "node_modules/.bin/tree-sitter");
 const limits = { timeout: 60000, maxBuffer: 16 * 1024 * 1024 };
 class InfrastructureError extends Error {}
 const fail = (message) => { throw new InfrastructureError(message); };
-const hash = (bytes) => crypto.createHash("sha256").update(bytes).digest("hex");
 
 function loadPin(dir = directory) {
   try {
-    const pin = JSON.parse(fs.readFileSync(path.join(dir, "source.json"), "utf8"));
-    if (pin.repository !== "https://github.com/roc-lang/roc" || pin.commit !== "3c0fffe7bdb0b7dacb655aef8584b37decd98952" ||
-        pin.release !== `nightly-2026-10-26-${pin.commit.slice(0, 7)}` || pin.releaseId !== 424513578 ||
-        pin.upstreamPath !== "test/echo/all_syntax_test.roc" || pin.license !== "UPL-1.0" ||
-        pin.releaseUrl !== `https://github.com/roc-lang/nightlies/releases/tag/${pin.release}` ||
-        pin.sourceUrl !== `https://raw.githubusercontent.com/roc-lang/roc/${pin.commit}/${pin.upstreamPath}` ||
-        pin.licenseUrl !== `https://raw.githubusercontent.com/roc-lang/roc/${pin.commit}/LICENSE` ||
-        !/^[a-f0-9]{64}$/.test(pin.sha256) || !/^[a-f0-9]{64}$/.test(pin.licenseSha256) ||
-        !Number.isSafeInteger(pin.bytes) || pin.bytes <= 0 ||
-        pin.attribution !== "Copyright © 2019 Richard Feldman and subsequent Roc authors <roc-lang.org/authors>") fail("invalid provenance metadata");
-    const input = path.join(dir, "all_syntax_test.roc");
-    const source = fs.readFileSync(input);
-    if (source.length !== pin.bytes || hash(source) !== pin.sha256) fail("fixture checksum/size mismatch");
-    if (hash(fs.readFileSync(path.join(dir, "LICENSE"))) !== pin.licenseSha256) fail("license checksum mismatch");
-    return { pin, input, source };
+    const { pin, contents, path: fixturePath } = fixtures.load(dir);
+    const name = "all_syntax_test.roc";
+    return { pin: { ...pin, sha256: pin.files[name].sha256 }, input: fixturePath(name), source: contents[name] };
   } catch (error) {
-    if (error instanceof InfrastructureError) throw error;
-    fail(`cannot load pinned input: ${error.message}`);
+    if (error instanceof fixtures.FixtureError) fail(error.message);
+    throw error;
   }
 }
 

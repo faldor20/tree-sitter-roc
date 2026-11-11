@@ -1,7 +1,7 @@
 * text eol=lf
 
-# Pinned upstream syntax input must retain its exact downloaded bytes.
-test/fixtures/pinned-syntax/all_syntax_test.roc -text
+# Files copied from the Roc compiler must keep their exact downloaded bytes.
+test/fixtures/roc-compiler/** -text
 
 # Preserve intentional mixed line endings in qualified constraint-reference tests.
 test/corpus/constraint_alias_qualified_references.txt -text

@@ -1,0 +1,29 @@
+{
+  "repository": "https://github.com/roc-lang/roc",
+  "commit": "f7d1f1982ff2336f39ae36ccdaa2e7e480b01367",
+  "release": "nightly-2026-11-10-f7d1f19",
+  "releaseId": 440692699,
+  "releaseUrl": "https://github.com/roc-lang/nightlies/releases/tag/nightly-2026-11-10-f7d1f19",
+  "license": "UPL-1.0",
+  "attribution": "Copyright © 2019 Richard Feldman and subsequent Roc authors <roc-lang.org/authors>",
+  "files": {
+    "Builtin.roc": {
+      "upstreamPath": "src/build/roc/Builtin.roc",
+      "url": "https://raw.githubusercontent.com/roc-lang/roc/f7d1f1982ff2336f39ae36ccdaa2e7e480b01367/src/build/roc/Builtin.roc",
+      "bytes": 1019440,
+      "sha256": "59382fc0f3d25b34f13d1abad5ed632ada417f3cd8dc3aec7b2f587362d141cc"
+    },
+    "all_syntax_test.roc": {
+      "upstreamPath": "test/echo/all_syntax_test.roc",
+      "url": "https://raw.githubusercontent.com/roc-lang/roc/f7d1f1982ff2336f39ae36ccdaa2e7e480b01367/test/echo/all_syntax_test.roc",
+      "bytes": 12707,
+      "sha256": "c09931fac6784fc7b673f3160db5b7d669abcc14e60a7339f6248d776a692eef"
+    },
+    "LICENSE": {
+      "upstreamPath": "LICENSE",
+      "url": "https://raw.githubusercontent.com/roc-lang/roc/f7d1f1982ff2336f39ae36ccdaa2e7e480b01367/LICENSE",
+      "bytes": 1880,
+      "sha256": "a71f5f17762cc8ac7a5435fe9810e029dc937d379d216fa7630a2775d42eb833"
+    }
+  }
+}
