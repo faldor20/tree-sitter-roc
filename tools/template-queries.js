@@ -182,6 +182,19 @@ function assertMappingComplete(mapping, captures, contextLabel) {
   }
 }
 
+// Return the predicate or directive name that begins a parenthesized group,
+// given the offset just past its "(", or null when the group is not one.
+// Tree-sitter skips whitespace and ";" comments between "(" and "#", so
+// "( #eq? ...)" and "(\n  #set! ...)" are predicates too. Predicate names
+// end in "?" and directive names end in "!". Both count here: Emacs treesit
+// rejects every name except eq?, match? and pred?, so directives such as
+// #set! must be omitted from Emacs output along with predicates.
+function predicateNameAfter(content, offset) {
+  // A comment must run to its line end so backtracking cannot stop inside it.
+  const match = /^(?:\s|;[^\n]*(?:\n|$))*(#[A-Za-z-]+[?!])/.exec(content.slice(offset));
+  return match ? match[1] : null;
+}
+
 // Return top-level query patterns and their capture locations. Strings and
 // comments are opaque so punctuation and @ signs inside them are not syntax.
 //
@@ -241,8 +254,8 @@ function scanQuery(content) {
       inString = true;
     } else if (ch === "(" || ch === "[") {
       if (start < 0) start = i;
-      stack.push({ close: ch === "(" ? ")" : "]", predicate: ch === "(" &&
-        /^#[A-Za-z-]+\?/.test(content.slice(i + 1)) });
+      stack.push({ close: ch === "(" ? ")" : "]",
+        predicate: ch === "(" && predicateNameAfter(content, i + 1) !== null });
     } else if (ch === ")" || ch === "]") {
       if (stack.pop()?.close !== ch) throw new Error(`Unbalanced query near offset ${i}`);
     } else if (ch === "@" && start >= 0) {
@@ -315,7 +328,9 @@ function sectionedContent(content, mapping, options) {
         } else if (text[i] === ";") { commented = true; masked[i] = " "; }
         else if (text[i] === '"') { quoted = true; masked[i] = " "; }
       }
-      const edits = [...masked.join("").matchAll(/#[A-Za-z-]+\?/g)]
+      // Masking turns comments into spaces, so the "(" check below accepts the
+      // same whitespace and comment gaps that predicateNameAfter does.
+      const edits = [...masked.join("").matchAll(/#[A-Za-z-]+[?!]/g)]
         .filter((match) => options.predicates[match[0]] &&
           /^\(\s*$/.test("(" + masked.slice(0, match.index).join("").split("(").at(-1)));
       for (const match of edits.reverse()) {

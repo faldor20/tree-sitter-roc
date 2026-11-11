@@ -42,6 +42,45 @@ assert.match(filtered, /; #eq\? @removed/);
 assert.equal(scanQuery('((identifier) @one (#eq? @one @removed))')[0]
   .captures.filter(({ predicate }) => predicate).length, 2);
 
+// Tree-sitter skips whitespace and ";" comments between "(" and the "#" name,
+// and directives ("#name!") share the predicate syntax. Emacs rejects them all.
+const predicateForms = {
+  immediate: '((identifier) @one (#eq? @one @removed))',
+  space: '((identifier) @one ( #eq? @one @removed))',
+  newline: '((identifier) @one (\n  #eq? @one @removed))',
+  comment: '((identifier) @one ( ; (#not-a-predicate? @x)\n  #eq? @one @removed))',
+  directive: '((identifier) @one (#set! @one @removed))',
+  spacedDirective: '((identifier) @one (\t#select-adjacent! @one @removed))',
+};
+for (const [label, form] of Object.entries(predicateForms)) {
+  const [pattern] = scanQuery(form);
+  assert.deepEqual(pattern.captures.map(({ name, predicate }) => [name, predicate]),
+    [["one", false], ["one", true], ["removed", true]], `${label} predicate operands`);
+  assert.equal(sectionedContent(form, { one: face("one"), removed: face("one") },
+    { omitPredicates: true }), "\n", `${label} omitted`);
+}
+// A "#" in a string or comment does not start a predicate or directive.
+for (const form of [
+  '((identifier) @one ("#eq?" @two))',
+  '((identifier) @one ( ; #eq?\n (identifier) @two))',
+  '((identifier) @one ( ; ( #set!\n "#set!" @two))',
+]) {
+  assert.ok(scanQuery(form)[0].captures.every(({ predicate }) => !predicate), form);
+  assert.match(sectionedContent(form, { one: face("one"), two: face("one") },
+    { omitPredicates: true }), /@font-lock-one-face/, form);
+}
+// Renaming applies to every spacing variant and to directives, but not to
+// names inside strings or comments.
+const renamed = sectionedContent(
+  Object.values(predicateForms).join("\n") + '\n((identifier) @one ("#eq?" @one))\n',
+  { one: face("one"), removed: face("one") },
+  { predicates: { "#eq?": "#equal", "#set!": "#put", "#select-adjacent!": "#adjacent" } });
+assert.equal((renamed.match(/#equal @/g) || []).length, 4);
+assert.match(renamed, /\(#put @/);
+assert.match(renamed, /\(\t#adjacent @/);
+assert.match(renamed, /; \(#not-a-predicate\? @x\)/);
+assert.match(renamed, /\("#eq\?" @font-lock-one-face\)/);
+
 // Comments belong to the pattern they precede. A comment on the same line as a
 // pattern's last token stays with that pattern. Comments before the first
 // pattern belong to it. Comments after the last pattern describe no pattern.
